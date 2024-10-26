@@ -42,7 +42,6 @@ Changes in 12.0
 - Security: use FileDelete() instead of unlink(), program wide
 - Students Search: remove unused code for `$extra['array_function']` in Search.inc.php
 - Add AddonUnzip() & AddOnZipCanUnzip() functions in Addon.fnc.php
-- Security: extract to /tmp to avoid zip traversal attack in Modules.inc.php & Plugins.inc.php
 - Add AddonInstallationStatisticsPost() function in Addon.fnc.php
 - Post add-on installation (first activation) statistics in Modules.inc.php & Plugins.inc.php
 - CalendarDayClassesDefault() Remove "inner" mode. Move .hover CSS class to table.calendar-day in Calendar.php & Calendar.inc.php

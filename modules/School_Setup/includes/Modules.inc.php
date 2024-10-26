@@ -47,14 +47,9 @@ if ( $_REQUEST['modfunc'] === 'upload'
 	if ( ( ! defined( 'ROSARIO_DISABLE_ADDON_UPLOAD' )
 			|| ! ROSARIO_DISABLE_ADDON_UPLOAD )
 		&& class_exists( 'ZipArchive' )
-		&& ( $addon_zip_path = FileUpload( 'upload', sys_get_temp_dir() . '/', [ '.zip' ], FileUploadMaxSize(), $error ) ) )
+		&& ( $addon_zip_path = FileUpload( 'upload', $FileUploadsPath, [ '.zip' ], FileUploadMaxSize(), $error ) ) )
 	{
-		/**
-		 * Security: extract to /tmp to avoid zip traversal attack
-		 *
-		 * @link https://github.com/danielmiessler/SecLists/tree/master/Payloads/Zip-Traversal
-		 */
-		$extract_to_path = sys_get_temp_dir() . '/rosariosis-upload-module/';
+		$extract_to_path = $FileUploadsPath . 'upload-module/';
 
 		$addon_dir_path = AddonUnzip( 'module', $addon_zip_path, $extract_to_path );
 
