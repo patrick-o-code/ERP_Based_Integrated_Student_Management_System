@@ -76,8 +76,23 @@ if ( $_REQUEST['modfunc'] === 'upload'
 				if ( ! file_exists( 'modules/' . $addon_dir )
 					|| AddonDelTree( 'modules/' . $addon_dir ) )
 				{
-					// Remove warning if directory already exists: just overwrite.
-					rename( $addon_dir_path, 'modules/' . $addon_dir );
+					/**
+					 * Remove warning for directories across filesystems or devices
+					 *
+					 * @link https://www.php.net/manual/en/function.rename.php#113943
+					 */
+					if ( ! @rename( $addon_dir_path, 'modules/' . $addon_dir ) )
+					{
+						/**
+						 * Workaround: exec mv (move on Windows)
+						 *
+						 * @link https://bugs.php.net/bug.php?id=54097
+						 */
+						$move_cmd = stripos( PHP_OS, 'WIN' ) === 0 ? 'move' : 'mv';
+
+						exec( $move_cmd . ' ' . escapeshellarg( $addon_dir_path ) . ' ' .
+							escapeshellarg( 'modules/' . $addon_dir ) );
+					}
 
 					$note[] = button( 'check' ) . '&nbsp;' . _( 'Add-on successfully uploaded.' );
 				}

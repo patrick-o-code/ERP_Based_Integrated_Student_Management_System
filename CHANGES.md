@@ -83,6 +83,7 @@ Changes in 12.0
 - Search List: Only return results matching (containing) all terms (AND) in ListOutput.fnc.php
 - Fix "Create Student Account" URL, do not use RedirectURL() in index.php
 - Add support, authors, suggest & extra in composer.json
+- rename() Remove warning for directories across filesystems or devices. Workaround: exec mv (move on Windows) in Modules.inc.php & Plugins.inc.php
 
 Changes in 11.8.6
 -----------------
