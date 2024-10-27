@@ -1493,12 +1493,19 @@ if (  ( ! $_REQUEST['modfunc']
 				''
 			);
 
-			// JS post form on date change.
-			// @since 12.0 Use colorBox instead of popup window
+			/**
+			 * JS post form on date change.
+			 *
+			 * @since 12.0 Use colorBox instead of popup window
+			 *
+			 * JS Fix use select.onchange instead of $(select).on('change') so it gets called by jscalendar
+			 */
 			?>
 			<script>
-				$('#cboxLoadedContent #yearSelect1, #cboxLoadedContent #monthSelect1, #cboxLoadedContent #daySelect1').on('change', function(){
-					ajaxPostForm(this.form,true);
+				$('#colorbox #yearSelect1, #colorbox #monthSelect1, #colorbox #daySelect1').each(function() {
+					this.onchange = function() {
+						ajaxPostForm(this.form);
+					}
 				});
 			</script>
 			<?php
