@@ -1748,10 +1748,8 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 		// 1200px width on desktop & 95% on mobile.
 		$.colorbox.resize({width: ( screen.width > 1200 ? 1200 : '95%' )});
 
-		setTimeout(function(){
-			// Redirect link & form AJAX result to colorBox instead of body (default)
-			$('#cboxLoadedContent a,#cboxLoadedContent form').attr('target', 'cboxLoadedContent');
-		}, 100);
+		// Redirect link & form AJAX result to colorBox instead of body (default)
+		$('#colorbox a,#colorbox form').attr('target', 'cboxLoadedContent');
 	</script>
 	<?php
 
