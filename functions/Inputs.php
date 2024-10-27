@@ -1816,18 +1816,16 @@ function InputDivOnclick( $id, $input_html, $value, $input_ftitle )
 
 	$id = GetInputID( $id );
 
-	// Find a way to not repeat <script>...?
-	$script = '<script>';
-
 	if ( ! $js_global_var )
 	{
 		// JS Declare only 1 global variable
-		$script .= 'var iHtml = [];';
+		// @todo move to warehouse.js
+		echo '<script>var iHtml = [];</script>';
 
 		$js_global_var = true;
 	}
 
-	$script .= "iHtml['" . $id . "']=" . json_encode( $input_html ) . ";</script>";
+	$script = "<script>iHtml['" . $id . "']=" . json_encode( $input_html ) . ";</script>";
 
 	$value = $value == '' ? '-' : $value;
 

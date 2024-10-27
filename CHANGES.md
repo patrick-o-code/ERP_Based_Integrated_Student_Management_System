@@ -84,6 +84,7 @@ Changes in 12.0
 - Fix "Create Student Account" URL, do not use RedirectURL() in index.php
 - Add support, authors, suggest & extra in composer.json
 - rename() Remove warning for directories across filesystems or devices. Workaround: exec mv (move on Windows) in Modules.inc.php & Plugins.inc.php
+- Fix JS use inputAddHTML(): declare iHtml global var first in Inputs.php
 
 Changes in 11.8.6
 -----------------
