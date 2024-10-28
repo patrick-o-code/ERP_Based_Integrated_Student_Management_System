@@ -595,7 +595,11 @@ if ( $_REQUEST['modfunc'] === 'detail' )
 	echo '<br />';
 
 	// Truncate title if > 36 chars.
-	PopTable( 'header', ( mb_strlen( $title ) <= 36 ? $title : mb_substr( $title, 0, 33 ) . '...' ) );
+	PopTable(
+		'header',
+		( mb_strlen( $title ) <= 36 ? $title : mb_substr( $title, 0, 33 ) . '...' ),
+		'style="min-width: 320px;"'
+	);
 
 	// @since 12.0 CSS add .calendar-event-poptable class
 	echo '<table class="cellpadding-5 width-100p calendar-event-poptable"><tr><td>'  . DateInput(
