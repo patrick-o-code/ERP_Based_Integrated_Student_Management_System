@@ -85,6 +85,7 @@ Changes in 12.0
 - Add support, authors, suggest & extra in composer.json
 - rename() Remove warning for directories across filesystems or devices. Workaround: exec mv (move on Windows) in Modules.inc.php & Plugins.inc.php
 - Fix JS use inputAddHTML(): declare iHtml global var first in Inputs.php
+- JS Fix ID collision when date inputs inside & outside target in warehouse.js
 
 Changes in 11.8.6
 -----------------

@@ -291,11 +291,11 @@ var JSCalendarSetup = function(target) {
 		var j = el.id.replace('trigger', '');
 
 		Calendar.setup({
-			monthField: "monthSelect" + j,
-			dayField: "daySelect" + j,
-			yearField: "yearSelect" + j,
+			monthField: $(target + "#monthSelect" + j)[0],
+			dayField: $(target + "#daySelect" + j)[0],
+			yearField: $(target + "#yearSelect" + j)[0],
 			ifFormat: "%d-%b-%y",
-			button: el.id,
+			button: el,
 			align: "Tl",
 			singleClick: true,
 			cache: true
