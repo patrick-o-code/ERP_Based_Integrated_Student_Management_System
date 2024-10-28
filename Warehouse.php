@@ -572,7 +572,7 @@ function _LoadAddons( $addons, $folder )
  * @since 4.4 Warehouse header hook
  * @since 6.0 Warehouse Header Javascripts
  *
- * @global $_ROSARIO  Uses $_ROSARIO['ProgramLoaded'] & $_ROSARIO['page']
+ * @global $_ROSARIO  Use $_ROSARIO['page']
  *
  * @uses isAJAX()
  * @uses ETagCache()
