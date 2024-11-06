@@ -10,7 +10,7 @@
 	},
 	"license": "GPL-2.0-or-later",
 	"authors": [{
-		"name": "François Jacquet",
+		"name": "François Jacquet"
 	}],
 	"require": {
 		"php": ">=5.5.9"
@@ -24,7 +24,7 @@
 		"ext-intl": "RosarioSIS relies on the intl extension (used for internationalization).",
 		"ext-zip": "RosarioSIS relies on the zip extension (used to upload add-ons).",
 		"ext-curl": "RosarioSIS relies on the curl extension (used to make external API calls).",
-		"ext-gd": "RosarioSIS relies on the gd extension (used to resize and compress images).",
+		"ext-gd": "RosarioSIS relies on the gd extension (used to resize and compress images)."
 	},
 	"extra": {
 		"suggest": {
