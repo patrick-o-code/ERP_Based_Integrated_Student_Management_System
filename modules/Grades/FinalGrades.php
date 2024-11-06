@@ -316,7 +316,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 								{
 									$sep_tmp = empty( $grades_RET[$i]['COMMENT'] ) || mb_substr( $grades_RET[$i]['COMMENT'], -3 ) == $sep_mp ? '' : $sep;
 
-									$color = $comments_RET[$comment['REPORT_CARD_COMMENT_ID']][1]['COLOR'];
+									$color = issetVal( $comments_RET[$comment['REPORT_CARD_COMMENT_ID']][1]['COLOR'] );
 
 									$color_html = '';
 
@@ -325,7 +325,8 @@ if ( $_REQUEST['modfunc'] === 'save' )
 										$color_html = '<span style="color:' . $color . '">';
 									}
 
-									$grades_RET[$i]['COMMENT'] .= $sep_tmp . $color_html . $comments_RET[$comment['REPORT_CARD_COMMENT_ID']][1]['SORT_ORDER'];
+									$grades_RET[$i]['COMMENT'] .= $sep_tmp . $color_html .
+										issetVal( $comments_RET[$comment['REPORT_CARD_COMMENT_ID']][1]['SORT_ORDER'] );
 
 									if ( $comment['COMMENT'] )
 									{
