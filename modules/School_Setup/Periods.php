@@ -132,8 +132,14 @@ if ( ! $_REQUEST['modfunc'] )
 		'COURSE_PERIODS' => _( 'Course Periods' ),
 	]; // 'ATTENDANCE' => _('Used for Attendance'),'START_TIME' => _('Start Time'),'END_TIME' => _('End Time'));
 
-	$link['add']['html'] = [
-		'REMOVE' => _makeRemoveButton( '', 'REMOVE' ),
+	$link['add']['html'] = [];
+
+	if ( $periods_RET )
+	{
+		$link['add']['html']['REMOVE'] = _makeRemoveButton( '', 'REMOVE' );
+	}
+
+	$link['add']['html'] += [
 		'TITLE' => _makeTextInput( '', 'TITLE' ),
 		'SHORT_NAME' => _makeTextInput( '', 'SHORT_NAME' ),
 		'LENGTH' => _makeTextInput( '', 'LENGTH' ),

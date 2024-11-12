@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.0.1
+-----------------
+- Fix no REMOVE column (add button) if no periods in the list in Periods.php
+
 Changes in 12.0
 ---------------
 - SQL update User password for all school years in PasswordReset.php, Preferences.php & User.php
