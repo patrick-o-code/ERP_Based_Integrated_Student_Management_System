@@ -1521,7 +1521,7 @@ if (  ( ! $_REQUEST['modfunc']
 				'Yes',
 				'No',
 				false,
-				'onchange="ajaxPostForm(this.form,true);"'
+				'onchange="ajaxPostForm(this.form);"'
 			) );
 
 			echo '</form>';
