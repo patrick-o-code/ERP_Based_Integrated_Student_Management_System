@@ -416,7 +416,8 @@ class curl {
 				$currentdata = urlencode($k);
 				$this->format_array_postdata_for_curlcall($v, $currentdata, $data);
 			}  else {
-				$data[] = urlencode($k).'='.urlencode($v);
+				// FJ fix PHP deprecated urlencode(): Passing null to parameter #1 ($string)
+				$data[] = urlencode($k).'='.urlencode((string)$v);
 			}
 		}
 		$convertedpostdata = implode('&', $data);
