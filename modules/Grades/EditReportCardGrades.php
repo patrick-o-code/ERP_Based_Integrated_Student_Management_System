@@ -76,6 +76,8 @@ if ( UserStudentID() )
 
 			if (  ( empty( $columns['GRADE_PERCENT'] ) || is_numeric( $columns['GRADE_PERCENT'] ) ) && ( empty( $columns['GP_SCALE'] ) || is_numeric( $columns['GP_SCALE'] ) ) && ( empty( $columns['UNWEIGHTED_GP'] ) || is_numeric( $columns['UNWEIGHTED_GP'] ) ) && ( empty( $columns['WEIGHTED_GP'] ) || is_numeric( $columns['WEIGHTED_GP'] ) ) && ( empty( $columns['CREDIT_EARNED'] ) || is_numeric( $columns['CREDIT_EARNED'] ) ) && ( empty( $columns['CREDIT_ATTEMPTED'] ) || is_numeric( $columns['CREDIT_ATTEMPTED'] ) ) )
 			{
+				$go = false;
+
 				if ( $id !== 'new' )
 				{
 					$go = DBUpdate(
