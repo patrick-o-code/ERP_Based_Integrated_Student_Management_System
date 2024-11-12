@@ -4,6 +4,7 @@
 Changes in 12.0.1
 -----------------
 - Fix no REMOVE column (add button) if no periods in the list in Periods.php
+- Fix SQL error when no Periods, make Period select required in Courses.php
 
 Changes in 12.0
 ---------------

@@ -1107,7 +1107,8 @@ if (  ( ! $_REQUEST['modfunc']
 						'tables[course_period_school_periods][' . $school_period['COURSE_PERIOD_SCHOOL_PERIODS_ID'] . '][PERIOD_ID]',
 						_( 'Period' ),
 						$periods,
-						( $_REQUEST['course_period_id'] === 'new' ? false : 'N/A' )
+						( $_REQUEST['course_period_id'] === 'new' ? false : 'N/A' ),
+						( $_REQUEST['course_period_id'] === 'new' ? 'required' : '' )
 					) . '</td>';
 				}
 
