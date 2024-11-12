@@ -990,6 +990,8 @@ if (  ( ! $_REQUEST['modfunc']
 				AND SYEAR='" . UserSyear() . "'
 				ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE" );
 
+			$periods = [];
+
 			foreach ( (array) $periods_RET as $period )
 			{
 				$periods[$period['PERIOD_ID']] = $period['TITLE'];
