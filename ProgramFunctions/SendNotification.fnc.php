@@ -156,8 +156,6 @@ function SendNotificationNewAdministrator( $staff_id, $to = '' )
  *
  * @since 5.9
  *
- * @uses _rosarioLoginURL() function
- *
  * @param int    $student_id Student ID.
  * @param string $to         To email address. Defaults to student email (see Config( 'STUDENTS_EMAIL_FIELD' )).
  *
@@ -227,8 +225,6 @@ function SendNotificationActivateStudentAccount( $student_id, $to = '' )
  *
  * @since 5.9
  *
- * @uses _rosarioLoginURL() function
- *
  * @param int    $staff_id User ID.
  * @param string $to       To email address. Defaults to user email.
  *
@@ -294,8 +290,6 @@ function SendNotificationActivateUserAccount( $staff_id, $to = '' )
  * because action should originate in user choice (checkbox checked).
  *
  * @since 6.1
- *
- * @uses _rosarioLoginURL() function
  *
  * @param int    $student_id Student ID.
  * @param string $to         To email address. Defaults to student email (see Config( 'STUDENTS_EMAIL_FIELD' )).
@@ -363,8 +357,6 @@ function SendNotificationNewStudentAccount( $student_id, $to = '', $password = '
  * because action should originate in user choice (checkbox checked).
  *
  * @since 6.1
- *
- * @uses _rosarioLoginURL() function
  *
  * @param int    $staff_id User ID.
  * @param string $to       To email address. Defaults to user email.
