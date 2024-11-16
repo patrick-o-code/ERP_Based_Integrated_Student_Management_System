@@ -3,6 +3,26 @@ require_once 'ProgramFunctions/Theme.fnc.php';
 
 DrawHeader( ProgramTitle() );
 
+if ( empty( $_REQUEST['tab'] ) )
+{
+	$_REQUEST['tab'] = 'password';
+}
+
+if ( $_REQUEST['tab'] === 'display_options' )
+{
+	// Set theme options for use by SelectInput() and to check if theme is valid before save
+	$theme_options = [];
+
+	$themes = glob( 'assets/themes/*', GLOB_ONLYDIR );
+
+	foreach ( (array) $themes as $theme )
+	{
+		$theme_name = str_replace( 'assets/themes/', '', $theme );
+
+		$theme_options[$theme_name] = $theme_name;
+	}
+}
+
 if ( ! empty( $_REQUEST['values'] )
 	&& ! empty( $_POST['values'] ) )
 {
@@ -90,6 +110,13 @@ if ( ! empty( $_REQUEST['values'] )
 			$_REQUEST['values']['Preferences']['HIDE_ALERTS'] = 'N';
 		}
 
+		if ( $_REQUEST['tab'] == 'display_options'
+			&& ! in_array( $_REQUEST['values']['Preferences']['THEME'], $theme_options ) )
+		{
+			// Security fix #352 selected theme does not exist
+			unset( $_REQUEST['values']['Preferences']['THEME'] );
+		}
+
 		foreach ( (array) $_REQUEST['values'] as $program => $values )
 		{
 			ProgramUserConfig( $program, 0, $values );
@@ -125,11 +152,6 @@ if ( ! $_REQUEST['modfunc'] )
 		AND PROGRAM IN ('Preferences','StudentFieldsSearch','StudentFieldsView',
 			'WidgetsSearch','StaffFieldsSearch','StaffFieldsView','StaffWidgetsSearch')",
 		[], [ 'PROGRAM', 'TITLE' ] );
-
-	if ( empty( $_REQUEST['tab'] ) )
-	{
-		$_REQUEST['tab'] = 'password';
-	}
 
 	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=' . $_REQUEST['tab'] ) . '" method="POST">';
 
@@ -348,17 +370,6 @@ if ( ! $_REQUEST['modfunc'] )
 	if ( $_REQUEST['tab'] === 'display_options' )
 	{
 		echo '<table class="cellpadding-5"><tr><td>';
-
-		$theme_options = [];
-
-		$themes = glob( 'assets/themes/*', GLOB_ONLYDIR );
-
-		foreach ( (array) $themes as $theme )
-		{
-			$theme_name = str_replace( 'assets/themes/', '', $theme );
-
-			$theme_options[$theme_name] = $theme_name;
-		}
 
 		$theme_value = Preferences( 'THEME' );
 
