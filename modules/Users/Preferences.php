@@ -3,7 +3,8 @@ require_once 'ProgramFunctions/Theme.fnc.php';
 
 DrawHeader( ProgramTitle() );
 
-if ( empty( $_REQUEST['tab'] ) )
+if ( empty( $_REQUEST['tab'] )
+	|| User( 'PROFILE' ) === 'student' )
 {
 	$_REQUEST['tab'] = 'password';
 }
@@ -21,6 +22,12 @@ if ( $_REQUEST['tab'] === 'display_options' )
 
 		$theme_options[$theme_name] = $theme_name;
 	}
+}
+
+if ( $_REQUEST['tab'] === 'print_options' )
+{
+	// Set page size options for use by SelectInput() and to check if page size is valid before save
+	$page_size_options = [ 'A4' => 'A4', 'LETTER' => _( 'US Letter' ) ];
 }
 
 if ( ! empty( $_REQUEST['values'] )
@@ -115,6 +122,13 @@ if ( ! empty( $_REQUEST['values'] )
 		{
 			// Security fix #352 selected theme does not exist
 			unset( $_REQUEST['values']['Preferences']['THEME'] );
+		}
+
+		if ( $_REQUEST['tab'] == 'print_options'
+			&& ! in_array( $_REQUEST['values']['Preferences']['PAGE_SIZE'], array_keys( $page_size_options ) ) )
+		{
+			// Security fix selected page size does not exist
+			unset( $_REQUEST['values']['Preferences']['PAGE_SIZE'] );
 		}
 
 		foreach ( (array) $_REQUEST['values'] as $program => $values )
@@ -461,7 +475,7 @@ if ( ! $_REQUEST['modfunc'] )
 			Preferences( 'PAGE_SIZE' ),
 			'values[Preferences][PAGE_SIZE]',
 			_( 'Page Size' ),
-			[ 'A4' => 'A4', 'LETTER' => _( 'US Letter' ) ],
+			$page_size_options,
 			$allow_na,
 			$extra,
 			$div
