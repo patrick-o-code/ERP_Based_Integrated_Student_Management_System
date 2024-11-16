@@ -128,9 +128,6 @@ if ( $_REQUEST['modfunc'] === 'update'
 						'',
 						FileNameTimestamp( $_FILES['FILE_ATTACHED_FILE']['name'] )
 					);
-
-					// @since 6.8 Fix SQL error when quote in uploaded file name.
-					$columns['FILE_ATTACHED'] = DBEscapeString( $columns['FILE_ATTACHED'] );
 				}
 				elseif ( filter_var( $columns['FILE_ATTACHED_EMBED'], FILTER_VALIDATE_URL ) !== false )
 				{

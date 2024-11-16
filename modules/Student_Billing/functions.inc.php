@@ -410,8 +410,7 @@ function _saveFeesFile( $id )
 		FileNameTimestamp( $_FILES[ $input ]['name'] )
 	);
 
-	// Fix SQL error when quote in uploaded file name.
-	return DBEscapeString( $file_attached );
+	return $file_attached;
 }
 
 /**
