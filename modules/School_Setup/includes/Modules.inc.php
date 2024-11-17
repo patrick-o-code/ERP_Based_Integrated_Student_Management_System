@@ -323,6 +323,19 @@ if ( ! $_REQUEST['modfunc'] )
 			}
 		}
 
+		if ( mb_substr( $module, -5, 5 ) === '-main'
+			&& is_writable( $module ) )
+		{
+			// @since 12.0.1 Remove "-main" suffix from manually uploaded add-ons
+			$module_without_main = mb_substr( $module, 0, mb_strlen( $module ) -5 );
+
+			if ( ! file_exists( $module_without_main )
+				&& @rename( $module, $module_without_main ) )
+			{
+				$module = $module_without_main;
+			}
+		}
+
 		$module_title = str_replace( 'modules/', '', $module );
 
 		$THIS_RET = [];
