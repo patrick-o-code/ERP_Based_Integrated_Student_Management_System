@@ -138,8 +138,8 @@ if ( $_REQUEST['modfunc'] === 'create'
 		'min',
 		_( 'From' ),
 		$div,
-		true,
-		!( $recreate_calendar && $recreate_calendar['START_DATE'] )
+		!( $recreate_calendar && $recreate_calendar['START_DATE'] ),
+		true
 	) . '</td>';
 
 	// To date.
@@ -150,8 +150,8 @@ if ( $_REQUEST['modfunc'] === 'create'
 		'max',
 		_( 'To' ),
 		$div,
-		true,
-		!( $recreate_calendar && $recreate_calendar['END_DATE'] )
+		!( $recreate_calendar && $recreate_calendar['END_DATE'] ),
+		true
 	) . '</td></tr>';
 
 	$message .= '<tr class="st"><td colspan="2"><table class="valign-top cellpadding-5"><tr class="st"><td>';

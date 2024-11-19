@@ -8,6 +8,7 @@ Changes in 12.0.1
 - Security fix #352 selected theme does not exist in Preferences.php, thanks to @rudranshsinghrajpurohit
 - Security fix selected page size does not exist in Preferences.php
 - Remove "-main" suffix from manually uploaded add-ons in Modules.inc.php & Plugins.inc.php
+- Fix PHP error when Recreate Calendar & From or To date is N/A in Calendar.php
 
 Changes in 12.0
 ---------------
