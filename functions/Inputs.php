@@ -1152,7 +1152,7 @@ function ChosenSelectInput( $value, $name, $title = '', $options = [], $allow_na
 {
 	// Raise deprecation notice.
 	trigger_error(
-		'ChosenSelectInput() function is deprecated since RosarioSIS 11.7. Use Select2Input() instead.',
+		'ChosenSelectInput() function is deprecated since RosarioSIS 10.7. Use Select2Input() instead.',
 		E_USER_DEPRECATED
 	);
 
