@@ -32,7 +32,7 @@ Instrucciones de instalación:
 Instalar el paquete
 -------------------
 
-Descomprima el archivo de RosarioSIS, o clona el repositorio usando git en un directorio accesible con el navegador. Edita el archivo `config.inc.sample.php` para definir las variables de configuración apropiadas, y renombralo `config.inc.php`.
+Descomprima la [última versión](https://www.rosariosis.org/es/download/) de RosarioSIS, o clona el repositorio git (y haga el checkout del tag de la [última versión](https://gitlab.com/francoisjacquet/rosariosis/-/releases)) en un directorio accesible con el navegador. Edita el archivo `config.inc.sample.php` para definir las variables de configuración apropiadas, y renombralo `config.inc.php`.
 
 - `$DatabaseType` Tipo del servidor de base de datos: mysql o postgresql.
 - `$DatabaseServer` Nombre o dirección IP del servidor de base de datos.

@@ -32,7 +32,7 @@ Installation directions for:
 Installing the package
 ----------------------
 
-Unzip RosarioSIS, or clone the repository using git to a directory that is accessible to your web browser. Edit the `config.inc.sample.php` file to set the configuration variables and rename it to `config.inc.php`.
+Unzip the [latest version](https://www.rosariosis.org/download/) of RosarioSIS, or clone the git repository (and checkout the [latest release](https://gitlab.com/francoisjacquet/rosariosis/-/releases) tag) to a directory that is accessible to your web browser. Edit the `config.inc.sample.php` file to set the configuration variables and rename it to `config.inc.php`.
 
 - `$DatabaseType` Type of the database server: either mysql or postgresql.
 - `$DatabaseServer` Host name or IP for the database server.
