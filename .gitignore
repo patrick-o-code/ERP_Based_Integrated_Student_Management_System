@@ -322,5 +322,7 @@ plugins/IBCDB_Transcripts*
 plugins/Custom_Menu*
 plugins/Instant_List_Search_Sorting*
 plugins/Stripe_Registration*
+plugins/Mali_Report_Cards*
+plugins/Prevent_Teachers_Adding_Deleting_Assignments*
 locale/fr_FR.utf8_ParisComSup
 functions/1GetMP.php
