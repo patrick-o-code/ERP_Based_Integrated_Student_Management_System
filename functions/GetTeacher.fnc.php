@@ -73,7 +73,7 @@ function GetTeacher( $teacher_id, $column = 'FULL_NAME', $schools = true )
 		// Smart cache: do not get ALL users database twice if Teacher not found.
 		// Note: SQL request has no profile & school year WHERE clause.
 		$teacher = DBGet( "SELECT STAFF_ID,TITLE,FIRST_NAME,LAST_NAME,MIDDLE_NAME,
-			" . DisplayNameSQL() . " AS FULL_NAME,USERNAME,PROFILE
+			" . DisplayNameSQL() . " AS FULL_NAME,USERNAME,PROFILE,PROFILE_ID
 			FROM staff
 			WHERE STAFF_ID='" . (int) $teacher_id . "'" . $schools_sql );
 
