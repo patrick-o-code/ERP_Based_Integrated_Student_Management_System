@@ -109,7 +109,7 @@ function SanitizeMarkDown( $md )
 			require_once 'classes/Markdownify/ConverterExtra.php'; // Handles HTML tables.
 			require_once 'classes/Markdownify/Parser.php';
 
-			$markdownify = new Markdownify\ConverterExtra;
+			$markdownify = new Markdownify\ConverterExtra( Markdownify\ConverterExtra::LINK_IN_PARAGRAPH );
 		}
 
 		// HTML to Markdown.

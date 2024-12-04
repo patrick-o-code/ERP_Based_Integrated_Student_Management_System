@@ -7,6 +7,7 @@ Changes in 12.0.2
 - PostgreSQL fix set_class_rank_mp() call in ClassRank.inc.php
 - JS Prevent body from scrolling when colorBox open in warehouse.js
 - JS Fix regression since 11.4 allow HTML inside MarkDown in warehouse.js
+- Convert back to MarkDown: use link in paragraph option in MarkDownHTML.fnc.php
 
 Changes in 12.0.1
 -----------------
