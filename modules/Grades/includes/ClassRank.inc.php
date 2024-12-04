@@ -72,7 +72,7 @@ function ClassRankCalculateAJAX( $mp_id )
 	// Save.
 	Config( 'CLASS_RANK_CALCULATE_MPS', $class_rank_mps );
 
-	DBQuery( "SELECT set_class_rank_mp('" . $mp_id . "')" );
+	DBQuery( "SELECT set_class_rank_mp(" . (int) $mp_id . ")" );
 
 	die( 1 );
 }

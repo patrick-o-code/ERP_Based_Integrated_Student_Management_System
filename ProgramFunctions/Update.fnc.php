@@ -996,6 +996,8 @@ function _update1131()
 	}
 
 	// PostgreSQL.
+	// Note: the old set_class_rank_mp(character varying) function was not replaced here
+	// as the new set_class_rank_mp(mp_id integer) function's parameter differs...
 	DBQuery( "CREATE FUNCTION create_language_plpgsql()
 	RETURNS BOOLEAN AS $$
 		CREATE LANGUAGE plpgsql;

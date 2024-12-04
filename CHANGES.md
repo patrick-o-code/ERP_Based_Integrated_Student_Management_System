@@ -4,6 +4,7 @@
 Changes in 12.0.2
 -----------------
 - Format Credit, display 0.33 instead of 0.333333333333333 in Transcripts.fnc.php
+- PostgreSQL fix set_class_rank_mp() call in ClassRank.inc.php
 
 Changes in 12.0.1
 -----------------
