@@ -186,6 +186,13 @@ var ColorBox = function() {
 		minHeight: 153,
 		scrolling: true
 	});
+
+	// @since 12.0.2 Prevent body from scrolling when colorBox open
+	$(document).bind('cbox_open', function() {
+		$('body').css({ overflow: 'hidden' });
+	}).bind('cbox_closed', function() {
+		$('body').css({ overflow: '' });
+	});
 }
 
 // MarkDown.
