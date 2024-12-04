@@ -265,11 +265,8 @@ var MarkDownToHTML = function(target) {
 	var target = (typeof target !== 'undefined') ? target + ' ' : '';
 
 	$(target + '.markdown-to-html').html(function(i, txt) {
-		// Fix double HTML character encoding, use jQuery text instead of jQuery html
-		txt = $(this).text();
-
 		var mdc = GetMDConverter(),
-			md = mdc( txt );
+			md = mdc( txt.replace(/&gt;/g, '>') ); // Fix MD blockquotes, decode `>`
 
 		// Add paragraph to text.
 		var txtP = '<p>' + txt + '</p>';

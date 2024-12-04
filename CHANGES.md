@@ -6,6 +6,7 @@ Changes in 12.0.2
 - Format Credit, display 0.33 instead of 0.333333333333333 in Transcripts.fnc.php
 - PostgreSQL fix set_class_rank_mp() call in ClassRank.inc.php
 - JS Prevent body from scrolling when colorBox open in warehouse.js
+- JS Fix regression since 11.4 allow HTML inside MarkDown in warehouse.js
 
 Changes in 12.0.1
 -----------------
