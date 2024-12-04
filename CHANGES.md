@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.0.2
+-----------------
+- Format Credit, display 0.33 instead of 0.333333333333333 in Transcripts.fnc.php
+
 Changes in 12.0.1
 -----------------
 - Fix no REMOVE column (add button) if no periods in the list in Periods.php

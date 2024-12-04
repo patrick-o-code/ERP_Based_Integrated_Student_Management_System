@@ -715,9 +715,10 @@ if ( ! function_exists( 'TranscriptPDFFooter' ) )
 			&& ! empty( $last_grade['total_credit_attempted'] ) )
 		{
 			// Total Credits.
+			// Format Credit, display 0.33 instead of 0.333333333333333
 			echo '<tr><td><span>' . _( 'Total' ) . ' ' . _( 'Credit' ) . ': ' .
-			_( 'Credit Attempted' ) . ': ' . (float) $last_grade['total_credit_attempted'] .
-			' &ndash; ' . _( 'Credit Earned' ) . ': ' . (float) $last_grade['total_credit_earned'] .
+			_( 'Credit Attempted' ) . ': ' . number_format( $last_grade['total_credit_attempted'], 2, '.' ) .
+			' &ndash; ' . _( 'Credit Earned' ) . ': ' . number_format( $last_grade['total_credit_earned'], 2, '.' ) .
 			'</span></td></tr>';
 		}
 
