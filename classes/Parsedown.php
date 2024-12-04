@@ -1276,8 +1276,8 @@ class Parsedown
 			'attributes' => array(
 				'href' => null,
 				'title' => null,
-				// FJ open link in new tab.
-				'target' => '_blank',
+				// FJ open link in new tab. Revert, we don't want this in SanitizeMarkDown()
+				//'target' => '_blank',
 			),
 		);
 

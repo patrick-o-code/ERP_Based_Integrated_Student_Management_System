@@ -8,6 +8,7 @@ Changes in 12.0.2
 - JS Prevent body from scrolling when colorBox open in warehouse.js
 - JS Fix regression since 11.4 allow HTML inside MarkDown in warehouse.js
 - Convert back to MarkDown: use link in paragraph option in MarkDownHTML.fnc.php
+- Revert open link in new tab, we don't want this in SanitizeMarkDown() in Parsedown.php
 
 Changes in 12.0.1
 -----------------
