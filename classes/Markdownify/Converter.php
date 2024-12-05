@@ -792,7 +792,9 @@ class Converter
 
 		if ($buffer == $tag['href'] && empty($tag['title'])) {
 			// <http://example.com>
-			return '<' . $buffer . '>';
+			// FJ Fix do not use URL in brackets when converting to MarkDown
+			//return '<' . $buffer . '>';
+			return $buffer;
 		}
 
 		$bufferDecoded = $this->decode(trim($buffer));
