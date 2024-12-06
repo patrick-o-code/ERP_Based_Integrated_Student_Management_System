@@ -95,7 +95,8 @@ function isTouchDevice() {
 
 function isMobileMenu() {
 	// #menu width is 100% viewport width.
-	return Math.round($('#menu').width()) === window.innerWidth;
+	return Math.ceil($('#menu').width()) === window.innerWidth
+		|| Math.floor($('#menu').width()) === window.innerWidth;
 }
 
 if (!isTouchDevice()) {

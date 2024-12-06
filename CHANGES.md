@@ -9,6 +9,7 @@ Changes in 12.0.2
 - Convert back to MarkDown: use link in paragraph option in MarkDownHTML.fnc.php
 - Revert open link in new tab, we don't want this in SanitizeMarkDown() in Parsedown.php
 - Fix do not use URL in brackets when converting to MarkDown in Markdownify/Converter.php
+- JS fix isMobileMenu() detection in warehouse.js
 
 Changes in 12.0.1
 -----------------
