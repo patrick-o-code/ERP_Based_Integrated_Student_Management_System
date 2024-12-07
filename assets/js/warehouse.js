@@ -260,7 +260,8 @@ var MarkDownToHTML = function(target) {
 
 	$(target + '.markdown-to-html').html(function(i, txt) {
 		var mdc = GetMDConverter(),
-			md = mdc( txt.replace(/&gt;/g, '>') ); // Fix MD blockquotes, decode `>`
+			// Fix MD blockquotes, decode `>` + fix double encoding `&` inside `<code>`
+			md = mdc( txt.replace(/&gt;/g, '>').replace(/&amp;/g, '&') );
 
 		// Add paragraph to text.
 		var txtP = '<p>' + txt + '</p>';
