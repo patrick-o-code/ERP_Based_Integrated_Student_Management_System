@@ -380,7 +380,7 @@ function makePublishing( $value, $name )
 	$return = '<div id="divPublishing' . $id . '" class="rt2colorBox">' . "\n";
 
 	//FJ remove LO_field
-	$return .= '<table class="widefat"><tr><td><b>' . _( 'Visible Between' ) . ':</b><br>';
+	$return .= '<table class="widefat width-100p"><tr><td><b>' . _( 'Visible Between' ) . ':</b><br>';
 	$return .= DateInput( $value, 'values[' . $id . '][' . $name . ']' ) . ' ' . _( 'to' ) . ' ';
 	$return .= DateInput( issetVal( $THIS_RET['END_DATE'] ), 'values[' . $id . '][END_DATE]' ) . '</td></tr>';
 
