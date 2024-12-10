@@ -12,6 +12,7 @@ New in 12.0
 - [Human Resources](https://www.rosariosis.org/modules/human-resources/) module version 10.2+ (August, 2023)
 - [Calendar Schedule View](https://www.rosariosis.org/plugins/calendar-schedule-view/) plugin version 10.2+ (July, 2024)
 - [Quiz](https://www.rosariosis.org/modules/quiz/) module version 10.7+ (December, 2024)
+- [Assignment Max Points](https://gitlab.com/francoisjacquet/Assignment_Max_Points/) plugin version 1.2+ (December, 2024)
 
 Performance improvements: smaller payload, up to 10% faster & less AJAX requests sent to the server
 
