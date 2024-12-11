@@ -2125,7 +2125,7 @@ CREATE TABLE user_profiles (
 -- Data for Name: schools; Type: TABLE DATA;
 --
 
-INSERT INTO schools VALUES (2024, NULL, 'Default School', '500 S. Street St.', 'Springfield', 'IL', '62704', NULL, 'Mr. Principal', 'www.rosariosis.org', NULL, NULL, 4, NULL, NULL, NULL);
+INSERT INTO schools VALUES (2024, NULL, 'Default School', '500 S. Street St.', 'Springfield', 'IL', '62704', NULL, 'Mr. Principal', 'www.rosariosis.org', NULL, NULL, 4, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 
@@ -2133,29 +2133,29 @@ INSERT INTO schools VALUES (2024, NULL, 'Default School', '500 S. Street St.', '
 -- Data for Name: students; Type: TABLE DATA;
 --
 
-INSERT INTO students VALUES (NULL, 'Student', 'Student', 'S', NULL, 'student', '$6$f03d507b27b8b9ff$WKtYRdFZGNjRKUr4btzq/p90hbKRAyB8HmrZpgpUhbAh.GtOCveXtXt43IaEDZJ31rVUYZ7ID8xPgKkCiRyzZ1', NULL, NULL, 'Male', 'White, Non-Hispanic', 'Bug', NULL, '2015-12-04', 'English', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO students VALUES (NULL, 'Student', 'Student', 'S', NULL, 'student', '$6$f03d507b27b8b9ff$WKtYRdFZGNjRKUr4btzq/p90hbKRAyB8HmrZpgpUhbAh.GtOCveXtXt43IaEDZJ31rVUYZ7ID8xPgKkCiRyzZ1', NULL, NULL, 'Male', 'White, Non-Hispanic', 'Bug', NULL, '2015-12-04', 'English', NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: staff; Type: TABLE DATA;
 --
 
-INSERT INTO staff VALUES (2024, NULL, 1, NULL, 'Admin', 'Administrator', 'A', NULL, 'admin', '$6$dc51290a001671c6$97VSmw.Qu9sL6vpctFh62/YIbbR6b3DstJJxPXal2OndrtFszsxmVhdQaV2mJvb6Z38sPACXqDDQ7/uquwadd.', NULL, NULL, 'admin', ',1,', NULL, NULL, 1, NULL, NULL, NULL);
-INSERT INTO staff VALUES (2024, NULL, 1, NULL, 'Teach', 'Teacher', 'T', NULL, 'teacher', '$6$cf0dc4c40d38891f$FqKT6nlTer3ujAf8CcQi6ABIEtlow0Va2p6HYh.M6eGWUfpgLr/pfrSwdIcTlV1LDxLg52puVETGMCYKL3vOo/', NULL, NULL, 'teacher', ',1,', NULL, NULL, 2, NULL, NULL, NULL);
-INSERT INTO staff VALUES (2024, NULL, 1, NULL, 'Parent', 'Parent', 'P', NULL, 'parent', '$6$947c923597601364$Kgbb0Ey3lYTYnqM66VkFRgJVFDW48cBAfNF7t0CVjokL7drcEFId61whqpLrRI1w0q2J2VPfg86Obaf1tG2Ng1', NULL, NULL, 'parent', NULL, NULL, NULL, 3, NULL, NULL, NULL);
+INSERT INTO staff VALUES (2024, NULL, 1, NULL, 'Admin', 'Administrator', 'A', NULL, 'admin', '$6$dc51290a001671c6$97VSmw.Qu9sL6vpctFh62/YIbbR6b3DstJJxPXal2OndrtFszsxmVhdQaV2mJvb6Z38sPACXqDDQ7/uquwadd.', NULL, NULL, 'admin', ',1,', NULL, NULL, 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO staff VALUES (2024, NULL, 1, NULL, 'Teach', 'Teacher', 'T', NULL, 'teacher', '$6$cf0dc4c40d38891f$FqKT6nlTer3ujAf8CcQi6ABIEtlow0Va2p6HYh.M6eGWUfpgLr/pfrSwdIcTlV1LDxLg52puVETGMCYKL3vOo/', NULL, NULL, 'teacher', ',1,', NULL, NULL, 2, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO staff VALUES (2024, NULL, 1, NULL, 'Parent', 'Parent', 'P', NULL, 'parent', '$6$947c923597601364$Kgbb0Ey3lYTYnqM66VkFRgJVFDW48cBAfNF7t0CVjokL7drcEFId61whqpLrRI1w0q2J2VPfg86Obaf1tG2Ng1', NULL, NULL, 'parent', NULL, NULL, NULL, 3, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: school_marking_periods; Type: TABLE DATA;
 -- Note: keep 06-15 and 06-13 as first and last day of the year!
 
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'FY', 1, NULL, 'Full Year', 'FY', 1, '2024-06-14', '2025-06-12', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'SEM', 1, 1, 'Semester 1', 'S1', 1, '2024-06-14', '2024-12-31', '2024-12-28', '2024-12-31', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'SEM', 1, 1, 'Semester 2', 'S2', 2, '2025-01-01', '2025-06-12', '2025-06-11', '2025-06-12', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 2, 'Quarter 1', 'Q1', 1, '2024-06-14', '2024-09-13', '2024-09-11', '2024-09-13', 'Y', 'Y', NULL, NULL, NULL);
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 2, 'Quarter 2', 'Q2', 2, '2024-09-14', '2024-12-31', '2024-12-28', '2024-12-31', 'Y', 'Y', NULL, NULL, NULL);
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 3, 'Quarter 3', 'Q3', 3, '2025-01-01', '2025-03-14', '2025-03-12', '2025-03-14', 'Y', 'Y', NULL, NULL, NULL);
-INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 3, 'Quarter 4', 'Q4', 4, '2025-03-15', '2025-06-12', '2025-06-11', '2025-06-12', 'Y', 'Y', NULL, NULL, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'FY', 1, NULL, 'Full Year', 'FY', 1, '2024-06-14', '2025-06-12', NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'SEM', 1, 1, 'Semester 1', 'S1', 1, '2024-06-14', '2024-12-31', '2024-12-28', '2024-12-31', NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'SEM', 1, 1, 'Semester 2', 'S2', 2, '2025-01-01', '2025-06-12', '2025-06-11', '2025-06-12', NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 2, 'Quarter 1', 'Q1', 1, '2024-06-14', '2024-09-13', '2024-09-11', '2024-09-13', 'Y', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 2, 'Quarter 2', 'Q2', 2, '2024-09-14', '2024-12-31', '2024-12-28', '2024-12-31', 'Y', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 3, 'Quarter 3', 'Q3', 3, '2025-01-01', '2025-03-14', '2025-03-12', '2025-03-14', 'Y', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 3, 'Quarter 4', 'Q4', 4, '2025-03-15', '2025-06-12', '2025-06-11', '2025-06-12', 'Y', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
 
 
 
@@ -2199,7 +2199,7 @@ INSERT INTO school_marking_periods VALUES (NULL, 2024, 'QTR', 1, 3, 'Quarter 4',
 -- Data for Name: address; Type: TABLE DATA;
 --
 
-INSERT INTO address VALUES (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'No Address', NULL, NULL, NULL, NULL);
+INSERT INTO address VALUES (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'No Address', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2224,7 +2224,7 @@ INSERT INTO address VALUES (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N
 -- Data for Name: attendance_calendars; Type: TABLE DATA;
 --
 
-INSERT INTO attendance_calendars VALUES (1, 'Main', 2024, NULL, 'Y', NULL, NULL, NULL);
+INSERT INTO attendance_calendars VALUES (1, 'Main', 2024, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2237,10 +2237,10 @@ INSERT INTO attendance_calendars VALUES (1, 'Main', 2024, NULL, 'Y', NULL, NULL,
 -- Data for Name: attendance_codes; Type: TABLE DATA;
 --
 
-INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Absent', 'A', 'teacher', 'A', NULL, 0, NULL, NULL, NULL);
-INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Present', 'P', 'teacher', 'P', 'Y', 0, NULL, NULL, NULL);
-INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Tardy', 'T', 'teacher', 'P', NULL, 0, NULL, NULL, NULL);
-INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Excused Absence', 'E', 'official', 'A', NULL, 0, NULL, NULL, NULL);
+INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Absent', 'A', 'teacher', 'A', NULL, 0, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Present', 'P', 'teacher', 'P', 'Y', 0, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Tardy', 'T', 'teacher', 'P', NULL, 0, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Excused Absence', 'E', 'official', 'A', NULL, 0, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2283,34 +2283,34 @@ INSERT INTO attendance_codes VALUES (NULL, 2024, 1, 'Excused Absence', 'E', 'off
 -- Data for Name: config; Type: TABLE DATA;
 --
 
-INSERT INTO config VALUES (0, 'LOGIN', 'No', NULL, NULL);
+INSERT INTO config VALUES (0, 'LOGIN', 'No', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'VERSION', '12.0.2', NULL, NULL);
-INSERT INTO config VALUES (0, 'TITLE', 'Rosario Student Information System', NULL, NULL);
-INSERT INTO config VALUES (0, 'NAME', 'RosarioSIS', NULL, NULL);
-INSERT INTO config VALUES (0, 'MODULES', 'a:13:{s:12:"School_Setup";b:1;s:8:"Students";b:1;s:5:"Users";b:1;s:10:"Scheduling";b:1;s:6:"Grades";b:1;s:10:"Attendance";b:1;s:11:"Eligibility";b:1;s:10:"Discipline";b:1;s:10:"Accounting";b:1;s:15:"Student_Billing";b:1;s:12:"Food_Service";b:1;s:9:"Resources";b:1;s:6:"Custom";b:1;}', NULL, NULL);
-INSERT INTO config VALUES (0, 'PLUGINS', 'a:1:{s:6:"Moodle";b:0;}', NULL, NULL);
-INSERT INTO config VALUES (0, 'THEME', 'FlatSIS', NULL, NULL);
-INSERT INTO config VALUES (0, 'THEME_FORCE', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'CREATE_USER_ACCOUNT', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'CREATE_STUDENT_ACCOUNT', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'STUDENTS_EMAIL_FIELD', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'DISPLAY_NAME', 'CONCAT(FIRST_NAME,coalesce(NULLIF(CONCAT('' '',MIDDLE_NAME,'' ''),''  ''),'' ''),LAST_NAME)', NULL, NULL);
-INSERT INTO config VALUES (1, 'DISPLAY_NAME', 'CONCAT(FIRST_NAME,coalesce(NULLIF(CONCAT('' '',MIDDLE_NAME,'' ''),''  ''),'' ''),LAST_NAME)', NULL, NULL);
-INSERT INTO config VALUES (0, 'LIMIT_EXISTING_CONTACTS_ADDRESSES', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'FAILED_LOGIN_LIMIT', 30, NULL, NULL);
-INSERT INTO config VALUES (0, 'PASSWORD_STRENGTH', '2', NULL, NULL);
-INSERT INTO config VALUES (0, 'FORCE_PASSWORD_CHANGE_ON_FIRST_LOGIN', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'GRADEBOOK_CONFIG_ADMIN_OVERRIDE', NULL, NULL, NULL);
-INSERT INTO config VALUES (0, 'REMOVE_ACCESS_USERNAME_PREFIX_ADD', NULL, NULL, NULL);
-INSERT INTO config VALUES (1, 'SCHOOL_SYEAR_OVER_2_YEARS', 'Y', NULL, NULL);
-INSERT INTO config VALUES (1, 'ATTENDANCE_FULL_DAY_MINUTES', '0', NULL, NULL);
-INSERT INTO config VALUES (1, 'STUDENTS_USE_MAILING', NULL, NULL, NULL);
-INSERT INTO config VALUES (1, 'CURRENCY', '$', NULL, NULL);
-INSERT INTO config VALUES (1, 'DECIMAL_SEPARATOR', '.', NULL, NULL);
-INSERT INTO config VALUES (1, 'THOUSANDS_SEPARATOR', ',', NULL, NULL);
-INSERT INTO config VALUES (1, 'CLASS_RANK_CALCULATE_MPS', NULL, NULL, NULL);
+INSERT INTO config VALUES (0, 'TITLE', 'Rosario Student Information System', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'NAME', 'RosarioSIS', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'MODULES', 'a:13:{s:12:"School_Setup";b:1;s:8:"Students";b:1;s:5:"Users";b:1;s:10:"Scheduling";b:1;s:6:"Grades";b:1;s:10:"Attendance";b:1;s:11:"Eligibility";b:1;s:10:"Discipline";b:1;s:10:"Accounting";b:1;s:15:"Student_Billing";b:1;s:12:"Food_Service";b:1;s:9:"Resources";b:1;s:6:"Custom";b:1;}', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'PLUGINS', 'a:1:{s:6:"Moodle";b:0;}', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'THEME', 'FlatSIS', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'THEME_FORCE', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'CREATE_USER_ACCOUNT', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'CREATE_STUDENT_ACCOUNT', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'STUDENTS_EMAIL_FIELD', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'DISPLAY_NAME', 'CONCAT(FIRST_NAME,coalesce(NULLIF(CONCAT('' '',MIDDLE_NAME,'' ''),''  ''),'' ''),LAST_NAME)', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'DISPLAY_NAME', 'CONCAT(FIRST_NAME,coalesce(NULLIF(CONCAT('' '',MIDDLE_NAME,'' ''),''  ''),'' ''),LAST_NAME)', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'LIMIT_EXISTING_CONTACTS_ADDRESSES', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'FAILED_LOGIN_LIMIT', 30, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'PASSWORD_STRENGTH', '2', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'FORCE_PASSWORD_CHANGE_ON_FIRST_LOGIN', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'GRADEBOOK_CONFIG_ADMIN_OVERRIDE', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'REMOVE_ACCESS_USERNAME_PREFIX_ADD', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'SCHOOL_SYEAR_OVER_2_YEARS', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'ATTENDANCE_FULL_DAY_MINUTES', '0', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'STUDENTS_USE_MAILING', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'CURRENCY', '$', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'DECIMAL_SEPARATOR', '.', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'THOUSANDS_SEPARATOR', ',', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (1, 'CLASS_RANK_CALCULATE_MPS', NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2338,33 +2338,33 @@ INSERT INTO config VALUES (1, 'CLASS_RANK_CALCULATE_MPS', NULL, NULL, NULL);
 ALTER TABLE custom_fields AUTO_INCREMENT=200000000; -- Start at 200000000.
 
 INSERT INTO custom_fields VALUES (NULL, 'select', 'Gender', 0, 'Male
-Female', 1, NULL, NULL, NULL, NULL);
+Female', 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO custom_fields VALUES (NULL, 'select', 'Ethnicity', 1, 'White, Non-Hispanic
 Black, Non-Hispanic
 Amer. Indian or Alaskan Native
 Asian or Pacific Islander
 Hispanic
-Other', 1, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'text', 'Common Name', 2, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'text', 'Social Security', 3, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'date', 'Birthdate', 4, NULL, 1, NULL, NULL, NULL, NULL);
+Other', 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'text', 'Common Name', 2, NULL, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'text', 'Social Security', 3, NULL, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'date', 'Birthdate', 4, NULL, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO custom_fields VALUES (NULL, 'select', 'Language', 5, 'English
-Spanish', 1, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'text', 'Physician', 6, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'text', 'Physician Phone', 7, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'text', 'Preferred Hospital', 8, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'textarea', 'Comments', 9, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'radio', 'Has Doctor''s Note', 10, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO custom_fields VALUES (NULL, 'textarea', 'Doctor''s Note Comments', 11, NULL, 2, NULL, NULL, NULL, NULL);
+Spanish', 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'text', 'Physician', 6, NULL, 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'text', 'Physician Phone', 7, NULL, 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'text', 'Preferred Hospital', 8, NULL, 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'textarea', 'Comments', 9, NULL, 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'radio', 'Has Doctor''s Note', 10, NULL, 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO custom_fields VALUES (NULL, 'textarea', 'Doctor''s Note Comments', 11, NULL, 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: discipline_field_usage; Type: TABLE DATA;
 --
 
-INSERT INTO discipline_field_usage VALUES (NULL, 3, 2024, 1, 'Parents Contacted by Teacher', '', 4, NULL, NULL);
-INSERT INTO discipline_field_usage VALUES (NULL, 4, 2024, 1, 'Parent Contacted by Administrator', '', 5, NULL, NULL);
-INSERT INTO discipline_field_usage VALUES (NULL, 6, 2024, 1, 'Comments', '', 6, NULL, NULL);
+INSERT INTO discipline_field_usage VALUES (NULL, 3, 2024, 1, 'Parents Contacted by Teacher', '', 4, CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_field_usage VALUES (NULL, 4, 2024, 1, 'Parent Contacted by Administrator', '', 5, CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_field_usage VALUES (NULL, 6, 2024, 1, 'Comments', '', 6, CURRENT_TIMESTAMP, NULL);
 INSERT INTO discipline_field_usage VALUES (NULL, 1, 2024, 1, 'Violation', 'Skipping Class
 Profanity, vulgarity, offensive language
 Insubordination (Refusal to Comply, Disrespectful Behavior)
@@ -2373,11 +2373,11 @@ Talking out of Turn
 Harassment
 Fighting
 Public Display of Affection
-Other', 1, NULL, NULL);
+Other', 1, CURRENT_TIMESTAMP, NULL);
 INSERT INTO discipline_field_usage VALUES (NULL, 2, 2024, 1, 'Detention Assigned', '10 Minutes
 20 Minutes
 30 Minutes
-Discuss Suspension', 2, NULL, NULL);
+Discuss Suspension', 2, CURRENT_TIMESTAMP, NULL);
 INSERT INTO discipline_field_usage VALUES (NULL, 5, 2024, 1, 'Suspensions (Office Only)', 'Half Day
 In School Suspension
 1 Day
@@ -2385,19 +2385,19 @@ In School Suspension
 3 Days
 5 Days
 7 Days
-Expulsion', 3, NULL, NULL);
+Expulsion', 3, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: discipline_fields; Type: TABLE DATA;
 --
 
-INSERT INTO discipline_fields VALUES (NULL, 'Violation', '', 'multiple_checkbox', 'CATEGORY_1', NULL, NULL);
-INSERT INTO discipline_fields VALUES (NULL, 'Detention Assigned', '', 'multiple_radio', 'CATEGORY_2', NULL, NULL);
-INSERT INTO discipline_fields VALUES (NULL, 'Parents Contacted By Teacher', '', 'checkbox', 'CATEGORY_3', NULL, NULL);
-INSERT INTO discipline_fields VALUES (NULL, 'Parent Contacted by Administrator', '', 'text', 'CATEGORY_4', NULL, NULL);
-INSERT INTO discipline_fields VALUES (NULL, 'Suspensions (Office Only)', '', 'multiple_checkbox', 'CATEGORY_5', NULL, NULL);
-INSERT INTO discipline_fields VALUES (NULL, 'Comments', '', 'textarea', 'CATEGORY_6', NULL, NULL);
+INSERT INTO discipline_fields VALUES (NULL, 'Violation', '', 'multiple_checkbox', 'CATEGORY_1', CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_fields VALUES (NULL, 'Detention Assigned', '', 'multiple_radio', 'CATEGORY_2', CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_fields VALUES (NULL, 'Parents Contacted By Teacher', '', 'checkbox', 'CATEGORY_3', CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_fields VALUES (NULL, 'Parent Contacted by Administrator', '', 'text', 'CATEGORY_4', CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_fields VALUES (NULL, 'Suspensions (Office Only)', '', 'multiple_checkbox', 'CATEGORY_5', CURRENT_TIMESTAMP, NULL);
+INSERT INTO discipline_fields VALUES (NULL, 'Comments', '', 'textarea', 'CATEGORY_6', CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2416,9 +2416,9 @@ INSERT INTO discipline_fields VALUES (NULL, 'Comments', '', 'textarea', 'CATEGOR
 -- Data for Name: eligibility_activities; Type: TABLE DATA;
 --
 
-INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Boy''s Basketball', '2024-10-01', '2025-04-12', NULL, NULL, NULL);
-INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Chess Team', '2024-09-03', '2025-06-05', NULL, NULL, NULL);
-INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Girl''s Basketball', '2024-10-01', '2025-04-12', NULL, NULL, NULL);
+INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Boy''s Basketball', '2024-10-01', '2025-04-12', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Chess Team', '2024-09-03', '2025-06-05', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Girl''s Basketball', '2024-10-01', '2025-04-12', NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2431,41 +2431,41 @@ INSERT INTO eligibility_activities VALUES (NULL, 2024, 1, 'Girl''s Basketball', 
 -- Data for Name: food_service_accounts; Type: TABLE DATA;
 --
 
-INSERT INTO food_service_accounts VALUES (1, 0.00, NULL, NULL, NULL);
+INSERT INTO food_service_accounts VALUES (1, 0.00, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: food_service_categories; Type: TABLE DATA;
 --
 
-INSERT INTO food_service_categories VALUES (NULL, 1, 1, 'Lunch Items', 1, NULL, NULL);
+INSERT INTO food_service_categories VALUES (NULL, 1, 1, 'Lunch Items', 1, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: food_service_items; Type: TABLE DATA;
 --
 
-INSERT INTO food_service_items VALUES (NULL, 1, 'HOTL', 1, 'Student Lunch', 'Lunch.png', 1.65, 0.40, 0.00, 2.35, NULL, NULL);
-INSERT INTO food_service_items VALUES (NULL, 1, 'MILK', 2, 'Milk', 'Milk.png', 0.25, NULL, NULL, 0.50, NULL, NULL);
-INSERT INTO food_service_items VALUES (NULL, 1, 'XTRA', 3, 'Extra', 'Sandwich.png', 0.50, NULL, NULL, 1.00, NULL, NULL);
-INSERT INTO food_service_items VALUES (NULL, 1, 'PIZZA', 4, 'Extra Pizza', 'Pizza.png', 1.00, NULL, NULL, 1.00, NULL, NULL);
+INSERT INTO food_service_items VALUES (NULL, 1, 'HOTL', 1, 'Student Lunch', 'Lunch.png', 1.65, 0.40, 0.00, 2.35, CURRENT_TIMESTAMP, NULL);
+INSERT INTO food_service_items VALUES (NULL, 1, 'MILK', 2, 'Milk', 'Milk.png', 0.25, NULL, NULL, 0.50, CURRENT_TIMESTAMP, NULL);
+INSERT INTO food_service_items VALUES (NULL, 1, 'XTRA', 3, 'Extra', 'Sandwich.png', 0.50, NULL, NULL, 1.00, CURRENT_TIMESTAMP, NULL);
+INSERT INTO food_service_items VALUES (NULL, 1, 'PIZZA', 4, 'Extra Pizza', 'Pizza.png', 1.00, NULL, NULL, 1.00, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: food_service_menu_items; Type: TABLE DATA;
 --
 
-INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 1, 1, NULL, NULL, NULL, NULL);
-INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 2, 1, NULL, NULL, NULL, NULL);
-INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 3, 1, NULL, NULL, NULL, NULL);
-INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 4, 1, NULL, NULL, NULL, NULL);
+INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 1, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 2, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 3, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO food_service_menu_items VALUES (NULL, 1, 1, 4, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: food_service_menus; Type: TABLE DATA;
 --
 
-INSERT INTO food_service_menus VALUES (NULL, 1, 'Lunch', 1, NULL, NULL);
+INSERT INTO food_service_menus VALUES (NULL, 1, 'Lunch', 1, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2490,7 +2490,7 @@ INSERT INTO food_service_menus VALUES (NULL, 1, 'Lunch', 1, NULL, NULL);
 -- Data for Name: food_service_student_accounts; Type: TABLE DATA;
 --
 
-INSERT INTO food_service_student_accounts VALUES (1, 1, NULL, NULL, '1000001', NULL, NULL);
+INSERT INTO food_service_student_accounts VALUES (1, 1, NULL, NULL, '1000001', CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2545,7 +2545,7 @@ INSERT INTO food_service_student_accounts VALUES (1, 1, NULL, NULL, '1000001', N
 -- Data for Name: moodlexrosario; Type: TABLE DATA;
 --
 
-INSERT INTO moodlexrosario VALUES ('staff_id', 1, 2, NULL, NULL);
+INSERT INTO moodlexrosario VALUES ('staff_id', 1, 2, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2594,290 +2594,290 @@ INSERT INTO moodlexrosario VALUES ('staff_id', 1, 2, NULL, NULL);
 -- Data for Name: profile_exceptions; Type: TABLE DATA;
 --
 
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/PortalNotes.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Schools.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/CopySchool.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/SchoolFields.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/MarkingPeriods.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Calendar.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Periods.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/GradeLevels.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Rollover.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&include=General_Info&student_id=new', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/AssignOtherInfo.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/AddUsers.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/AdvancedReport.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/AddDrop.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/Letters.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/StudentLabels.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/PrintStudentInfo.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/StudentFields.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/EnrollmentCodes.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&category_id=1', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&category_id=3', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&category_id=2', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&staff_id=new', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/AddStudents.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/Preferences.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/Profiles.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/Exceptions.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/UserFields.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Eligibility/EnterEligibility.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=1', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=1&user_profile', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=1&schools', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=2', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=3', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Schedule.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Requests.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/MassSchedule.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/MassRequests.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/MassDrops.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintSchedules.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintClassLists.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintClassPictures.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintRequests.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/ScheduleReport.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/RequestsReport.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/IncompleteSchedules.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/AddDrop.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Courses.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Scheduler.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCards.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/HonorRoll.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/FixGPA.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/Transcripts.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/StudentGrades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/ProgressReports.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/TeacherCompletion.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/GradeBreakdown.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/FinalGrades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/Configuration.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/GPARankList.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCardGrades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCardComments.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCardCommentCodes.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/EditHistoryMarkingPeriods.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/EditReportCardGrades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Grades/MassCreateAssignments.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Grades/InputFinalGrades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Grades/Grades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Grades/AnomalousGrades.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/Administration.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/AddAbsences.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/TeacherCompletion.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/Percent.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/DailySummary.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/FixDailyAttendance.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/DuplicateAttendance.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Attendance/AttendanceCodes.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Attendance/TakeAttendance.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Eligibility/Student.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Eligibility/AddActivity.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Eligibility/StudentList.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Eligibility/TeacherCompletion.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Eligibility/Activities.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Eligibility/EntryTimes.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Accounts.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Statements.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Transactions.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/ServeMenus.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/ActivityReport.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/TransactionsReport.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/MenuReports.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Reminders.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/DailyMenus.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/MenuItems.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Menus.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Kiosk.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Resources/Resources.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/DailyTransactions.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/Expenses.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/Incomes.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/Salaries.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffBalances.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffPayments.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/Statements.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Accounting/Categories.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'School_Setup/Schools.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'School_Setup/MarkingPeriods.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'School_Setup/Calendar.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/AddUsers.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/AdvancedReport.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/StudentLabels.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/Letters.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php&category_id=1', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php&category_id=3', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php&category_id=4', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Users/User.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Users/Preferences.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Users/User.php&category_id=1', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Users/User.php&category_id=2', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Users/User.php&category_id=3', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Scheduling/Schedule.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Scheduling/Courses.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Scheduling/PrintSchedules.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Scheduling/PrintClassLists.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Scheduling/PrintClassPictures.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/InputFinalGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCards.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/Grades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/Assignments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/Assignments-new.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/AnomalousGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/ProgressReports.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/StudentGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/FinalGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/Configuration.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCardGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCardComments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCardCommentCodes.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Attendance/TakeAttendance.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Attendance/DailySummary.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Eligibility/EnterEligibility.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Food_Service/Accounts.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Food_Service/Statements.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Food_Service/DailyMenus.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Food_Service/MenuItems.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Resources/Resources.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Accounting/Salaries.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Accounting/StaffPayments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Accounting/Statements.php&_ROSARIO_PDF', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'School_Setup/Schools.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'School_Setup/MarkingPeriods.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'School_Setup/Calendar.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Students/Student.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Students/Student.php&category_id=1', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Students/Student.php&category_id=3', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Users/User.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Users/Preferences.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Users/User.php&category_id=1', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Users/User.php&category_id=2', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Users/User.php&category_id=3', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Scheduling/Schedule.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Scheduling/Courses.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Scheduling/PrintSchedules.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Scheduling/PrintClassPictures.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Scheduling/Requests.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/StudentGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/StudentAssignments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/FinalGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/ReportCards.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/ProgressReports.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/Transcripts.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Grades/GPARankList.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Attendance/DailySummary.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Eligibility/Student.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Eligibility/StudentList.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Food_Service/Accounts.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Food_Service/Statements.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Food_Service/DailyMenus.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Food_Service/MenuItems.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Resources/Resources.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'School_Setup/Schools.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'School_Setup/MarkingPeriods.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'School_Setup/Calendar.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Students/Student.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Students/Student.php&category_id=1', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Students/Student.php&category_id=3', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Schedule.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Courses.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/PrintSchedules.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/PrintClassPictures.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Requests.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/StudentGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/StudentAssignments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/FinalGrades.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/ReportCards.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/ProgressReports.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/Transcripts.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Grades/GPARankList.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Attendance/StudentSummary.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Attendance/DailySummary.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Eligibility/Student.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Eligibility/StudentList.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Food_Service/Accounts.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Food_Service/Statements.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Food_Service/DailyMenus.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Food_Service/MenuItems.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Resources/Resources.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Users/Preferences.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Custom/MyReport.php', NULL, NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Custom/CreateParents.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Custom/NotifyParents.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Custom/RemoveAccess.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Custom/AttendanceSummary.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Custom/Registration.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Custom/Registration.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Custom/Registration.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/MakeReferral.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/Referrals.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/CategoryBreakdown.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/CategoryBreakdownTime.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/StudentFieldBreakdown.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/ReferralLog.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/DisciplineForm.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Discipline/ReferralForm.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Discipline/MakeReferral.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Discipline/Referrals.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (2, 'Grades/GradebookBreakdown.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/DatabaseBackup.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/PortalPolls.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Configuration.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'School_Setup/AccessLog.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentFees.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentPayments.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentPayments.php&modfunc=remove', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/MassAssignFees.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/MassAssignPayments.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentBalances.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/DailyTransactions.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/Statements.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/Fees.php', 'Y', 'Y', NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/StudentFees.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/StudentPayments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/DailyTransactions.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/Statements.php&_ROSARIO_PDF', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/StudentFees.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/StudentPayments.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/DailyTransactions.php', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/Statements.php&_ROSARIO_PDF', 'Y', NULL, NULL, NULL);
-INSERT INTO profile_exceptions VALUES (1, 'Students/StudentBreakdown.php', 'Y', 'Y', NULL, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/PortalNotes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Schools.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/CopySchool.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/SchoolFields.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/MarkingPeriods.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Calendar.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Periods.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/GradeLevels.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Rollover.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&include=General_Info&student_id=new', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/AssignOtherInfo.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/AddUsers.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/AdvancedReport.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/AddDrop.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/Letters.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/StudentLabels.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/PrintStudentInfo.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/StudentFields.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/EnrollmentCodes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&category_id=1', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&category_id=3', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/Student.php&category_id=2', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&staff_id=new', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/AddStudents.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/Preferences.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/Profiles.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/Exceptions.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/UserFields.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Eligibility/EnterEligibility.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=1', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=1&user_profile', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=1&schools', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=2', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/User.php&category_id=3', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Schedule.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Requests.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/MassSchedule.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/MassRequests.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/MassDrops.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintSchedules.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintClassLists.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintClassPictures.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/PrintRequests.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/ScheduleReport.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/RequestsReport.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/IncompleteSchedules.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/AddDrop.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Courses.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/Scheduler.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCards.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/HonorRoll.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/FixGPA.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/Transcripts.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/StudentGrades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/ProgressReports.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/TeacherCompletion.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/GradeBreakdown.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/FinalGrades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/Configuration.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/GPARankList.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCardGrades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCardComments.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/ReportCardCommentCodes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/EditHistoryMarkingPeriods.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/EditReportCardGrades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Grades/MassCreateAssignments.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Grades/InputFinalGrades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Grades/Grades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Grades/AnomalousGrades.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/Administration.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/AddAbsences.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/TeacherCompletion.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/Percent.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/DailySummary.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/FixDailyAttendance.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/DuplicateAttendance.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Attendance/AttendanceCodes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Users/TeacherPrograms.php&include=Attendance/TakeAttendance.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Eligibility/Student.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Eligibility/AddActivity.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Eligibility/StudentList.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Eligibility/TeacherCompletion.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Eligibility/Activities.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Eligibility/EntryTimes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Accounts.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Statements.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Transactions.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/ServeMenus.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/ActivityReport.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/TransactionsReport.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/MenuReports.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Reminders.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/DailyMenus.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/MenuItems.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Menus.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Kiosk.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Resources/Resources.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/DailyTransactions.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Expenses.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Incomes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Salaries.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffBalances.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffPayments.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Statements.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Categories.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'School_Setup/Schools.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'School_Setup/MarkingPeriods.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'School_Setup/Calendar.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/AddUsers.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/AdvancedReport.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/StudentLabels.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/Letters.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php&category_id=1', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php&category_id=3', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Students/Student.php&category_id=4', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Users/User.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Users/Preferences.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Users/User.php&category_id=1', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Users/User.php&category_id=2', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Users/User.php&category_id=3', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Scheduling/Schedule.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Scheduling/Courses.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Scheduling/PrintSchedules.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Scheduling/PrintClassLists.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Scheduling/PrintClassPictures.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/InputFinalGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCards.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/Grades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/Assignments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/Assignments-new.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/AnomalousGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/ProgressReports.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/StudentGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/FinalGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/Configuration.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCardGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCardComments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/ReportCardCommentCodes.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Attendance/TakeAttendance.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Attendance/DailySummary.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Eligibility/EnterEligibility.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Food_Service/Accounts.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Food_Service/Statements.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Food_Service/DailyMenus.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Food_Service/MenuItems.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Resources/Resources.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Accounting/Salaries.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Accounting/StaffPayments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Accounting/Statements.php&_ROSARIO_PDF', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'School_Setup/Schools.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'School_Setup/MarkingPeriods.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'School_Setup/Calendar.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Students/Student.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Students/Student.php&category_id=1', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Students/Student.php&category_id=3', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Users/User.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Users/Preferences.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Users/User.php&category_id=1', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Users/User.php&category_id=2', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Users/User.php&category_id=3', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Scheduling/Schedule.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Scheduling/Courses.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Scheduling/PrintSchedules.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Scheduling/PrintClassPictures.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Scheduling/Requests.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/StudentGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/StudentAssignments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/FinalGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/ReportCards.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/ProgressReports.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/Transcripts.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Grades/GPARankList.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Attendance/DailySummary.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Eligibility/Student.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Eligibility/StudentList.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Food_Service/Accounts.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Food_Service/Statements.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Food_Service/DailyMenus.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Food_Service/MenuItems.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Resources/Resources.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'School_Setup/Schools.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'School_Setup/MarkingPeriods.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'School_Setup/Calendar.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Students/Student.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Students/Student.php&category_id=1', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Students/Student.php&category_id=3', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Schedule.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Courses.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/PrintSchedules.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/PrintClassPictures.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Requests.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/StudentGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/StudentAssignments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/FinalGrades.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/ReportCards.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/ProgressReports.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/Transcripts.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Grades/GPARankList.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Attendance/StudentSummary.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Attendance/DailySummary.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Eligibility/Student.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Eligibility/StudentList.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Food_Service/Accounts.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Food_Service/Statements.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Food_Service/DailyMenus.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Food_Service/MenuItems.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Resources/Resources.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Users/Preferences.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Custom/MyReport.php', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Custom/CreateParents.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Custom/NotifyParents.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Custom/RemoveAccess.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Custom/AttendanceSummary.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Custom/Registration.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Custom/Registration.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Custom/Registration.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/MakeReferral.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/Referrals.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/CategoryBreakdown.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/CategoryBreakdownTime.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/StudentFieldBreakdown.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/ReferralLog.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/DisciplineForm.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Discipline/ReferralForm.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Discipline/MakeReferral.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Discipline/Referrals.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (2, 'Grades/GradebookBreakdown.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/DatabaseBackup.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/PortalPolls.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/Configuration.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'School_Setup/AccessLog.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentFees.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentPayments.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentPayments.php&modfunc=remove', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/MassAssignFees.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/MassAssignPayments.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/StudentBalances.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/DailyTransactions.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/Statements.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Student_Billing/Fees.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/StudentFees.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/StudentPayments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/DailyTransactions.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Student_Billing/Statements.php&_ROSARIO_PDF', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/StudentFees.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/StudentPayments.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/DailyTransactions.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/Statements.php&_ROSARIO_PDF', 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Students/StudentBreakdown.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: program_config; Type: TABLE DATA;
 --
 
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_DAY', '1', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_HOUR', '23', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_MINUTE', '30', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_M', 'PM', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_DAY', '5', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_HOUR', '23', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_MINUTE', '30', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_M', 'PM', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'attendance', 'ATTENDANCE_EDIT_DAYS_BEFORE', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'attendance', 'ATTENDANCE_EDIT_DAYS_AFTER', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_DOES_LETTER_PERCENT', '0', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_HIDE_NON_ATTENDANCE_COMMENT', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_TEACHER_ALLOW_EDIT', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_GRADEBOOK_TEACHER_ALLOW_EDIT', 'Y', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_DO_STATS_STUDENTS_PARENTS', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_DO_STATS_ADMIN_TEACHERS', 'Y', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'students', 'STUDENTS_USE_BUS', 'Y', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'students', 'STUDENTS_USE_CONTACT', 'Y', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'students', 'STUDENTS_SEMESTER_COMMENTS', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_URL', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_TOKEN', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_PARENT_ROLE_ID', NULL, NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_API_PROTOCOL', 'rest', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANCE_WARNING', '5', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANCE_MINIMUM', '-40', NULL, NULL);
-INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANCE_TARGET', '19', NULL, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_DAY', '1', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_HOUR', '23', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_MINUTE', '30', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'START_M', 'PM', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_DAY', '5', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_HOUR', '23', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_MINUTE', '30', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'eligibility', 'END_M', 'PM', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'attendance', 'ATTENDANCE_EDIT_DAYS_BEFORE', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'attendance', 'ATTENDANCE_EDIT_DAYS_AFTER', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_DOES_LETTER_PERCENT', '0', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_HIDE_NON_ATTENDANCE_COMMENT', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_TEACHER_ALLOW_EDIT', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_GRADEBOOK_TEACHER_ALLOW_EDIT', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_DO_STATS_STUDENTS_PARENTS', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'grades', 'GRADES_DO_STATS_ADMIN_TEACHERS', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'students', 'STUDENTS_USE_BUS', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'students', 'STUDENTS_USE_CONTACT', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'students', 'STUDENTS_SEMESTER_COMMENTS', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_URL', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_TOKEN', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_PARENT_ROLE_ID', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'moodle', 'MOODLE_API_PROTOCOL', 'rest', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANCE_WARNING', '5', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANCE_MINIMUM', '-40', CURRENT_TIMESTAMP, NULL);
+INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANCE_TARGET', '19', CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2908,48 +2908,48 @@ INSERT INTO program_config VALUES (2024, 1, 'food_service', 'FOOD_SERVICE_BALANC
 -- Data for Name: report_card_comments; Type: TABLE DATA;
 --
 
-INSERT INTO report_card_comments VALUES (NULL, 2024, 1, NULL, NULL, NULL, 1, '^n Fails to Meet Course Requirements', NULL, NULL);
-INSERT INTO report_card_comments VALUES (NULL, 2024, 1, NULL, NULL, NULL, 2, '^n Comes to ^s Class Unprepared', NULL, NULL);
-INSERT INTO report_card_comments VALUES (NULL, 2024, 1, NULL, NULL, NULL, 3, '^n Exerts Positive Influence in Class', NULL, NULL);
+INSERT INTO report_card_comments VALUES (NULL, 2024, 1, NULL, NULL, NULL, 1, '^n Fails to Meet Course Requirements', CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_comments VALUES (NULL, 2024, 1, NULL, NULL, NULL, 2, '^n Comes to ^s Class Unprepared', CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_comments VALUES (NULL, 2024, 1, NULL, NULL, NULL, 3, '^n Exerts Positive Influence in Class', CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: report_card_grade_scales; Type: TABLE DATA;
 --
 
-INSERT INTO report_card_grade_scales VALUES (NULL, 2024, 1, 'Main', NULL, NULL, NULL, 1, NULL, 4, 0, NULL, NULL, NULL);
+INSERT INTO report_card_grade_scales VALUES (NULL, 2024, 1, 'Main', NULL, NULL, NULL, 1, NULL, 4, 0, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: report_card_grades; Type: TABLE DATA;
 --
 
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'A+', 1, 4.00, 97, 'Consistently superior', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'A', 2, 4.00, 93, 'Superior', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'A-', 3, 3.75, 90, 'Superior', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'B+', 4, 3.50, 87, 'Above average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'B', 5, 3.00, 83, 'Above average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'B-', 6, 2.75, 80, 'Above average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'C+', 7, 2.50, 77, 'Average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'C', 8, 2.00, 73, 'Average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'C-', 9, 1.75, 70, 'Average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'D+', 10, 1.50, 67, 'Below average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'D', 11, 1.00, 63, 'Below average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'D-', 12, 0.75, 60, 'Below average', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'F', 13, 0.00, 0, 'Failing', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'I', 14, 0.00, 0, 'Incomplete', 1, NULL, NULL, NULL);
-INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'N/A', 15, NULL, NULL, NULL, 1, NULL, NULL, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'A+', 1, 4.00, 97, 'Consistently superior', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'A', 2, 4.00, 93, 'Superior', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'A-', 3, 3.75, 90, 'Superior', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'B+', 4, 3.50, 87, 'Above average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'B', 5, 3.00, 83, 'Above average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'B-', 6, 2.75, 80, 'Above average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'C+', 7, 2.50, 77, 'Average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'C', 8, 2.00, 73, 'Average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'C-', 9, 1.75, 70, 'Average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'D+', 10, 1.50, 67, 'Below average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'D', 11, 1.00, 63, 'Below average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'D-', 12, 0.75, 60, 'Below average', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'F', 13, 0.00, 0, 'Failing', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'I', 14, 0.00, 0, 'Incomplete', 1, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO report_card_grades VALUES (NULL, 2024, 1, 'N/A', 15, NULL, NULL, NULL, 1, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: resources; Type: TABLE DATA;
 --
 
-INSERT INTO resources VALUES (NULL, 1, 'Print Handbook', 'Help.php', NULL, NULL, NULL, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/', NULL, NULL, NULL, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Forum', 'https://www.rosariosis.org/forum/', NULL, NULL, NULL, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Contribute', 'https://www.rosariosis.org/contribute/', NULL, NULL, NULL, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariois/-/issues/new', NULL, NULL, NULL, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Print Handbook', 'Help.php', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Forum', 'https://www.rosariosis.org/forum/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Contribute', 'https://www.rosariosis.org/contribute/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariois/-/issues/new', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -2968,32 +2968,32 @@ INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/franc
 -- Data for Name: school_gradelevels; Type: TABLE DATA;
 --
 
-INSERT INTO school_gradelevels VALUES (NULL, 1, 'KG', 'Kindergarten', 2, 1, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '01', '1st', 3, 2, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '02', '2nd', 4, 3, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '03', '3rd', 5, 4, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '04', '4th', 6, 5, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '05', '5th', 7, 6, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '06', '6th', 8, 7, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '07', '7th', 9, 8, NULL, NULL);
-INSERT INTO school_gradelevels VALUES (NULL, 1, '08', '8th', NULL, 9, NULL, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, 'KG', 'Kindergarten', 2, 1, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '01', '1st', 3, 2, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '02', '2nd', 4, 3, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '03', '3rd', 5, 4, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '04', '4th', 6, 5, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '05', '5th', 7, 6, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '06', '6th', 8, 7, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '07', '7th', 9, 8, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_gradelevels VALUES (NULL, 1, '08', '8th', NULL, 9, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: school_periods; Type: TABLE DATA;
 --
 
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 1, 'Full Day', 'FD', 300, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 2, 'Half Day AM', 'AM', 150, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 3, 'Half Day PM', 'PM', 150, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 4, 'Period 1', '01', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 5, 'Period 2', '02', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 6, 'Period 3', '03', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 7, 'Period 4', '04', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 8, 'Period 5', '05', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 9, 'Period 6', '06', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 10, 'Period 7', '07', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
-INSERT INTO school_periods VALUES (NULL, 2024, 1, 11, 'Period 8', '08', 50, NULL, NULL, NULL, 'Y', NULL, NULL, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 1, 'Full Day', 'FD', 300, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 2, 'Half Day AM', 'AM', 150, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 3, 'Half Day PM', 'PM', 150, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 4, 'Period 1', '01', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 5, 'Period 2', '02', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 6, 'Period 3', '03', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 7, 'Period 4', '04', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 8, 'Period 5', '05', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 9, 'Period 6', '06', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 10, 'Period 7', '07', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO school_periods VALUES (NULL, 2024, 1, 11, 'Period 8', '08', 50, NULL, NULL, NULL, 'Y', NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -3006,9 +3006,9 @@ INSERT INTO school_periods VALUES (NULL, 2024, 1, 11, 'Period 8', '08', 50, NULL
 -- Data for Name: staff_field_categories; Type: TABLE DATA;
 --
 
-INSERT INTO staff_field_categories VALUES (NULL, 'General Info', 1, NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL, NULL);
-INSERT INTO staff_field_categories VALUES (NULL, 'Schedule', 2, NULL, NULL, NULL, 'Y', NULL, NULL, NULL, NULL);
-INSERT INTO staff_field_categories VALUES (NULL, 'Food Service', 3, NULL, 'Food_Service/User', 'Y', 'Y', NULL, NULL, NULL, NULL);
+INSERT INTO staff_field_categories VALUES (NULL, 'General Info', 1, NULL, NULL, 'Y', 'Y', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO staff_field_categories VALUES (NULL, 'Schedule', 2, NULL, NULL, NULL, 'Y', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO staff_field_categories VALUES (NULL, 'Food Service', 3, NULL, 'Food_Service/User', 'Y', 'Y', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -3017,8 +3017,8 @@ INSERT INTO staff_field_categories VALUES (NULL, 'Food Service', 3, NULL, 'Food_
 
 ALTER TABLE staff_fields AUTO_INCREMENT=200000000; -- Start at 200000000.
 
-INSERT INTO staff_fields VALUES (NULL, 'text', 'Email Address', 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO staff_fields VALUES (NULL, 'text', 'Phone Number', 1, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO staff_fields VALUES (NULL, 'text', 'Email Address', 0, NULL, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO staff_fields VALUES (NULL, 'text', 'Phone Number', 1, NULL, 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -3030,23 +3030,23 @@ INSERT INTO staff_fields VALUES (NULL, 'text', 'Phone Number', 1, NULL, 1, NULL,
 -- Data for Name: student_enrollment_codes; Type: TABLE DATA;
 --
 
-INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Moved from District', 'MOVE', 'Drop', NULL, 1, NULL, NULL);
-INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Expelled', 'EXP', 'Drop', NULL, 2, NULL, NULL);
-INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Beginning of Year', 'EBY', 'Add', 'Y', 3, NULL, NULL);
-INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'From Other District', 'OTHER', 'Add', NULL, 4, NULL, NULL);
-INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Transferred in District', 'TRAN', 'Drop', NULL, 5, NULL, NULL);
-INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Transferred in District', 'EMY', 'Add', NULL, 6, NULL, NULL);
+INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Moved from District', 'MOVE', 'Drop', NULL, 1, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Expelled', 'EXP', 'Drop', NULL, 2, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Beginning of Year', 'EBY', 'Add', 'Y', 3, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'From Other District', 'OTHER', 'Add', NULL, 4, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Transferred in District', 'TRAN', 'Drop', NULL, 5, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_enrollment_codes VALUES (NULL, 2024, 'Transferred in District', 'EMY', 'Add', NULL, 6, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: student_field_categories; Type: TABLE DATA;
 --
 
-INSERT INTO student_field_categories VALUES (NULL, 'General Info', 1, NULL, NULL, NULL, NULL);
-INSERT INTO student_field_categories VALUES (NULL, 'Medical', 3, NULL, NULL, NULL, NULL);
-INSERT INTO student_field_categories VALUES (NULL, 'Addresses & Contacts', 2, NULL, NULL, NULL, NULL);
-INSERT INTO student_field_categories VALUES (NULL, 'Comments', 4, NULL, NULL, NULL, NULL);
-INSERT INTO student_field_categories VALUES (NULL, 'Food Service', 5, NULL, 'Food_Service/Student', NULL, NULL);
+INSERT INTO student_field_categories VALUES (NULL, 'General Info', 1, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_field_categories VALUES (NULL, 'Medical', 3, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_field_categories VALUES (NULL, 'Addresses & Contacts', 2, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_field_categories VALUES (NULL, 'Comments', 4, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO student_field_categories VALUES (NULL, 'Food Service', 5, NULL, 'Food_Service/Student', CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -3094,7 +3094,7 @@ INSERT INTO student_field_categories VALUES (NULL, 'Food Service', 5, NULL, 'Foo
 -- Data for Name: student_enrollment; Type: TABLE DATA;
 --
 
-INSERT INTO student_enrollment VALUES (NULL, 2024, 1, 1, 7, '2024-06-07', NULL, 3, NULL, 1, 1, 1, NULL, NULL);
+INSERT INTO student_enrollment VALUES (NULL, 2024, 1, 1, 7, '2024-06-07', NULL, 3, NULL, 1, 1, 1, CURRENT_TIMESTAMP, NULL);
 
 
 
@@ -3114,18 +3114,18 @@ INSERT INTO student_enrollment VALUES (NULL, 2024, 1, 1, 7, '2024-06-07', NULL, 
 -- Data for Name: students_join_users; Type: TABLE DATA;
 --
 
-INSERT INTO students_join_users VALUES (1, 3, NULL, NULL);
+INSERT INTO students_join_users VALUES (1, 3, CURRENT_TIMESTAMP, NULL);
 
 
 --
 -- Data for Name: templates; Type: TABLE DATA;
 --
 
-INSERT INTO templates VALUES ('Students/Letters.php', 0, '<p></p>', NULL, NULL);
+INSERT INTO templates VALUES ('Students/Letters.php', 0, '<p></p>', CURRENT_TIMESTAMP, NULL);
 INSERT INTO templates VALUES ('Grades/HonorRoll.php', 0, '<br /><br /><br />
 <div style="text-align: center;"><span style="font-size: xx-large;"><strong>__SCHOOL_ID__</strong><br /></span><br /><span style="font-size: xx-large;">We hereby recognize<br /><br /></span></div>
 <div style="text-align: center;"><span style="font-size: xx-large;"><strong>__FIRST_NAME__ __LAST_NAME__</strong><br /><br /></span></div>
-<div style="text-align: center;"><span style="font-size: xx-large;">Who has completed all the academic requirements for <br />Honor Roll</span></div>', NULL, NULL);
+<div style="text-align: center;"><span style="font-size: xx-large;">Who has completed all the academic requirements for <br />Honor Roll</span></div>', CURRENT_TIMESTAMP, NULL);
 INSERT INTO templates VALUES ('Grades/Transcripts.php', 0, '<h2 style="text-align: center;">Studies Certificate</h2>
 <p>The Principal here undersigned certifies:</p>
 <p>That __FIRST_NAME__ __LAST_NAME__ attended at this school the following courses corresponding to grade __GRADE_ID__ in year __YEAR__ with the following grades and credit hours.</p>
@@ -3139,7 +3139,7 @@ INSERT INTO templates VALUES ('Grades/Transcripts.php', 0, '<h2 style="text-alig
 <td style="width: 50%; text-align: center;"><hr />
 <p>Signature</p>
 <p>&nbsp;</p><hr />
-<p>Title</p></td></tr></tbody></table>', NULL, NULL);
+<p>Title</p></td></tr></tbody></table>', CURRENT_TIMESTAMP, NULL);
 INSERT INTO templates VALUES ('Custom/CreateParents.php', 0, 'Dear __PARENT_NAME__,
 
 A parent account for the __SCHOOL_ID__ has been created to access school information and student information for the following students:
@@ -3152,7 +3152,7 @@ Password: __PASSWORD__
 A link to the SIS website and instructions for access are available on the school''s website__BLOCK2__Dear __PARENT_NAME__,
 
 The following students have been added to your parent account on the SIS:
-__ASSOCIATED_STUDENTS__', NULL, NULL);
+__ASSOCIATED_STUDENTS__', CURRENT_TIMESTAMP, NULL);
 INSERT INTO templates VALUES ('Custom/NotifyParents.php', 0, 'Dear __PARENT_NAME__,
 
 A parent account for the __SCHOOL_ID__ has been created to access school information and student information for the following students:
@@ -3162,16 +3162,16 @@ Your account credentials are:
 Username: __USERNAME__
 Password: __PASSWORD__
 
-A link to the SIS website and instructions for access are available on the school''s website', NULL, NULL);
+A link to the SIS website and instructions for access are available on the school''s website', CURRENT_TIMESTAMP, NULL);
 
 --
 -- Data for Name: user_profiles; Type: TABLE DATA;
 --
 
-INSERT INTO user_profiles VALUES (0, 'student', 'Student', NULL, NULL);
-INSERT INTO user_profiles VALUES (NULL, 'admin', 'Administrator', NULL, NULL);
-INSERT INTO user_profiles VALUES (NULL, 'teacher', 'Teacher', NULL, NULL);
-INSERT INTO user_profiles VALUES (NULL, 'parent', 'Parent', NULL, NULL);
+INSERT INTO user_profiles VALUES (0, 'student', 'Student', CURRENT_TIMESTAMP, NULL);
+INSERT INTO user_profiles VALUES (NULL, 'admin', 'Administrator', CURRENT_TIMESTAMP, NULL);
+INSERT INTO user_profiles VALUES (NULL, 'teacher', 'Teacher', CURRENT_TIMESTAMP, NULL);
+INSERT INTO user_profiles VALUES (NULL, 'parent', 'Parent', CURRENT_TIMESTAMP, NULL);
 
 
 --

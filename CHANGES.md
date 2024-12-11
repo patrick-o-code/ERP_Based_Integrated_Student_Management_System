@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.1
+---------------
+- MySQL set CREATED_AT on INSERT in rosariosis_mysql.sql
+
 Changes in 12.0.2
 -----------------
 - Format Credit, display 0.33 instead of 0.333333333333333 in Transcripts.fnc.php
