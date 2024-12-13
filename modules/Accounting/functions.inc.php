@@ -3,6 +3,12 @@ function _makeIncomesRemove( $value, $column )
 {
 	global $THIS_RET;
 
+	// @since 12.1 Add Admin Delete Permission
+	if ( ! AllowEdit( $_REQUEST['modname'] . '&modfunc=remove' ) )
+	{
+		return '';
+	}
+
 	return button(
 		'remove',
 		'',
