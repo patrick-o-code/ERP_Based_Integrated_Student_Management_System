@@ -11,6 +11,7 @@ Changes in 12.1
 - Remove "only 1 MP & 1 grading period open at any given time" check for Progress Periods in MarkingPeriods.php
 - Add help "limitation does not apply to progress periods" in Help_en.php & help.po
 - Update SimpleXLSXGen to version 1.4.12 in classes/SimpleXLSXGen/
+- Add help about Permissions (tooltip) on Add a user screen in Users/includes/General_Info.inc.php
 
 Changes in 12.0.2
 -----------------

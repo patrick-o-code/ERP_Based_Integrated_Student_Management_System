@@ -271,16 +271,22 @@ if ( basename( $_SERVER['PHP_SELF'] ) != 'index.php' )
 			}
 
 			$na = _( 'Custom' );
+
+			$tooltip = '';
 		}
 		else
 		{
 			$na = _( 'Default' );
+
+			$tooltip = '<div class="tooltip"><i>' . _(
+				'You can select custom permissions or profiles after adding the user.'
+			) . '</i></div>';
 		}
 
 		echo SelectInput(
 			issetVal( $staff['PROFILE_ID'], '' ),
 			'staff[PROFILE_ID]',
-			_( 'Permissions' ),
+			_( 'Permissions' ) . $tooltip,
 			$permissions_options,
 			$na
 		);
