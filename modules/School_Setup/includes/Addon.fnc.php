@@ -333,3 +333,85 @@ function AddonInstallationStatisticsPost( $type, $addon_dir )
 
 	return true;
 }
+
+/**
+ * Upsell add-on to Premium
+ * Add a "PREMIUM" button which opens a colorBox with the PREMIUM.md file's content
+ *
+ * Note: place translations of the PREMIUM.md file inside locale/[code]/
+ *
+ * @since 12.1
+ *
+ * @param string $type      Add-on type: module|plugin.
+ * @param string $addon_dir Add-on directory. For example: 'My_Module'.
+ *
+ * @return string Empty if no PREMIUM.md file found.
+ */
+function AddonUpsellPremium( $type, $addon_dir, $md_filename = 'PREMIUM.md' )
+{
+	if ( ! in_array( $type, [ 'module', 'plugin' ] )
+		|| ! $addon_dir
+		|| isset( $_REQUEST['_ROSARIO_PDF'] ) )
+	{
+		return '';
+	}
+
+	$md_filename = basename( $md_filename );
+
+	$premium_md_paths = [
+		$type . 's/' . $addon_dir . '/locale/' . $_SESSION['locale'] . '/' . $md_filename,
+		$type . 's/' . $addon_dir . '/' . $md_filename,
+	];
+
+	if ( file_exists( $premium_md_paths[0] ) )
+	{
+		$premium_md_path = $premium_md_paths[0];
+	}
+	elseif ( file_exists( $premium_md_paths[1] ) )
+	{
+		$premium_md_path = $premium_md_paths[1];
+	}
+	else
+	{
+		return '';
+	}
+
+	// Get PREMIUM.md content
+	$premium_md_content = file_get_contents( $premium_md_path );
+
+	if ( strpos( $_SERVER['HTTP_HOST'], '.rosariosis.com' ) !== false ) // TODO add explanation on login page! "Only the administrator at your school who signed up to rosariosis.com [plans](https://www.rosariosis.com/#plans-pricing) can login here. Please contact this person or use the Contact form linked above if you need more help."
+	{
+		if ( User( 'PROFILE' ) !== 'admin' )
+		{
+			// Only admins should see this Button on rosariosis.com.
+			return '';
+		}
+
+		// If on rosariosis.com, replace .org link with .com link
+		$lang_2_chars = mb_substr( $_SESSION['locale'], 0, 2 );
+
+		$locale_short = $lang_2_chars === 'fr' || $lang_2_chars === 'es' ?
+			$lang_2_chars . '/' : '';
+
+		$com_link = '(https://www.rosariosis.com/' . $locale_short . 'account/billing/)';
+
+		$addon_slug = mb_strtolower( str_replace( '_', '-', $addon_dir ) );
+
+		$org_links = [
+			'$\(https://www\.rosariosis\.org/' . $type . 's/' . $addon_slug . '.*\)$',
+			'$\(https://www\.rosariosis\.org/' . $lang_2_chars . '/' . $type . 's/' . $addon_slug . '.*\)$',
+		];
+
+		$premium_md_content = preg_replace( $org_links, $com_link, $premium_md_content );
+	}
+
+	// Convert MarkDown text to HTML.
+	$premium_content = '<div class="markdown-to-html">' . $premium_md_content . '</div>';
+
+	$return = '<div style="display:none;"><div class="addon-upsell-premium" id="PREMIUM_' . $addon_dir . '">' .
+		$premium_content . '</div></div>';
+
+	$return .= '<a class="colorboxinline button-upsell-premium" href="#PREMIUM_' . $addon_dir . '">Premium</a>';
+
+	return $return;
+}
