@@ -228,10 +228,12 @@ if ( $_REQUEST['modfunc'] === 'activate'
 				DBQuery( $install_sql );
 			}
 
-			// @since 10.9.3 Add-on SQL translation file can be named "install_es.sql" or "install_pt_BR.sql"
 			$install_locale_paths = [
+				// @since 10.9.3 Add-on SQL translation file can be named "install_es.sql" or "install_pt_BR.sql"
 				'modules/' . $_REQUEST['module'] . '/install_' . mb_substr( $locale, 0, 2 ) . '.sql',
 				'modules/' . $_REQUEST['module'] . '/install_' . mb_substr( $locale, 0, 5 ) . '.sql',
+				// @since 12.1 Add-on SQL translation file can be under `locale/[locale_code]/` folder
+				'modules/' . $_REQUEST['module'] . '/locale/' . $locale . '/install.sql',
 			];
 
 			foreach ( $install_locale_paths as $install_locale_path )
