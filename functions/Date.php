@@ -34,6 +34,7 @@ function DBDate()
  * @since 7.1 Export (Excel) date to YYYY-MM-DD format (ISO).
  * @since 7.1 Select Date Format: Add Preferences( 'DATE' ).
  * @since 9.0 Fix PHP8.1 deprecated strftime() use strftime_compat() instead
+ * @since 12.1 Fix regression since 7.1 short month name, eg.: "Sep"
  *
  * @see Preferences
  *
@@ -74,12 +75,20 @@ function ProperDate( $date, $length = 'long' )
 			$date_exploded['day'];
 	}
 
+	$pref_date = Preferences( 'DATE' );
+
+	if ( $length === 'short' )
+	{
+		// Short month name, eg.: "Sep".
+		$pref_date = str_replace( '%B', '%b', $pref_date );
+	}
+
 	// Display localized date with strftime().
 	// CSS add .proper-date class.
 	// @since 9.0 Fix PHP8.1 deprecated strftime() use strftime_compat() instead
 	return $comment .
 		'<span class="proper-date">' . strftime_compat(
-			Preferences( 'DATE' ),
+			$pref_date,
 			$date_exploded['year'] . '-' . $date_exploded['month'] . '-' . $date_exploded['day']
 		) . '</span>';
 }

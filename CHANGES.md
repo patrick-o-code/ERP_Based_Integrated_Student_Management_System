@@ -16,6 +16,7 @@ Changes in 12.1
 - Fix tooltip display at bottom in School_Setup/Configuration.php
 - Add AddonUpsellPremium() function in Addon.fnc.php
 - JS If inside colorBox, close it on Cancel in Prompts.php
+- Fix regression since 7.1 short month name, eg.: "Sep" in Date.php
 
 Changes in 12.0.2
 -----------------
