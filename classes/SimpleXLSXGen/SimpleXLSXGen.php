@@ -1,13 +1,21 @@
 <?php
 
-/** @noinspection ReturnTypeCanBeDeclaredInspection */
-/** @noinspection PhpMissingReturnTypeInspection */
+/** @noinspection UnknownInspectionInspection */
+/* PHP5.6 */
+/** @noinspection PowerOperatorCanBeUsedInspection */
+/* PHP7 */
 /** @noinspection NullCoalescingOperatorCanBeUsedInspection */
-
 /** @noinspection PhpIssetCanBeReplacedWithCoalesceInspection */
+/* PHP8 */
+/** @noinspection ReturnTypeCanBeDeclaredInspection */
+/** @noinspection PhpMissingClassConstantTypeInspection */
+/** @noinspection PhpMissingFieldTypeInspection */
+/** @noinspection PhpMissingParamTypeInspection */
+/** @noinspection PhpMissingReturnTypeInspection */
+/** @noinspection PhpStrFunctionsInspection */
+/** @noinspection AccessModifierPresentedInspection */
 
 namespace Shuchkin;
-
 /**
  * Class SimpleXLSXGen
  * Export data to MS Excel. PHP XLSX generator
@@ -39,6 +47,7 @@ class SimpleXLSXGen
     protected $application;
     protected $keywords;
     protected $category;
+    protected $language;
     protected $lastModifiedBy;
     const N_NORMAL = 0; // General
     const N_INT = 1; // 0
@@ -93,20 +102,21 @@ class SimpleXLSXGen
     {
         $this->subject = '';
         $this->title = '';
-        $this->author = 'Sergey Shuchkin <sergey.shuchkin@gmail.com>';
-        $this->company = 'Sergey Shuchkin <sergey.shuchkin@gmail.com>';
-        $this->manager = 'Sergey Shuchkin <sergey.shuchkin@gmail.com>';
+        $this->author = '';
+        $this->company = '';
+        $this->manager = '';
         $this->description = '';
         $this->keywords = '';
         $this->category = '';
-        $this->lastModifiedBy = 'Sergey Shuchkin <sergey.shuchkin@gmail.com>';
+        $this->language = 'en-US';
+        $this->lastModifiedBy = '';
         $this->application = __CLASS__;
 
         $this->curSheet = -1;
         $this->defaultFont = 'Calibri';
         $this->defaultFontSize = 10;
         $this->rtl = false;
-        $this->sheets = [['name' => 'Sheet1', 'rows' => [], 'hyperlinks' => [], 'mergecells' => [], 'colwidth' => [], 'autofilter' => '']];
+        $this->sheets = [];
         $this->extLinkId = 0;
         $this->SI = [];        // sharedStrings index
         $this->SI_KEYS = []; //  & keys
@@ -143,93 +153,89 @@ class SimpleXLSXGen
         $this->XF_KEYS[implode('-', $this->XF[0])] = 0; // & keys
         $this->XF_KEYS[implode('-', $this->XF[1])] = 1;
         $this->template = [
-            '_rels/.rels' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
-<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>
-<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>
-</Relationships>',
-            'docProps/app.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
-<TotalTime>0</TotalTime>
-<Application>{APP}</Application>
-<Company>{COMPANY}</Company>
-<Manager>{MANAGER}</Manager>
-</Properties>',
-            'docProps/core.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<dcterms:created xsi:type="dcterms:W3CDTF">{DATE}</dcterms:created>
-    <dc:title>{TITLE}</dc:title>
-    <dc:subject>{SUBJECT}</dc:subject>
-    <dc:creator>{AUTHOR}</dc:creator>
-    <cp:lastModifiedBy>{LAST_MODIFY_BY}</cp:lastModifiedBy>
-    <cp:keywords>{KEYWORD}</cp:keywords>
-    <dc:description>{DESCRIPTION}</dc:description>
-    <cp:category>{CATEGORY}</cp:category>
-    <dc:language>en-US</dc:language>
-<dcterms:modified xsi:type="dcterms:W3CDTF">{DATE}</dcterms:modified>
-<cp:revision>1</cp:revision>
-</cp:coreProperties>',
-            'xl/_rels/workbook.xml.rels' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-{RELS}
-</Relationships>',
-            'xl/worksheets/sheet1.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<dimension ref="{REF}"/>
-{SHEETVIEWS}
-{COLS}
-<sheetData>{ROWS}</sheetData>
-{AUTOFILTER}{MERGECELLS}{HYPERLINKS}
-</worksheet>',
-            'xl/worksheets/_rels/sheet1.xml.rels' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">{HYPERLINKS}</Relationships>',
-            'xl/sharedStrings.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="{CNT}" uniqueCount="{CNT}">{STRINGS}</sst>',
-            'xl/styles.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
-{NUMFMTS}
-{FONTS}
-{FILLS}
-{BORDERS}
-<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" /></cellStyleXfs>
-{XF}
-<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>
-</styleSheet>',
-            'xl/workbook.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<fileVersion appName="{APP}"/>
-<sheets>
-{SHEETS}
-</sheets>
-</workbook>',
-            '[Content_Types].xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
-<Override PartName="/rels/.rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
-<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
-<Override PartName="/xl/_rels/workbook.xml.rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-<Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/>
-<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
-<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
-{TYPES}
-</Types>',
+            '_rels/.rels' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'."\r\n"
+                .'<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'."\r\n"
+                .'<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>'."\r\n"
+                .'<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>'."\r\n"
+                .'</Relationships>',
+            'docProps/app.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">'."\r\n"
+                .'<TotalTime>0</TotalTime>'."\r\n"
+                .'<Application>{APP}</Application>'."\r\n"
+                .'<Company>{COMPANY}</Company>'."\r\n"
+                .'<Manager>{MANAGER}</Manager>'."\r\n"
+                .'</Properties>',
+            'docProps/core.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'."\r\n"
+                .'<dcterms:created xsi:type="dcterms:W3CDTF">{DATE}</dcterms:created>'."\r\n"
+                .'<dc:title>{TITLE}</dc:title>'."\r\n"
+                .'<dc:subject>{SUBJECT}</dc:subject>'."\r\n"
+                .'<dc:creator>{AUTHOR}</dc:creator>'."\r\n"
+                .'<cp:lastModifiedBy>{LAST_MODIFY_BY}</cp:lastModifiedBy>'."\r\n"
+                .'<cp:keywords>{KEYWORD}</cp:keywords>'."\r\n"
+                .'<dc:description>{DESCRIPTION}</dc:description>'."\r\n"
+                .'<cp:category>{CATEGORY}</cp:category>'."\r\n"
+                .'<dc:language>{LANGUAGE}</dc:language>'."\r\n"
+                .'<dcterms:modified xsi:type="dcterms:W3CDTF">{DATE}</dcterms:modified>'."\r\n"
+                .'<cp:revision>1</cp:revision>'."\r\n"
+                .'</cp:coreProperties>',
+            'xl/_rels/workbook.xml.rels' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+                ."\r\n{RELS}\r\n</Relationships>",
+            'xl/worksheets/sheet1.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'."\r\n"
+                .'<dimension ref="{REF}"/>'."\r\n"
+                ."{SHEETVIEWS}\r\n{COLS}\r\n{ROWS}\r\n{AUTOFILTER}{MERGECELLS}{HYPERLINKS}</worksheet>",
+            'xl/worksheets/_rels/sheet1.xml.rels' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">{HYPERLINKS}</Relationships>',
+            'xl/sharedStrings.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="{CNT}" uniqueCount="{CNT}">{STRINGS}</sst>',
+            'xl/styles.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                ."\r\n{NUMFMTS}\r\n{FONTS}\r\n{FILLS}\r\n{BORDERS}\r\n"
+                .'<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" /></cellStyleXfs>'
+                ."\r\n{XF}\r\n"
+                .'<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>',
+            'xl/workbook.xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'."\r\n"
+                .'<fileVersion appName="{APP}"/><sheets>{SHEETS}</sheets></workbook>',
+            '[Content_Types].xml' => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\r\n"
+                .'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'."\r\n"
+                .'<Override PartName="/rels/.rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'."\r\n"
+                .'<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>'."\r\n"
+                .'<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>'."\r\n"
+                .'<Override PartName="/xl/_rels/workbook.xml.rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'."\r\n"
+                .'<Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/>'."\r\n"
+                .'<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
+                ."\r\n{TYPES}</Types>",
         ];
-        // <col min="1" max="1" width="22.1796875" bestFit="1" customWidth="1"/>
-        // <row r="1" spans="1:2" x14ac:dyDescent="0.35"><c r="A1" t="s"><v>0</v></c><c r="B1"><v>100</v></c></row><row r="2" spans="1:2" x14ac:dyDescent="0.35"><c r="A2" t="s"><v>1</v></c><c r="B2"><v>200</v></c></row>
-        // <si><t>Простой шаблон</t></si><si><t>Будем делать генератор</t></si>
+    }
+    public static function create($title = null)
+    {
+        $xlsx = new static();
+        if ($title) {
+            $xlsx->setTitle($title);
+        }
+        return $xlsx;
     }
 
     public static function fromArray(array $rows, $sheetName = null)
     {
-        return (new static())->addSheet($rows, $sheetName);
+        $xlsx = new static();
+        $xlsx->addSheet($rows, $sheetName);
+        if ($sheetName) {
+            $xlsx->setTitle($sheetName);
+        }
+        return $xlsx;
     }
 
     public function addSheet(array $rows, $name = null)
     {
         $this->curSheet++;
         if ($name === null) { // autogenerated sheet names
-            $name = 'Sheet' . ($this->curSheet + 1);
+            $name = ($this->title ? mb_substr($this->title, 0, 31) : 'Sheet') . ($this->curSheet + 1);
         } else {
             $name = mb_substr($name, 0, 31);
             $names = [];
@@ -273,9 +279,13 @@ class SimpleXLSXGen
         return (string)fread($fh, $size);
     }
 
+    public function save()
+    {
+        return $this->saveAs(($this->title ?: gmdate('YmdHi')) . '.xlsx');
+    }
     public function saveAs($filename)
     {
-        $fh = fopen($filename, 'wb');
+        $fh = fopen(str_replace(["\0","\r","\n","\t",'"'], '', $filename), 'wb');
         if (!$fh) {
             return false;
         }
@@ -289,7 +299,7 @@ class SimpleXLSXGen
 
     public function download()
     {
-        return $this->downloadAs(gmdate('YmdHi') . '.xlsx');
+        return $this->downloadAs(($this->title ?: gmdate('YmdHi')) . '.xlsx');
     }
 
     public function downloadAs($filename)
@@ -304,14 +314,19 @@ class SimpleXLSXGen
         }
         $size = ftell($fh);
         header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Disposition: attachment; filename="' . str_replace(["\0","\r","\n","\t",'"'], '', $filename) . '"');
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', time()));
         header('Content-Length: ' . $size);
         while (ob_get_level()) {
             ob_end_clean();
         }
         fseek($fh, 0);
-        fpassthru($fh);
+        //Some servers disable fpassthru function. The alternative, stream_get_contents, use more memory
+        if (function_exists('fpassthru')) {
+            fpassthru($fh);
+        } else {
+            echo stream_get_contents($fh);
+        }
         fclose($fh);
         return true;
     }
@@ -326,6 +341,10 @@ class SimpleXLSXGen
         $cdrec = '';    // central directory content
         $entries = 0;    // number of zipped files
         $cnt_sheets = count($this->sheets);
+        if ($cnt_sheets === 0) {
+            $this->addSheet([], 'No data');
+            $cnt_sheets = 1;
+        }
         foreach ($this->template as $cfilename => $template) {
             if ($cfilename === 'xl/_rels/workbook.xml.rels') {
                 $s = '';
@@ -333,8 +352,8 @@ class SimpleXLSXGen
                     $s .= '<Relationship Id="rId' . ($i + 1) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"' .
                         ' Target="worksheets/sheet' . ($i + 1) . ".xml\"/>\r\n";
                 }
-                $s .= '<Relationship Id="rId' . ($i + 1) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' . "\r\n";
-                $s .= '<Relationship Id="rId' . ($i + 2) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/>';
+                $s .= '<Relationship Id="rId' . ($cnt_sheets + 1) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' . "\r\n";
+                $s .= '<Relationship Id="rId' . ($cnt_sheets + 2) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/>';
 
                 $template = str_replace('{RELS}', $s, $template);
                 $this->_writeEntry($fh, $cdrec, $cfilename, $template);
@@ -342,34 +361,36 @@ class SimpleXLSXGen
             } elseif ($cfilename === 'xl/workbook.xml') {
                 $s = '';
                 foreach ($this->sheets as $k => $v) {
-                    $s .= '<sheet name="' . $this->esc($v['name']) . '" sheetId="' . ($k + 1) . '" r:id="rId' . ($k + 1) . '"/>';
+                    $s .= '<sheet name="' . self::esc($v['name']) . '" sheetId="' . ($k + 1) . '" r:id="rId' . ($k + 1) . '"/>';
                 }
                 $search = ['{SHEETS}', '{APP}'];
-                $replace = [$s, $this->esc($this->application)];
+                $replace = [$s, self::esc($this->application)];
                 $template = str_replace($search, $replace, $template);
                 $this->_writeEntry($fh, $cdrec, $cfilename, $template);
                 $entries++;
             } elseif ($cfilename === 'docProps/app.xml') {
                 $search = ['{APP}', '{COMPANY}', '{MANAGER}'];
-                $replace = [$this->esc($this->application), $this->esc($this->company), $this->esc($this->manager)];
+                $replace = [self::esc($this->application), self::esc($this->company), self::esc($this->manager)];
                 $template = str_replace($search, $replace, $template);
                 $this->_writeEntry($fh, $cdrec, $cfilename, $template);
                 $entries++;
             } elseif ($cfilename === 'docProps/core.xml') {
-                $search = ['{DATE}', '{AUTHOR}', '{TITLE}', '{SUBJECT}', '{KEYWORD}', '{DESCRIPTION}', '{CATEGORY}', '{LAST_MODIFY_BY}'];
-                $replace = [gmdate('Y-m-d\TH:i:s\Z'), $this->esc($this->author), $this->esc($this->title), $this->esc($this->subject), $this->esc($this->keywords), $this->esc($this->description), $this->esc($this->category), $this->esc($this->lastModifiedBy)];
+                $search = ['{DATE}', '{AUTHOR}', '{TITLE}', '{SUBJECT}', '{KEYWORD}', '{DESCRIPTION}', '{CATEGORY}', '{LANGUAGE}', '{LAST_MODIFY_BY}'];
+                $replace = [gmdate('Y-m-d\TH:i:s\Z'), self::esc($this->author), self::esc($this->title), self::esc($this->subject), self::esc($this->keywords), self::esc($this->description), self::esc($this->category), self::esc($this->language), self::esc($this->lastModifiedBy)];
                 $template = str_replace($search, $replace, $template);
                 $this->_writeEntry($fh, $cdrec, $cfilename, $template);
                 $entries++;
             } elseif ($cfilename === 'xl/sharedStrings.xml') {
-                if (!count($this->SI)) {
-                    $this->SI[] = 'No Data';
-                }
                 $si_cnt = count($this->SI);
-                $si = '<si><t>' . implode("</t></si>\r\n<si><t>", $this->SI) . '</t></si>';
-                $template = str_replace(['{CNT}', '{STRINGS}'], [$si_cnt, $si], $template);
-                $this->_writeEntry($fh, $cdrec, $cfilename, $template);
-                $entries++;
+                if ($si_cnt) {
+                    $si = [];
+                    foreach ($this->SI as $s) {
+                        $si[] = '<si>' . (preg_match('/^\s|\s$/', $s) ? '<t xml:space="preserve">' . $s . '</t>' : '<t>' . $s . '</t>') . '</si>';
+                    }
+                    $template = str_replace(['{CNT}', '{STRINGS}'], [$si_cnt, implode("\r\n", $si)], $template);
+                    $this->_writeEntry($fh, $cdrec, $cfilename, $template);
+                    $entries++;
+                }
             } elseif ($cfilename === 'xl/worksheets/sheet1.xml') {
                 foreach ($this->sheets as $k => $v) {
                     $filename = 'xl/worksheets/sheet' . ($k + 1) . '.xml';
@@ -385,7 +406,7 @@ class SimpleXLSXGen
                         $filename = 'xl/worksheets/_rels/sheet' . ($k + 1) . '.xml.rels';
                         foreach ($v['hyperlinks'] as $h) {
                             if ($h['ID']) {
-                                $RH[] = '<Relationship Id="' . $h['ID'] . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="' . $this->esc($h['H']) . '" TargetMode="External"/>';
+                                $RH[] = '<Relationship Id="' . $h['ID'] . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="' . self::esc($h['H']) . '" TargetMode="External"/>';
                             }
                         }
                         $xml = str_replace('{HYPERLINKS}', implode("\r\n", $RH), $template);
@@ -584,28 +605,28 @@ class SimpleXLSXGen
         $e['crc_32'] = crc32($data);
 
         // Convert date and time to DOS Format, and set then
-        $lastmod_timeS = str_pad(decbin(date('s') >= 32 ? date('s') - 32 : date('s')), 5, '0', STR_PAD_LEFT);
-        $lastmod_timeM = str_pad(decbin(date('i')), 6, '0', STR_PAD_LEFT);
-        $lastmod_timeH = str_pad(decbin(date('H')), 5, '0', STR_PAD_LEFT);
-        $lastmod_dateD = str_pad(decbin(date('d')), 5, '0', STR_PAD_LEFT);
-        $lastmod_dateM = str_pad(decbin(date('m')), 4, '0', STR_PAD_LEFT);
-        $lastmod_dateY = str_pad(decbin(date('Y') - 1980), 7, '0', STR_PAD_LEFT);
+        $date = getdate();
+        $e['dostime'] = (
+            (($date['year'] - 1980) << 25)
+            | ($date['mon'] << 21)
+            | ($date['mday'] << 16)
+            | ($date['hours'] << 11)
+            | ($date['minutes'] << 5)
+            | ($date['seconds'] >> 1)
+        );
 
-        $e['modtime'] = bindec("$lastmod_timeH$lastmod_timeM$lastmod_timeS");
-        $e['moddate'] = bindec("$lastmod_dateY$lastmod_dateM$lastmod_dateD");
         $e['offset'] = ftell($fh);
 
         fwrite($fh, $zipSignature);
-        fwrite($fh, pack('s', $e['vneeded'])); // version_needed
-        fwrite($fh, pack('s', $e['bitflag'])); // general_bit_flag
-        fwrite($fh, pack('s', $e['cmethod'])); // compression_method
-        fwrite($fh, pack('s', $e['modtime'])); // lastmod_time
-        fwrite($fh, pack('s', $e['moddate'])); // lastmod_date
+        fwrite($fh, pack('v', $e['vneeded'])); // version_needed
+        fwrite($fh, pack('v', $e['bitflag'])); // general_bit_flag
+        fwrite($fh, pack('v', $e['cmethod'])); // compression_method
+        fwrite($fh, pack('V', $e['dostime'])); // lastmod datetime
         fwrite($fh, pack('V', $e['crc_32']));  // crc-32
-        fwrite($fh, pack('I', $e['comsize'])); // compressed_size
-        fwrite($fh, pack('I', $e['uncsize'])); // uncompressed_size
-        fwrite($fh, pack('s', mb_strlen($cfilename, '8bit')));   // file_name_length
-        fwrite($fh, pack('s', 0));  // extra_field_length
+        fwrite($fh, pack('V', $e['comsize'])); // compressed_size
+        fwrite($fh, pack('V', $e['uncsize'])); // uncompressed_size
+        fwrite($fh, pack('v', mb_strlen($cfilename, '8bit')));   // file_name_length
+        fwrite($fh, pack('v', 0));  // extra_field_length
         fwrite($fh, $cfilename);    // file_name
         // ignoring extra_field
         fwrite($fh, $zdata);
@@ -619,8 +640,7 @@ class SimpleXLSXGen
         $cdrec .= pack('v', $e['vneeded']);                     // version needed to extract
         $cdrec .= "\x0\x0";                                     // general bit flag
         $cdrec .= pack('v', $e['cmethod']);                     // compression method
-        $cdrec .= pack('v', $e['modtime']);                     // lastmod time
-        $cdrec .= pack('v', $e['moddate']);                     // lastmod date
+        $cdrec .= pack('V', $e['dostime']);                     // lastmod datetime
         $cdrec .= pack('V', $e['crc_32']);                      // crc32
         $cdrec .= pack('V', $e['comsize']);                     // compressed filesize
         $cdrec .= pack('V', $e['uncsize']);                     // uncompressed filesize
@@ -646,6 +666,7 @@ class SimpleXLSXGen
         $SHEETVIEWS = '';
         $PANE = '';
         if (count($this->sheets[$idx]['rows'])) {
+            $ROWS[] = '<sheetData>';
             if ($this->sheets[$idx]['frozen'] !== '' || isset($this->sheets[$idx]['frozen'][0]) || isset($this->sheets[$idx]['frozen'][1])) {
                 //                $AC = 'A1'; // Active Cell
                 $x = $y = 0;
@@ -699,13 +720,13 @@ class SimpleXLSXGen
                     if (!isset($COL[$CUR_COL])) {
                         $COL[$CUR_COL] = 0;
                     }
-                    $cname = $this->num2name($CUR_COL) . $CUR_ROW;
+                    $cname = self::coord2cell($CUR_COL-1) . $CUR_ROW;
                     if ($v === null || $v === '') {
                         $row .= '<c r="' . $cname . '"/>';
                         continue;
                     }
                     $ct = $cv = $cf = null;
-                    $N = $A = $F = $FL = $C = $BG = $FS = 0;
+                    $N = $A = $F = $FL = $C = $BG = $FS = $FR = 0;
                     $BR = '';
                     if (is_string($v)) {
                         if ($v[0] === "\0") { // RAW value as string
@@ -777,22 +798,27 @@ class SimpleXLSXGen
                                 if (strpos($v, '<wraptext>') !== false) {
                                     $A += self::A_WRAPTEXT;
                                 }
-                                if (preg_match('/<a href="(https?:\/\/[^"]+)">(.*?)<\/a>/i', $v, $m)) {
+                                if (preg_match('/<a href="([^"]+)">(.*?)<\/a>/i', $v, $m)) {
+                                    $F += self::F_HYPERLINK;
+
                                     $h = explode('#', $m[1]);
-                                    $this->extLinkId++;
-                                    $this->sheets[$idx]['hyperlinks'][] = ['ID' => 'rId' . $this->extLinkId, 'R' => $cname, 'H' => $h[0], 'L' => isset($h[1]) ? $h[1] : ''];
-                                    $F += self::F_HYPERLINK; // Hyperlink
+                                    if (count($h) === 1) {
+                                        if (strpos($h[0], '!') > 0) { // internal hyperlink
+                                            $this->sheets[$idx]['hyperlinks'][] = ['ID' => null, 'R' => $cname, 'H' => null, 'L' => $m[1]];
+                                        } else {
+                                            $this->extLinkId++;
+                                            $this->sheets[$idx]['hyperlinks'][] = ['ID' => 'rId' . $this->extLinkId, 'R' => $cname, 'H' => $m[1], 'L' => ''];
+                                        }
+                                    } else {
+                                        $this->extLinkId++;
+                                        $this->sheets[$idx]['hyperlinks'][] = ['ID' => 'rId' . $this->extLinkId, 'R' => $cname, 'H' => $h[0], 'L' => $h[1]];
+                                    }
                                 }
-                                if (preg_match('/<a href="(mailto?:[^"]+)">(.*?)<\/a>/i', $v, $m)) {
-                                    $this->extLinkId++;
-                                    $this->sheets[$idx]['hyperlinks'][] = ['ID' => 'rId' . $this->extLinkId, 'R' => $cname, 'H' => $m[1], 'L' => ''];
-                                    $F += self::F_HYPERLINK; // mailto hyperlink
-                                }
-                                if (preg_match('/<a href="([^"]+![^"]+)">(.*?)<\/a>/i', $v, $m)) {
-                                    $this->sheets[$idx]['hyperlinks'][] = ['ID' => null, 'R' => $cname, 'H' => null, 'L' => $m[1]];
-                                    $F += self::F_HYPERLINK; // internal hyperlink
-                                }
-                                if (preg_match('/<f([^>]*)>/', $v, $m)) {
+                                // formatted raw?
+                                if (preg_match('/<raw>(.*)<\/raw>/', $v, $m)) {
+                                    $FR = 1;
+                                    $v = $m[1];
+                                } elseif (preg_match('/<f([^>]*)>/', $v, $m)) {
                                     $cf = strip_tags($v);
                                     $v = 'formula';
                                     if (preg_match('/ v="([^"]+)"/', $m[1], $m2)) {
@@ -801,9 +827,12 @@ class SimpleXLSXGen
                                 } else {
                                     $v = strip_tags($v);
                                 }
-                            } // tags
+                            } // \tags
                             $vl = mb_strlen($v);
-                            if ($N) {
+                            if ($FR) {
+                                $v = htmlspecialchars_decode($v);
+                                $vl = mb_strlen($v);
+                            } elseif ($N) {
                                 $cv = ltrim($v, '+');
                             } elseif ($v === '0' || preg_match('/^[-+]?[1-9]\d{0,14}$/', $v)) { // Integer as General
                                 $cv = ltrim($v, '+');
@@ -832,39 +861,43 @@ class SimpleXLSXGen
                                 $cv = round($m[1] / 100, 4);
                                 $N = self::N_PRECENT_DEC; // [10] 0.00%
                             } elseif (preg_match('/^(\d\d\d\d)-(\d\d)-(\d\d)$/', $v, $m)) {
-                                $cv = $this->date2excel($m[1], $m[2], $m[3]);
+                                $cv = self::date2excel($m[1], $m[2], $m[3]);
                                 $N = self::N_DATE; // [14] mm-dd-yy
                             } elseif (preg_match('/^(\d\d)\/(\d\d)\/(\d\d\d\d)$/', $v, $m)) {
-                                $cv = $this->date2excel($m[3], $m[2], $m[1]);
+                                $cv = self::date2excel($m[3], $m[2], $m[1]);
                                 $N = self::N_DATE; // [14] mm-dd-yy
                             } elseif (preg_match('/^(\d\d):(\d\d):(\d\d)$/', $v, $m)) {
-                                $cv = $this->date2excel(0, 0, 0, $m[1], $m[2], $m[3]);
+                                $cv = self::date2excel(0, 0, 0, $m[1], $m[2], $m[3]);
                                 $N = self::N_TIME; // time
                             } elseif (preg_match('/^(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/', $v, $m)) {
-                                $cv = $this->date2excel($m[1], $m[2], $m[3], $m[4], $m[5], $m[6]);
+                                $cv = self::date2excel($m[1], $m[2], $m[3], $m[4], $m[5], $m[6]);
                                 $N = ((int)$m[1] === 0) ? self::N_TIME : self::N_DATETIME; // [22] m/d/yy h:mm
                             } elseif (preg_match('/^(\d\d)\/(\d\d)\/(\d\d\d\d) (\d\d):(\d\d):(\d\d)$/', $v, $m)) {
-                                $cv = $this->date2excel($m[3], $m[2], $m[1], $m[4], $m[5], $m[6]);
+                                $cv = self::date2excel($m[3], $m[2], $m[1], $m[4], $m[5], $m[6]);
                                 $N = self::N_DATETIME; // [22] m/d/yy h:mm
                             } elseif (preg_match('/^[0-9+-.]+$/', $v)) { // Long ?
                                 $A += ($A & (self::A_LEFT | self::A_CENTER)) ? 0 : self::A_RIGHT;
-                            } elseif (preg_match('/^https?:\/\/\S+$/i', $v)) {
+                            } elseif (preg_match('/^https?:\/\/\S+$/i', $v)) { // Hyperlink ?
                                 $h = explode('#', $v);
                                 $this->extLinkId++;
                                 $this->sheets[$idx]['hyperlinks'][] = ['ID' => 'rId' . $this->extLinkId, 'R' => $cname, 'H' => $h[0], 'L' => isset($h[1]) ? $h[1] : ''];
-                                $F += self::F_HYPERLINK; // Hyperlink
-                            } elseif (preg_match("/^[a-zA-Z0-9_\.\-]+@([a-zA-Z0-9][a-zA-Z0-9\-]*\.)+[a-zA-Z]{2,}$/", $v)) {
+                                $F += self::F_HYPERLINK;
+                            } elseif (preg_match("/^[a-zA-Z0-9_\.\-]+@([a-zA-Z0-9][a-zA-Z0-9\-]*\.)+[a-zA-Z]{2,}$/", $v)) { // email?
                                 $this->extLinkId++;
                                 $this->sheets[$idx]['hyperlinks'][] = ['ID' => 'rId' . $this->extLinkId, 'R' => $cname, 'H' => 'mailto:' . $v, 'L' => ''];
-                                $F += self::F_HYPERLINK; // Hyperlink
+                                $F += self::F_HYPERLINK;
+                            } elseif (strpos($v,"\n") !== false) {
+                                $A |= self::A_WRAPTEXT;
                             }
+
                             if (($N === self::N_DATE || $N === self::N_DATETIME) && $cv < 0) {
                                 $cv = null;
                                 $N = 0;
                             }
+
                         }
                         if ($cv === null) {
-                            $v = $this->esc($v);
+                            $v = self::esc($v);
                             if ($cf) {
                                 $ct = 'str';
                                 $cv = $v;
@@ -893,7 +926,7 @@ class SimpleXLSXGen
                         $cv = $v;
                     } elseif ($v instanceof \DateTime) {
                         $vl = 16;
-                        $cv = $this->date2excel($v->format('Y'), $v->format('m'), $v->format('d'), $v->format('H'), $v->format('i'), $v->format('s'));
+                        $cv = self::date2excel($v->format('Y'), $v->format('m'), $v->format('d'), $v->format('H'), $v->format('i'), $v->format('s'));
                         $N = self::N_DATETIME; // [22] m/d/yy h:mm
                     } else {
                         continue;
@@ -929,9 +962,10 @@ class SimpleXLSXGen
                 $COLS[] = '<col min="' . $k . '" max="' . $k . '" width="' . $w . '" customWidth="1" />';
             }
             $COLS[] = '</cols>';
-            $REF = 'A1:' . $this->num2name(count($COL)) . $CUR_ROW;
+            $ROWS[] = '</sheetData>';
+            $REF = 'A1:' . self::coord2cell(count($COL)-1) . $CUR_ROW;
         } else {
-            $ROWS[] = '<row r="1"><c r="A1" t="s"><v>0</v></c></row>';
+            $ROWS[] = '<sheetData/>';
             $REF = 'A1:A1';
         }
 
@@ -954,7 +988,7 @@ class SimpleXLSXGen
         if (count($this->sheets[$idx]['hyperlinks'])) {
             $HYPERLINKS[] = '<hyperlinks>';
             foreach ($this->sheets[$idx]['hyperlinks'] as $h) {
-                $HYPERLINKS[] = '<hyperlink ref="' . $h['R'] . '"' . ($h['ID'] ? ' r:id="' . $h['ID'] . '"' : '') . ' location="' . $this->esc($h['L']) . '" display="' . $this->esc($h['H'] . ($h['L'] ? ' - ' . $h['L'] : '')) . '" />';
+                $HYPERLINKS[] = '<hyperlink ref="' . $h['R'] . '"' . ($h['ID'] ? ' r:id="' . $h['ID'] . '"' : '') . ' location="' . self::esc($h['L']) . '" display="' . self::esc($h['H'] . ($h['L'] ? ' - ' . $h['L'] : '')) . '" />';
             }
             $HYPERLINKS[] = '</hyperlinks>';
         }
@@ -975,43 +1009,6 @@ class SimpleXLSXGen
             ],
             $template
         );
-    }
-
-    public function num2name($num)
-    {
-        $numeric = ($num - 1) % 26;
-        $letter = chr(65 + $numeric);
-        $num2 = (int)(($num - 1) / 26);
-        if ($num2 > 0) {
-            return $this->num2name($num2) . $letter;
-        }
-        return $letter;
-    }
-
-    public function date2excel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
-    {
-        $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
-        if ((int)$year === 0) {
-            return $excelTime;
-        }
-        // self::CALENDAR_WINDOWS_1900
-        $excel1900isLeapYear = True;
-        if (($year === 1900) && ($month <= 2)) {
-            $excel1900isLeapYear = False;
-        }
-        $myExcelBaseDate = 2415020;
-        // Julian base date Adjustment
-        if ($month > 2) {
-            $month -= 3;
-        } else {
-            $month += 9;
-            --$year;
-        }
-        $century = substr($year, 0, 2);
-        $decade = substr($year, 2, 2);
-        //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
-        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myExcelBaseDate + $excel1900isLeapYear;
-        return (float)$excelDate + $excelTime;
     }
 
     public function setDefaultFont($name)
@@ -1067,6 +1064,12 @@ class SimpleXLSXGen
         return $this;
     }
 
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+        return $this;
+    }
+
     public function setApplication($application)
     {
         $this->application = $application;
@@ -1078,6 +1081,10 @@ class SimpleXLSXGen
         return $this;
     }
 
+    /**
+     * @param $range string 'A2:B10'
+     * @return $this
+     */
     public function autoFilter($range)
     {
         $this->sheets[$this->curSheet]['autofilter'] = $range;
@@ -1101,11 +1108,10 @@ class SimpleXLSXGen
         return $this;
     }
 
-    public function esc($str)
+    public function freezePanes($cell)
     {
-        // XML UTF-8: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
-        // but we use fast version
-        return str_replace(['&', '<', '>', "\x00", "\x03", "\x0B"], ['&amp;', '&lt;', '&gt;', '', '', ''], $str);
+        $this->sheets[$this->curSheet]['frozen'] = $cell;
+        return $this;
     }
 
     public function getNumFmtId($code)
@@ -1122,6 +1128,46 @@ class SimpleXLSXGen
         return $id;
     }
 
+    public static function date2excel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
+    {
+        $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
+        $year = (int) $year;
+        $month = (int) $month;
+        $day = (int) $day;
+//        echo "y=$year m=$month d=$day h=$hours m=$minutes s=$seconds".PHP_EOL;
+        if ($year === 0) {
+            return $excelTime;
+        }
+        // self::CALENDAR_WINDOWS_1900
+        $excel1900isLeapYear = 1;
+        if (($year === 1900) && ($month <= 2)) {
+            $excel1900isLeapYear = 0;
+        }
+        $myExcelBaseDate = 2415020;
+        // Julian base date Adjustment
+        if ($month > 2) {
+            $month -= 3;
+        } else {
+            $month += 9;
+            --$year;
+        }
+        $century = floor($year / 100);
+        $decade = $year - floor($year / 100) * 100;
+//        echo "y=$year m=$month d=$day cent=$century dec=$decade h=$hours m=$minutes s=$seconds".PHP_EOL;
+        //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
+        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myExcelBaseDate + $excel1900isLeapYear;
+        return (float)$excelDate + $excelTime;
+    }
+
+
+
+    public static function esc($str)
+    {
+        // XML UTF-8: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+        // but we use fast version
+        return str_replace(['&', '<', '>', "\x00", "\x03", "\x0B"], ['&amp;', '&lt;', '&gt;', '', '', ''], $str);
+    }
+
 
     public static function raw($value)
     {
@@ -1131,42 +1177,24 @@ class SimpleXLSXGen
     public static function cell2coord($cell, &$x, &$y)
     {
         $x = $y = 0;
-        $lettercount = 0;
-        $cell = str_replace([' ', '\t', '\r', '\n', '\v', '\0'], '', $cell);
-        if (empty($cell)) {
-            return;
-        }
-        $cell = strtoupper($cell);
-        for ($i = 0, $len = strlen($cell); $i < $len; $i++) {
-            if ($cell[$i] >= 'A' && $cell[$i] <= 'Z') {
-                $lettercount++;
+        if (preg_match('/^([A-Z]+)(\d+)$/', $cell, $m)) {
+            $len = strlen($m[1]);
+            for ($i = 0; $i < $len; $i++) {
+                $int = ord($m[1][$i]) - 65; // A -> 0, B -> 1
+                $int += ($i === $len - 1) ? 0 : 1;
+                $x += $int * pow(26, $len-$i-1);
             }
-        }
-        if ($lettercount > 0) {
-            $x = ord($cell[$lettercount - 1]) - ord('A');
-            $e = 1;
-            for ($i = $lettercount - 2; $i >= 0; $i--) {
-                $x += (ord($cell[$i]) - ord('A') + 1) * (26 ** $e);
-                $e++;
-            }
-        }
-        if ($lettercount < strlen($cell)) {
-            $y = ((int)substr($cell, $lettercount)) - 1;
+            $y = ((int)$m[2]) - 1;
         }
     }
 
-    public static function coord2cell($x, $y)
+    public static function coord2cell($x, $y = null)
     {
         $c = '';
         for ($i = $x; $i >= 0; $i = ((int)($i / 26)) - 1) {
-            $c = chr(ord('A') + $i % 26) . $c;
+            $c = chr(65 + $i % 26) . $c;
         }
-        return $c . ($y + 1);
+        return $c . ($y === null ? '' : ($y + 1));
     }
 
-    public function freezePanes($cell)
-    {
-        $this->sheets[$this->curSheet]['frozen'] = $cell;
-        return $this;
-    }
 }

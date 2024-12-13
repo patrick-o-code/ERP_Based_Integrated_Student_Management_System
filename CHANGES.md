@@ -10,6 +10,7 @@ Changes in 12.1
 - Add Breakdown by Grade Level in DailyTotals.php
 - Remove "only 1 MP & 1 grading period open at any given time" check for Progress Periods in MarkingPeriods.php
 - Add help "limitation does not apply to progress periods" in Help_en.php & help.po
+- Update SimpleXLSXGen to version 1.4.12 in classes/SimpleXLSXGen/
 
 Changes in 12.0.2
 -----------------

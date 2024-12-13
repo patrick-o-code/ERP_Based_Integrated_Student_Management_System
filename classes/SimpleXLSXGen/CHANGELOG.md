@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.4.12 (2024-07-28)
+* tag ```<raw>``` for styled raw values
+
+## 1.4.11 (2024-02-07)
+* hyperlinks to local files
+* num2name static now
+
+## 1.4.10 (2023-12-31)
+* added SimpleXLSXGen::create($title = null) to create empty book with title
+* added SimpleXLSXGen::save to save xlsx in current folder as {$title}.xslx or {$curdate}.xlsx
+* SimpleXLSXGen::esc and SimpleXLSXGen::date2excel static now
+* added examples SimpleXLSXGen::create, SimpleXSLXGen::raw, SimpleXLSXGen:save in README.md
+* fixed [fpassthru disabled issue](https://github.com/shuchkin/simplexlsxgen/issues/116)
+* fixed empty book, A1 empty now, text _No data_ removed
+* thx [Javier](https://github.com/xaviermdq)
+
+## 1.3.20 (2023-12-12)
+* force little endian numbers in zip headers
+
+## 1.3.18 (2023-12-02)
+* simple linebreaks
+
+## 1.3.17 (2023-10-02)
+* fixed [issue 128](https://github.com/shuchkin/simplexlsxgen/issues/128) date2excel type cast
+
+## 1.3.16 (2023-09-12)
+* preserve leading or traling spaces
+
 ## 1.3.15 (2023-04-19)
 * added meta: setTitle, setSubject, setAuthor, setCompany, setManager, setKeywords, setDescription, setCategory, setApplication, setLastModifiedBy. Thx [Oleg Kosarev](https://github.com/DevOlegKosarev)
 
