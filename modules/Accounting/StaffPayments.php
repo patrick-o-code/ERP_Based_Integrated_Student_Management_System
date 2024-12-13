@@ -63,7 +63,8 @@ if ( ! empty( $_REQUEST['values'] )
 }
 
 if ( $_REQUEST['modfunc'] === 'remove'
-	&& AllowEdit() )
+	// @since 12.1 Add Admin Delete Permission
+	&& AllowEdit( 'Accounting/StaffPayments.php&modfunc=remove' ) )
 {
 	if ( DeletePrompt( _( 'Payment' ) ) )
 	{

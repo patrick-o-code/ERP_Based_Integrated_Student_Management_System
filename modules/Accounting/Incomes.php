@@ -71,7 +71,8 @@ if ( ! empty( $_REQUEST['values'] )
 }
 
 if ( $_REQUEST['modfunc'] === 'remove'
-	&& AllowEdit() )
+	// @since 12.1 Add Admin Delete Permission
+	&& AllowEdit( 'Accounting/Incomes.php&modfunc=remove' ) )
 {
 	if ( DeletePrompt( _( 'Income' ) ) )
 	{

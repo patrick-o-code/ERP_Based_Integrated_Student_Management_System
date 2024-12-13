@@ -69,7 +69,8 @@ if ( ! empty( $_REQUEST['values'] )
 echo ErrorMessage( $error );
 
 if ( $_REQUEST['modfunc'] === 'remove'
-	&& AllowEdit() )
+	// @since 12.1 Add Admin Delete Permission
+	&& AllowEdit( 'Accounting/Salaries.php&modfunc=remove' ) )
 {
 	if ( DeletePrompt( _( 'Salary' ) ) )
 	{

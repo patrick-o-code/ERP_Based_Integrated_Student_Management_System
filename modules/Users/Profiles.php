@@ -149,6 +149,19 @@ if ( $_REQUEST['modfunc'] === 'update'
 		// @since 8.5 Admin Student Payments Delete restriction.
 		$file = 'Student_Billing/StudentPayments.php&modfunc=remove';
 		$tmp_menu['Student_Billing'][$xprofile][$file] = '&nbsp;&nbsp;&rsaquo; ' . _( 'Delete' );
+
+		$accounting_delete_files = [
+			'Accounting/Expenses.php',
+			'Accounting/Incomes.php',
+			'Accounting/Salaries.php',
+			'Accounting/StaffPayments.php',
+		];
+
+		foreach ( (array) $accounting_delete_files as $file )
+		{
+			// @since 12.1 Admin Delete Permission (Accounting Expenses/Incomes/Salaries/Staff Payments)
+			$tmp_menu['Accounting'][$xprofile][$file . '&modfunc=remove'] = '&nbsp;&nbsp;&rsaquo; ' . _( 'Delete' );
+		}
 	}
 
 	if ( isset( $_POST['can_use'] ) )
@@ -558,6 +571,38 @@ if ( $_REQUEST['modfunc'] != 'delete' )
 						{
 							// @since 8.5 Admin Student Payments Delete restriction.
 							$file = 'Student_Billing/StudentPayments.php&modfunc=remove';
+							$title = '&nbsp;&nbsp;&rsaquo; ' . _( 'Delete' );
+
+							$can_use = issetVal( $exceptions_RET[$file][1]['CAN_USE'] );
+							$can_edit = issetVal( $exceptions_RET[$file][1]['CAN_EDIT'] );
+
+							echo '<tr><td class="align-right"><input type="checkbox" name="can_use[' .
+							str_replace( '.', '_', $file ) . ']" value="Y"' .
+							( $can_use == 'Y' ? ' checked' : '' ) .
+							( AllowEdit() ? '' : ' DISABLED' ) . '></td>';
+
+							echo '<td class="align-right"><input type="checkbox" name="can_edit[' .
+							str_replace( '.', '_', $file ) . ']" value="Y"' .
+							( $can_edit == 'Y' ? ' checked' : '' ) .
+							( AllowEdit() ? '' : ' DISABLED' ) . ' /></td>';
+
+							echo '<td>' . $title . '</td></tr>';
+						}
+					}
+					elseif ( $modcat === 'Accounting'
+						&& $xprofile === 'admin' )
+					{
+						$accounting_delete_files = [
+							'Accounting/Expenses.php',
+							'Accounting/Incomes.php',
+							'Accounting/Salaries.php',
+							'Accounting/StaffPayments.php',
+						];
+
+						if ( in_array( $file, $accounting_delete_files ) )
+						{
+							// @since 12.1 Add Admin Delete Permission (Accounting Expenses/Incomes/Salaries/Staff Payments)
+							$file .= '&modfunc=remove';
 							$title = '&nbsp;&nbsp;&rsaquo; ' . _( 'Delete' );
 
 							$can_use = issetVal( $exceptions_RET[$file][1]['CAN_USE'] );
