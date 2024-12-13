@@ -7,6 +7,7 @@ Changes in 12.1
 - Add Admin Delete Permission in Expenses.php, Incomes.php, Salaries.php, StaffPayments.php, Exceptions.php & Profiles.php
 - SQL Add Admin Delete Permission to profile_exceptions & staff_exceptions tables in Update.fnc.php, rosariosis.sql & rosariosis_mysql.sql
 - Add "Show only my courses" checkbox in Courses.php
+- Add Breakdown by Grade Level in DailyTotals.php
 
 Changes in 12.0.2
 -----------------
