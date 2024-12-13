@@ -8,6 +8,7 @@ Changes in 12.1
 - SQL Add Admin Delete Permission to profile_exceptions & staff_exceptions tables in Update.fnc.php, rosariosis.sql & rosariosis_mysql.sql
 - Add "Show only my courses" checkbox in Courses.php
 - Add Breakdown by Grade Level in DailyTotals.php
+- Remove "only 1 MP & 1 grading period open at any given time" check for Progress Periods in MarkingPeriods.php
 
 Changes in 12.0.2
 -----------------

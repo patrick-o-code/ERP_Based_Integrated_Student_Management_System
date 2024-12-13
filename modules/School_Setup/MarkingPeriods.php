@@ -60,38 +60,44 @@ if ( ! empty( $_POST['tables'] )
 			break 1;
 		}
 
-		// CHECK TO MAKE SURE ONLY ONE MP & ONE GRADING PERIOD IS OPEN AT ANY GIVEN TIME
-		$dates_RET = DBGet( "SELECT MARKING_PERIOD_ID
-			FROM school_marking_periods
-			WHERE MP='" . $_REQUEST['mp_term'] . "'
-			AND ( true=false" .
-			( ! empty( $columns['START_DATE'] ) ? " OR '" . $columns['START_DATE'] .
-				"' BETWEEN START_DATE AND END_DATE" : '' ) .
-			( ! empty( $columns['END_DATE'] ) ? " OR '" . $columns['END_DATE'] .
-				"' BETWEEN START_DATE AND END_DATE" : '' ) .
-			( ! empty( $columns['START_DATE'] ) && ! empty( $columns['END_DATE'] ) ?
-				" OR START_DATE BETWEEN '" . $columns['START_DATE'] . "' AND '" . $columns['END_DATE'] . "'" .
-				" OR END_DATE BETWEEN '" . $columns['START_DATE'] . "' AND '" . $columns['END_DATE'] . "'" : '' ) . ")
-			AND SCHOOL_ID='" . UserSchool() . "'
-			AND SYEAR='" . UserSyear() . "'" .
-			( $id !== 'new' ? " AND SCHOOL_ID='" . UserSchool() . "'
-				AND SYEAR='" . UserSyear() . "'
-				AND MARKING_PERIOD_ID!='" . (int) $id . "'" : '' ) );
+		$dates_RET = $posting_RET = false;
 
-		$posting_RET = DBGet( "SELECT MARKING_PERIOD_ID
-			FROM school_marking_periods
-			WHERE MP='" . $_REQUEST['mp_term'] . "'
-			AND ( true=false" .
-			( ! empty( $columns['POST_START_DATE'] ) ? " OR '" . $columns['POST_START_DATE'] .
-				"' BETWEEN POST_START_DATE AND POST_END_DATE" : '' ) .
-			( ! empty( $columns['POST_END_DATE'] ) ? " OR '" . $columns['POST_END_DATE'] .
-				"' BETWEEN POST_START_DATE AND POST_END_DATE" : '' ) .
-			( ! empty( $columns['POST_START_DATE'] ) && ! empty( $columns['POST_END_DATE'] ) ?
-				" OR POST_START_DATE BETWEEN '" . $columns['POST_START_DATE'] . "' AND '" . $columns['POST_END_DATE'] . "'" .
-				" OR POST_END_DATE BETWEEN '" . $columns['POST_START_DATE'] . "' AND '" . $columns['POST_END_DATE'] . "'" : '' ) . ")
-			AND SCHOOL_ID='" . UserSchool() . "'
-			AND SYEAR='" . UserSyear() . "'" .
-			( $id !== 'new' ? " AND MARKING_PERIOD_ID!='" . (int) $id . "'" : '' ) );
+		// @since 12.1 Remove "only 1 MP & 1 grading period open at any given time" check for Progress Periods
+		if ( $_REQUEST['mp_term'] !== 'PRO' )
+		{
+			// CHECK TO MAKE SURE ONLY ONE MP & ONE GRADING PERIOD IS OPEN AT ANY GIVEN TIME
+			$dates_RET = DBGet( "SELECT MARKING_PERIOD_ID
+				FROM school_marking_periods
+				WHERE MP='" . $_REQUEST['mp_term'] . "'
+				AND ( true=false" .
+				( ! empty( $columns['START_DATE'] ) ? " OR '" . $columns['START_DATE'] .
+					"' BETWEEN START_DATE AND END_DATE" : '' ) .
+				( ! empty( $columns['END_DATE'] ) ? " OR '" . $columns['END_DATE'] .
+					"' BETWEEN START_DATE AND END_DATE" : '' ) .
+				( ! empty( $columns['START_DATE'] ) && ! empty( $columns['END_DATE'] ) ?
+					" OR START_DATE BETWEEN '" . $columns['START_DATE'] . "' AND '" . $columns['END_DATE'] . "'" .
+					" OR END_DATE BETWEEN '" . $columns['START_DATE'] . "' AND '" . $columns['END_DATE'] . "'" : '' ) . ")
+				AND SCHOOL_ID='" . UserSchool() . "'
+				AND SYEAR='" . UserSyear() . "'" .
+				( $id !== 'new' ? " AND SCHOOL_ID='" . UserSchool() . "'
+					AND SYEAR='" . UserSyear() . "'
+					AND MARKING_PERIOD_ID!='" . (int) $id . "'" : '' ) );
+
+			$posting_RET = DBGet( "SELECT MARKING_PERIOD_ID
+				FROM school_marking_periods
+				WHERE MP='" . $_REQUEST['mp_term'] . "'
+				AND ( true=false" .
+				( ! empty( $columns['POST_START_DATE'] ) ? " OR '" . $columns['POST_START_DATE'] .
+					"' BETWEEN POST_START_DATE AND POST_END_DATE" : '' ) .
+				( ! empty( $columns['POST_END_DATE'] ) ? " OR '" . $columns['POST_END_DATE'] .
+					"' BETWEEN POST_START_DATE AND POST_END_DATE" : '' ) .
+				( ! empty( $columns['POST_START_DATE'] ) && ! empty( $columns['POST_END_DATE'] ) ?
+					" OR POST_START_DATE BETWEEN '" . $columns['POST_START_DATE'] . "' AND '" . $columns['POST_END_DATE'] . "'" .
+					" OR POST_END_DATE BETWEEN '" . $columns['POST_START_DATE'] . "' AND '" . $columns['POST_END_DATE'] . "'" : '' ) . ")
+				AND SCHOOL_ID='" . UserSchool() . "'
+				AND SYEAR='" . UserSyear() . "'" .
+				( $id !== 'new' ? " AND MARKING_PERIOD_ID!='" . (int) $id . "'" : '' ) );
+		}
 
 		if ( ! empty( $dates_RET ) )
 		{
