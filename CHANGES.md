@@ -5,6 +5,7 @@ Changes in 12.1
 ---------------
 - MySQL set CREATED_AT on INSERT in rosariosis_mysql.sql
 - Add Admin Delete Permission in Expenses.php, Incomes.php, Salaries.php, StaffPayments.php, Exceptions.php & Profiles.php
+- SQL Add Admin Delete Permission to profile_exceptions & staff_exceptions tables in Update.fnc.php, rosariosis.sql & rosariosis_mysql.sql
 
 Changes in 12.0.2
 -----------------

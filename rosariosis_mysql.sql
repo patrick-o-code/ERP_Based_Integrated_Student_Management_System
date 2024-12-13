@@ -2695,10 +2695,14 @@ INSERT INTO profile_exceptions VALUES (1, 'Food_Service/Kiosk.php', 'Y', 'Y', CU
 INSERT INTO profile_exceptions VALUES (1, 'Resources/Resources.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/DailyTransactions.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/Expenses.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Expenses.php&modfunc=remove', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/Incomes.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Incomes.php&modfunc=remove', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/Salaries.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/Salaries.php&modfunc=remove', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffBalances.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffPayments.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
+INSERT INTO profile_exceptions VALUES (1, 'Accounting/StaffPayments.php&modfunc=remove', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/Statements.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Accounting/Categories.php', 'Y', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO profile_exceptions VALUES (2, 'School_Setup/Schools.php', 'Y', NULL, CURRENT_TIMESTAMP, NULL);

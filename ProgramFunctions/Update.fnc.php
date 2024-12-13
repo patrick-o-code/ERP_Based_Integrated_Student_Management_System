@@ -273,6 +273,10 @@ function Update()
 		case version_compare( $from_version, '12.0', '<' ) :
 
 			$return = _update120();
+
+		case version_compare( $from_version, '12.1', '<' ) :
+
+			$return = _update121();
 	}
 
 	// Update version in DB config table.
@@ -1254,6 +1258,112 @@ function _update120()
 			rmdir( 'assets/FS_icons/' );
 		}
 	}
+
+	return $return;
+}
+
+/**
+ * Update to version 12.1
+ *
+ * Add Admin Delete Permission (Accounting Expenses/Incomes/Salaries/Staff Payments) to
+ * 1. profile_exceptions table
+ * 2. staff_exceptions table
+ *
+ * Local function
+ *
+ * @since 12.1
+ *
+ * @return boolean false if update failed or if not called by Update(), else true
+ */
+function _update121()
+{
+	_isCallerUpdate( debug_backtrace() );
+
+	$return = true;
+
+	/**
+	 * 1. profile_exceptions table
+	 * Add Admin Delete right (Accounting Expenses/Incomes/Salaries/Staff Payments)
+	 */
+	$insert_sql = "INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+		SELECT profile_id,'Accounting/Expenses.php&modfunc=remove','Y','Y'
+		FROM profile_exceptions
+		WHERE modname='Accounting/Expenses.php'
+		AND can_edit='Y'
+		AND profile_id NOT IN(SELECT profile_id
+			FROM profile_exceptions
+			WHERE modname='Accounting/Expenses.php&modfunc=remove');";
+
+	$insert_sql .= "INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+		SELECT profile_id,'Accounting/Incomes.php&modfunc=remove','Y','Y'
+		FROM profile_exceptions
+		WHERE modname='Accounting/Incomes.php'
+		AND can_edit='Y'
+		AND profile_id NOT IN(SELECT profile_id
+			FROM profile_exceptions
+			WHERE modname='Accounting/Incomes.php&modfunc=remove');";
+
+	$insert_sql .= "INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+		SELECT profile_id,'Accounting/Salaries.php&modfunc=remove','Y','Y'
+		FROM profile_exceptions
+		WHERE modname='Accounting/Salaries.php'
+		AND can_edit='Y'
+		AND profile_id NOT IN(SELECT profile_id
+			FROM profile_exceptions
+			WHERE modname='Accounting/Salaries.php&modfunc=remove');";
+
+	$insert_sql .= "INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+		SELECT profile_id,'Accounting/StaffPayments.php&modfunc=remove','Y','Y'
+		FROM profile_exceptions
+		WHERE modname='Accounting/StaffPayments.php'
+		AND can_edit='Y'
+		AND profile_id NOT IN(SELECT profile_id
+			FROM profile_exceptions
+			WHERE modname='Accounting/StaffPayments.php&modfunc=remove');";
+
+	DBQuery( $insert_sql );
+
+	/**
+	 * 2. staff_exceptions table
+	 * Add Admin Delete right (Accounting Expenses/Incomes/Salaries/Staff Payments)
+	 */
+	$insert_sql = "INSERT INTO staff_exceptions (user_id, modname, can_use, can_edit)
+		SELECT user_id,'Accounting/Expenses.php&modfunc=remove','Y','Y'
+		FROM staff_exceptions
+		WHERE modname='Accounting/Expenses.php'
+		AND can_edit='Y'
+		AND user_id NOT IN(SELECT user_id
+			FROM staff_exceptions
+			WHERE modname='Accounting/Expenses.php&modfunc=remove');";
+
+	$insert_sql .= "INSERT INTO staff_exceptions (user_id, modname, can_use, can_edit)
+		SELECT user_id,'Accounting/Incomes.php&modfunc=remove','Y','Y'
+		FROM staff_exceptions
+		WHERE modname='Accounting/Incomes.php'
+		AND can_edit='Y'
+		AND user_id NOT IN(SELECT user_id
+			FROM staff_exceptions
+			WHERE modname='Accounting/Incomes.php&modfunc=remove');";
+
+	$insert_sql .= "INSERT INTO staff_exceptions (user_id, modname, can_use, can_edit)
+		SELECT user_id,'Accounting/Salaries.php&modfunc=remove','Y','Y'
+		FROM staff_exceptions
+		WHERE modname='Accounting/Salaries.php'
+		AND can_edit='Y'
+		AND user_id NOT IN(SELECT user_id
+			FROM staff_exceptions
+			WHERE modname='Accounting/Salaries.php&modfunc=remove');";
+
+	$insert_sql .= "INSERT INTO staff_exceptions (user_id, modname, can_use, can_edit)
+		SELECT user_id,'Accounting/StaffPayments.php&modfunc=remove','Y','Y'
+		FROM staff_exceptions
+		WHERE modname='Accounting/StaffPayments.php'
+		AND can_edit='Y'
+		AND user_id NOT IN(SELECT user_id
+			FROM staff_exceptions
+			WHERE modname='Accounting/StaffPayments.php&modfunc=remove');";
+
+	DBQuery( $insert_sql );
 
 	return $return;
 }
