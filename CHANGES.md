@@ -17,6 +17,7 @@ Changes in 12.1
 - Add AddonUpsellPremium() function in Addon.fnc.php
 - JS If inside colorBox, close it on Cancel in Prompts.php
 - Fix regression since 7.1 short month name, eg.: "Sep" in Date.php
+- Warning instead of error for PHP extensions in diagnostic.php
 
 Changes in 12.0.2
 -----------------

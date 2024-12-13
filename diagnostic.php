@@ -11,6 +11,8 @@
 
 $error = [];
 
+$warning = [];
+
 // FJ check PHP version.
 if ( version_compare( PHP_VERSION, '5.5.9' ) == -1 )
 {
@@ -179,25 +181,32 @@ if ( ! empty( $DatabaseDumpPath )
 // Check for gd extension.
 if ( ! extension_loaded( 'gd' ) )
 {
-	$error[] = 'PHP extensions: RosarioSIS relies on the gd extension (used to resize and compress images). Please install and activate it.';
+	$warning[] = 'PHP extensions: RosarioSIS relies on the gd extension (used to resize and compress images). Please install and activate it.';
 }
 
 // Check for zip extension.
 if ( ! extension_loaded( 'zip' ) )
 {
-	$error[] = 'PHP extensions: RosarioSIS relies on the zip extension (used to upload add-ons). Please install and activate it.';
+	$warning[] = 'PHP extensions: RosarioSIS relies on the zip extension (used to upload add-ons). Please install and activate it.';
 }
 
 // Check for curl extension.
 if ( ! extension_loaded( 'curl' ) )
 {
-	$error[] = 'PHP extensions: RosarioSIS relies on the curl extension. Please install and activate it.';
+	$warning[] = 'PHP extensions: RosarioSIS relies on the curl extension (used to make external API calls). Please install and activate it.';
 }
 
 // Check for intl extension.
 if ( ! extension_loaded( 'intl' ) )
 {
-	$error[] = 'PHP extensions: RosarioSIS relies on the intl extension. Please install and activate it.';
+	$warning[] = 'PHP extensions: RosarioSIS relies on the intl extension (used for internationalization). Please install and activate it.';
+}
+
+// Check for gettext extension (not on Windows).
+if ( ! extension_loaded( 'gettext' )
+	&& strtoupper( substr( PHP_OS, 0, 3 ) ) !== 'WIN' )
+{
+	$warning[] = 'PHP extensions: RosarioSIS relies on the gettext extension (used for translations). Please install and activate it.';
 }
 
 // Check session.auto_start.
@@ -208,6 +217,8 @@ if ( (bool) ini_get( 'session.auto_start' ) )
 
 
 echo _ErrorMessage( $error, 'error' );
+
+echo _ErrorMessage( $warning, 'warning' );
 
 if ( ! count( $error ) )
 {
@@ -221,7 +232,7 @@ if ( ! count( $error ) )
  * Local function
  *
  * @param  array  $error Errors.
- * @param  string $code  error|fatal.
+ * @param  string $code  error|fatal|warning.
  *
  * @return string Errors HTML, exits if fatal error
  */
@@ -238,6 +249,10 @@ function _ErrorMessage( $error, $code = 'error' )
 			{
 				$return .= '<b><span style="color:#CC0000">Error:</span></b> ';
 			}
+			elseif ( $code === 'warning' )
+			{
+				$return .= '<b><span style="color:orange">Warning:</span></b> ';
+			}
 			else
 				$return .= '<b><span style="color:#00CC00">Note:</span></b> ';
 
@@ -249,6 +264,10 @@ function _ErrorMessage( $error, $code = 'error' )
 				|| $code === 'fatal' )
 			{
 				$return .= '<b><span style="color:#CC0000">Errors:</span></b>';
+			}
+			elseif ( $code === 'warning' )
+			{
+				$return .= '<b><span style="color:orange">Warnings:</span></b> ';
 			}
 			else
 				$return .= '<b><span style="color:#00CC00">Notes:</span></b>';
