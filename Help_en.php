@@ -97,6 +97,8 @@ if ( User( 'PROFILE' ) === 'admin' ):
 
 	<p>' . _help( 'Notice that neither two marking periods nor two posting periods in the same tier can overlap. Also, No two marking periods in any tier should have the same sort order.' ) . '</p>
 
+	<p>' . _help( 'The above limitation does not apply to progress periods. You can have two progress periods with overlapping dates.' ) . '</p>
+
 	<p>' . _help( 'Note: a marking period cannot be deleted once it has course periods.' ) . '</p>
 
 	<p>' . _help( 'Note: you cannot add a new year using this program. Use the <i>School > Rollover</i> program instead.' ) . '</p>';
