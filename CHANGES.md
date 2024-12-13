@@ -13,6 +13,7 @@ Changes in 12.1
 - Update SimpleXLSXGen to version 1.4.12 in classes/SimpleXLSXGen/
 - Add help about Permissions (tooltip) on Add a user screen in Users/includes/General_Info.inc.php
 - Add-on SQL translation file can be under `locale/[locale_code]/` folder in Modules.inc.php & Plugins.inc.php
+- Fix tooltip display at bottom in School_Setup/Configuration.php
 
 Changes in 12.0.2
 -----------------

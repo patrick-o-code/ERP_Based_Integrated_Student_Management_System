@@ -750,7 +750,8 @@ else
 		if ( $_REQUEST['tab'] === 'attendance' )
 		{
 			// @since 11.2 Dynamic Daily Attendance calculation based on total course period minutes
-			$tooltip = '<div class="tooltip"><i>' .
+			// @since 12.1 Fix tooltip display at bottom
+			$tooltip = '<div class="tooltip bottom"><i>' .
 				_( 'Set to 0 for dynamic Daily Attendance calculation based on total course period minutes.' ) .
 				'</i></div>';
 
