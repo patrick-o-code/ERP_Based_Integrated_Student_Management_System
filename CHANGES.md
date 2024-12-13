@@ -15,6 +15,7 @@ Changes in 12.1
 - Add-on SQL translation file can be under `locale/[locale_code]/` folder in Modules.inc.php & Plugins.inc.php
 - Fix tooltip display at bottom in School_Setup/Configuration.php
 - Add AddonUpsellPremium() function in Addon.fnc.php
+- JS If inside colorBox, close it on Cancel in Prompts.php
 
 Changes in 12.0.2
 -----------------
