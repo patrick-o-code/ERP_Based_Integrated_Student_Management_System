@@ -26,6 +26,14 @@ if ( $_REQUEST['course_period_id'] && $_REQUEST['course_period_id'] !== 'new' )
 
 $_REQUEST['last_year'] = issetVal( $_REQUEST['last_year'], '' );
 
+// @since 12.1 Add "Show only my courses" checkbox
+$show_only_my_courses = false;
+
+if ( User( 'PROFILE' ) !== 'admin' )
+{
+	$show_only_my_courses = issetVal( $_REQUEST['show_only_my_courses'], '' );
+}
+
 if ( $_REQUEST['modfunc'] !== 'choose_course' )
 {
 	DrawHeader( ProgramTitle() );
@@ -733,6 +741,41 @@ if (  ( ! $_REQUEST['modfunc']
 	|| $_REQUEST['modfunc'] === 'choose_course' )
 	&& empty( $_REQUEST['course_modfunc'] ) )
 {
+	if ( User( 'PROFILE' ) !== 'admin' )
+	{
+		// @since 12.1 Add "Show only my courses" checkbox
+		if ( empty( $_ROSARIO['allow_edit'] ) )
+		{
+			$_ROSARIO['allow_edit'] = true;
+
+			$allow_edit_tmp = true;
+		}
+
+		$show_only_my_courses_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
+			( $show_only_my_courses ? '' : '&show_only_my_courses=Y' );
+
+		$show_only_my_courses_input = CheckBoxInput(
+			$show_only_my_courses,
+			'show_only_my_courses',
+			_( 'Show only my courses' ),
+			'',
+			true,
+			'Yes',
+			'No',
+			false,
+			'onchange="' . AttrEscape(
+				'ajaxLink(' . json_encode( URLEscape( $show_only_my_courses_url ) ) . ');'
+			) . '"'
+		);
+
+		DrawHeader( '', $show_only_my_courses_input );
+
+		if ( ! empty( $allow_edit_tmp ) )
+		{
+			$_ROSARIO['allow_edit'] = false;
+		}
+	}
+
 	// Check subject ID is valid for current school & syear!
 
 	if ( $_REQUEST['modfunc'] !== 'choose_course'
@@ -759,12 +802,44 @@ if (  ( ! $_REQUEST['modfunc']
 	// FJ fix SQL bug invalid sort order
 	echo ErrorMessage( $error );
 
-	$subjects_RET = DBGet( "SELECT SUBJECT_ID,TITLE
+	$subjects_sql = "SELECT SUBJECT_ID,TITLE
 		FROM course_subjects
 		WHERE SCHOOL_ID='" . UserSchool() . "'
 		AND SYEAR='" . ( $_REQUEST['modfunc'] == 'choose_course' && $_REQUEST['last_year'] == 'true' ?
 		UserSyear() - 1 :
-		UserSyear() ) . "' ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE" );
+		UserSyear() ) . "'";
+
+	if ( ! empty( $show_only_my_courses ) )
+	{
+		if ( User( 'PROFILE' ) === 'teacher' )
+		{
+			// @since 12.1 Add "Show only my courses" checkbox
+			$subjects_sql .= " AND SUBJECT_ID IN(SELECT SUBJECT_ID
+				FROM courses
+				WHERE COURSE_ID IN(SELECT COURSE_ID
+					FROM course_periods
+					WHERE SYEAR='" . UserSyear() . "'
+					AND SCHOOL_ID='" . UserSchool() . "'
+					AND (TEACHER_ID='" . User( 'STAFF_ID' ) . "'
+						OR SECONDARY_TEACHER_ID='" . User( 'STAFF_ID' ) . "')))";
+		}
+		elseif ( UserStudentID() )
+		{
+			$subjects_sql .= " AND SUBJECT_ID IN(SELECT SUBJECT_ID
+				FROM courses
+				WHERE COURSE_ID IN(SELECT COURSE_ID
+					FROM schedule
+					WHERE SYEAR='" . UserSyear() . "'
+					AND SCHOOL_ID='" . UserSchool() . "'
+					AND STUDENT_ID='" . UserStudentID() . "'
+					AND START_DATE<=CURRENT_DATE
+					AND (END_DATE IS NULL OR END_DATE>=CURRENT_DATE)))";
+		}
+	}
+
+	$subjects_sql .= " ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE";
+
+	$subjects_RET = DBGet( $subjects_sql );
 
 	if ( $_REQUEST['modfunc'] !== 'choose_course' )
 	{
@@ -1564,6 +1639,13 @@ if (  ( ! $_REQUEST['modfunc']
 	$columns = [ 'TITLE' => _( 'Subject' ) ];
 	$link = [];
 	$link['TITLE']['link'] = 'Modules.php?modname=' . $_REQUEST['modname'];
+
+	if ( $show_only_my_courses )
+	{
+		// @since 12.1 Add "Show only my courses" checkbox
+		$link['TITLE']['link'] .= '&show_only_my_courses=Y';
+	}
+
 	$link['TITLE']['variables'] = [ 'subject_id' => 'SUBJECT_ID' ];
 
 	if ( $_REQUEST['modfunc'] === 'choose_course' )
@@ -1597,10 +1679,37 @@ if (  ( ! $_REQUEST['modfunc']
 	if ( $_REQUEST['subject_id']
 		&& $_REQUEST['subject_id'] !== 'new' )
 	{
-		$courses_RET = DBGet( "SELECT COURSE_ID,TITLE
+		$courses_sql = "SELECT COURSE_ID,TITLE
 			FROM courses
-			WHERE SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'
-			ORDER BY TITLE" );
+			WHERE SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'";
+
+		if ( ! empty( $show_only_my_courses ) )
+		{
+			// @since 12.1 Add "Show only my courses" checkbox
+			if ( User( 'PROFILE' ) === 'teacher' )
+			{
+				$courses_sql .= " AND COURSE_ID IN(SELECT COURSE_ID
+					FROM course_periods
+					WHERE SYEAR='" . UserSyear() . "'
+					AND SCHOOL_ID='" . UserSchool() . "'
+					AND (TEACHER_ID='" . User( 'STAFF_ID' ) . "'
+						OR SECONDARY_TEACHER_ID='" . User( 'STAFF_ID' ) . "'))";
+			}
+			elseif ( UserStudentID() )
+			{
+				$courses_sql .= " AND COURSE_ID IN(SELECT COURSE_ID
+					FROM schedule
+					WHERE SYEAR='" . UserSyear() . "'
+					AND SCHOOL_ID='" . UserSchool() . "'
+					AND STUDENT_ID='" . UserStudentID() . "'
+					AND START_DATE<=CURRENT_DATE
+					AND (END_DATE IS NULL OR END_DATE>=CURRENT_DATE))";
+			}
+		}
+
+		$courses_sql .= " ORDER BY TITLE";
+
+		$courses_RET = DBGet( $courses_sql );
 
 		if ( ! empty( $courses_RET )
 			&& ! empty( $_REQUEST['course_id'] ) )
@@ -1619,6 +1728,12 @@ if (  ( ! $_REQUEST['modfunc']
 		$link = [];
 
 		$link['TITLE']['link'] = 'Modules.php?modname=' . $_REQUEST['modname'] . '&subject_id=' . $_REQUEST['subject_id'];
+
+		if ( $show_only_my_courses )
+		{
+			// @since 12.1 Add "Show only my courses" checkbox
+			$link['TITLE']['link'] .= '&show_only_my_courses=Y';
+		}
 
 		$link['TITLE']['variables'] = [ 'course_id' => 'COURSE_ID' ];
 
@@ -1662,7 +1777,7 @@ if (  ( ! $_REQUEST['modfunc']
 
 			//FJ multiple school periods for a course period
 			//$periods_RET = DBGet( "SELECT '".$_REQUEST['subject_id']."' AS SUBJECT_ID,COURSE_ID,COURSE_PERIOD_ID,TITLE,MP,MARKING_PERIOD_ID,CALENDAR_ID,TOTAL_SEATS AS AVAILABLE_SEATS FROM course_periods cp WHERE COURSE_ID='".$_REQUEST['course_id']."' ".($_REQUEST['modfunc']=='choose_course' && $_REQUEST['modname']=='Scheduling/Schedule.php'?" AND '".$date."'<=(SELECT END_DATE FROM school_marking_periods WHERE SYEAR=cp.SYEAR AND MARKING_PERIOD_ID=cp.MARKING_PERIOD_ID)":'')." ORDER BY (SELECT SORT_ORDER FROM school_periods WHERE PERIOD_ID=cp.PERIOD_ID),TITLE"));
-			$periods_RET = DBGet( "SELECT '" . $_REQUEST['subject_id'] . "' AS SUBJECT_ID,
+			$periods_sql = "SELECT '" . $_REQUEST['subject_id'] . "' AS SUBJECT_ID,
 				COURSE_ID,COURSE_PERIOD_ID,TITLE,MP,MARKING_PERIOD_ID,CALENDAR_ID,
 				TOTAL_SEATS AS AVAILABLE_SEATS
 				FROM course_periods cp
@@ -1673,8 +1788,31 @@ if (  ( ! $_REQUEST['modfunc']
 						FROM school_marking_periods
 						WHERE SYEAR=cp.SYEAR
 						AND MARKING_PERIOD_ID=cp.MARKING_PERIOD_ID)" :
-					'' ) . "
-				ORDER BY SHORT_NAME,TITLE" );
+					'' );
+
+			if ( ! empty( $show_only_my_courses ) )
+			{
+				// @since 12.1 Add "Show only my courses" checkbox
+				if ( User( 'PROFILE' ) === 'teacher' )
+				{
+					$periods_sql .= " AND (TEACHER_ID='" . User( 'STAFF_ID' ) . "'
+						OR SECONDARY_TEACHER_ID='" . User( 'STAFF_ID' ) . "')";
+				}
+				elseif ( UserStudentID() )
+				{
+					$periods_sql .= " AND COURSE_PERIOD_ID IN(SELECT COURSE_PERIOD_ID
+						FROM schedule
+						WHERE SYEAR='" . UserSyear() . "'
+						AND SCHOOL_ID='" . UserSchool() . "'
+						AND STUDENT_ID='" . UserStudentID() . "'
+						AND START_DATE<=CURRENT_DATE
+						AND (END_DATE IS NULL OR END_DATE>=CURRENT_DATE))";
+				}
+			}
+
+			$periods_sql .= " ORDER BY SHORT_NAME,TITLE";
+
+			$periods_RET = DBGet( $periods_sql );
 
 			//if ( $_REQUEST['modname']=='Scheduling/Schedule.php')
 			calcSeats1( $periods_RET, $date );
@@ -1700,6 +1838,12 @@ if (  ( ! $_REQUEST['modfunc']
 					&& ! $_REQUEST['include_child_mps'] ) )
 			{
 				$link['TITLE']['link'] = 'Modules.php?modname=' . $_REQUEST['modname'] . '&subject_id=' . $_REQUEST['subject_id'] . '&course_id=' . $_REQUEST['course_id'];
+
+				if ( $show_only_my_courses )
+				{
+					// @since 12.1 Add "Show only my courses" checkbox
+					$link['TITLE']['link'] .= '&show_only_my_courses=Y';
+				}
 
 				$link['TITLE']['variables'] = [ 'course_period_id' => 'COURSE_PERIOD_ID', 'course_marking_period_id' => 'MARKING_PERIOD_ID' ];
 
