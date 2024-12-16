@@ -180,6 +180,12 @@ var ColorBox = function() {
 	});
 
 	$('.colorboxinline').colorbox({
+		onComplete: function() {
+			// @link https://stackoverflow.com/questions/280049/how-can-i-run-a-javascript-callback-when-an-image-is-loaded
+			$('#cboxLoadedContent img').on('load', function() {
+				$.colorbox.resize();
+			});
+		},
 		inline: true,
 		maxWidth: '95%',
 		maxHeight: '85%',
@@ -189,37 +195,39 @@ var ColorBox = function() {
 	});
 }
 
-// MarkDown.
-var GetMDConverter = function() {
-	if (typeof GetMDConverter.marked === 'undefined') {
-		GetMDConverter.marked = function(markDown) {
-			// @since 6.0 JS MarkDown use marked instead of showdown (15KB smaller).
-			// Set options.
-			// @link https://marked.js.org/#/USING_ADVANCED.md
-			marked.setOptions({
-				breaks: true, // Add <br> on a single line break. Requires gfm be true.
-				gfm: true, // GitHub Flavored Markdown (GFM).
-				headerIds: false, // Include an id attribute when emitting headings (h1, h2, h3, etc).
-			});
+// Convert MarkDown to HTML & sanitize.
+var MDConverter = function(markDown) {
+	// @since 6.0 JS MarkDown use marked instead of showdown (15KB smaller).
+	// Set options.
+	// @link https://marked.js.org/#/USING_ADVANCED.md
+	marked.setOptions({
+		breaks: true, // Add <br> on a single line break. Requires gfm be true.
+		gfm: true, // GitHub Flavored Markdown (GFM).
+		headerIds: false, // Include an id attribute when emitting headings (h1, h2, h3, etc).
+	});
 
-			var md = marked.parse(markDown);
+	var md = marked.parse(markDown);
 
-			// Open links in new window.
-			// @link https://github.com/cure53/DOMPurify/issues/317
-			DOMPurify.addHook('afterSanitizeAttributes', function (node) {
-				// set all elements owning target to target=_blank
-				if ('target' in node) {
-					node.setAttribute('target', '_blank');
-					node.setAttribute('rel', 'noopener');
-				}
-			});
+	// Open links in new window.
+	// @link https://github.com/cure53/DOMPurify/issues/317
+	DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+		// set all elements owning target to target=_blank
+		if ('target' in node) {
+			node.setAttribute('target', '_blank');
+			node.setAttribute('rel', 'noopener');
+		}
 
-			return DOMPurify.sanitize(md);
-		};
-	}
+		// Lazy loading for images inside inline colorBox
+		if ('loading' in node) {
+			node.setAttribute('loading', 'lazy');
+		}
+	});
 
-	return GetMDConverter.marked;
-}
+	return DOMPurify.sanitize(md);
+};
+
+// @deprecated since 12.1 use MDConverter()
+var GetMDConverter = MDConverter;
 
 var MarkDownInputPreview = function(input_id) {
 	var input = $('#' + input_id),
@@ -227,10 +235,8 @@ var MarkDownInputPreview = function(input_id) {
 		md_prev = $('#divMDPreview' + input_id);
 
 	if (!md_prev.is(":visible")) {
-		var mdc = GetMDConverter();
-
 		// Convert MarkDown to HTML.
-		md_prev.html(mdc(md));
+		md_prev.html(MDConverter(md));
 
 		// MD preview = Input size.
 		md_prev.css('height', input.css('height'));
@@ -259,9 +265,8 @@ var MarkDownToHTML = function(target) {
 	var target = (typeof target !== 'undefined') ? target + ' ' : '';
 
 	$(target + '.markdown-to-html').html(function(i, txt) {
-		var mdc = GetMDConverter(),
-			// Fix MD blockquotes, decode `>` + fix double encoding `&` inside `<code>`
-			md = mdc( txt.replace(/&gt;/g, '>').replace(/&amp;/g, '&') );
+		// Fix MD blockquotes, decode `>` + fix double encoding `&`
+		var md = MDConverter( txt.replace(/&gt;/g, '>').replace(/&amp;/g, '&') );
 
 		// Add paragraph to text.
 		var txtP = '<p>' + txt + '</p>';
