@@ -379,7 +379,7 @@ function AddonUpsellPremium( $type, $addon_dir, $md_filename = 'PREMIUM.md' )
 	// Get PREMIUM.md content
 	$premium_md_content = file_get_contents( $premium_md_path );
 
-	if ( strpos( $_SERVER['HTTP_HOST'], '.rosariosis.com' ) !== false ) // TODO add explanation on login page! "Only the administrator at your school who signed up to rosariosis.com [plans](https://www.rosariosis.com/#plans-pricing) can login here. Please contact this person or use the Contact form linked above if you need more help."
+	if ( strpos( $_SERVER['HTTP_HOST'], '.rosariosis.com' ) !== false ) // TODO add explanation on login page! "The administrator at your school who signed up to rosariosis.com can [login here](). Please contact this person or use the Contact form linked above if you need help."
 	{
 		if ( User( 'PROFILE' ) !== 'admin' )
 		{
@@ -393,7 +393,7 @@ function AddonUpsellPremium( $type, $addon_dir, $md_filename = 'PREMIUM.md' )
 		$locale_short = $lang_2_chars === 'fr' || $lang_2_chars === 'es' ?
 			$lang_2_chars . '/' : '';
 
-		$com_link = '(https://www.rosariosis.com/' . $locale_short . 'account/billing/)';
+		$com_link = '(https://www.rosariosis.com/' . $locale_short . 'switch-to-premium/)';
 
 		$addon_slug = mb_strtolower( str_replace( '_', '-', $addon_dir ) );
 
