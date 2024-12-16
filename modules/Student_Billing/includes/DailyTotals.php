@@ -132,8 +132,8 @@ else
 
 	$link['add']['html'] = [
 		'GRADE_ID' => _( 'Total' ),
-		'TOTAL_FEES' => '<b>' . Currency( $billing_payments ) . '</b>',
-		'TOTAL_PAYMENTS' => '<b>' . Currency( $billing_fees ) . '</b>',
+		'TOTAL_FEES' => '<b>' . Currency( $billing_fees ) . '</b>',
+		'TOTAL_PAYMENTS' => '<b>' . Currency( $billing_payments ) . '</b>',
 		'TOTAL_BALANCE' => '<b>' . Currency( $billing_payments - $billing_fees ) . '</b>',
 	];
 
