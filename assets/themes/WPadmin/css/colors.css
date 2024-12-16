@@ -72,6 +72,10 @@ hr {
 	background: #dfdfdf
 }
 
+blockquote {
+	border-left-color: #ddd;
+}
+
 input[readonly] {
 	background: #eee;
 }
@@ -580,6 +584,24 @@ hr {
 .password-strength-bars .score3,
 .password-strength-bars .score4 {
 	background-color: #2ECC40;
+}
+
+/**
+ * Upsell Premium
+ *
+ * @since 12.1
+ */
+
+.button-upsell-premium {
+	color: #111;
+	background: #ffc439;
+}
+
+.button-upsell-premium:hover,
+.button-upsell-premium:focus {
+	outline: none;
+	background: #ffca50;
+	color: #000;
 }
 
 /*responsive tables*/

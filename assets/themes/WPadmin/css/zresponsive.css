@@ -206,6 +206,14 @@
 		width: 99%;
 		margin-left: -0.5%;
 	}
+	/**
+	 * Upsell Premium
+	 *
+	 * @since 12.1
+	 */
+	.button-upsell-premium {
+		bottom: 15px;
+	}
 }
 
 @media only screen and (max-width:1023px) {

@@ -18,6 +18,11 @@ Changes in 12.1
 - JS If inside colorBox, close it on Cancel in Prompts.php
 - Fix regression since 7.1 short month name, eg.: "Sep" in Date.php
 - Warning instead of error for PHP extensions in diagnostic.php
+- CSS Display tooltip at bottom, add `.tooltip.bottom` class in stylesheet.css & School_Setup/Configuration.php
+- CSS improve styling of blockquote, datalist, fieldset, colorBox in stylesheet.css & colors.css
+- CSS Upsell Premium, add `.button-upsell-premium` class in stylesheet.css & colors.css
+- CSS Prevent body from scrolling when colorBox open in stylesheet.css
+- CSS Hide File input "Browse" button in stylesheet.css
 
 Changes in 12.0.2
 -----------------

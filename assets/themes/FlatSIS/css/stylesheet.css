@@ -276,7 +276,10 @@ p {
 }
 
 blockquote {
-	margin: 1em
+	margin: 1em;
+	border-left-width: 4px;
+	border-left-style: solid;
+	padding-left: 4px;
 }
 
 label {
@@ -289,8 +292,7 @@ legend {
 	font-size: 14px;
 }
 
-li,
-dd {
+li {
 	margin-bottom: 6px
 }
 
@@ -309,6 +311,7 @@ h4 {
 
 h1 {
 	font-size: 2em;
+	font-weight: 400;
 	margin: .67em 0
 }
 
@@ -361,6 +364,10 @@ summary {
 
 summary::marker {
 	cursor: pointer;
+}
+
+dl dd {
+	margin: 0.5em 0 1em 2em;
 }
 
 /* Fix place cellpadding-5 before widefat */
@@ -901,7 +908,8 @@ th a {
 fieldset {
 	border-width: 1px;
 	border-style: solid;
-	margin: 0
+	margin: 0 0 4px;
+	padding-bottom: 4px;
 }
 
 .error a {
@@ -1125,7 +1133,7 @@ textarea {
 	font-size: 15px;
 	line-height: 1.27;
 	margin-top: 0;
-	margin-bottom: 12px;
+	margin-bottom: 9px;
 	display: inline-block
 }
 
@@ -1433,14 +1441,33 @@ input + .loading {
 /* Adjust File input size with spinner on its right */
 
 input[type=file] {
-	padding: 0;
 	max-width: calc( 100% - 38px);
 }
 
 /* Reduce File input size when inside list */
 
 .list.widefat input[type=file] {
-	width: 220px;
+	width: 180px;
+}
+
+/* Hide File input "Browse" button */
+
+input[type=file]::file-selector-button {
+	display: none;
+}
+
+input[type=file]::-webkit-file-upload-button {
+	display: block;
+	width: 0;
+	height: 0;
+	padding: 0;
+	margin: 0;
+	-webkit-appearance: none;
+	border: none;
+}
+
+input[type=file]::-ms-browse {
+	display: none;
 }
 
 /*bars*/
@@ -1596,13 +1623,24 @@ td.calendar-menu {
 #cboxLoadedContent {
 	margin: 0 0 0 8px !important;
 	padding: 8px 12px !important;
+	/* Prevent body from scrolling when colorBox open */
+	overscroll-behavior: contain;
+}
+
+#cboxLoadedContent .header1 h2 {
+	padding-top: 8px;
+}
+
+#cboxLoadedContent h1 {
+	margin-top: 0.42em;
 }
 
 /* Add-on module/plugin README inside colorBox */
 
 .addon-readme {
 	/* screenshots are 2880px DPR2 */
-	max-width: 1440px;
+	width: 1080px;
+	max-width: 100%;
 }
 
 /*responsive tables*/
@@ -1784,9 +1822,21 @@ a .button + b {
 	white-space: normal;
 }
 
+/* @since 12.1 Display tooltip at bottom */
+
+.tooltip.bottom > i {
+	bottom: auto;
+	top: 100%;
+}
+
 .legend-gray .tooltip > i,
 .legend-red .tooltip > i {
 	bottom: 130%;
+}
+
+.legend-gray .tooltip.bottom > i {
+	bottom: auto;
+	top: 130%;
 }
 
 .tooltip:hover > i {
@@ -1859,25 +1909,14 @@ input[type=checkbox].toggle {
 }
 
 .login #body,
-.first-login #body,
-.password-reset #body {
+.first-login #body {
 	padding: 64px 2px;
 	margin-bottom: 0;
-}
-
-.password-reset #body {
-	padding-top: 0;
 }
 
 .login .postbox,
 .password-reset .postbox {
 	max-width: 320px;
-}
-
-/* Create account page */
-
-.create-account {
-	padding: 0 2px;
 }
 
 /* AJAX error message */
@@ -2128,4 +2167,39 @@ input[type=checkbox].toggle {
 .mailing-label-top-margin {
 	/* Add the equivalent of 6 line breaks. */
 	margin-top: 126px;
+}
+
+/**
+ * Upsell Premium
+ *
+ * @since 12.1
+ */
+
+.button-upsell-premium {
+	border: none;
+	display: inline-block;
+	padding: 11px 22px;
+	text-decoration: none;
+	text-transform: uppercase;
+	min-width: 136px;
+	text-align: center;
+	border-radius: 4px;
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 16px;
+	right: 15px;
+}
+
+/* Add-on module/plugin PREMIUM.md inside colorBox */
+
+.addon-upsell-premium {
+	/* screenshots are 2880px DPR2 */
+	width: 1080px;
+	max-width: 100%;
+}
+
+.addon-upsell-premium img[alt="additional-screenshot"] {
+	max-width: 260px;
+	padding-top: 7px;
+	padding-right: 7px;
 }

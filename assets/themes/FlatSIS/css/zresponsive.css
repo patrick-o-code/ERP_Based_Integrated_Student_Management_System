@@ -92,7 +92,6 @@
 	}
 	#body {
 		width: auto !important;
-		padding: 0 5px;
 		box-sizing: border-box;
 	}
 	.header1 {
@@ -212,7 +211,7 @@
 
 @media only screen and (max-width:1023px) {
 	#body {
-		padding: 0 6px 0;
+		padding: 0 6px 38px;
 	}
 	/*responsive <br> does not break line, use inside responsive table*/
 	.rbr {

@@ -71,3 +71,10 @@ body {
 	background: #fff;
 	word-break: normal;
 }
+
+/* @since 12.1 Fix dashboard module icon valign on PDF */
+
+.dashboard-module-title .module-icon,
+.dashboard-module-title img {
+	vertical-align: middle;
+}
