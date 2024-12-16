@@ -27,6 +27,7 @@ Changes in 12.1
 - JS use MDConverter() instead of GetMDConverter() in warehouse.js
 - JS fix maxHeight on resize patch in jquery.colorbox.js
 - Add SECURITY.md file
+- Update French & Spanish translations in rosariosis.po
 
 Changes in 12.0.2
 -----------------
