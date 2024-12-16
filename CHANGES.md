@@ -26,6 +26,7 @@ Changes in 12.1
 - JS Lazy loading for images inside inline colorBox in warehouse.js
 - JS use MDConverter() instead of GetMDConverter() in warehouse.js
 - JS fix maxHeight on resize patch in jquery.colorbox.js
+- Add SECURITY.md file
 
 Changes in 12.0.2
 -----------------
