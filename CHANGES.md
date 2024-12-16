@@ -23,6 +23,7 @@ Changes in 12.1
 - CSS Upsell Premium, add `.button-upsell-premium` class in stylesheet.css & colors.css
 - CSS Prevent body from scrolling when colorBox open in stylesheet.css
 - CSS Hide File input "Browse" button in stylesheet.css
+- JS fix maxHeight on resize patch in jquery.colorbox.js
 
 Changes in 12.0.2
 -----------------

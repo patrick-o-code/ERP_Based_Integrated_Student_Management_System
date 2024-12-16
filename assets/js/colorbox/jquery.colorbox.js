@@ -1,6 +1,7 @@
 /*!
 	Colorbox 1.6.3
 	+ FJ minWidth / minHeight patch @link https://github.com/jackmoore/colorbox/issues/159
+	+ FJ fix maxHeight on resize patch @link https://github.com/jackmoore/colorbox/pull/635
 	license: MIT
 	http://www.jacklmoore.com/colorbox
 */
@@ -765,7 +766,9 @@
 			if (!options.innerHeight && !options.height) {
 				scrolltop = $loaded.scrollTop();
 				$loaded.css({height: "auto"});
-				settings.h = $loaded.height();
+				// FJ fix maxHeight on resize patch @link https://github.com/jackmoore/colorbox/pull/635
+				// settings.h = $loaded.height();
+				settings.h = Math.min($loaded.height(), setSize(settings.get('maxHeight')||'100%', 'y') - loadedHeight - interfaceHeight);
 			}
 
 			$loaded.css({height: settings.h});
