@@ -2,6 +2,42 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.1
+-----------
+
+School
+- Marking Periods: Remove "only 1 Marking Period & 1 grading period open at any given time" check for Progress Periods, sponsored by AEP St-Joseph-des-Carmes, France
+
+Users
+- User Profiles: add Admin Delete Permission (Accounting Expenses/Incomes/Salaries/Staff Payments), sponsored by Lamine Samate, Mali
+
+Scheduling
+- Courses: add "Show only my courses" checkbox, sponsored by Paris'Com Sup, France
+
+Student Billing
+- Daily Transactions: add Breakdown by Grade Level to Daily Totals, sponsored by Rousseau International, Cameroon
+
+[Entry and Exit](https://www.rosariosis.org/modules/entry-exit/) module
+
+[NFC/QR Actions](https://www.rosariosis.org/modules/nfc-qr-actions/) module
+
+[TTHotel Smart Locks](https://www.rosariosis.org/modules/tthotel-smart-locks/) module
+
+The above modules are sponsored by AT group, Slovenia
+
+[Email Parents](https://www.rosariosis.org/modules/email-parents/) module
+- Send Days Absent (for a specific period), sponsored by Paris'Com Sup, France
+
+[Certificate](https://www.rosariosis.org/modules/certificate/) module
+- Add background image / watermark, sponsored by Paris'Com Sup, France
+
+[Messaging Premium](https://www.rosariosis.org/modules/messaging/) module
+- Notify me by email when I receive a message, sponsored by Paris'Com Sup, France
+
+[Audit](https://gitlab.com/francoisjacquet/Audit) module
+- Add Browsing Log, sponsored by AT group, Slovenia
+
+
 New in 12.0
 -----------
 
