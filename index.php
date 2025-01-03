@@ -586,7 +586,7 @@ if ( empty( $_SESSION['STAFF_ID'] )
 		</p>
 		<p class="center size-1">
 			&copy; 2004-2009 The Miller Group &amp; Learners Circle
-			<br />&copy; 2012-2024 <a href="https://www.rosariosis.org" noreferrer>RosarioSIS</a>
+			<br />&copy; 2012-2025 <a href="https://www.rosariosis.org" noreferrer>RosarioSIS</a>
 		</p>
 	</details>
 
