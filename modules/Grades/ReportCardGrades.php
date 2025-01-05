@@ -127,7 +127,7 @@ if ( ! $_REQUEST['modfunc'] )
 			FROM course_periods
 			WHERE COURSE_PERIOD_ID='" . UserCoursePeriod() . "'" );
 
-		if ( ! $course_period_RET[1]['GRADE_SCALE_ID'] )
+		if ( empty( $course_period_RET[1]['GRADE_SCALE_ID'] ) )
 		{
 			ErrorMessage( [ _( 'This course is not graded.' ) ], 'fatal' );
 		}
