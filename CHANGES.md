@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.1.1
+-----------------
+- Fix SQL error when single quote inside relation in Registration.fnc.php & RegistrationAdmin.fnc.php
+
 Changes in 12.1
 ---------------
 - MySQL set CREATED_AT on INSERT in rosariosis_mysql.sql

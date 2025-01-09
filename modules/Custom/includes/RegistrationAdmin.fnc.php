@@ -49,7 +49,17 @@ function RegistrationFormConfigSave( $values )
 
 	$values['student']['fields'] = $formatMultipleCheckbox( issetVal( $values['student']['fields'] ) );
 
-	Config( 'REGISTRATION_FORM', serialize( $values ) );
+	foreach ( $values['parent'] as $i => $parent )
+	{
+		$values['parent'][ $i ]['relation'] = DBUnescapeString( issetVal( $parent['relation'] ) );
+	}
+
+	foreach ( $values['contact'] as $i => $contact )
+	{
+		$values['contact'][ $i ]['relation'] = DBUnescapeString( issetVal( $contact['relation'] ) );
+	}
+
+	Config( 'REGISTRATION_FORM', DBEscapeString( serialize( $values ) ) );
 
 	return $values;
 }

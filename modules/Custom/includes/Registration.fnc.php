@@ -56,7 +56,7 @@ function RegistrationFormConfig()
 	DBInsert(
 		'config',
 		[
-			'CONFIG_VALUE' => serialize( $default_values ),
+			'CONFIG_VALUE' => DBEscapeString( serialize( $default_values ) ),
 			'TITLE' => 'REGISTRATION_FORM',
 			'SCHOOL_ID' => '0',
 		]
