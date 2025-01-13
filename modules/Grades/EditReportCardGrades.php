@@ -304,7 +304,7 @@ if ( UserStudentID() )
 			$mp_RET = DBGet( "SELECT MARKING_PERIOD_ID,SYEAR,TITLE,POST_END_DATE
 				FROM marking_periods
 				WHERE SCHOOL_ID='" . UserSchool() . "'
-				AND SYEAR BETWEEN '" . sprintf( '%d', $syear - 5 ) . "' AND '" . $syear . "'
+				AND SYEAR BETWEEN '" . sprintf( '%d', $syear - 10 ) . "' AND '" . $syear . "'
 				ORDER BY POST_END_DATE DESC" );
 
 			if ( $mp_RET )

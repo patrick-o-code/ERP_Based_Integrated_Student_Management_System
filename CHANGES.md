@@ -4,6 +4,7 @@
 Changes in 12.1.1
 -----------------
 - Fix SQL error when single quote inside relation in Registration.fnc.php & RegistrationAdmin.fnc.php
+- Allow creating historical marking periods up to 10 years in the past in EditHistoryMarkingPeriods.php
 
 Changes in 12.1
 ---------------

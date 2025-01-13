@@ -254,7 +254,7 @@ function _makeSchoolYearSelectInput( $value, $name )
 
 	$options = [];
 
-	$years = range( UserSyear() - 5, UserSyear() );
+	$years = range( UserSyear() - 10, UserSyear() );
 
 	foreach ( (array) $years as $year )
 	//FJ school year over one/two calendar years format
