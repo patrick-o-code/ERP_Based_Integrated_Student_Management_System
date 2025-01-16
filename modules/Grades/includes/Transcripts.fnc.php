@@ -406,7 +406,7 @@ if ( ! function_exists( 'TranscriptsGenerate' ) )
 								&& mb_strlen( $grades_RET[$i]['CREDIT_EARNED'] ) > 7 )
 							{
 								// Format Credit Earned, display 0.33 instead of 0.333333333333333
-								$grades_RET[$i]['CREDIT_EARNED'] = number_format( $grades_RET[$i]['CREDIT_EARNED'], 2, '.' );
+								$grades_RET[$i]['CREDIT_EARNED'] = number_format( $grades_RET[$i]['CREDIT_EARNED'], 2, '.', '' );
 							}
 
 							$total_credit_earned += $grade['CREDIT_EARNED'];
@@ -717,8 +717,8 @@ if ( ! function_exists( 'TranscriptPDFFooter' ) )
 			// Total Credits.
 			// Format Credit, display 0.33 instead of 0.333333333333333
 			echo '<tr><td><span>' . _( 'Total' ) . ' ' . _( 'Credit' ) . ': ' .
-			_( 'Credit Attempted' ) . ': ' . (float) number_format( $last_grade['total_credit_attempted'], 2, '.' ) .
-			' &ndash; ' . _( 'Credit Earned' ) . ': ' . (float) number_format( $last_grade['total_credit_earned'], 2, '.' ) .
+			_( 'Credit Attempted' ) . ': ' . (float) number_format( $last_grade['total_credit_attempted'], 2, '.', '' ) .
+			' &ndash; ' . _( 'Credit Earned' ) . ': ' . (float) number_format( $last_grade['total_credit_earned'], 2, '.', '' ) .
 			'</span></td></tr>';
 		}
 

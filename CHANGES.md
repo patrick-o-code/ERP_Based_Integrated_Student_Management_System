@@ -4,7 +4,8 @@
 Changes in 12.1.1
 -----------------
 - Fix SQL error when single quote inside relation in Registration.fnc.php & RegistrationAdmin.fnc.php
-- Allow creating historical marking periods up to 10 years in the past in EditHistoryMarkingPeriods.php
+- Allow creating historical marking periods up to 10 years in the past in EditHistoryMarkingPeriods.php & EditReportCardGrades.php
+- Fix PHP < 8.0 warning Wrong parameter count for number_format() in Transcripts.fnc.php
 
 Changes in 12.1
 ---------------
