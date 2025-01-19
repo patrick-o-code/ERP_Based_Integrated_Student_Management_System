@@ -648,7 +648,7 @@ function FinalGradesSave( $cp_id, $mp_id, $final_grades )
 			&& $cp['MP'] !== 'FY' )
 		{
 			// Add precision to year weighted GPA if not year course period.
-			$weighted = $percent / 100 * $scale;
+			$weighted = $final_grade[1]['GRADE_PERCENT'] / 100 * $scale;
 		}
 
 		$columns = [
