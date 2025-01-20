@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.1.2
+-----------------
+- SQL fix last and first name were mixed when importing user/student from Moodle in ImportUsers.fnc.php
+
 Changes in 12.1.1
 -----------------
 - Fix SQL error when single quote inside relation in Registration.fnc.php & RegistrationAdmin.fnc.php

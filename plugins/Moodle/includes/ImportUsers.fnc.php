@@ -378,7 +378,7 @@ function MoodleUserImportStudent( $user )
 	}
 
 	$sql = "INSERT INTO students ";
-	$fields = 'STUDENT_ID,LAST_NAME,FIRST_NAME,USERNAME';
+	$fields = 'STUDENT_ID,FIRST_NAME,LAST_NAME,USERNAME';
 	$values = "'" . $student_id . "','" . $user['firstname'] . "','" . $user['lastname'] . "','" . $username . "'";
 
 	if ( $email_field_key !== 'USERNAME' )
@@ -493,7 +493,7 @@ function MoodleUserImportUser( $user, $profile )
 	}
 
 	$sql = "INSERT INTO staff ";
-	$fields = 'SYEAR,LAST_NAME,FIRST_NAME,USERNAME,PROFILE,PROFILE_ID';
+	$fields = 'SYEAR,FIRST_NAME,LAST_NAME,USERNAME,PROFILE,PROFILE_ID';
 	$values = "'" . UserSyear() . "','" . $user['firstname'] . "','" . $user['lastname'] . "','" .
 		$username . "','" . $profile . "','" . $profile_id . "'";
 
