@@ -510,7 +510,7 @@ function core_course_delete_courses_response( $response )
 function core_role_unassign_roles_object()
 {
 	//first, gather the necessary variables
-	global $current, $_REQUEST;
+	global $current_cp, $_REQUEST;
 
 	//then, convert variables for the Moodle object:
 	/*
@@ -525,7 +525,7 @@ function core_role_unassign_roles_object()
 	}
 	)*/
 	//gather the Moodle user ID
-	$userid = MoodleXRosarioGet( 'staff_id', $current[1]['TEACHER_ID'] );
+	$userid = MoodleXRosarioGet( 'staff_id', $current_cp[1]['TEACHER_ID'] );
 
 	if ( empty( $userid ) )
 	{

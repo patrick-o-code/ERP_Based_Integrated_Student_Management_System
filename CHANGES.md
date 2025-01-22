@@ -4,6 +4,7 @@
 Changes in 12.1.2
 -----------------
 - SQL fix last and first name were mixed when importing user/student from Moodle in ImportUsers.fnc.php
+- Fix PHP warning when updating course period teacher in Moodle/functions.php & Moodle/Scheduling/Courses.php
 
 Changes in 12.1.1
 -----------------
