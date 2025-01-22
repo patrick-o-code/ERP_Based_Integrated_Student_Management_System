@@ -675,6 +675,8 @@ function CoursePeriodUpdateTeacher( $cp_id, $old_teacher_id, $new_teacher_id )
 	{
 		// Update attendance_completed.
 		// SQL fix duplicate key value violates unique constraint "attendance_completed_pkey"
+		// MySQL fix You can't specify target table 'ac' for update in FROM clause
+		// @link https://stackoverflow.com/questions/4429319/you-cant-specify-target-table-for-update-in-from-clause/14302701#14302701
 		DBQuery( "UPDATE attendance_completed ac SET STAFF_ID='" . (int) $new_teacher_id . "'
 			WHERE ac.STAFF_ID='" . (int) $old_teacher_id . "'
 			AND ac.PERIOD_ID='" . (int) $period['PERIOD_ID'] . "'
@@ -695,7 +697,7 @@ function CoursePeriodUpdateTeacher( $cp_id, $old_teacher_id, $new_teacher_id )
 				WHERE MARKING_PERIOD_ID=(SELECT MARKING_PERIOD_ID FROM course_periods
 					WHERE COURSE_PERIOD_ID='" . (int) $cp_id . "'))
 			AND NOT EXISTS(SELECT 1
-				FROM attendance_completed ac2
+				FROM (SELECT * FROM attendance_completed) AS ac2
 				WHERE ac2.STAFF_ID='" . (int) $new_teacher_id . "'
 				AND ac2.PERIOD_ID='" . (int) $period['PERIOD_ID'] . "'
 				AND ac2.SCHOOL_DATE=ac.SCHOOL_DATE
