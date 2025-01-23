@@ -472,7 +472,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 			if ( ! empty( $_REQUEST['moodle_create_course_period'] ) )
 			{
 				Moodle( $modname, 'core_course_create_courses' );
-				Moodle( $modname, 'core_role_assign_roles' );
+				Moodle( $modname, 'enrol_manual_enrol_users' );
 			}
 
 			break;
@@ -496,8 +496,8 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 				if ( ! empty( $columns['TEACHER_ID'] )
 					&& $columns['TEACHER_ID'] != $current_cp[1]['TEACHER_ID'] )
 				{
-					Moodle( $modname, 'core_role_unassign_roles' );
-					Moodle( $modname, 'core_role_assign_roles' );
+					Moodle( $modname, 'enrol_manual_unenrol_users' );
+					Moodle( $modname, 'enrol_manual_enrol_users' );
 				}
 			}
 
@@ -505,7 +505,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 			elseif ( ! empty( $_REQUEST['moodle_create_course_period'] ) )
 			{
 				Moodle( $modname, 'core_course_create_courses' );
-				Moodle( $modname, 'core_role_assign_roles' );
+				Moodle( $modname, 'enrol_manual_enrol_users' );
 			}
 
 			break;
@@ -679,7 +679,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 					$cp_moodle_id = $reset_course_period['CP_MOODLE_ID'];
 					$cp_teacher_id = $reset_course_period['TEACHER_ID'];
 
-					Moodle( $modname, 'core_role_unassign_roles' );
+					Moodle( $modname, 'enrol_manual_unenrol_users' );
 					Moodle( $modname, 'core_course_delete_courses' );
 				}
 			}
@@ -745,7 +745,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 				foreach ( (array) $course_periods_RET as $rolled_course_period )
 				{
 					Moodle( $modname, 'core_course_create_courses' );
-					Moodle( $modname, 'core_role_assign_roles' );
+					Moodle( $modname, 'enrol_manual_enrol_users' );
 				}
 			}
 

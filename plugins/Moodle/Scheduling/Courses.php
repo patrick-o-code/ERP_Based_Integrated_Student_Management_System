@@ -400,8 +400,8 @@ function core_course_create_courses_response( $response )
 	return null;
 }
 
-//core_role_assign_roles function
-function core_role_assign_roles_object()
+//enrol_manual_enrol_users function
+function enrol_manual_enrol_users_object()
 {
 	//first, gather the necessary variables
 	global $columns, $_REQUEST;
@@ -411,11 +411,11 @@ function core_role_assign_roles_object()
 	list of (
 	object {
 	roleid int   //Role to assign to the user
-	userid int   //The user that is going to be assigned
-	contextid int  Optional //The context to assign the user role in
-	contextlevel string  Optional //The context level to assign the user role in
-	(block, course, coursecat, system, user, module)
-	instanceid int  Optional //The Instance id of item where the role needs to be assigned
+	userid int   //The user that is going to be enrolled
+	courseid int   //The course to enrol the user role in
+	timestart int  Optionnel //Timestamp when the enrolment start
+	timeend int  Optionnel //Timestamp when the enrolment end
+	suspend int  Optionnel //set to 1 to suspend the enrolment
 	}
 	)*/
 
@@ -438,30 +438,30 @@ function core_role_assign_roles_object()
 		return null;
 	}
 
-	$contextlevel = 'course';
-	$instanceid = $courseid;
+	//convert YYYY-MM-DD to timestamp
+	$timestart = strtotime( DBDate() );
 
-	$assignments = [
+	$enrolments = [
 		[
 			'roleid' => $roleid,
 			'userid' => $userid,
-			'contextlevel' => $contextlevel,
-			'instanceid' => $instanceid,
+			'courseid' => $courseid,
+			'timestart' => $timestart,
 		],
 	];
 
 	if ( MOODLE_API_PROTOCOL === 'rest' )
 	{
-		return [ 'assignments' => $assignments ];
+		return [ 'enrolments' => $enrolments ];
 	}
 
-	return [ $assignments ];
+	return [ $enrolments ];
 }
 
 /**
  * @param $response
  */
-function core_role_assign_roles_response( $response )
+function enrol_manual_enrol_users_response( $response )
 {
 	return null;
 }
@@ -506,8 +506,8 @@ function core_course_delete_courses_response( $response )
 	return null;
 }
 
-//core_role_unassign_roles function
-function core_role_unassign_roles_object()
+//enrol_manual_unenrol_users function
+function enrol_manual_unenrol_users_object()
 {
 	//first, gather the necessary variables
 	global $current_cp, $_REQUEST;
@@ -515,14 +515,11 @@ function core_role_unassign_roles_object()
 	//then, convert variables for the Moodle object:
 	/*
 	list of (
-	object {
-	roleid int   //Role to assign to the user
-	userid int   //The user that is going to be assigned
-	contextid int  Optional //The context to unassign the user role from
-	contextlevel string  Optional //The context level to unassign the user role in
-	+                                    (block, course, coursecat, system, user, module)
-	instanceid int  Optional //The Instance id of item where the role needs to be unassigned
-	}
+		object {
+			userid int   //The user that is going to be unenrolled
+			courseid int   //The course to unenrol the user from
+			roleid int  Optional //The user role
+		}
 	)*/
 	//gather the Moodle user ID
 	$userid = MoodleXRosarioGet( 'staff_id', $current_cp[1]['TEACHER_ID'] );
@@ -543,30 +540,28 @@ function core_role_unassign_roles_object()
 		return null;
 	}
 
-	$contextlevel = 'course';
-	$instanceid = $courseperiodid;
+	$courseid = $courseperiodid;
 
-	$unassignments = [
+	$enrolments = [
 		[
 			'roleid' => $roleid,
 			'userid' => $userid,
-			'contextlevel' => $contextlevel,
-			'instanceid' => $instanceid,
+			'courseid' => $courseid,
 		],
 	];
 
 	if ( MOODLE_API_PROTOCOL === 'rest' )
 	{
-		return [ 'unassignments' => $unassignments ];
+		return [ 'enrolments' => $enrolments ];
 	}
 
-	return [ $unassignments ];
+	return [ $enrolments ];
 }
 
 /**
  * @param $response
  */
-function core_role_unassign_roles_response( $response )
+function enrol_manual_unenrol_users_response( $response )
 {
 	return null;
 }
