@@ -44,16 +44,32 @@ function core_course_create_courses_object()
 
 	//if marking period != full year, add short name
 
-	if ( GetMP( $rolled_course_period['MARKING_PERIOD_ID'], 'MP' ) != 'FY' )
+	if ( $rolled_course_period['MP'] != 'FY' )
 	{
-		$mp_short_name = ' - ' . GetMP( $rolled_course_period['MARKING_PERIOD_ID'], 'SHORT_NAME' );
+		$mp_short_name = DBGetOne( "SELECT SHORT_NAME
+			FROM school_marking_periods
+			WHERE MARKING_PERIOD_ID='" . (int) $rolled_course_period['MARKING_PERIOD_ID'] . "'" );
+
+		$mp_short_name = ' - ' . $mp_short_name;
 	}
 
 	//add the year to the course name
 	$fullname = FormatSyear( $next_syear, Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) ) . $mp_short_name . ' - ' .
 		$rolled_course_period['SHORT_NAME'];
 
-	$shortname = $rolled_course_period['SHORT_NAME'];
+	$teacher_name = DBGetOne( "SELECT " . DisplayNameSQL() . " AS FULL_NAME
+		FROM staff
+		WHERE SYEAR='" . $next_syear . "'
+		AND PROFILE='teacher'
+		AND STAFF_ID='" . (int) $rolled_course_period['TEACHER_ID'] . "'" );
+
+	if ( $teacher_name )
+	{
+		$fullname .= ' - ' . $teacher_name;
+	}
+
+	// Fix Moodle error Short name is already used for another course
+	$shortname = FormatSyear( $next_syear, Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) ) . ' ' . $rolled_course_period['SHORT_NAME'];
 
 	//get the Moodle category
 	$categoryid = MoodleXRosarioGet( 'course_id', $rolled_course_period['COURSE_ID'] );

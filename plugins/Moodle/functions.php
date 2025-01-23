@@ -734,7 +734,8 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 				// course_periods ROLLOVER.
 				global $rolled_course_period, $next_syear;
 
-				$course_periods_RET = DBGet( "SELECT cp.COURSE_PERIOD_ID,cp.COURSE_ID,cp.SHORT_NAME,cp.MARKING_PERIOD_ID,cp.TEACHER_ID
+				$course_periods_RET = DBGet( "SELECT cp.COURSE_PERIOD_ID,cp.COURSE_ID,cp.SHORT_NAME,
+					cp.MARKING_PERIOD_ID,cp.TEACHER_ID,cp.MP
 					FROM course_periods cp,moodlexrosario mxc
 					WHERE cp.SYEAR='" . $next_syear . "'
 					AND cp.SCHOOL_ID='" . UserSchool() . "'

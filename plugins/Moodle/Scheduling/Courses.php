@@ -633,7 +633,8 @@ function core_course_update_courses_object()
 	if ( isset( $columns['SHORT_NAME'] ) )
 	{
 		$shortname = $columns['SHORT_NAME'];
-		$course['shortname'] = $shortname;
+		// Fix Moodle error Short name is already used for another course
+		$course['shortname'] = FormatSyear( UserSyear(), Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) ) . ' ' . $shortname;
 	}
 
 	if ( isset( $columns['MARKING_PERIOD_ID'] ) )
