@@ -780,6 +780,7 @@ function _makeDate( $value, $column = 'MEDICAL_DATE' )
  *
  * @since 3.6 Add custom input size per column.
  * @since 11.3 Required TITLE value for existing entries
+ * @since 12.1.2 Fix SQL error value too long, add input maxlength
  *
  * @global array  $THIS_RET
  * @global string $table
@@ -801,10 +802,14 @@ function _makeComments( $value, $column )
 
 	$input_size = 12;
 
+	$input_maxlength = 100;
+
 	if ( $column === 'TIME_IN'
 		|| $column === 'TIME_OUT' )
 	{
 		$input_size = 5;
+
+		$input_maxlength = 20;
 	}
 	elseif ( $column === 'COMMENTS'
 		|| $column === 'TITLE' )
@@ -824,7 +829,7 @@ function _makeComments( $value, $column )
 		$value,
 		'values[' . $table . '][' . $THIS_RET['ID'] . '][' . $column . ']',
 		'',
-		'size="' . AttrEscape( $input_size ) . '"' . $required
+		'size="' . AttrEscape( $input_size ) . '" maxlength="' . AttrEscape( $input_maxlength ) . '"' . $required
 	);
 }
 
