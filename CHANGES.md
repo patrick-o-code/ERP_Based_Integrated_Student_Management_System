@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.1.3
+-----------------
+- MySQL fix You can't specify target table 'staff' for update in FROM clause in User.php
+
 Changes in 12.1.2
 -----------------
 - SQL fix last and first name were mixed when importing user/student from Moodle in ImportUsers.fnc.php

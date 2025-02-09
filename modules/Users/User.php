@@ -332,12 +332,15 @@ if ( $_REQUEST['modfunc'] === 'update'
 						 * @since 12.0
 						 *
 						 * Handle case when a user changes password in a non default school year
+						 *
+						 * MySQL fix You can't specify target table 'staff' for update in FROM clause
+						 * @link https://stackoverflow.com/questions/4429319/you-cant-specify-target-table-for-update-in-from-clause/14302701#14302701
 						 */
 						DBQuery( "UPDATE staff
 							SET PASSWORD='" . encrypt_password( $_POST['staff']['PASSWORD'] ) . "'
-							WHERE USERNAME=(SELECT USERNAME
-								FROM staff
-								WHERE STAFF_ID='" . UserStaffID() . "')" );
+							WHERE USERNAME=(SELECT st2.USERNAME
+								FROM (SELECT * FROM staff) AS st2
+								WHERE st2.STAFF_ID='" . UserStaffID() . "')" );
 
 						continue;
 					}
