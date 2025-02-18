@@ -65,38 +65,35 @@ if ( ! empty( $_POST['tables'] ) )
 			$columns['DESCRIPTION'] = DBEscapeString( SanitizeHTML( $_POST['tables'][$id]['DESCRIPTION'] ) );
 		}
 
-		// FJ added SQL constraint TITLE & POINTS are not null.
-
 		if (  ( isset( $columns['TITLE'] )
 			&& $columns['TITLE'] === '' )
 			|| ( isset( $columns['POINTS'] )
 				&& $columns['POINTS'] === '' ) )
 		{
+			// Add SQL constraint TITLE & POINTS are not null.
 			$error[] = _( 'Please fill in the required fields' );
 		}
 
-		// FJ fix SQL bug invalid numeric data.
-		// FJ default points.
-
 		if ( ( isset( $columns['POINTS'] )
-				&& ( ! is_numeric( $columns['POINTS'] )
-					|| intval( $columns['POINTS'] ) < 0
-					|| (string) (int) $columns['POINTS'] != $columns['POINTS'] ) )
+				&& ( intval( $columns['POINTS'] ) < 0
+					|| (string) (int) $columns['POINTS'] !== $columns['POINTS'] ) )
 			|| ( isset( $columns['DEFAULT_POINTS'] )
 				&& $columns['DEFAULT_POINTS'] !== ''
 				&& $columns['DEFAULT_POINTS'] !== '*'
-				&& ( ! is_numeric( $columns['DEFAULT_POINTS'] )
-					|| intval( $columns['DEFAULT_POINTS'] ) < 0
-					|| (string) (int) $columns['DEFAULT_POINTS'] != $columns['DEFAULT_POINTS'] ) ) )
+				&& ( intval( $columns['DEFAULT_POINTS'] ) < 0
+					|| (string) (int) $columns['DEFAULT_POINTS'] !== $columns['DEFAULT_POINTS'] ) )
+			|| ( isset( $columns['WEIGHT'] )
+				&& $columns['WEIGHT'] !== ''
+				&& (string) (int) $columns['WEIGHT'] !== $columns['WEIGHT'] ) )
 		{
+			// Fix SQL error invalid input syntax for type integer
 			$error[] = _( 'Please enter valid Numeric data.' );
 		}
-
-		// FJ fix SQL bug invalid sort order.
 
 		if ( ! empty( $columns['SORT_ORDER'] )
 			&& ! is_numeric( $columns['SORT_ORDER'] ) )
 		{
+			// Fix SQL bug invalid sort order.
 			$error[] = _( 'Please enter a valid Sort Order.' );
 		}
 
@@ -157,13 +154,6 @@ if ( ! empty( $_POST['tables'] ) )
 					&& $table == 'gradebook_assignments' )
 				{
 					$value = '-1';
-				}
-				elseif ( in_array( $column, [ 'POINTS', 'DEFAULT_POINTS', 'WEIGHT' ] )
-					&& $table === 'gradebook_assignments'
-					&& $value !== '' )
-				{
-					// Fix PostgreSQL error invalid input syntax for type integer: "2.0"
-					$value = (int) $value;
 				}
 
 				$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "',";
