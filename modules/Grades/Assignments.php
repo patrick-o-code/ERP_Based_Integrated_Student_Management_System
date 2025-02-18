@@ -77,13 +77,11 @@ if ( ! empty( $_POST['tables'] ) )
 		if ( ( isset( $columns['POINTS'] )
 				&& ( intval( $columns['POINTS'] ) < 0
 					|| (string) (int) $columns['POINTS'] !== $columns['POINTS'] ) )
-			|| ( isset( $columns['DEFAULT_POINTS'] )
-				&& $columns['DEFAULT_POINTS'] !== ''
+			|| ( ! empty( $columns['DEFAULT_POINTS'] )
 				&& $columns['DEFAULT_POINTS'] !== '*'
 				&& ( intval( $columns['DEFAULT_POINTS'] ) < 0
 					|| (string) (int) $columns['DEFAULT_POINTS'] !== $columns['DEFAULT_POINTS'] ) )
-			|| ( isset( $columns['WEIGHT'] )
-				&& $columns['WEIGHT'] !== ''
+			|| ( ! empty( $columns['WEIGHT'] )
 				&& (string) (int) $columns['WEIGHT'] !== $columns['WEIGHT'] ) )
 		{
 			// Fix SQL error invalid input syntax for type integer
