@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.2
+---------------
+- Fix PostgreSQL error invalid input syntax for type integer: "2.0" in Periods.php, Assignments.php & MassCreateAssignments.php
+
 Changes in 12.1.3
 -----------------
 - MySQL fix You can't specify target table 'staff' for update in FROM clause in User.php

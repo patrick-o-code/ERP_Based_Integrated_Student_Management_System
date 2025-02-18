@@ -158,6 +158,13 @@ if ( ! empty( $_POST['tables'] ) )
 				{
 					$value = '-1';
 				}
+				elseif ( in_array( $column, [ 'POINTS', 'DEFAULT_POINTS', 'WEIGHT' ] )
+					&& $table === 'gradebook_assignments'
+					&& $value !== '' )
+				{
+					// Fix PostgreSQL error invalid input syntax for type integer: "2.0"
+					$value = (int) $value;
+				}
 
 				$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "',";
 			}
@@ -237,6 +244,13 @@ if ( ! empty( $_POST['tables'] ) )
 					&& $table == 'gradebook_assignments' )
 				{
 					$value = '-1';
+				}
+				elseif ( in_array( $column, [ 'POINTS', 'DEFAULT_POINTS', 'WEIGHT' ] )
+					&& $table === 'gradebook_assignments'
+					&& $value !== '' )
+				{
+					// Fix PostgreSQL error invalid input syntax for type integer: "2.0"
+					$value = (int) $value;
 				}
 
 				if ( $value != '' )
