@@ -19,6 +19,7 @@ Changes in 12.2
 - Fix SQL error null value in column "marking_period_id" & "teacher_id" in Rollover.php
 - Fix SQL error null value in column "course_period_id" in Rollover.php
 - Add program_config table to no school tables list in Rollover.php
+- Fix student enrolled in wrong school while Default School set in Student.php
 
 Changes in 12.1.3
 -----------------
