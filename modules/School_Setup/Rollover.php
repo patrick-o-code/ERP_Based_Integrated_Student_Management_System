@@ -877,6 +877,7 @@ function Rollover( $table, $mode = 'delete' )
 			//FJ multiple school periods for a course period
 			//FJ bugfix SQL bug more than one row returned by a subquery
 			// ROLL course_period_school_periods
+			// @since 12.2 Fix SQL error null value in column "course_period_id"
 			DBQuery( "INSERT INTO course_period_school_periods
 				(COURSE_PERIOD_ID,PERIOD_ID,DAYS)
 				SELECT (SELECT cp.COURSE_PERIOD_ID
@@ -893,7 +894,11 @@ function Rollover( $table, $mode = 'delete' )
 				FROM course_period_school_periods cpsp, course_periods cp
 				WHERE cp.SYEAR='" . UserSyear() . "'
 				AND cp.SCHOOL_ID='" . UserSchool() . "'
-				AND cpsp.COURSE_PERIOD_ID=cp.COURSE_PERIOD_ID" );
+				AND cpsp.COURSE_PERIOD_ID=cp.COURSE_PERIOD_ID
+				AND (SELECT cp.COURSE_PERIOD_ID
+					FROM course_periods cp
+					WHERE cpsp.COURSE_PERIOD_ID=cp.ROLLOVER_ID
+					LIMIT 1) IS NOT NULL" );
 
 			break;
 
