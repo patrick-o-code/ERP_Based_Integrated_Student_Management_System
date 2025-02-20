@@ -303,6 +303,14 @@ if ( $_REQUEST['modfunc'] === 'delete'
 	{
 		DBQuery( MarkingPeriodDeleteSQL( $_REQUEST['marking_period_id'], $_REQUEST['mp_term'] ) );
 
+		if ( $_REQUEST['marking_period_id'] == UserMP() )
+		{
+			// @since 12.2 Fix SQL error: user just deleted current Marking Period, reload Side menu
+			?>
+			<script>ajaxLink('Side.php');</script>
+			<?php
+		}
+
 		$_REQUEST['mp_term'] = $parent_term;
 
 		$_REQUEST['marking_period_id'] = $parent_id;
