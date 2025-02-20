@@ -175,12 +175,6 @@ if ( $_REQUEST['modfunc'] === 'update'
 				HackingLog();
 			}
 
-			if ( Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ) )
-			{
-				// @since 12.2 Fix student enrolled in wrong school while Default School set
-				$_SESSION['UserSchool'] = (string) (int) Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' );
-			}
-
 			if ( Config( 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION' )
 				&& ! empty( $_REQUEST['values']['student_enrollment']['new']['GRADE_ID'] ) )
 			{
