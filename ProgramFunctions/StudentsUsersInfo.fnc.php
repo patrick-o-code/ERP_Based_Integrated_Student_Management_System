@@ -984,6 +984,28 @@ function _makeEndInput( $value, $column )
 		return '';
 	}
 
+	$na = 'N/A';
+
+	$enrollment_RET = DBGet( "SELECT e.ID,e.START_DATE
+		FROM student_enrollment e
+		WHERE e.STUDENT_ID='" . UserStudentID() . "'
+		AND e.SYEAR='" . UserSyear() . "'
+		ORDER BY e.END_DATE IS NULL,e.END_DATE,e.START_DATE IS NULL,e.START_DATE" );
+
+	foreach ( $enrollment_RET as $i => $enrollment )
+	{
+		if ( $enrollment['ID'] !== $THIS_RET['ID'] )
+		{
+			continue;
+		}
+
+		if ( ! empty( $enrollment_RET[ $i + 1 ]['START_DATE'] ) )
+		{
+			// @since 12.2 Enrollment End Date: No N/A option if next entry already has Start date
+			$na = false;
+		}
+	}
+
 	if ( ! $drop_codes )
 	{
 		$options_RET = DBGet( "SELECT ID,TITLE AS TITLE
@@ -1011,7 +1033,10 @@ function _makeEndInput( $value, $column )
 	$return = '<div class="nobr">' .
 		DateInput(
 			$value,
-			'values[student_enrollment][' . $id . '][' . $column . ']'
+			'values[student_enrollment][' . $id . '][' . $column . ']',
+			'',
+			true,
+			$na
 		) . ' - ' .
 		SelectInput(
 			$THIS_RET['DROP_CODE'],
