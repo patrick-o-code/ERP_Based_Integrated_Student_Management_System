@@ -379,12 +379,11 @@ function makePublishing( $value, $name )
 	//FJ responsive rt td too large
 	$return = '<div id="divPublishing' . $id . '" class="rt2colorBox">' . "\n";
 
-	//FJ remove LO_field
-	$return .= '<table class="widefat width-100p"><tr><td><b>' . _( 'Visible Between' ) . ':</b><br>';
-	$return .= DateInput( $value, 'values[' . $id . '][' . $name . ']' ) . ' ' . _( 'to' ) . ' ';
-	$return .= DateInput( issetVal( $THIS_RET['END_DATE'] ), 'values[' . $id . '][END_DATE]' ) . '</td></tr>';
-
-	$return .= '<tr><td style="padding:0;">';
+	$return .= '<table class="widefat width-100p"><tr><td>';
+	$return .= '<div style="display: inline-block">' . DateInput( $value, 'values[' . $id . '][' . $name . ']' ) . '</div>';
+	$return .= '<div style="display: inline-block">&nbsp;' . _( 'to' ) . '&nbsp;</div>';
+	$return .= '<div style="display: inline-block">' . DateInput( issetVal( $THIS_RET['END_DATE'] ), 'values[' . $id . '][END_DATE]' ) . '</div>';
+	$return .= FormatInputTitle( _( 'Visible Between' ) ) . '</td></tr>';
 
 	if ( is_null( $profiles ) )
 	{
@@ -421,7 +420,7 @@ function makePublishing( $value, $name )
 
 	$return .= makePublishingVisibleTo( $profiles, $THIS_RET, $id );
 
-	$return .= '</td></tr></table>';
+	$return .= '</table>';
 
 	if ( ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 	{
@@ -435,72 +434,67 @@ function makePublishing( $value, $name )
  * Function called by makePublishing()
  * generates the "Visible To" part of the Publishing options
  *
- * @todo Use a Multiple select input to gain space.
+ * @since 12.2 Use multiple Select2 instead of checkboxes
  *
- * @return $visibleTo HTML form
+ * @param  array  $profiles User Profiles.
+ * @param  array  $THIS_RET Current row from DB.
+ * @param  string $id       Portal Poll/Note ID.
+ *
+ * @return string HTML form
  */
 function makePublishingVisibleTo( $profiles, $THIS_RET, $id )
 {
-	$visibleTo = '<table class="width-100p cellspacing-0">
-	<tr>
-		<td colspan="2"><b>' . _( 'Visible To' ) . ':</b></td>
-	</tr>
-	<tr class="st">';
+	$value = issetVal( $THIS_RET['PUBLISHED_PROFILES'], '' );
 
-	// Portal Polls add students teacher.
-	// @since 9.2.1 SQL replace use of STRPOS() with LIKE, compatible with MySQL.
-	$teachers_RET = DBGet( "SELECT STAFF_ID," . DisplayNameSQL() . " AS FULL_NAME
-	FROM staff
-	WHERE (SCHOOLS IS NULL OR position('," . UserSchool() . ",' IN SCHOOLS)>0)
-	AND SYEAR='" . UserSyear() . "'
-	AND PROFILE='teacher'
-	ORDER BY FULL_NAME" );
-
-	$teachers = [];
-
-	foreach ( (array) $teachers_RET as $teacher )
-	{
-		$teachers[$teacher['STAFF_ID']] = $teacher['FULL_NAME'];
-	}
-
-	$i = 0;
+	$profile_options = [];
 
 	foreach ( (array) $profiles as $profile )
 	{
-		$i++;
-		$checked = mb_strpos( issetVal( $THIS_RET['PUBLISHED_PROFILES'], '' ), ',' . $profile['ID'] . ',' ) !== false;
-
-		$visibleTo .= '<td>' . CheckboxInput( $checked, 'profiles[' . $id . '][' . $profile['ID'] . ']', _( $profile['TITLE'] ), '', true );
-
-		//FJ Portal Polls add students teacher
-
-		if ( $profile['ID'] === '0' && $_REQUEST['modname'] == 'School_Setup/PortalPolls.php' ) //student & verify this is not a Portal Note!
-		{
-			$visibleTo .= ': ' . SelectInput(
-				issetVal( $THIS_RET['STUDENTS_TEACHER_ID'] ),
-				'values[' . $id . '][STUDENTS_TEACHER_ID]',
-				_( 'Limit to Teacher' ),
-				$teachers,
-				'N/A',
-				'',
-				true
-			);
-		}
-
-		$visibleTo .= '</td>';
-
-		if ( $i % 2 == 0 && $i != count( $profiles ) )
-		{
-			$visibleTo .= '</tr><tr class="st">';
-		}
+		$profile_options[ $profile['ID'] ] = _( $profile['TITLE'] );
 	}
 
-	for ( ; $i % 2 != 0; $i++ )
+	$value_array = explode( ',', trim( (string) $value, ',' ) );
+
+	$visibleTo = '<tr><td>' . Select2Input(
+		$value_array,
+		'values[' . $id . '][PUBLISHED_PROFILES][]',
+		_( 'Visible To' ),
+		$profile_options,
+		'N/A', // Save when none selected, add hidden empty input
+		'multiple style="width: 240px" autocomplete="off"', // Multiple select inputs.
+		false
+	) . '</td></tr>';
+
+	if ( $_REQUEST['modname'] == 'School_Setup/PortalPolls.php'
+		&& mb_strpos( $value, ',0,' ) !== false )
 	{
-		$visibleTo .= '<td>&nbsp;</td>';
-	}
+		// Portal Polls add students teacher.
+		// @since 9.2.1 SQL replace use of STRPOS() with LIKE, compatible with MySQL.
+		$teachers_RET = DBGet( "SELECT STAFF_ID," . DisplayNameSQL() . " AS FULL_NAME
+		FROM staff
+		WHERE (SCHOOLS IS NULL OR position('," . UserSchool() . ",' IN SCHOOLS)>0)
+		AND SYEAR='" . UserSyear() . "'
+		AND PROFILE='teacher'
+		ORDER BY FULL_NAME" );
 
-	$visibleTo .= '</tr>';
+		$teachers = [];
+
+		foreach ( (array) $teachers_RET as $teacher )
+		{
+			$teachers[$teacher['STAFF_ID']] = $teacher['FULL_NAME'];
+		}
+
+		// Portal Poll, has Student selected.
+		$visibleTo .= '<tr><td>' . SelectInput(
+			issetVal( $THIS_RET['STUDENTS_TEACHER_ID'] ),
+			'values[' . $id . '][STUDENTS_TEACHER_ID]',
+			_( 'Student' ) . ' &mdash; ' . _( 'Limit to Teacher' ),
+			$teachers,
+			'N/A',
+			'',
+			true
+		) . '</td></tr>';
+	}
 
 	if ( $_REQUEST['modname'] == 'School_Setup/PortalNotes.php' )
 	{
@@ -508,7 +502,7 @@ function makePublishingVisibleTo( $profiles, $THIS_RET, $id )
 		do_action( 'School_Setup/PortalNotes.php|portal_note_field', [ $id ] );
 	}
 
-	return $visibleTo . '</table>';
+	return $visibleTo;
 }
 
 //FJ file attached to portal notes
