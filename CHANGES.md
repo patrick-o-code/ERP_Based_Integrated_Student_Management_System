@@ -12,6 +12,7 @@ Changes in 12.2
 - SQL Check if student already enrolled on that date when updating END_DATE in SaveEnrollment.fnc.php
 - Error if add-on folder has "-master" or "-main" suffix in Modules.inc.php & Plugins.inc.php
 - Update French & Spanish translations in rosariosis.po
+- Security: move RosarioSIS version from Login screen to Portal in index.php & Portal.php
 
 Changes in 12.1.3
 -----------------

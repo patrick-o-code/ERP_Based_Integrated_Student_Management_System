@@ -581,9 +581,6 @@ if ( empty( $_SESSION['STAFF_ID'] )
 				);
 			?>
 		</p>
-		<p class="center">
-			<?php echo sprintf( _( '%s version %s' ), 'RosarioSIS', ROSARIO_VERSION ); ?>
-		</p>
 		<p class="center size-1">
 			&copy; 2004-2009 The Miller Group &amp; Learners Circle
 			<br />&copy; 2012-2025 <a href="https://www.rosariosis.org" noreferrer>RosarioSIS</a>

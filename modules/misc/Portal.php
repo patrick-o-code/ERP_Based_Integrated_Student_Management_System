@@ -1051,6 +1051,12 @@ switch ( User( 'PROFILE' ) )
 		break;
 }
 
+if ( User( 'PROFILE' ) === 'admin' )
+{
+	// @since 12.2 Security: move RosarioSIS version from Login screen to Portal
+	echo '<p class="size-1">' . sprintf( _( '%s version %s' ), 'RosarioSIS', ROSARIO_VERSION ) . '</p>';
+}
+
 /**
  * Check PHP min version, safe mode, and required functions.
  *
