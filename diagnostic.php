@@ -31,7 +31,7 @@ else
 
 if ( count( $error ) )
 {
-	echo _ErrorMessage( $error, 'fatal' );
+	_ErrorMessage( $error, 'fatal' );
 }
 
 
@@ -129,7 +129,7 @@ else
 						$error[] = 'Please login as an administrator before accessing the diagnostic.php page.';
 
 						// Exit.
-						echo _ErrorMessage( $error, 'fatal' );
+						_ErrorMessage( $error, 'fatal' );
 					}
 				}
 			}
@@ -293,4 +293,6 @@ function _ErrorMessage( $error, $code = 'error' )
 
 		return $return;
 	}
+
+	return '';
 }
