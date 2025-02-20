@@ -4,6 +4,7 @@
 Changes in 12.2
 ---------------
 - Fix PostgreSQL error invalid input syntax for type integer: "2.0" in Periods.php, Assignments.php & MassCreateAssignments.php
+- Internationalization: Zip Code before City for non English speaking countries in MailingLabel.fnc.php
 
 Changes in 12.1.3
 -----------------

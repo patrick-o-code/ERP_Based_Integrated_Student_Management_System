@@ -13,6 +13,7 @@
  * @static $mailing_labels Mailing Labels cache.
  *
  * @since 9.0 Add Student name if no Contacts at address
+ * @since 12.2 Internationalization: Zip Code before City for non English speaking countries
  *
  * @param string $address_id Address ID.
  *
@@ -74,9 +75,19 @@ function MailingLabel( $address_id )
 		}
 
 		// Mab - this is a bit of a kludge but insert an html comment so people and address can be split later.
-		$return .= '<!-- -->' . $people[ $i ]['ADDRESS'] . '<br>' .
-			$people[ $i ]['CITY'] . ( $people[ $i ]['STATE'] ? ', ' . $people[ $i ]['STATE'] : '' ) .
-			( $people[ $i ]['ZIPCODE'] ? ' ' . $people[ $i ]['ZIPCODE'] : '' );
+		$return .= '<!-- -->' . $people[ $i ]['ADDRESS'] . '<br>';
+
+		if ( mb_substr( $_SESSION['locale'], 0, 2 ) === 'en' )
+		{
+			$return .= $people[ $i ]['CITY'] . ( $people[ $i ]['STATE'] ? ', ' . $people[ $i ]['STATE'] : '' ) .
+				( $people[ $i ]['ZIPCODE'] ? ' ' . $people[ $i ]['ZIPCODE'] : '' );
+		}
+		else
+		{
+			// @since 12.2 Internationalization: Zip Code before City for non English speaking countries
+			$return .= ( $people[ $i ]['ZIPCODE'] ? $people[ $i ]['ZIPCODE'] . ' ' : '' ) .
+				$people[ $i ]['CITY'] . ( $people[ $i ]['STATE'] ? ', ' . $people[ $i ]['STATE'] : '' );
+		}
 
 		$mailing_labels[ $address_id ][ $student_id ] = $return;
 	}
