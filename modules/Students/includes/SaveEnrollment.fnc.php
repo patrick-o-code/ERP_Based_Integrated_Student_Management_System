@@ -82,6 +82,27 @@ function SaveEnrollment()
 			continue;
 		}
 
+		if ( ! empty( $columns['END_DATE'] ) )
+		{
+			// @since 12.2 SQL Check if student already enrolled on that date when updating END_DATE
+			$found = DBGetOne( "SELECT ID
+				FROM student_enrollment
+				WHERE STUDENT_ID='" . UserStudentID() . "'
+				AND SYEAR='" . UserSyear() . "'
+				AND ('" . $columns['END_DATE'] . "' BETWEEN START_DATE AND END_DATE
+					OR '" . $columns['END_DATE'] . "'>=START_DATE AND END_DATE IS NULL)
+				AND ID<>'" . (int) $id . "'" );
+
+			if ( $found )
+			{
+				unset( $_REQUEST['values']['student_enrollment'][$id] );
+
+				$error[] = _( 'The student is already enrolled on that date, and cannot be enrolled a second time on the date you specified. Please fix, and try enrolling the student again.' );
+			}
+
+			continue;
+		}
+
 		if ( ! isset( $columns['START_DATE'] ) )
 		{
 			continue;
