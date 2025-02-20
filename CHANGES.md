@@ -11,6 +11,7 @@ Changes in 12.2
 - Enrollment End Date: No N/A option if next entry already has Start date in StudentsUsersInfo.fnc.php
 - SQL Check if student already enrolled on that date when updating END_DATE in SaveEnrollment.fnc.php
 - Error if add-on folder has "-master" or "-main" suffix in Modules.inc.php & Plugins.inc.php
+- Update French & Spanish translations in rosariosis.po
 
 Changes in 12.1.3
 -----------------
