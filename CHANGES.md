@@ -14,6 +14,7 @@ Changes in 12.2
 - Update French & Spanish translations in rosariosis.po
 - Security: move RosarioSIS version from Login screen to Portal in index.php & Portal.php
 - Add `composer.json` to Files list (required for add-ons) in modules/README.md & plugins/README.md
+- Check subject, course & course period ID are valid for current school & year in Courses.php
 
 Changes in 12.1.3
 -----------------

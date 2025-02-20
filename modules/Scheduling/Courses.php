@@ -776,19 +776,46 @@ if (  ( ! $_REQUEST['modfunc']
 		}
 	}
 
-	// Check subject ID is valid for current school & syear!
-
-	if ( $_REQUEST['modfunc'] !== 'choose_course'
-		&& $_REQUEST['subject_id']
-		&& $_REQUEST['subject_id'] !== 'new' )
+	if ( $_REQUEST['modfunc'] !== 'choose_course' )
 	{
-		$subject_RET = DBGet( "SELECT SUBJECT_ID
-			FROM course_subjects
-			WHERE SCHOOL_ID='" . UserSchool() . "'
-			AND SYEAR='" . UserSyear() . "'
-			AND SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" );
+		// @since 12.2 Check subject, course & course period ID are valid for current school & year
+		$valid_id = true;
 
-		if ( ! $subject_RET )
+		if ( $_REQUEST['subject_id']
+			&& $_REQUEST['subject_id'] !== 'new' )
+		{
+			$valid_id = DBGetOne( "SELECT 1
+				FROM course_subjects
+				WHERE SCHOOL_ID='" . UserSchool() . "'
+				AND SYEAR='" . UserSyear() . "'
+				AND SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" );
+		}
+
+		if ( $valid_id
+			&& $_REQUEST['course_id']
+			&& $_REQUEST['course_id'] !== 'new' )
+		{
+			$valid_id = DBGetOne( "SELECT 1
+				FROM courses
+				WHERE SCHOOL_ID='" . UserSchool() . "'
+				AND SYEAR='" . UserSyear() . "'
+				AND COURSE_ID='" . (int) $_REQUEST['course_id'] . "'
+				AND SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" );
+		}
+
+		if ( $valid_id
+			&& $_REQUEST['course_period_id']
+			&& $_REQUEST['course_period_id'] !== 'new' )
+		{
+			$valid_id = DBGetOne( "SELECT 1
+				FROM course_periods
+				WHERE SCHOOL_ID='" . UserSchool() . "'
+				AND SYEAR='" . UserSyear() . "'
+				AND COURSE_PERIOD_ID='" . (int) $_REQUEST['course_period_id'] . "'
+				AND COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" );
+		}
+
+		if ( ! $valid_id )
 		{
 			// Unset subject, course & course period IDs & redirect URL.
 			RedirectURL( [
