@@ -36,21 +36,14 @@ function AddonMakeReadMe( $type, $addon_title, $activated = '' )
 		$addon_title_echo = dgettext( $addon_title, str_replace( '_', ' ', $addon_title ) );
 	}
 
-	$readme_path = 'modules/' . $addon_title . '/README';
-
-	if ( $type === 'plugin' )
-	{
-		$readme_path = 'plugins/' . $addon_title . '/README';
-	}
+	$readme_path = $type . 's/' . $addon_title . '/README.md';
 
 	$return = $addon_title_echo;
 
 	// if README.md file, display in Colorbox
 
 	if ( ! isset( $_REQUEST['_ROSARIO_PDF'] )
-		&& ( file_exists( $readme_path )
-			|| (  ( $readme_path = $readme_path . '.md' )
-				&& file_exists( $readme_path ) ) ) )
+		&& file_exists( $readme_path ) )
 	{
 		//get README.md content
 		$readme_content = file_get_contents( $readme_path );
