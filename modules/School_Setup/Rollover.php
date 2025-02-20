@@ -132,7 +132,7 @@ $tables_tooltip = [
 	'report_card_comments' => _( 'You <i>must</i> roll courses at the same time or before rolling report card comments.' ),
 ];
 
-$no_school_tables = [ 'schools' => true, 'student_enrollment_codes' => true, 'staff' => true ];
+$no_school_tables = [ 'schools' => true, 'student_enrollment_codes' => true, 'staff' => true, 'program_config' => true ];
 
 if ( $RosarioModules['Eligibility'] )
 {

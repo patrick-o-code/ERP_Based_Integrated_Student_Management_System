@@ -18,6 +18,7 @@ Changes in 12.2
 - Fix SQL error: user just deleted current Marking Period, reload Side menu in MarkingPeriods.php
 - Fix SQL error null value in column "marking_period_id" & "teacher_id" in Rollover.php
 - Fix SQL error null value in column "course_period_id" in Rollover.php
+- Add program_config table to no school tables list in Rollover.php
 
 Changes in 12.1.3
 -----------------
