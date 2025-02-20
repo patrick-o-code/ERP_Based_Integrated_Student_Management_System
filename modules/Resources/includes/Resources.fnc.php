@@ -98,6 +98,7 @@ function ResourcesMakeLink( $value, $name )
  * Exclude admin (can always view)
  *
  * @since 10.8 Add Resource Visibility options
+ * @since 12.2 Use multiple Select2 instead of checkboxes
  *
  * @param string $value
  * @param string $column
@@ -135,35 +136,31 @@ function ResourcesMakePublishedProfiles( $value, $column = 'PUBLISHED_PROFILES' 
 	// Add Profiles with Custom permissions to profiles list.
 	$profiles = array_merge( $custom_permissions, $profiles_RET );
 
-	$visible_to = '<tr class="st">';
-
-	$i = 0;
+	$profile_options = [];
 
 	foreach ( (array) $profiles as $profile )
 	{
-		$i++;
-		$checked = mb_strpos( issetVal( $value, '' ), ',' . $profile['ID'] . ',' ) !== false;
-
-		$visible_to .= '<td>' . CheckboxInput(
-			$checked,
-			'values[' . $id . '][PUBLISHED_PROFILES][' . $profile['ID'] . ']',
-			_( $profile['TITLE'] ),
-			'',
-			true
-		) . '</td>';
-
-		if ( $i % 2 == 0 && $i != count( $profiles ) )
-		{
-			$visible_to .= '</tr><tr class="st">';
-		}
+		$profile_options[ $profile['ID'] ] = _( $profile['TITLE'] );
 	}
 
-	for ( ; $i % 2 != 0; $i++ )
-	{
-		$visible_to .= '<td>&nbsp;</td>';
-	}
+	$value_array = explode( ',', trim( (string) $value, ',' ) );
 
-	$visible_to .= '</tr>';
+	$visible_to = '<tr class="st"><td>';
+
+	$tooltip = '<div class="tooltip"><i>' .
+		_( 'Note: None selected means visible to all profiles' ) . '</i></div>';
+
+	$visible_to .= Select2Input(
+		$value_array,
+		'values[' . $id . '][PUBLISHED_PROFILES][]',
+		_( 'User Profiles' ) . $tooltip,
+		$profile_options,
+		'N/A', // Save when none selected, add hidden empty input
+		'multiple style="width: 240px" autocomplete="off"', // Multiple select inputs.
+		false
+	);
+
+	$visible_to .= '</td></tr>';
 
 	return $visible_to;
 }
@@ -193,19 +190,14 @@ function ResourcesMakePublishedGradeLevels( $value, $column = 'PUBLISHED_GRADE_L
 		$grade_level_options[ $grade_level['ID'] ] = $grade_level['TITLE'];
 	}
 
-	// @since RosarioSIS 10.7 Use Select2 input instead of Chosen, fix overflow issue.
-	$select_input_function = function_exists( 'Select2Input' ) ? 'Select2Input' : 'SelectInput';
-
 	$value_array = explode( ',', trim( (string) $value, ',' ) );
 
-	$limit_to = '<tr class="st"><td colspan="2">';
+	$limit_to = '<tr class="st"><td>';
 
-	$limit_to .= '<b>' . _( 'Limit to Grade Levels' ) . ':</b><br>';
-
-	$limit_to .= $select_input_function(
+	$limit_to .= Select2Input(
 		$value_array,
 		'values[' . $id . '][PUBLISHED_GRADE_LEVELS][]',
-		'',
+		_( 'Limit to Grade Levels' ),
 		$grade_level_options,
 		'N/A', // Save when none selected, add hidden empty input
 		'multiple style="width: 240px" autocomplete="off"', // Multiple select inputs.

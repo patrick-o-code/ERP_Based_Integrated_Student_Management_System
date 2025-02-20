@@ -7,6 +7,7 @@ Changes in 12.2
 - Internationalization: Zip Code before City for non English speaking countries in MailingLabel.fnc.php
 - Use multiple Select2 instead of checkboxes in PortalPollsNotes.fnc.php
 - Simplify code to save PUBLISHED_PROFILES in PortalNotes.php & PortalPolls.php
+- Use multiple Select2 instead of checkboxes in Resources.php & Resources.fnc.php
 
 Changes in 12.1.3
 -----------------

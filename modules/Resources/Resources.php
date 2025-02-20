@@ -17,9 +17,9 @@ if ( $_REQUEST['modfunc'] === 'update' )
 				// @since 10.8 Add Resource Visibility options
 				$published_profiles = '';
 
-				foreach ( (array) $columns['PUBLISHED_PROFILES'] as $profile => $yes )
+				foreach ( (array) $columns['PUBLISHED_PROFILES'] as $profile )
 				{
-					if ( $yes )
+					if ( $profile != '' )
 					{
 						$published_profiles .= ',' . $profile;
 					}
@@ -111,9 +111,7 @@ if ( ! $_REQUEST['modfunc'] )
 
 	if ( AllowEdit() )
 	{
-		$tooltip = '<div class="tooltip"><i>' . _( 'Note: All unchecked means visible to all profiles' ) . '</i></div>';
-
-		$columns['VISIBLE_TO'] = _( 'Visible To' ) . $tooltip;
+		$columns['VISIBLE_TO'] = _( 'Visible To' );
 	}
 
 	$link['add']['html'] = [
