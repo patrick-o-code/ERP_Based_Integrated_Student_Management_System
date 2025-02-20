@@ -8,47 +8,6 @@ DrawHeader( ProgramTitle() );
 // Add eventual Dates to $_REQUEST['values'].
 AddRequestedDates( 'values', 'post' );
 
-$profiles_RET = DBGet( "SELECT ID,TITLE FROM user_profiles ORDER BY ID" );
-
-if ( $_REQUEST['modfunc'] === 'update'
-	&& ( ! empty( $_REQUEST['profiles'] ) || ! empty( $_REQUEST['values'] ) )
-	&& AllowEdit() )
-{
-	$notes_RET = DBGet( "SELECT ID FROM portal_notes WHERE SCHOOL_ID='" . UserSchool() . "' AND SYEAR='" . UserSyear() . "'" );
-
-	foreach ( (array) $notes_RET as $note_id )
-	{
-		$note_id = $note_id['ID'];
-		$_REQUEST['values'][$note_id]['PUBLISHED_PROFILES'] = '';
-
-		foreach ( [ 'admin', 'teacher', 'parent' ] as $profile_id )
-		{
-			if ( ! empty( $_REQUEST['profiles'][$note_id][$profile_id] ) )
-			{
-				$_REQUEST['values'][$note_id]['PUBLISHED_PROFILES'] .= ',' . $profile_id;
-			}
-		}
-
-		if ( ! empty( $_REQUEST['profiles'][$note_id] ) )
-		{
-			foreach ( (array) $profiles_RET as $profile )
-			{
-				$profile_id = $profile['ID'];
-
-				if ( ! empty( $_REQUEST['profiles'][$note_id][$profile_id] ) )
-				{
-					$_REQUEST['values'][$note_id]['PUBLISHED_PROFILES'] .= ',' . $profile_id;
-				}
-			}
-		}
-
-		if ( ! empty( $_REQUEST['values'][$note_id]['PUBLISHED_PROFILES'] ) )
-		{
-			$_REQUEST['values'][$note_id]['PUBLISHED_PROFILES'] .= ',';
-		}
-	}
-}
-
 if ( $_REQUEST['modfunc'] === 'update'
 	&& AllowEdit() )
 {
@@ -56,6 +15,26 @@ if ( $_REQUEST['modfunc'] === 'update'
 
 	foreach ( (array) $_REQUEST['values'] as $id => $columns )
 	{
+		if ( isset( $columns['PUBLISHED_PROFILES'] ) )
+		{
+			$published_profiles = '';
+
+			foreach ( (array) $columns['PUBLISHED_PROFILES'] as $profile )
+			{
+				if ( $profile != '' )
+				{
+					$published_profiles .= ',' . $profile;
+				}
+			}
+
+			$columns['PUBLISHED_PROFILES'] = '';
+
+			if ( $published_profiles )
+			{
+				$columns['PUBLISHED_PROFILES'] = $published_profiles . ',';
+			}
+		}
+
 		// FJ fix SQL bug invalid sort order.
 
 		if ( empty( $columns['SORT_ORDER'] ) || is_numeric( $columns['SORT_ORDER'] ) )
@@ -82,32 +61,6 @@ if ( $_REQUEST['modfunc'] === 'update'
 			// New: check for Title.
 			elseif ( $columns['TITLE'] )
 			{
-				$_REQUEST['values']['new']['PUBLISHED_PROFILES'] = '';
-
-				foreach ( [ 'admin', 'teacher', 'parent' ] as $profile_id )
-				{
-					if ( isset( $_REQUEST['profiles']['new'][$profile_id] )
-						&& $_REQUEST['profiles']['new'][$profile_id] )
-					{
-						$_REQUEST['values']['new']['PUBLISHED_PROFILES'] .= $profile_id . ',';
-					}
-				}
-
-				foreach ( (array) $profiles_RET as $profile )
-				{
-					$profile_id = $profile['ID'];
-
-					if ( isset( $_REQUEST['profiles']['new'][$profile_id] )
-						&& $_REQUEST['profiles']['new'][$profile_id] )
-					{
-						$_REQUEST['values']['new']['PUBLISHED_PROFILES'] .= $profile_id . ',';
-					}
-				}
-
-				$columns['PUBLISHED_PROFILES'] = $_REQUEST['values']['new']['PUBLISHED_PROFILES'] ?
-				',' . $_REQUEST['values']['new']['PUBLISHED_PROFILES'] :
-				'';
-
 				// @since 10.9 Fix security issue, unset any FILE_ATTACHED column first.
 				$columns['FILE_ATTACHED'] = '';
 
