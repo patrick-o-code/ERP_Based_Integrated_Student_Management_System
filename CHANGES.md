@@ -10,6 +10,7 @@ Changes in 12.2
 - Use multiple Select2 instead of checkboxes in Resources.php & Resources.fnc.php
 - Enrollment End Date: No N/A option if next entry already has Start date in StudentsUsersInfo.fnc.php
 - SQL Check if student already enrolled on that date when updating END_DATE in SaveEnrollment.fnc.php
+- Error if add-on folder has "-master" or "-main" suffix in Modules.inc.php & Plugins.inc.php
 
 Changes in 12.1.3
 -----------------

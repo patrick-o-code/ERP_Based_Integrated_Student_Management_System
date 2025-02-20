@@ -195,9 +195,26 @@ if ( $_REQUEST['modfunc'] === 'activate'
 {
 	$update_RosarioModules = false;
 
+	// @since 12.2 Error if add-on folder has "-master" or "-main" suffix
+	if ( mb_substr( $_REQUEST['module'], -7, 7 ) === '-master' )
+	{
+		$error[] = sprintf(
+			_( 'Please rename the add-on directory: remove the "%s" suffix.' ),
+			'-master'
+		);
+	}
+	elseif ( mb_substr( $_REQUEST['module'], -5, 5 ) === '-main' )
+	{
+		$error[] = sprintf(
+			_( 'Please rename the add-on directory: remove the "%s" suffix.' ),
+			'-main'
+		);
+	}
+
 	//verify not already in $RosarioModules
 
-	if ( ! in_array( $_REQUEST['module'], array_keys( $RosarioModules ) ) )
+	if ( ! $error
+		&& ! in_array( $_REQUEST['module'], array_keys( $RosarioModules ) ) )
 	{
 		//verify directory exists
 
@@ -260,7 +277,8 @@ if ( $_REQUEST['modfunc'] === 'activate'
 	}
 
 	//verify in $RosarioModules
-	elseif ( $RosarioModules[$_REQUEST['module']] == false && is_dir( 'modules/' . $_REQUEST['module'] ) )
+	elseif ( ! $error
+		&& $RosarioModules[$_REQUEST['module']] == false && is_dir( 'modules/' . $_REQUEST['module'] ) )
 	{
 		$update_RosarioModules = true;
 	}
