@@ -787,6 +787,7 @@ function Rollover( $table, $mode = 'delete' )
 			}
 
 			// ROLL course_periods
+			// @since 12.2 Fix SQL error null value in column "marking_period_id" & "teacher_id"
 			DBQuery( "INSERT INTO course_periods (SYEAR,SCHOOL_ID,COURSE_ID,TITLE,
 				SHORT_NAME,MP,MARKING_PERIOD_ID,TEACHER_ID,ROOM,TOTAL_SEATS,FILLED_SEATS,
 				DOES_ATTENDANCE,GRADE_SCALE_ID,DOES_HONOR_ROLL,DOES_CLASS_RANK,DOES_BREAKOFF,
@@ -821,7 +822,17 @@ function Rollover( $table, $mode = 'delete' )
 					LIMIT 1),COURSE_PERIOD_ID
 				FROM course_periods p
 				WHERE SYEAR='" . UserSyear() . "'
-				AND SCHOOL_ID='" . UserSchool() . "'" );
+				AND SCHOOL_ID='" . UserSchool() . "'
+				AND (SELECT MARKING_PERIOD_ID
+					FROM school_marking_periods n
+					WHERE n.MP=p.MP
+					AND n.SCHOOL_ID=p.SCHOOL_ID
+					AND n.ROLLOVER_ID=p.MARKING_PERIOD_ID
+					LIMIT 1) IS NOT NULL
+				AND (SELECT STAFF_ID
+					FROM staff n
+					WHERE n.ROLLOVER_ID=p.TEACHER_ID
+					LIMIT 1) IS NOT NULL" );
 
 			if ( $DatabaseType === 'mysql' )
 			{

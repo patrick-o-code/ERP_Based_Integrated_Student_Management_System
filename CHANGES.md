@@ -16,6 +16,7 @@ Changes in 12.2
 - Add `composer.json` to Files list (required for add-ons) in modules/README.md & plugins/README.md
 - Check subject, course & course period ID are valid for current school & year in Courses.php
 - Fix SQL error: user just deleted current Marking Period, reload Side menu in MarkingPeriods.php
+- Fix SQL error null value in column "marking_period_id" & "teacher_id" in Rollover.php
 
 Changes in 12.1.3
 -----------------
