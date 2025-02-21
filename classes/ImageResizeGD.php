@@ -618,6 +618,11 @@ class ImageResizeGD {
 
 		$allowedImageMimeTypes = array_map( 'image_type_to_mime_type', $this->allowedImageTypes );
 
+		if (version_compare( PHP_VERSION, '7.1', '<' )) {
+			// Fix WebP image type detection on PHP < 7.1
+			$allowedImageMimeTypes[3] = 'image/webp';
+		}
+
 		if ( ! in_array( $imageMimeType, $allowedImageMimeTypes ) ) {
 			if ( function_exists( 'getimagesizefromstring' ) )
 			{
@@ -628,7 +633,17 @@ class ImageResizeGD {
 					|| $size[1] == 0
 					|| ! $size['mime'] )
 				{
-					throw new \InvalidArgumentException('Image type is not supported or file is corrupted.');
+					if (version_compare( PHP_VERSION, '7.1', '<' )
+						&& strstr($decodedData, 'WEBPVP8') !== false) {
+						/**
+						 * Fix WebP image type detection on PHP < 7.1
+						 *
+						 * @link https://github.com/gumlet/php-image-resize/pull/144
+						 */
+						$imageMimeType = 'image/webp';
+					} else {
+						throw new \InvalidArgumentException('Image type is not supported or file is corrupted.');
+					}
 				}
 
 				$imageMimeType = $size['mime'];
