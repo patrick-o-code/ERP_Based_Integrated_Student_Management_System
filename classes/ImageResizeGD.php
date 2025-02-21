@@ -655,8 +655,12 @@ class ImageResizeGD {
 			}
 		}
 
-		if (in_array($imageMimeType, $allowedImageMimeTypes)) {
-			$this->sourceType = IMAGETYPE_WEBP;
+		foreach ( (array) $this->allowedImageTypes as $allowedImageType ) {
+			if ( image_type_to_mime_type( $allowedImageType ) === $imageMimeType
+				|| ( $allowedImageType === IMAGETYPE_WEBP && $imageMimeType === 'image/webp' ) ) {
+				$this->sourceType = $allowedImageType;
+				break;
+			}
 		}
 
 		if ( ! $this->getSourceType() ) {
