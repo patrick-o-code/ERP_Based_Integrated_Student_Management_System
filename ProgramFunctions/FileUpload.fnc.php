@@ -917,6 +917,7 @@ function FileExtensionWhiteList() {
 		'.aif',
 		'.flac',
 		'.mka',
+		'.opus',
 		// Video.
 		'.avi',
 		'.mp4',
