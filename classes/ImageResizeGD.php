@@ -654,11 +654,8 @@ class ImageResizeGD {
 			}
 		}
 
-		foreach ( (array) $this->allowedImageTypes as $allowedImageType ) {
-			if ( image_type_to_mime_type( $allowedImageType ) === $imageMimeType ) {
-				$this->sourceType = $allowedImageType;
-				break;
-			}
+		if (in_array($imageMimeType, $allowedImageMimeTypes)) {
+			$this->sourceType = $imageMimeType;
 		}
 
 		if ( ! $this->getSourceType() ) {
@@ -666,7 +663,20 @@ class ImageResizeGD {
 			$this->sourceType = IMAGETYPE_PNG;
 		}
 
-		$image = @imagecreatefromstring( $decodedData );
+		if (function_exists('imagecreatefromwebp')
+			&& $imageMimeType === 'image/webp') {
+			// WebP may not work with imagecreatefromstring().
+			// Note: animated WebP returns false.
+			$imagePath = tempnam(sys_get_temp_dir(), 'ImageResizeGDWebP');
+
+			file_put_contents($imagePath, file_get_contents($imageData));
+
+			$image = @imagecreatefromwebp($imagePath);
+
+			@unlink($imagePath);
+		} else {
+			$image = @imagecreatefromstring( $decodedData );
+		}
 
 		if ($image === false) {
 			throw new \Exception('Image type is not supported or file is corrupted.');
