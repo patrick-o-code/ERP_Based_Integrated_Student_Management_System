@@ -611,7 +611,7 @@ class ImageResizeGD {
 				strpos( $imageData, ';base64' ) - 5
 			);
 
-			$imageData = substr( $imageData, ( strpos( $imageData, 'base64' ) + 6 ) );
+			$imageData = substr( $imageData, ( strpos( $imageData, 'base64' ) + 7 ) );
 		}
 
 		$decodedData = base64_decode( $imageData );
@@ -669,9 +669,7 @@ class ImageResizeGD {
 			// Note: animated WebP returns false.
 			$imagePath = tempnam(sys_get_temp_dir(), 'ImageResizeGDWebP');
 
-			$data = explode( ',', $imageData );
-
-			file_put_contents($imagePath, (isset($data[1]) ? $data[1] : $imageData));
+			file_put_contents($imagePath, $decodedData);
 
 			$image = @imagecreatefromwebp($imagePath);
 
