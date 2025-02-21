@@ -99,7 +99,8 @@ function FileUpload( $input, $path, $ext_white_list, $size_limit, &$error, $fina
 
 	// Check if file is image.
 	elseif ( $caller_function !== 'ImageUpload'
-		&& in_array( $final_ext, [ '.jpg', '.jpeg', '.png', '.gif' ] ) )
+		&& ( in_array( $final_ext, [ '.jpg', '.jpeg', '.png', '.gif' ] )
+			|| ( $final_ext === '.webp' && function_exists( 'imagewebp' ) ) ) )
 	{
 		// Resize, compress & store image using ImageUpload().
 		return ImageUpload(
@@ -139,6 +140,7 @@ function FileUpload( $input, $path, $ext_white_list, $size_limit, &$error, $fina
  * @example ImageUpload( $base64_img, [ 'width' => 640, 'height' => '320' ] );
  *
  * @since 3.3
+ * @since 12.2 Add WebP image format support
  *
  * @uses FileUpload()
  * @uses ImageResizeGD class.
@@ -172,8 +174,8 @@ function ImageUpload( $input, $target_dim = [], $path = '', $ext_white_list = []
 
 	if ( ! $ext_white_list )
 	{
-		// Defaults to JPG, PNG & GIF.
-		$ext_white_list = [ '.jpg', '.jpeg', '.png', '.gif' ];
+		// Defaults to JPG, PNG, GIF & WEBP.
+		$ext_white_list = [ '.jpg', '.jpeg', '.png', '.gif', '.webp' ];
 	}
 
 	// Defaults to horizontal PDF target dimensions.
@@ -263,6 +265,10 @@ function ImageUpload( $input, $target_dim = [], $path = '', $ext_white_list = []
 			{
 				return $full_path . '.gif';
 			}
+			elseif ( file_exists( $full_path . '.webp' ) )
+			{
+				return $full_path . '.webp';
+			}
 		}
 		else
 		{
@@ -290,6 +296,10 @@ function ImageUpload( $input, $target_dim = [], $path = '', $ext_white_list = []
 			elseif ( mb_strtolower( $final_ext ) === '.gif' )
 			{
 				$extension = IMAGETYPE_GIF;
+			}
+			elseif ( mb_strtolower( $final_ext ) === '.webp' )
+			{
+				$extension = IMAGETYPE_WEBP;
 			}
 		}
 

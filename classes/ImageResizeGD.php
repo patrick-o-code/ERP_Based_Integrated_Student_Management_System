@@ -1,7 +1,7 @@
 <?php
 /**
  * Image resize and compress class
- * Simple PHP class for resizing and compressing images in PNG, JPEG and GIF format.
+ * Simple PHP class for resizing and compressing images in PNG, JPEG, GIF and WEBP format.
  * @uses PHP GD extension.
  * @see ImageUpload()
  *
@@ -9,11 +9,19 @@
  * @see $PNGQuantPath optional configuration variable.
  *
  * @since 3.3
+ * @since 12.2 Add WebP image format support
  *
  * @package RosarioSIS
  * @subpackage classes
  */
 
+// WebP constants may not be defined, even in cases where the format is supported.
+if ( ! defined( 'IMAGETYPE_WEBP' ) ) {
+	define( 'IMAGETYPE_WEBP', 18 );
+}
+if ( ! defined( 'IMG_WEBP' ) ) {
+	define( 'IMG_WEBP', IMAGETYPE_WEBP );
+}
 
 /*!
  * hi@j0hn.dk
@@ -66,6 +74,11 @@ class ImageResizeGD {
 	private $defaultPNGCompression;
 
 	/**
+	 * @var int
+	 */
+	private $defaultWEBPCompression;
+
+	/**
 	 * @var string
 	 */
 	private $PNGQuantPath;
@@ -73,7 +86,7 @@ class ImageResizeGD {
 	/**
 	 * @var array
 	 */
-	private $allowedImageTypes = array(IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_PNG);
+	private $allowedImageTypes = array(IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_WEBP);
 
 
 	public function __destruct() {
@@ -294,6 +307,10 @@ class ImageResizeGD {
 			$quality = 9;
 		}
 
+		if($quality > 100 && $extension === IMAGETYPE_WEBP) {
+			$quality = 100;
+		}
+
 		switch($extension) {
 			case IMAGETYPE_GIF:
 				if (imagetypes() & IMG_GIF) {
@@ -335,6 +352,20 @@ class ImageResizeGD {
 					$this->compressPNGQuant( $imageFile );
 				} else {
 					throw new \Exception('Your GD library does not support png image types.');
+				}
+				break;
+			case IMAGETYPE_WEBP:
+				if (function_exists('imagewebp')) {
+					if($quality === null) {
+						$quality = $this->getDefaultWEBPCompression();
+					}
+
+					$imageFile = is_null( $saveImageName ) ? null :
+						$saveImageName . ( substr( $saveImageName, -5 ) === '.webp' ? '' : '.webp' );
+
+					$imageResult = imagewebp($this->imageModified, $imageFile, $quality);
+				} else {
+					throw new \Exception('Your GD library does not support webp image types.');
 				}
 				break;
 			default:
@@ -397,6 +428,22 @@ class ImageResizeGD {
 	public function setPNGQuantPath($PNGQuantPath)
 	{
 		$this->PNGQuantPath = (string) $PNGQuantPath;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getDefaultWEBPCompression()
+	{
+		return $this->defaultWEBPCompression;
+	}
+
+	/**
+	 * @param int $defaultJPEGCompression
+	 */
+	public function setDefaultWEBPCompression($defaultWEBPCompression)
+	{
+		$this->defaultWEBPCompression = $defaultWEBPCompression;
 	}
 
 	/**
@@ -513,7 +560,14 @@ class ImageResizeGD {
 			$this->sourceType = $imageType;
 		}
 
-		$image = @imagecreatefromstring(file_get_contents($imagePath));
+		if (function_exists('imagecreatefromwebp')
+			&& $imageType === IMAGETYPE_WEBP) {
+			// WebP may not work with imagecreatefromstring().
+			// Note: animated WebP returns false.
+			$image = @imagecreatefromwebp($imagePath);
+		} else {
+			$image = @imagecreatefromstring(file_get_contents($imagePath));
+		}
 
 		if($image === false) {
 			throw new \Exception('Image could not be opened.');

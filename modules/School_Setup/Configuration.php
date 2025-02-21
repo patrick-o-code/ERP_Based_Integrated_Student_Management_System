@@ -533,7 +533,7 @@ else
 				'" style="max-width:225px; max-height:225px;" /><br />' : '' ) .
 			FileInput(
 				'LOGO_FILE',
-				_( 'School logo' ) . ' (.jpg, .png, .gif)',
+				_( 'School logo' ) . ' (.jpg, .png, .gif, .webp)',
 				'accept="image/*"'
 			) . '</td></tr>';
 

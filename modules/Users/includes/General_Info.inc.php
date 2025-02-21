@@ -11,9 +11,9 @@ if ( AllowEdit()
 	<div class="user-photo-form hide"><?php
 	echo FileInput(
 		'photo',
-		_( 'User Photo' ) . ' (.jpg, .png, .gif)',
+		_( 'User Photo' ) . ' (.jpg, .png, .gif, .webp)',
 		// Fix photo use mime types, not file extensions so mobile browsers allow camera
-		'accept="image/jpeg, image/png, image/gif"'
+		'accept="image/jpeg, image/png, image/gif, image/webp"'
 	);
 ?></div>
 <?php endif;

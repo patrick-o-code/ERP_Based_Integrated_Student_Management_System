@@ -20,6 +20,7 @@ Changes in 12.2
 - Fix SQL error null value in column "course_period_id" in Rollover.php
 - Add program_config table to no school tables list in Rollover.php
 - Add .opus audio to file extensions white list in FileUpload.fnc.php
+- Add WebP image format support in FileUpload.fnc.php, ImageResizeGD.php, Configuration.php & General_Info.inc.php
 
 Changes in 12.1.3
 -----------------
