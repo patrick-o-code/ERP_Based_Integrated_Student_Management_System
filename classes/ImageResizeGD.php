@@ -139,6 +139,7 @@ class ImageResizeGD {
 
 		$this->setDefaultJPEGCompression($defaultJPEGCompression);
 		$this->setDefaultPNGCompression($defaultPNGCompression);
+		$this->setDefaultWEBPCompression(-1);
 		$this->setPNGQuantPath($PNGQuantPath);
 
 		$this->sourceWidth = imagesx($this->image);
