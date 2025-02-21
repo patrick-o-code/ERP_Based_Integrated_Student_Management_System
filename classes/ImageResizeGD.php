@@ -669,7 +669,9 @@ class ImageResizeGD {
 			// Note: animated WebP returns false.
 			$imagePath = tempnam(sys_get_temp_dir(), 'ImageResizeGDWebP');
 
-			file_put_contents($imagePath, file_get_contents($imageData));
+			$data = explode( ',', $imageData );
+
+			file_put_contents($imagePath, (isset($data[1]) ? $data[1] : $imageData));
 
 			$image = @imagecreatefromwebp($imagePath);
 
