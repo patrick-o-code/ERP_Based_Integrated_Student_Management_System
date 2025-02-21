@@ -549,7 +549,17 @@ class ImageResizeGD {
 		$imageType = @exif_imagetype($imagePath);
 
 		if ($imageType === false) {
-			throw new \InvalidArgumentException('Image type is not supported or file is corrupted.');
+			if (version_compare( PHP_VERSION, '7.1', '<' )
+				&& strstr(file_get_contents($imagePath), 'WEBPVP8') !== false) {
+				/**
+				 * Fix WebP image type detection on PHP < 7.1
+				 *
+				 * @link https://github.com/gumlet/php-image-resize/pull/144
+				 */
+				$imageType = IMAGETYPE_WEBP;
+			} else {
+				throw new \InvalidArgumentException('Image type is not supported or file is corrupted.');
+			}
 		}
 
 		if (!$imageType || !in_array($imageType, $this->allowedImageTypes)) {
