@@ -99,8 +99,7 @@ function FileUpload( $input, $path, $ext_white_list, $size_limit, &$error, $fina
 
 	// Check if file is image.
 	elseif ( $caller_function !== 'ImageUpload'
-		&& ( in_array( $final_ext, [ '.jpg', '.jpeg', '.png', '.gif' ] )
-			|| ( $final_ext === '.webp' && function_exists( 'imagewebp' ) ) ) )
+		&& in_array( $final_ext, [ '.jpg', '.jpeg', '.png', '.gif', '.webp' ] ) )
 	{
 		// Resize, compress & store image using ImageUpload().
 		return ImageUpload(
