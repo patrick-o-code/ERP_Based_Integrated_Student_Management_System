@@ -28,6 +28,8 @@ Installation directions for:
 - [**Docker**](https://github.com/francoisjacquet/docker-rosariosis)
 - **Ubuntu** (or any Debian-based Linux distribution), see below
 
+If you do not have the technical resources or skills to install RosarioSIS, you can subscribe to a hosted plan at https://www.rosariosis.com
+
 
 Installing the package
 ----------------------
