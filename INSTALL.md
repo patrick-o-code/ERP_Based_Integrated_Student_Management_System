@@ -17,7 +17,7 @@ RosarioSIS was tested on:
 - through Mozilla Firefox and Google Chrome
 - through BrowserStack for cross-browser compatibility (not compatible with Internet Explorer)
 
-Minimum requirements: **PHP 5.5.9** & **PostgreSQL 8.4** or **MySQL 5.6**/MariaDB
+Minimum requirements: [PHP](https://www.php.net/supported-versions.php) 5.5.9 & [PostgreSQL](https://www.postgresql.org/support/versioning/) 9.2 or [MySQL](https://en.wikipedia.org/wiki/MySQL#Release_history) 5.6/[MariaDB](https://mariadb.com/kb/en/mariadb-releases/)
 
 Installation directions for:
 

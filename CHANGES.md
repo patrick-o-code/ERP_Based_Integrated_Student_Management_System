@@ -21,6 +21,7 @@ Changes in 12.2
 - Add program_config table to no school tables list in Rollover.php
 - Add .opus audio to file extensions white list in FileUpload.fnc.php
 - Add WebP image format support in FileUpload.fnc.php, ImageResizeGD.php, Configuration.php & General_Info.inc.php
+- Raise minimum PostgreSQL version from 8.4 to 9.2 in INSTALL.md, INSTALL_es.md, INSTALL_fr.md & README.md
 
 Changes in 12.1.3
 -----------------
