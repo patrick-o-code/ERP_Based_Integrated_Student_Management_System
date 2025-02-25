@@ -466,58 +466,13 @@ else
 	{
 		if ( ! empty( $assignments_RET ) )
 		{
-			//FJ default points
-			$extra['SELECT_ONLY'] = "s.STUDENT_ID,gt.ASSIGNMENT_TYPE_ID,
-				sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", "''", db_case( [ 'ga.DEFAULT_POINTS', "'-1'", "'0'", 'ga.DEFAULT_POINTS' ] ), 'gg.POINTS' ] ) . ") AS PARTIAL_POINTS,
-				sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", "''", db_case( [ 'ga.DEFAULT_POINTS', "'-1'", "'0'", 'ga.POINTS' ] ), 'ga.POINTS' ] ) . ") AS PARTIAL_TOTAL,gt.FINAL_GRADE_PERCENT";
+			// @since 12.2 Use FinalGradesGetAssignmentsPoints() & FinalGradesQtrOrProCalculate() functions
+			// @global variable used by _makeExtraAssnCols()
+			$points_RET = FinalGradesGetAssignmentsPoints( UserCoursePeriod(), UserMP(), $_REQUEST['type_id'] );
 
-			if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] ) )
-			{
-				// @since 11.0 Add Weight Assignments option
-				// @since 11.8.5 Fix Final Grade calculation when "Weight Assignments" checked & excused
-				$extra['SELECT_ONLY'] .= ",sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'",
-					db_case( [ 'ga.WEIGHT', "''", "'0'", "ga.WEIGHT" ] ) ] ) . ") AS PARTIAL_WEIGHT,
-					sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", '(gg.POINTS/ga.POINTS)*ga.WEIGHT' ] ) . ") AS PARTIAL_WEIGHTED_GRADE";
-			}
+			// @global variable used by _makeExtraAssnCols()
+			$import_RET = FinalGradesQtrOrProCalculate( UserCoursePeriod(), UserMP(), $_REQUEST['type_id'] );
 
-			$extra['FROM'] = " JOIN gradebook_assignments ga ON (((ga.COURSE_PERIOD_ID=cp.COURSE_PERIOD_ID OR ga.COURSE_ID=cp.COURSE_ID) AND ga.STAFF_ID=cp.TEACHER_ID)
-				AND ga.MARKING_PERIOD_ID='" . UserMP() . "')
-			LEFT OUTER JOIN gradebook_grades gg ON (gg.STUDENT_ID=s.STUDENT_ID
-				AND gg.ASSIGNMENT_ID=ga.ASSIGNMENT_ID
-				AND gg.COURSE_PERIOD_ID=cp.COURSE_PERIOD_ID),gradebook_assignment_types gt";
-
-			$extra['WHERE'] = " AND gt.ASSIGNMENT_TYPE_ID=ga.ASSIGNMENT_TYPE_ID
-			AND gt.COURSE_ID=cp.COURSE_ID
-			AND (gg.POINTS IS NOT NULL OR (ga.ASSIGNED_DATE IS NULL OR CURRENT_DATE>=ga.ASSIGNED_DATE)
-				AND (ga.DUE_DATE IS NULL OR CURRENT_DATE>=ga.DUE_DATE)
-				OR CURRENT_DATE>(SELECT END_DATE
-					FROM school_marking_periods
-					WHERE MARKING_PERIOD_ID=ga.MARKING_PERIOD_ID))" .
-			( $_REQUEST['type_id'] ? " AND ga.ASSIGNMENT_TYPE_ID='" . (int) $_REQUEST['type_id'] . "'" : '' );
-
-			if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] ) )
-			{
-				// @since 11.0 Add Weight Assignments option
-				// Exclude Extra Credit assignments.
-				$extra['WHERE'] .= " AND ga.POINTS>0";
-			}
-
-			if ( empty( $_REQUEST['include_all'] ) )
-			{
-				$extra['WHERE'] .= " AND (gg.POINTS IS NOT NULL
-					OR ga.DUE_DATE IS NULL
-					OR ((ga.DUE_DATE>=ss.START_DATE AND (ss.END_DATE IS NULL OR ga.DUE_DATE<=ss.END_DATE))
-						AND (ga.DUE_DATE>=ssm.START_DATE
-							AND (ssm.END_DATE IS NULL OR ga.DUE_DATE<=ssm.END_DATE))))";
-			}
-
-			$extra['GROUP'] = "gt.ASSIGNMENT_TYPE_ID,gt.FINAL_GRADE_PERCENT,s.STUDENT_ID";
-			$extra['group'] = [ 'STUDENT_ID' ];
-
-			$points_RET = GetStuList( $extra );
-			//echo '<pre>'; var_dump($points_RET); echo '</pre>';
-
-			unset( $extra );
 			$extra['SELECT'] = $sql_start_end_epoch .
 				",'' AS POINTS,'' AS PERCENT_GRADE,'' AS LETTER_GRADE";
 

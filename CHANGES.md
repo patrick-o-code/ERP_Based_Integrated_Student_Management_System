@@ -24,6 +24,7 @@ Changes in 12.2
 - Raise minimum PostgreSQL version from 8.4 to 9.2 in INSTALL.md, INSTALL_es.md, INSTALL_fr.md & README.md
 - Security: remove INSTALL & README PDF files (use MarkDown files) in INSTALL.pdf, INSTALL_es.pdf, INSTALL_fr.pdf & README.pdf
 - Add $assignment_type_id param to FinalGradesQtrOrProCalculate() & FinalGradesGetAssignmentsPoints() functions in FinalGrades.inc.php
+- Use FinalGradesGetAssignmentsPoints() & FinalGradesQtrOrProCalculate() functions in Grades.php
 
 Changes in 12.1.3
 -----------------
