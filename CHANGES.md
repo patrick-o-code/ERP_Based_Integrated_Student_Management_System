@@ -25,6 +25,7 @@ Changes in 12.2
 - Security: remove INSTALL & README PDF files (use MarkDown files) in INSTALL.pdf, INSTALL_es.pdf, INSTALL_fr.pdf & README.pdf
 - Add $assignment_type_id param to FinalGradesQtrOrProCalculate() & FinalGradesGetAssignmentsPoints() functions in FinalGrades.inc.php
 - Use FinalGradesGetAssignmentsPoints() & FinalGradesQtrOrProCalculate() functions in Grades.php
+- Simplify `_makeExtraAssnCols()` function logic & function: 70 lines + 2.3KB gain in Grades.php
 
 Changes in 12.1.3
 -----------------

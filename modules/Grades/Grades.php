@@ -723,290 +723,229 @@ echo $_REQUEST['assignment_id'] ? '<br /><div class="center">' . SubmitButton() 
 echo '</form>';
 
 /**
- * @param  $assignment_id
- * @param  $column
- * @return mixed
+ * Make Extra Assignment Columns
+ *
+ * @since 12.2 Simplify logic & function: 70 lines + 2.3KB gain.
+ *
+ *
+ * @param int    $assignment_id Assignment ID or none for Totals.
+ * @param string $column        Column name: POINTS|PERCENT_GRADE|LETTER_GRADE|COMMENT.
+ *
+ * @return string Column formatted value.
  */
 function _makeExtraAssnCols( $assignment_id, $column )
 {
 	global $THIS_RET,
-	$assignments_RET,
-	$current_RET,
-	$points_RET,
-	$max_allowed,
-	$total,
+		$assignments_RET,
+		$current_RET,
+		$points_RET,
+		$import_RET,
+		$max_allowed,
 		$gradebook_config;
 
-	switch ( $column )
+	if ( $column === 'POINTS' )
 	{
-		case 'POINTS':
-			if ( ! $assignment_id )
+		if ( ! $assignment_id )
+		{
+			$total = $total_points = 0;
+
+			if ( ! empty( $points_RET[$THIS_RET['STUDENT_ID']] ) )
 			{
-				$total = $total_points = 0;
-				//FJ default points
-				$total_use_default_points = false;
-
-				if ( ! empty( $points_RET[$THIS_RET['STUDENT_ID']] ) )
+				foreach ( (array) $points_RET[$THIS_RET['STUDENT_ID']] as $partial_points )
 				{
-					foreach ( (array) $points_RET[$THIS_RET['STUDENT_ID']] as $partial_points )
+					/**
+					 * Do not include Extra Credit assignments
+					 * when Total Points is 0 for the Type
+					 * if the Gradebook is configured to Weight Grades:
+					 * Division by zero is impossible.
+					 */
+					if ( $partial_points['PARTIAL_TOTAL'] != 0
+						|| empty( $gradebook_config['WEIGHT'] ) )
 					{
-						/**
-						 * Do not include Extra Credit assignments
-						 * when Total Points is 0 for the Type
-						 * if the Gradebook is configured to Weight Grades:
-						 * Division by zero is impossible.
-						 */
-						if ( $partial_points['PARTIAL_TOTAL'] != 0
-							|| empty( $gradebook_config['WEIGHT'] ) )
-						{
-							$total += $partial_points['PARTIAL_POINTS'];
-							$total_points += $partial_points['PARTIAL_TOTAL'];
-						}
-					}
-				}
-
-//				return '<table cellspacing=0 cellpadding=0><tr><td>'.$total.'</td><td>&nbsp;/&nbsp;</td><td>'.$total_points.'</td></tr></table>';
-
-				return $total . '&nbsp;/&nbsp;' . $total_points;
-			}
-			else
-			{
-				if ( ! empty( $_REQUEST['include_all'] )
-					|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
-						&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
-						|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
-						|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
-						&& ( ! $THIS_RET['END_EPOCH']
-							|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
-				{
-					$total_points = $assignments_RET[$assignment_id][1]['POINTS'];
-
-					//FJ default points
-					$points = issetVal( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] );
-					$div = true;
-
-					if ( is_null( $points ) )
-					{
-						$points = $assignments_RET[$assignment_id][1]['DEFAULT_POINTS'];
-						$div = false;
-					}
-
-					if ( $points == '-1' )
-					{
-						$points = '*';
-					}
-					elseif ( mb_strpos( (string) $points, '.' ) )
-					{
-						$points = rtrim( rtrim( $points, '0' ), '.' );
-					}
-
-//					return '<table cellspacing=0 cellpadding=1><tr><td>'.TextInput($points,'values['.$THIS_RET['STUDENT_ID'].']['.$assignment_id.'][POINTS]','',' size=2 maxlength=7 tabindex='.$tabindex).'</td><td>&nbsp;/&nbsp;</td><td>'.$total_points.'</td></tr></table>';
-
-					$name = 'values[' . $THIS_RET['STUDENT_ID'] . '][' . $assignment_id . '][POINTS]';
-
-					$id = GetInputID( $name );
-
-					return '<span' . ( $div ? ' class="span-grade-points"' : '' ) . '>' .
-					TextInput(
-						$points,
-						$name,
-						'',
-						' size=2 maxlength=7',
-						$div
-					) . '</span>
-						<label for="' . $id . '">&nbsp;/&nbsp;' . $total_points . '</label>';
-				}
-			}
-
-			break;
-
-		case 'PERCENT_GRADE':
-			if ( ! $assignment_id )
-			{
-				$total = $total_percent = $total_weighted = $total_weights = 0;
-
-				if ( ! empty( $points_RET[$THIS_RET['STUDENT_ID']] ) )
-				{
-					foreach ( (array) $points_RET[$THIS_RET['STUDENT_ID']] as $partial_points )
-					{
-						/**
-						 * Do not include Extra Credit assignments
-						 * when Total Points is 0 for the Type
-						 * if the Gradebook is configured to Weight Grades:
-						 * Division by zero is impossible.
-						 */
-						if ( $partial_points['PARTIAL_TOTAL'] != 0
-							|| empty( $gradebook_config['WEIGHT'] ) )
-						{
-							$total += $partial_points['PARTIAL_POINTS'] *
-								( ! empty( $gradebook_config['WEIGHT'] ) ?
-									$partial_points['FINAL_GRADE_PERCENT'] / $partial_points['PARTIAL_TOTAL'] :
-									1 );
-
-							$total_percent += ( ! empty( $gradebook_config['WEIGHT'] ) ?
-								$partial_points['FINAL_GRADE_PERCENT'] :
-								$partial_points['PARTIAL_TOTAL'] );
-
-							if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] ) )
-							{
-								// @since 11.0 Add Weight Assignments option
-								$total_weighted += ( ! empty( $gradebook_config['WEIGHT'] ) && $partial_points['PARTIAL_WEIGHT'] ?
-									$partial_points['FINAL_GRADE_PERCENT'] *
-										( $partial_points['PARTIAL_WEIGHTED_GRADE'] / $partial_points['PARTIAL_WEIGHT'] ) :
-									$partial_points['PARTIAL_WEIGHTED_GRADE'] );
-
-								$total_weights += $partial_points['PARTIAL_WEIGHT'];
-							}
-						}
-					}
-
-					if ( $total_percent != 0 )
-					{
-						$total /= $total_percent;
-					}
-
-					if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] )
-						&& $total_weights > 0 )
-					{
-						// @since 11.0 Add Weight Assignments option
-						$total = $total_weighted / $total_weights;
-
-						if ( ! empty( $gradebook_config['WEIGHT'] ) )
-						{
-							$total = $total_weighted / $total_percent;
-						}
-					}
-				}
-
-				$red_span = $total > $max_allowed;
-
-				$percent = _makeLetterGrade( $total, 0, 0, '%' );
-
-				return _Percent( $percent, 2, $red_span );
-			}
-			else
-			{
-				if ( ! empty( $_REQUEST['include_all'] )
-					|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
-							&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
-						|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
-						|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
-						&& ( ! $THIS_RET['END_EPOCH']
-							|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
-				{
-					$total_points = $assignments_RET[$assignment_id][1]['POINTS'];
-					//FJ default points
-					$points = $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'];
-
-					if ( is_null( $points ) )
-					{
-						$points = $assignments_RET[$assignment_id][1]['DEFAULT_POINTS'];
-					}
-
-					if ( $total_points != 0 )
-					{
-						if ( $points != '-1' )
-						{
-							$red_span = ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' )
-								&& ( $points > $total_points * $max_allowed );
-
-							$percent = _makeLetterGrade( $points / $total_points, 0, 0, '%' );
-
-							return _Percent( $percent, 2, $red_span );
-						}
-						else
-						{
-							return _( 'N/A' );
-						}
-					}
-					else
-					{
-						return _( 'E/C' );
+						$total += $partial_points['PARTIAL_POINTS'];
+						$total_points += $partial_points['PARTIAL_TOTAL'];
 					}
 				}
 			}
 
-			break;
+			return $total . '&nbsp;/&nbsp;' . $total_points;
+		}
 
-		case 'LETTER_GRADE':
-			if ( ! $assignment_id )
+		if ( ! empty( $_REQUEST['include_all'] )
+			|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
+				&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
+				|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
+				|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
+				&& ( ! $THIS_RET['END_EPOCH']
+					|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
+		{
+			$total_points = $assignments_RET[$assignment_id][1]['POINTS'];
+
+			//FJ default points
+			$points = issetVal( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] );
+			$div = true;
+
+			if ( is_null( $points ) )
 			{
-				return '<b>' . _makeLetterGrade( $total ) . '</b>';
-			}
-			else
-			{
-				if ( ! empty( $_REQUEST['include_all'] )
-					|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
-							&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
-						|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
-						|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
-						&& ( ! $THIS_RET['END_EPOCH']
-							|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
-				{
-					$total_points = $assignments_RET[$assignment_id][1]['POINTS'];
-					//FJ default points
-					$points = $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'];
-
-					if ( is_null( $points ) )
-					{
-						$points = $assignments_RET[$assignment_id][1]['DEFAULT_POINTS'];
-					}
-
-					if ( $total_points != 0 )
-					{
-						if ( $points != '-1' )
-						{
-							return ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '<span style="color:gray">' ) . '<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' . ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '</span>' );
-						}
-						else
-						{
-							return _( 'N/A' );
-						}
-					}
-					else
-					{
-						return _( 'N/A' );
-					}
-				}
+				$points = $assignments_RET[$assignment_id][1]['DEFAULT_POINTS'];
+				$div = false;
 			}
 
-			break;
-
-		case 'COMMENT':
-			if ( ! $assignment_id )
+			if ( $points == '-1' )
 			{
+				$points = '*';
 			}
-			else
+			elseif ( mb_strpos( (string) $points, '.' ) )
 			{
-				if ( ! empty( $_REQUEST['include_all'] )
-					|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
-							&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
-						|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
-						|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
-						&& ( ! $THIS_RET['END_EPOCH']
-							|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
-				{
-					$return = TextInput(
-						issetVal( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['COMMENT'] ),
-						'values[' . $THIS_RET['STUDENT_ID'] . '][' . $assignment_id . '][COMMENT]',
-						'',
-						'size=20 maxlength=500'
-					);
-
-					if ( mb_strlen( (string) $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['COMMENT'] ) > 60
-						&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
-					{
-						// Comments length > 60 chars, responsive table ColorBox.
-						$return = '<div id="divGradesComment' . $THIS_RET['STUDENT_ID'] . '" class="rt2colorBox">' .
-							$return . '</div>';
-					}
-
-					return $return;
-				}
+				$points = rtrim( rtrim( $points, '0' ), '.' );
 			}
 
-			break;
+			$name = 'values[' . $THIS_RET['STUDENT_ID'] . '][' . $assignment_id . '][POINTS]';
+
+			$id = GetInputID( $name );
+
+			if ( ! empty( $_REQUEST['LO_save'] ) )
+			{
+				// Fix Points when exporting List
+				return $points . '&nbsp;/&nbsp;' . $total_points;
+			}
+
+			return '<span' . ( $div ? ' class="span-grade-points"' : '' ) . '>' .
+			TextInput(
+				$points,
+				$name,
+				'',
+				' size=2 maxlength=7',
+				$div
+			) . '</span>
+				<label for="' . $id . '">&nbsp;/&nbsp;' . $total_points . '</label>';
+		}
 	}
+
+	if ( $column === 'PERCENT_GRADE' )
+	{
+		if ( ! $assignment_id )
+		{
+			$percent = issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['GRADE_PERCENT'], 0 );
+
+			$red_span = ( $percent / 100 ) > $max_allowed;
+
+			return _Percent( $percent, 2, $red_span );
+		}
+
+		if ( ! empty( $_REQUEST['include_all'] )
+			|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
+					&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
+				|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
+				|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
+				&& ( ! $THIS_RET['END_EPOCH']
+					|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
+		{
+			$total_points = $assignments_RET[$assignment_id][1]['POINTS'];
+			//FJ default points
+			$points = $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'];
+
+			if ( is_null( $points ) )
+			{
+				$points = $assignments_RET[$assignment_id][1]['DEFAULT_POINTS'];
+			}
+
+			if ( $total_points != 0 )
+			{
+				if ( $points != '-1' )
+				{
+					$red_span = ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' )
+						&& ( $points > $total_points * $max_allowed );
+
+					$percent = _makeLetterGrade( $points / $total_points, 0, 0, '%' );
+
+					return _Percent( $percent, 2, $red_span );
+				}
+				else
+				{
+					return _( 'N/A' ); // Excused.
+				}
+			}
+
+			return _( 'E/C' ); // Extra Credit.
+		}
+	}
+
+	if ( $column === 'LETTER_GRADE' )
+	{
+		if ( ! $assignment_id )
+		{
+			$grade_id = issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['REPORT_CARD_GRADE_ID'], 0 );
+
+			$grade_letter = DBGetOne( "SELECT TITLE
+				FROM report_card_grades
+				WHERE SYEAR='" . UserSyear() . "'
+				AND SCHOOL_ID='" . UserSchool() . "'
+				AND ID='" . (int) $grade_id . "'" );
+
+			return '<b>' . $grade_letter . '</b>';
+		}
+
+		if ( ! empty( $_REQUEST['include_all'] )
+			|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
+					&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
+				|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
+				|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
+				&& ( ! $THIS_RET['END_EPOCH']
+					|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
+		{
+			$total_points = $assignments_RET[$assignment_id][1]['POINTS'];
+			//FJ default points
+			$points = $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'];
+
+			if ( is_null( $points ) )
+			{
+				$points = $assignments_RET[$assignment_id][1]['DEFAULT_POINTS'];
+			}
+
+			if ( $total_points != 0
+				&& $points != '-1' )
+			{
+				return ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '<span style="color:gray">' ) .
+					'<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' .
+					( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '</span>' );
+			}
+
+			return _( 'N/A' ); // Extra Credit or Excused.
+		}
+	}
+
+	if ( $column === 'COMMENT' )
+	{
+		if ( $assignment_id
+			&& ! empty( $_REQUEST['include_all'] )
+			|| ( ( isset( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] )
+					&& $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['POINTS'] != '' )
+				|| ! $assignments_RET[$assignment_id][1]['DUE_EPOCH']
+				|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] >= $THIS_RET['START_EPOCH']
+				&& ( ! $THIS_RET['END_EPOCH']
+					|| $assignments_RET[$assignment_id][1]['DUE_EPOCH'] <= $THIS_RET['END_EPOCH'] ) ) )
+		{
+			$return = TextInput(
+				issetVal( $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['COMMENT'] ),
+				'values[' . $THIS_RET['STUDENT_ID'] . '][' . $assignment_id . '][COMMENT]',
+				'',
+				'size=20 maxlength=500'
+			);
+
+			if ( mb_strlen( (string) $current_RET[$THIS_RET['STUDENT_ID']][$assignment_id][1]['COMMENT'] ) > 60
+				&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
+			{
+				// Comments length > 60 chars, responsive table ColorBox.
+				$return = '<div id="divGradesComment' . $THIS_RET['STUDENT_ID'] . '" class="rt2colorBox">' .
+					$return . '</div>';
+			}
+
+			return $return;
+		}
+	}
+
+	return;
 }
 
 /**
