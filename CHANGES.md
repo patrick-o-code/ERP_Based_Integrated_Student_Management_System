@@ -23,6 +23,7 @@ Changes in 12.2
 - Add WebP image format support in FileUpload.fnc.php, ImageResizeGD.php, Configuration.php & General_Info.inc.php
 - Raise minimum PostgreSQL version from 8.4 to 9.2 in INSTALL.md, INSTALL_es.md, INSTALL_fr.md & README.md
 - Security: remove INSTALL & README PDF files (use MarkDown files) in INSTALL.pdf, INSTALL_es.pdf, INSTALL_fr.pdf & README.pdf
+- Add $assignment_type_id param to FinalGradesQtrOrProCalculate() & FinalGradesGetAssignmentsPoints() functions in FinalGrades.inc.php
 
 Changes in 12.1.3
 -----------------

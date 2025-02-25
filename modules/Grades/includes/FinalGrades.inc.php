@@ -192,20 +192,21 @@ function FinalGradesAllMPSave( $cp_id, $qtr_id )
 /**
  * Automatically calculate Course Period's Final Grades using Gradebook Grades
  * (Quarter or Progress Period)
- * Include Inactive Students
  *
  * @uses FinalGradesGetAssignmentsPoints()
  * @uses _makeLetterGrade()
  *
  * @since 11.8
  * @since 11.8.5 Fix Final Grade calculation when both "Weight Assignments" & "Weight Assignment Categories" checked
+ * @since 12.2 Add $assignment_type_id param
  *
- * @param int    $cp_id Course Period ID.
- * @param int    $mp_id Marking Period ID.
+ * @param int  $cp_id              Course Period ID.
+ * @param int  $mp_id              Marking Period ID.
+ * @param int  $assignment_type_id Assignment Type ID (optional). Defaults to 0 (all).
  *
  * @return array Final Grades, else empty.
  */
-function FinalGradesQtrOrProCalculate( $cp_id, $mp_id )
+function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 {
 	$mp = GetMP( $mp_id, 'MP' );
 
@@ -226,7 +227,7 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id )
 	}
 
 	// Then, check Course Period has assignments and points.
-	$points_RET = FinalGradesGetAssignmentsPoints( $cp_id, $mp_id );
+	$points_RET = FinalGradesGetAssignmentsPoints( $cp_id, $mp_id, $assignment_type_id );
 
 	if ( ! $points_RET )
 	{
@@ -451,15 +452,17 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
  *
  * @since 11.8
  * @since 11.8.5 Fix Final Grade calculation when "Weight Assignments" checked & excused
+ * @since 12.2 Add $assignment_type_id param
  *
  * @global $_ROSARIO['User'] if we need to impersonate Teacher (when admin & outside Teacher Programs)
  *
- * @param int $cp_id Course Period ID.
- * @param int $mp_id Marking Period ID.
+ * @param int $cp_id              Course Period ID.
+ * @param int $mp_id              Marking Period ID.
+ * @param int $assignment_type_id Assignment Type ID (optional). Defaults to 0 (all).
  *
  * @return array Points or empty.
  */
-function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id )
+function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id, $assignment_type_id = 0 )
 {
 	global $_ROSARIO;
 
@@ -510,6 +513,11 @@ function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id )
 			OR CURRENT_DATE>(SELECT END_DATE
 				FROM school_marking_periods
 				WHERE MARKING_PERIOD_ID=ga.MARKING_PERIOD_ID))";
+
+	if ( $assignment_type_id )
+	{
+		$extra['WHERE'] .= " AND ga.ASSIGNMENT_TYPE_ID='" . (int) $assignment_type_id . "'";
+	}
 
 	// Check Student enrollment.
 	$extra['WHERE'] .= " AND (gg.POINTS IS NOT NULL
