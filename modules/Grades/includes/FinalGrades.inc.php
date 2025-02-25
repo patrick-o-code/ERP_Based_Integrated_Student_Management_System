@@ -199,6 +199,7 @@ function FinalGradesAllMPSave( $cp_id, $qtr_id )
  * @since 11.8
  * @since 11.8.5 Fix Final Grade calculation when both "Weight Assignments" & "Weight Assignment Categories" checked
  * @since 12.2 Add $assignment_type_id param
+ * @since 12.2 Save null percent: N/A final grade
  *
  * @param int  $cp_id              Course Period ID.
  * @param int  $mp_id              Marking Period ID.
@@ -286,6 +287,16 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 		{
 			$total /= $total_percent;
 		}
+		else
+		{
+			/**
+			 * Excused (*) for all assignments case
+			 * or only E/C (extra credit) assignments case
+			 *
+			 * @since 12.2 Save null percent: N/A final grade
+			 */
+			$total = null;
+		}
 
 		if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] )
 			&& $total_weights > 0 )
@@ -302,7 +313,7 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 		$import_RET[$student_id] = [
 			1 => [
 				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total, $cp_id, 0, 'ID' ),
-				'GRADE_PERCENT' => round( 100 * $total, 1 ),
+				'GRADE_PERCENT' => is_null( $total ) ? null : round( 100 * $total, 1 ),
 			],
 		];
 	}
@@ -582,6 +593,7 @@ function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id, $assignment_type_id = 
  * Should work even for a Course Period not in current School / Year.
  *
  * @since 11.8
+ * @since 12.2 Save null percent: N/A final grade
  *
  * @param int   $cp_id        Course Period ID.
  * @param int   $mp_id        Marking Period ID.
@@ -640,7 +652,7 @@ function FinalGradesSave( $cp_id, $mp_id, $final_grades )
 	foreach ( (array) $final_grades as $student_id => $final_grade )
 	{
 		if ( empty( $final_grade[1]['REPORT_CARD_GRADE_ID'] )
-			|| ! isset( $final_grade[1]['GRADE_PERCENT'] ) )
+			|| ! array_key_exists( 'GRADE_PERCENT', $final_grade[1] ) )
 		{
 			continue;
 		}
@@ -653,7 +665,8 @@ function FinalGradesSave( $cp_id, $mp_id, $final_grades )
 		$gp_passing = $grades_RET[$grade][1]['GP_PASSING_VALUE'];
 
 		if ( GetMP( $mp_id, 'MP' ) === 'FY'
-			&& $cp['MP'] !== 'FY' )
+			&& $cp['MP'] !== 'FY'
+			&& ! is_null( $weighted ) )
 		{
 			// Add precision to year weighted GPA if not year course period.
 			$weighted = $final_grade[1]['GRADE_PERCENT'] / 100 * $scale;

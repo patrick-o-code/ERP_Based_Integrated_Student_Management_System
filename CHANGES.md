@@ -26,6 +26,7 @@ Changes in 12.2
 - Add $assignment_type_id param to FinalGradesQtrOrProCalculate() & FinalGradesGetAssignmentsPoints() functions in FinalGrades.inc.php
 - Use FinalGradesGetAssignmentsPoints() & FinalGradesQtrOrProCalculate() functions in Grades.php
 - Simplify `_makeExtraAssnCols()` function logic & function: 70 lines + 2.3KB gain in Grades.php
+- Save null percent: N/A final grade in `_makeLetterGrade.fnc.php`, InputFinalgrades.php & FinalGrades.inc.php
 
 Changes in 12.1.3
 -----------------

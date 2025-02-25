@@ -401,7 +401,8 @@ if ( ! empty( $_REQUEST['values'] )
 					// FJ add precision to year weighted GPA if not year course period.
 
 					if ( GetMP( $_REQUEST['mp'], 'MP' ) === 'FY'
-						&& $course_period_mp !== 'FY' )
+						&& $course_period_mp !== 'FY'
+						&& ! is_null( $weighted ) )
 					{
 						$weighted = $percent / 100 * $scale;
 					}
@@ -442,22 +443,24 @@ if ( ! empty( $_REQUEST['values'] )
 			}
 			elseif ( ! empty( $columns['grade'] ) )
 			{
-				$percent = _makePercentGrade( $columns['grade'], $course_period_id );
 				$grade = $columns['grade'];
 				$letter = $grades_RET[$grade][1]['TITLE'];
 				$weighted = $grades_RET[$grade][1]['WEIGHTED_GP'];
 				$unweighted = $grades_RET[$grade][1]['UNWEIGHTED_GP'];
 				$scale = $grades_RET[$grade][1]['GP_SCALE'];
 				$gp_passing = $grades_RET[$grade][1]['GP_PASSING_VALUE'];
+				// @since 12.2 Save null percent: N/A final grade
+				// https://www.rosariosis.org/forum/d/1238-is-there-a-way-to-add-a-grade-that-does-not-affect-the-gpa
+				$percent = is_null( $weighted ) ? null : _makePercentGrade( $columns['grade'], $course_period_id );
 
 				// FJ add precision to year weighted GPA if not year course period.
 
 				if ( GetMP( $_REQUEST['mp'], 'MP' ) === 'FY'
-					&& $course_period_mp !== 'FY' )
+					&& $course_period_mp !== 'FY'
+					&& ! is_null( $weighted ) )
 				{
 					$weighted = $percent / 100 * $scale;
 				}
-
 
 				$update_columns = [
 					'GRADE_PERCENT' => $percent,
@@ -559,7 +562,9 @@ if ( ! empty( $_REQUEST['values'] )
 
 					//FJ add precision to year weighted GPA if not year course period
 
-					if ( GetMP( $_REQUEST['mp'], 'MP' ) == 'FY' && $course_period_mp != 'FY' )
+					if ( GetMP( $_REQUEST['mp'], 'MP' ) == 'FY'
+						&& $course_period_mp != 'FY'
+						&& ! is_null( $weighted ) )
 					{
 						$weighted = $percent / 100 * $grades_RET[$grade][1]['GP_SCALE'];
 					}
@@ -592,14 +597,17 @@ if ( ! empty( $_REQUEST['values'] )
 			}
 			elseif ( $columns['grade'] )
 			{
-				$percent = _makePercentGrade( $columns['grade'], $course_period_id );
 				$grade = $columns['grade'];
 				$letter = $grades_RET[$grade][1]['TITLE'];
 				$weighted = $grades_RET[$grade][1]['WEIGHTED_GP'];
+				// @since 12.2 Save null percent: N/A final grade
+				$percent = is_null( $weighted ) ? null : _makePercentGrade( $columns['grade'], $course_period_id );
 
 				//FJ add precision to year weighted GPA if not year course period
 
-				if ( GetMP( $_REQUEST['mp'], 'MP' ) == 'FY' && $course_period_mp != 'FY' )
+				if ( GetMP( $_REQUEST['mp'], 'MP' ) == 'FY'
+					&& $course_period_mp != 'FY'
+					&& ! is_null( $weighted ) )
 				{
 					$weighted = $percent / 100 * $grades_RET[$grade][1]['GP_SCALE'];
 				}
@@ -654,18 +662,8 @@ if ( ! empty( $_REQUEST['values'] )
 
 		//DBQuery("DELETE FROM student_report_card_grades WHERE SYEAR='".UserSyear()."' AND SCHOOL_ID='".UserSchool()."' AND COURSE_PERIOD_ID='".$course_period_id."' AND MARKING_PERIOD_ID='".$_REQUEST['mp']."'");
 
-		if ( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) < 0 )
-		{
-			$completed = (bool) $grade;
-		}
-		elseif ( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) > 0 )
-		{
-			$completed = $percent != '';
-		}
-		else
-		{
-			$completed = $percent != '' && $grade;
-		}
+		// @since 12.2 Do not check if percent is not null against config: N/A final grade
+		$completed = (bool) $grade;
 
 		/*if ( !( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) < 0 ? $grade : ( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) > 0 ? $percent != '' : $percent != '' && $grade ) ) )
 		$completed = false;*/
@@ -1382,7 +1380,6 @@ function _makeLetterPercent( $student_id, $column )
 		{
 			if ( AllowEdit()
 				&& $div
-				&& $select_percent != ''
 				&& $select_grade )
 			{
 				$id = $student_id;
@@ -1409,7 +1406,7 @@ function _makeLetterPercent( $student_id, $column )
 					'<span class="nobr">' . ( isset( $grades_select[$select_grade] ) ?
 						$grades_select[$select_grade][1] :
 						'<span style="color:red">' . $select_grade . '</span>' ) .
-					' ' . $select_percent . '%</span>',
+					' ' . ( $select_percent != '' ? $select_percent . '%' : '' ) . '</span>',
 					''
 				);
 			}
@@ -1424,7 +1421,7 @@ function _makeLetterPercent( $student_id, $column )
 					'',
 					false
 				) . ' ' . TextInput(
-					$select_percent != '' ? $select_percent . '%' : ( $select_grade ? '%' : '' ),
+					$select_percent != '' ? $select_percent . '%' : '',
 					'values[' . $student_id . '][percent]',
 					'',
 					'size="5"',

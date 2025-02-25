@@ -21,6 +21,7 @@
  * Grades/StudentGrades.php
  *
  * @since 7.5 Percent rounding to 2 decimal places is new School default.
+ * @since 12.2 Save null percent: N/A final grade
  *
  * @example _makeLetterGrade( $percent, $course_period_id, $staff_id )
  *
@@ -40,6 +41,8 @@ function _makeLetterGrade( $percent, $course_period_id = 0, $staff_id = 0, $ret 
 	global $_ROSARIO;
 
 	$course_period_id = $course_period_id ? $course_period_id : UserCoursePeriod();
+
+	$percent_is_null = $percent == '';
 
 	if ( ! $staff_id )
 	{
@@ -116,7 +119,8 @@ function _makeLetterGrade( $percent, $course_period_id = 0, $staff_id = 0, $ret 
 		{
 			if ( isset( $gradebook_config[ $course_period_id . '-' . $grade['ID'] ] )
 				&& is_numeric( $gradebook_config[ $course_period_id . '-' . $grade['ID'] ] )
-				&& $percent >= $gradebook_config[ $course_period_id . '-' . $grade['ID'] ] )
+				&& ( ( ! $percent_is_null && $percent >= $gradebook_config[ $course_period_id . '-' . $grade['ID'] ] )
+					|| ( $percent_is_null && is_null( $gradebook_config[ $course_period_id . '-' . $grade['ID'] ] ) ) ) )
 			{
 				// FJ use Report Card Grades comments.
 				// return $ret=='ID' ? $grade['ID'] : $grade['TITLE'];
@@ -127,7 +131,8 @@ function _makeLetterGrade( $percent, $course_period_id = 0, $staff_id = 0, $ret 
 
 	foreach ( (array) $_ROSARIO['_makeLetterGrade']['grades'][ $grade_scale_id ] as $grade )
 	{
-		if ( $percent >= $grade['BREAK_OFF'] )
+		if ( ( ! $percent_is_null && $percent >= $grade['BREAK_OFF'] )
+			|| ( $percent_is_null && is_null( $grade['BREAK_OFF'] ) ) )
 		{
 			// FJ use Report Card Grades comments.
 			// return $ret=='ID' ? $grade['ID'] : $grade['TITLE'];
