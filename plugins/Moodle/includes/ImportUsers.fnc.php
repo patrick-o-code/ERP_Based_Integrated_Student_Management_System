@@ -416,7 +416,7 @@ function MoodleUserEnrollStudent( $student_id )
 
 	$fields = 'SYEAR,SCHOOL_ID,STUDENT_ID,';
 
-	$values .= "'" . UserSyear() . "','" . UserSchool() . "','" . $student_id . "',";
+	$values = "'" . UserSyear() . "','" . UserSchool() . "','" . $student_id . "',";
 
 	$fields .= 'START_DATE,GRADE_ID,ENROLLMENT_CODE,NEXT_SCHOOL,CALENDAR_ID';
 
