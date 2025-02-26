@@ -29,6 +29,7 @@ Changes in 12.2
 - Save null percent: N/A final grade in `_makeLetterGrade.fnc.php`, InputFinalgrades.php & FinalGrades.inc.php
 - Add Gradebook Grades before save action hook in Actions.php & Grades.php
 - SQL remove deprecated columns in rosariosis.sql & rosariosis_mysql.sql
+- Remove php.ini safe_mode check, deprecated since PHP 5.3 in Portal.php
 
 Changes in 12.1.3
 -----------------
