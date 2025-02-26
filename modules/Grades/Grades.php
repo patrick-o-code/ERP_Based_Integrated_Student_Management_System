@@ -201,6 +201,9 @@ if ( ! empty( $_REQUEST['values'] )
 				}
 			}
 
+			// @since 12.2 Add Gradebook Grades before save action hook
+			do_action( 'Grades/Grades.php|before_save', [ $student_id, $assignment_id, &$columns ] );
+
 			if ( ! empty( $current_RET[$student_id][$assignment_id] ) )
 			{
 				$inserted_or_updated = DBUpdate(
@@ -725,7 +728,7 @@ echo '</form>';
 /**
  * Make Extra Assignment Columns
  *
- * @since 12.2 Simplify logic & function: 70 lines + 2.3KB gain.
+ * @since 12.2 Simplify logic & function: 70 lines + 2.3KB gain
  *
  *
  * @param int    $assignment_id Assignment ID or none for Totals.

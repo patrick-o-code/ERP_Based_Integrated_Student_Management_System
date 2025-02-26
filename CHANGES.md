@@ -27,6 +27,7 @@ Changes in 12.2
 - Use FinalGradesGetAssignmentsPoints() & FinalGradesQtrOrProCalculate() functions in Grades.php
 - Simplify `_makeExtraAssnCols()` function logic & function: 70 lines + 2.3KB gain in Grades.php
 - Save null percent: N/A final grade in `_makeLetterGrade.fnc.php`, InputFinalgrades.php & FinalGrades.inc.php
+- Add Gradebook Grades before save action hook in Actions.php & Grades.php
 
 Changes in 12.1.3
 -----------------

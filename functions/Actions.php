@@ -530,6 +530,14 @@ $RosarioActions = [];
 	 * @since 12.0
 	 */
 	/*'ProgramFunctions/Bottom.fnc.php|bottom_buttons' => [],
+
+	/**
+	 * Gradebook Grades before save
+	 * Filter &$columns var
+	 *
+	 * @since 12.2
+	 */
+	/*'Grades/Grades.php|before_save' => [ $student_id, $assignment_id, &$columns ],
 );*/
 
 /**
