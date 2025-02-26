@@ -31,6 +31,7 @@ Changes in 12.2
 - SQL remove deprecated columns in rosariosis.sql & rosariosis_mysql.sql
 - Remove php.ini safe_mode check, deprecated since PHP 5.3 in Portal.php
 - Send RosarioSIS version in Addon.fnc.php
+- Add Course Period update Teacher action hook in Actions.php & Courses.fnc.php
 
 Changes in 12.1.3
 -----------------

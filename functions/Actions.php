@@ -538,6 +538,13 @@ $RosarioActions = [];
 	 * @since 12.2
 	 */
 	/*'Grades/Grades.php|before_save' => [ $student_id, $assignment_id, &$columns ],
+
+	/**
+	 * Course Period update Teacher
+	 *
+	 * @since 12.2
+	 */
+	/*'Scheduling/includes/Courses.fnc.php|course_period_update_teacher' => [ $cp_id, $old_teacher_id, $new_teacher_id ],
 );*/
 
 /**

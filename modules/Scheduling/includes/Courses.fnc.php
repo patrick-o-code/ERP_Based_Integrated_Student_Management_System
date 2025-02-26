@@ -623,6 +623,7 @@ function CoursePeriodUpdateMP( $cp_id, $mp_id )
  *
  * @since 11.1
  * @since 11.4.2 Update teacher's assignments
+ * @since 12.2 Add action hook
  *
  * @param  int $cp_id          Course Period ID.
  * @param  int $old_teacher_id Old Teacher ID.
@@ -744,6 +745,12 @@ function CoursePeriodUpdateTeacher( $cp_id, $old_teacher_id, $new_teacher_id )
 			OR NOT EXISTS(SELECT 1 FROM course_periods
 				WHERE COURSE_ID='" . (int) $course_id . "'
 				AND TEACHER_ID='" . (int) $old_teacher_id . "'))" );
+
+	// @since 12.2 Add action hook
+	do_action(
+		'Scheduling/includes/Courses.fnc.php|course_period_update_teacher',
+		[ $cp_id, $old_teacher_id, $new_teacher_id ]
+	);
 
 	return true;
 }
