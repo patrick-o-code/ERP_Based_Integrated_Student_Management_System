@@ -280,6 +280,7 @@ function AddonZipCanUnzip( $zip_path )
  * @see `ROSARIO_DISABLE_USAGE_STATISTICS` optional configuration constant
  *
  * @since 12.0
+ * @since 12.2 Send RosarioSIS version
  *
  * @param string $type      Add-on type: module|plugin.
  * @param string $addon_dir Add-on directory. For example: 'My_Module'.
@@ -304,6 +305,7 @@ function AddonInstallationStatisticsPost( $type, $addon_dir )
 		'type' => $type,
 		'addon_dir' => $addon_dir,
 		'lang' => mb_substr( $_SESSION['locale'], 0, 5 ),
+		'rosario_version' => ROSARIO_VERSION,
 	];
 
 	?>

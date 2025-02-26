@@ -30,6 +30,7 @@ Changes in 12.2
 - Add Gradebook Grades before save action hook in Actions.php & Grades.php
 - SQL remove deprecated columns in rosariosis.sql & rosariosis_mysql.sql
 - Remove php.ini safe_mode check, deprecated since PHP 5.3 in Portal.php
+- Send RosarioSIS version in Addon.fnc.php
 
 Changes in 12.1.3
 -----------------
