@@ -1616,7 +1616,7 @@ function _makeAutoSelect( $column, $table, $values = '', $options = [] )
 
 	if ( $fatal_error )
 	{
-		return ErrorMessage( $error, 'fatal' );
+		return ErrorMessage( $fatal_error, 'fatal' );
 	}
 
 	// Add the 'new' option, is also the separator.
