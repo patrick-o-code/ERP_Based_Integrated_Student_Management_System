@@ -374,7 +374,6 @@ CREATE TABLE course_periods (
     availability numeric,
     parent_id integer,
     calendar_id integer,
-    half_day varchar(1), -- @deprecated since 8.9
     does_breakoff varchar(1),
     rollover_id integer,
     grade_scale_id integer,
@@ -393,7 +392,6 @@ CREATE TABLE access_log (
     syear numeric(4,0) NOT NULL,
     username varchar(100),
     profile varchar(30),
-    login_time datetime, -- @deprecated since 11.0 use created_at instead
     ip_address varchar(50),
     user_agent text,
     status varchar(50),
@@ -1171,7 +1169,6 @@ CREATE TABLE gradebook_assignments (
 CREATE TABLE gradebook_grades (
     student_id integer NOT NULL,
     FOREIGN KEY (student_id) REFERENCES students(student_id),
-    period_id integer, -- @deprecated since 6.9 SQL gradebook_grades column PERIOD_ID.
     course_period_id integer NOT NULL,
     FOREIGN KEY (course_period_id) REFERENCES course_periods(course_period_id),
     assignment_id integer NOT NULL,
@@ -1340,7 +1337,6 @@ CREATE TABLE portal_notes (
     content longtext,
     sort_order numeric,
     published_user integer,
-    published_date datetime, -- @deprecated since 11.0 use created_at instead
     start_date date,
     end_date date,
     published_profiles text,
@@ -1380,7 +1376,6 @@ CREATE TABLE portal_polls (
     display_votes varchar(1),
     sort_order numeric,
     published_user integer,
-    published_date datetime, -- @deprecated since 11.0 use created_at instead
     start_date date,
     end_date date,
     published_profiles text,
@@ -1581,7 +1576,6 @@ CREATE TABLE schedule (
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     start_date date NOT NULL,
     end_date date,
-    modified_date date, -- @deprecated since 5.0 Use updated_at.
     modified_by varchar(255),
     course_id integer NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(course_id),

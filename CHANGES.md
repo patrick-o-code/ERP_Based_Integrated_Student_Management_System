@@ -28,6 +28,7 @@ Changes in 12.2
 - Simplify `_makeExtraAssnCols()` function logic & function: 70 lines + 2.3KB gain in Grades.php
 - Save null percent: N/A final grade in `_makeLetterGrade.fnc.php`, InputFinalgrades.php & FinalGrades.inc.php
 - Add Gradebook Grades before save action hook in Actions.php & Grades.php
+- SQL remove deprecated columns in rosariosis.sql & rosariosis_mysql.sql
 
 Changes in 12.1.3
 -----------------
