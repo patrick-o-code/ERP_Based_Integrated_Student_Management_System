@@ -2,6 +2,7 @@
 
 require_once 'ProgramFunctions/_makeLetterGrade.fnc.php';
 require_once 'ProgramFunctions/Charts.fnc.php';
+require_once 'modules/Grades/includes/FinalGrades.inc.php';
 
 if ( ! empty( $_SESSION['is_secondary_teacher'] ) )
 {
@@ -140,47 +141,9 @@ if ( $_REQUEST['assignment_id'] === 'totals' )
 {
 	$title = _( 'Grade' );
 
-	$current_RET = DBGet( "SELECT g.STUDENT_ID,
-		sum(" . db_case( [ 'g.POINTS', "'-1'", "'0'", 'g.POINTS' ] ) . ") AS POINTS,
-		sum(" . db_case( [ 'g.POINTS', "'-1'", "'0'", 'a.POINTS' ] ) . ") AS TOTAL_POINTS
-		FROM gradebook_grades g,gradebook_assignments a
-		WHERE a.ASSIGNMENT_ID=g.ASSIGNMENT_ID
-		AND a.STAFF_ID='" . User( 'STAFF_ID' ) . "'
-		AND a.MARKING_PERIOD_ID='" . UserMP() . "'
-		AND g.COURSE_PERIOD_ID='" . UserCoursePeriod() . "'
-		AND (a.COURSE_PERIOD_ID='" . UserCoursePeriod() . "' OR a.COURSE_ID='" . (int) $course_id . "')
-		GROUP BY g.STUDENT_ID", [], [ 'STUDENT_ID' ] );
-
-	if ( Preferences( 'WEIGHT', 'Gradebook' ) === 'Y' )
-	{
-		/**
-		 * Do not include Extra Credit assignments
-		 * when Total Points is 0 for the Type
-		 * if the Gradebook is configured to Weight Grades:
-		 * Division by zero is impossible.
-		 *
-		 * Do not include Excused (`*` or -1) grades.
-		 */
-		$percent_RET = DBGet( "SELECT gt.ASSIGNMENT_TYPE_ID,gg.STUDENT_ID," .
-			db_case( [
-				"sum(ga.POINTS)",
-				"'0'",
-				"'0'",
-				"(sum(gg.POINTS) * gt.FINAL_GRADE_PERCENT / sum(ga.POINTS))",
-			] ) . " AS PARTIAL_PERCENT,gt.FINAL_GRADE_PERCENT
-			FROM gradebook_grades gg,gradebook_assignments ga,gradebook_assignment_types gt
-			WHERE gt.ASSIGNMENT_TYPE_ID=ga.ASSIGNMENT_TYPE_ID
-			AND ga.ASSIGNMENT_ID=gg.ASSIGNMENT_ID
-			AND ga.STAFF_ID='" . User( 'STAFF_ID' ) . "'
-			AND ga.MARKING_PERIOD_ID IN (" . GetAllMP( 'QTR', UserMP() ) . ")
-			AND gg.COURSE_PERIOD_ID='" . UserCoursePeriod() . "'
-			AND gt.COURSE_ID='" . (int) $course_id . "'
-			AND gg.POINTS<>'-1'
-			GROUP BY gg.STUDENT_ID,gt.ASSIGNMENT_TYPE_ID,gt.FINAL_GRADE_PERCENT
-			HAVING sum(ga.POINTS)<>'0'",
-			[],
-			[ 'STUDENT_ID', 'ASSIGNMENT_TYPE_ID' ] );
-	}
+	// @since 12.2 Use FinalGradesQtrOrProCalculate() function
+	// @global variable used by _makeGrade()
+	$import_RET = FinalGradesQtrOrProCalculate( UserCoursePeriod(), UserMP() );
 
 	foreach ( (array) $assignments_RET as $assignment )
 	{
@@ -193,38 +156,9 @@ elseif ( ! is_numeric( $_REQUEST['assignment_id'] ) )
 {
 	$type_id = mb_substr( $_REQUEST['assignment_id'], 6 );
 
-	$current_RET = DBGet( "SELECT g.STUDENT_ID,
-		sum(" . db_case( [ 'g.POINTS', "'-1'", "'0'", 'g.POINTS' ] ) . ") AS POINTS,
-		sum(" . db_case( [ 'g.POINTS', "'-1'", "'0'", 'a.POINTS' ] ) . ") AS TOTAL_POINTS
-		FROM gradebook_grades g,gradebook_assignments a
-		WHERE a.ASSIGNMENT_ID=g.ASSIGNMENT_ID
-		AND a.MARKING_PERIOD_ID='" . UserMP() . "'
-		AND g.COURSE_PERIOD_ID='" . UserCoursePeriod() . "'
-		AND (a.COURSE_PERIOD_ID='" . UserCoursePeriod() . "' OR a.COURSE_ID='" . (int) $course_id . "')
-		AND a.ASSIGNMENT_TYPE_ID='" . (int) $type_id . "'
-		GROUP BY g.STUDENT_ID", [], [ 'STUDENT_ID' ] );
-
-	if ( Preferences( 'WEIGHT', 'Gradebook' ) === 'Y' )
-	{
-		$percent_RET = DBGet( "SELECT gt.ASSIGNMENT_TYPE_ID,gg.STUDENT_ID," .
-			db_case( [
-				"sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'ga.POINTS' ] ) . ")",
-				"'0'",
-				"'0'",
-				"(sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'gg.POINTS' ] ) . ")
-					/ sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'ga.POINTS' ] ) . "))",
-			] ) . " AS PARTIAL_PERCENT
-			FROM gradebook_grades gg,gradebook_assignments ga,gradebook_assignment_types gt
-			WHERE gt.ASSIGNMENT_TYPE_ID=ga.ASSIGNMENT_TYPE_ID
-			AND ga.ASSIGNMENT_TYPE_ID='" . (int) $type_id . "'
-			AND ga.ASSIGNMENT_ID=gg.ASSIGNMENT_ID
-			AND ga.MARKING_PERIOD_ID IN (" . GetAllMP( 'QTR', UserMP() ) . ")
-			AND gg.COURSE_PERIOD_ID='" . UserCoursePeriod() . "'
-			AND gt.COURSE_ID='" . (int) $course_id . "'
-			GROUP BY gg.STUDENT_ID,gt.ASSIGNMENT_TYPE_ID,gt.FINAL_GRADE_PERCENT",
-			[],
-			[ 'STUDENT_ID', 'ASSIGNMENT_TYPE_ID' ] );
-	}
+	// @since 12.2 Use FinalGradesQtrOrProCalculate() function
+	// @global variable used by _makeGrade()
+	$import_RET = FinalGradesQtrOrProCalculate( UserCoursePeriod(), UserMP(), $type_id );
 
 	foreach ( (array) $assignments_RET as $assignment )
 	{
@@ -270,7 +204,7 @@ foreach ( (array) $grades as $option )
 
 if ( ! $_REQUEST['modfunc'] )
 {
-	echo '<form action="' . PreparePHP_SELF( $_REQUEST ) . '" method="GET">';
+	echo '<form action="' . PreparePHP_SELF( $_REQUEST, [ 'assignment_id' ] ) . '" method="GET">';
 
 	$RET = GetStuList();
 
@@ -382,42 +316,24 @@ if ( ! $_REQUEST['modfunc'] )
 function _makeGrade( $value, $column )
 {
 	global $THIS_RET,
-	$total_points,
-	$current_RET,
-		$percent_RET;
+		$total_points,
+		$current_RET,
+		$import_RET;
 
 	// Totals or Assignment Type
 
 	if ( ! is_numeric( $_REQUEST['assignment_id'] )
 		&& empty( $_REQUEST['student_id'] ) )
 	{
-		$total = $total_percent =  0;
+		$grade_id = issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['REPORT_CARD_GRADE_ID'], 0 );
 
-		if ( Preferences( 'WEIGHT', 'Gradebook' ) === 'Y'
-			&& ! empty( $percent_RET[$THIS_RET['STUDENT_ID']] ) )
-		{
-			foreach ( (array) $percent_RET[$THIS_RET['STUDENT_ID']] as $type_id => $type )
-			{
-				$total += $type[1]['PARTIAL_PERCENT'];
+		$grade_letter = DBGetOne( "SELECT TITLE
+			FROM report_card_grades
+			WHERE SYEAR='" . UserSyear() . "'
+			AND SCHOOL_ID='" . UserSchool() . "'
+			AND ID='" . (int) $grade_id . "'" );
 
-				if ( isset( $type[1]['FINAL_GRADE_PERCENT'] ) )
-				{
-					// Only set Assignment Types percent for Totals.
-					$total_percent += $type[1]['FINAL_GRADE_PERCENT'];
-				}
-			}
-
-			if ( $total_percent != 0 )
-			{
-				$total /= $total_percent;
-			}
-		}
-		elseif ( ! empty( $current_RET[$THIS_RET['STUDENT_ID']][1]['TOTAL_POINTS'] ) )
-		{
-			$total = $current_RET[$THIS_RET['STUDENT_ID']][1]['POINTS'] / $current_RET[$THIS_RET['STUDENT_ID']][1]['TOTAL_POINTS'];
-		}
-
-		return _makeLetterGrade( $total, UserCoursePeriod() );
+		return $grade_letter;
 	}
 
 	// Assignment
