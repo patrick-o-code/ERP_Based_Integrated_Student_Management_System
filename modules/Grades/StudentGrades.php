@@ -112,8 +112,8 @@ if ( UserStudentID()
 
 				// @since 8.8 Exclude 0 points assignments from Ungraded count.
 				$sql = "SELECT s.STUDENT_ID,gt.ASSIGNMENT_TYPE_ID,
-				sum(" . db_case( array( 'gg.POINTS', "'-1'", "'0'", 'gg.POINTS' ) ) . ") AS PARTIAL_POINTS,
-				sum(" . db_case( array( 'gg.POINTS', "'-1'", "'0'", 'ga.POINTS' ) ) . ") AS PARTIAL_TOTAL,
+				sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE gg.POINTS END) AS PARTIAL_POINTS,
+				sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE ga.POINTS END) AS PARTIAL_TOTAL,
 				gt.FINAL_GRADE_PERCENT,sum(CASE WHEN gg.POINTS IS NULL AND ga.POINTS>0 THEN 1 ELSE 0 END) AS UNGRADED
 				FROM students s
 				JOIN schedule ss ON (ss.STUDENT_ID=s.STUDENT_ID AND ss.SYEAR='" . UserSyear() . "'";
@@ -377,7 +377,7 @@ if ( UserStudentID()
 					"'" . (int) $gradebook_config[$staff_id]['LATENCY'] . " DAY'" ) . "))
 				OR CURRENT_DATE>(SELECT END_DATE FROM school_marking_periods WHERE MARKING_PERIOD_ID=ga.MARKING_PERIOD_ID)
 				OR gg.POINTS IS NOT NULL)
-			AND (ga.POINTS!='0' OR gg.POINTS IS NOT NULL AND gg.POINTS!='-1')
+			AND (ga.POINTS!='0' OR gg.POINTS IS NOT NULL AND gg.POINTS>=0)
 			ORDER BY at.TITLE,ga.ASSIGNMENT_ID DESC", [ 'TITLE' => '_makeTipAssignment', 'CATEGORY' => '_makeCategory' ] );
 			//echo '<pre>'; var_dump($assignments_RET); echo '</pre>';
 
@@ -387,11 +387,18 @@ if ( UserStudentID()
 				//FJ bugfix broken statistics, MIN calculation when gg.POINTS is NULL
 				{
 					$all_RET = DBGet( "SELECT ga.ASSIGNMENT_ID,
-					min(" . db_case( [ 'gg.POINTS', "'-1'", 'ga.POINTS', db_case( [ 'gg.POINTS', "''", '0', 'gg.POINTS' ] ) ] ) . ") AS MIN,
-					max(" . db_case( [ 'gg.POINTS', "'-1'", '0', 'gg.POINTS' ] ) . ") AS MAX,
-					" . db_case( [ "sum(" . db_case( [ 'gg.POINTS', "'-1'", '0', '1' ] ) . ")", "'0'", "'0'", "sum(" . db_case( [ 'gg.POINTS', "'-1'", '0', 'gg.POINTS' ] ) . ") / sum(" . db_case( [ 'gg.POINTS', "'-1'", '0', '1' ] ) . ")" ] ) . " AS AVG,
-					sum(CASE WHEN gg.POINTS!='-1' AND gg.POINTS<=g.POINTS AND gg.STUDENT_ID!=g.STUDENT_ID THEN 1 ELSE 0 END) AS LOWER,
-					sum(CASE WHEN gg.POINTS!='-1' AND gg.POINTS>g.POINTS THEN 1 ELSE 0 END) AS HIGHER
+					min(CASE WHEN gg.POINTS<0 THEN ga.POINTS ELSE
+						(CASE WHEN gg.POINTS IS NULL THEN '0' ELSE gg.POINTS END) END) AS MIN,
+					max(CASE WHEN gg.POINTS<0 THEN '0' ELSE gg.POINTS END) AS MAX,
+					" . db_case( [
+						"sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE '1' END)",
+						"'0'",
+						"'0'",
+						"(sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE gg.POINTS END)
+							/ sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE ga.POINTS END))",
+					] ) . " AS AVG,
+					sum(CASE WHEN gg.POINTS>=0 AND gg.POINTS<=g.POINTS AND gg.STUDENT_ID!=g.STUDENT_ID THEN 1 ELSE 0 END) AS LOWER,
+					sum(CASE WHEN gg.POINTS>=0 AND gg.POINTS>g.POINTS THEN 1 ELSE 0 END) AS HIGHER
 					FROM gradebook_grades gg,gradebook_assignments ga
 					LEFT OUTER JOIN gradebook_grades g ON (g.COURSE_PERIOD_ID='" . (int) $course['COURSE_PERIOD_ID'] . "' AND g.ASSIGNMENT_ID=ga.ASSIGNMENT_ID AND g.STUDENT_ID='" . UserStudentID() . "'),
 					gradebook_assignment_types at
@@ -446,7 +453,7 @@ if ( UserStudentID()
 						{
 							$all = $all_RET[$assignment['ASSIGNMENT_ID']][1];
 
-							if ( $assignment['POINTS'] != '-1' && $assignment['POINTS'] != '' )
+							if ( $assignment['POINTS'] >= 0 && $assignment['POINTS'] != '' )
 							{
 								$bargraph1 = bargraph1(
 									$assignment['POINTS'],

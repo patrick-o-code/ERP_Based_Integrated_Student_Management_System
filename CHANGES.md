@@ -32,6 +32,7 @@ Changes in 12.2
 - Remove php.ini safe_mode check, deprecated since PHP 5.3 in Portal.php
 - Send RosarioSIS version in Addon.fnc.php
 - Add Course Period update Teacher action hook in Actions.php & Courses.fnc.php
+- SQL allow Gradebook Grades < 0, not only '-1' (Excused) in EnterEligibility.php, Grades.php, ProgressReports.php, StudentGrades.php & FinalGrades.inc.php
 
 Changes in 12.1.3
 -----------------

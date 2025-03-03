@@ -493,16 +493,16 @@ function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id, $assignment_type_id = 
 
 	// Note: The 'active assignment' determination is not fully correct.  It would be easy to be fully correct here but the same determination
 	// as in Grades.php is used to avoid apparent inconsistencies in the grade calculations.  See also the note at top of Grades.php.
-	$extra['SELECT_ONLY'] = "s.STUDENT_ID, gt.ASSIGNMENT_TYPE_ID,sum(" .
-	db_case( [ 'gg.POINTS', "'-1'", "'0'", 'gg.POINTS' ] ) . ") AS PARTIAL_POINTS,sum(" .
-	db_case( [ 'gg.POINTS', "'-1'", "'0'", 'ga.POINTS' ] ) . ") AS PARTIAL_TOTAL,gt.FINAL_GRADE_PERCENT";
+	$extra['SELECT_ONLY'] = "s.STUDENT_ID, gt.ASSIGNMENT_TYPE_ID,
+	sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE gg.POINTS END) AS PARTIAL_POINTS,
+	sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE ga.POINTS END) AS PARTIAL_TOTAL,gt.FINAL_GRADE_PERCENT";
 
 	if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] ) )
 	{
 		// @since 11.0 Add Weight Assignments option
-		$extra['SELECT_ONLY'] .= ",sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'",
-			db_case( [ 'ga.WEIGHT', "''", "'0'", "ga.WEIGHT" ] ) ] ) . ") AS PARTIAL_WEIGHT,
-			sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", '(gg.POINTS/ga.POINTS)*ga.WEIGHT' ] ) . ") AS PARTIAL_WEIGHTED_GRADE";
+		$extra['SELECT_ONLY'] .= ",sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE
+			(CASE WHEN ga.WEIGHT IS NULL THEN '0' ELSE ga.WEIGHT END) END) AS PARTIAL_WEIGHT,
+			sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE (gg.POINTS/ga.POINTS)*ga.WEIGHT END) AS PARTIAL_WEIGHTED_GRADE";
 	}
 
 	$extra['FROM'] = " JOIN gradebook_assignments ga ON

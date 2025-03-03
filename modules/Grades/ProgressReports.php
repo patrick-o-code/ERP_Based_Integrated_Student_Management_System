@@ -85,7 +85,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 	if ( isset( $_REQUEST['exclude_ec'] )
 		&& $_REQUEST['exclude_ec'] == 'Y' )
 	{
-		$extra2['WHERE'] .= " AND (ga.POINTS!='0' OR gg.POINTS IS NOT NULL AND gg.POINTS!='-1')";
+		$extra2['WHERE'] .= " AND (ga.POINTS!='0' OR gg.POINTS IS NOT NULL AND gg.POINTS>=0)";
 	}
 
 	// Parent: associated students.
@@ -517,6 +517,7 @@ function _makeExtraGrade( $value, $column )
 
 	if ( $value == '-1' )
 	{
+		// Excused.
 		return _( 'N/A' );
 	}
 

@@ -69,7 +69,9 @@ if ( $_REQUEST['modfunc'] == 'gradebook' )
 	if ( ! empty( $gradebook_config['WEIGHT'] ) )
 	{
 		// @since 10.0 Use GROUP BY instead of DISTINCT ON for MySQL compatibility
-		$points_RET = DBGet( "SELECT s.STUDENT_ID,gt.ASSIGNMENT_TYPE_ID,sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'gg.POINTS' ] ) . ") AS PARTIAL_POINTS,sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'ga.POINTS' ] ) . ") AS PARTIAL_TOTAL,gt.FINAL_GRADE_PERCENT
+		$points_RET = DBGet( "SELECT s.STUDENT_ID,gt.ASSIGNMENT_TYPE_ID,
+			sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE gg.POINTS END) AS PARTIAL_POINTS,
+			sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE ga.POINTS END) AS PARTIAL_TOTAL,gt.FINAL_GRADE_PERCENT
 		FROM students s
 		JOIN schedule ss ON (ss.STUDENT_ID=s.STUDENT_ID AND ss.COURSE_PERIOD_ID='" . (int) $course_period_id . "')
 		JOIN gradebook_assignments ga ON ((ga.COURSE_PERIOD_ID=ss.COURSE_PERIOD_ID OR ga.COURSE_ID='" . (int) $course_id . "' AND ga.STAFF_ID='" . User( 'STAFF_ID' ) . "') AND ga.MARKING_PERIOD_ID" .
@@ -87,7 +89,9 @@ if ( $_REQUEST['modfunc'] == 'gradebook' )
 	else
 	{
 		// @since 10.0 Use GROUP BY instead of DISTINCT ON for MySQL compatibility
-		$points_RET = DBGet( "SELECT s.STUDENT_ID,'-1' AS ASSIGNMENT_TYPE_ID,sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'gg.POINTS' ] ) . ") AS PARTIAL_POINTS,sum(" . db_case( [ 'gg.POINTS', "'-1'", "'0'", 'ga.POINTS' ] ) . ") AS PARTIAL_TOTAL,'1' AS FINAL_GRADE_PERCENT
+		$points_RET = DBGet( "SELECT s.STUDENT_ID,'-1' AS ASSIGNMENT_TYPE_ID,
+			sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE gg.POINTS END) AS PARTIAL_POINTS,
+			sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE ga.POINTS END) AS PARTIAL_TOTAL,'1' AS FINAL_GRADE_PERCENT
 		FROM students s
 		JOIN schedule ss ON (ss.STUDENT_ID=s.STUDENT_ID AND ss.COURSE_PERIOD_ID='" . (int) $course_period_id . "')
 		JOIN gradebook_assignments ga ON ((ga.COURSE_PERIOD_ID=ss.COURSE_PERIOD_ID OR ga.COURSE_ID='" . (int) $course_id . "' AND ga.STAFF_ID='" . User( 'STAFF_ID' ) . "') AND ga.MARKING_PERIOD_ID" .

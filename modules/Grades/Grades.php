@@ -855,7 +855,7 @@ function _makeExtraAssnCols( $assignment_id, $column )
 
 			if ( $total_points != 0 )
 			{
-				if ( $points != '-1' )
+				if ( $points >= 0 )
 				{
 					$red_span = ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' )
 						&& ( $points > $total_points * $max_allowed );
@@ -907,7 +907,7 @@ function _makeExtraAssnCols( $assignment_id, $column )
 			}
 
 			if ( $total_points != 0
-				&& $points != '-1' )
+				&& $points >= 0 )
 			{
 				return ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '<span style="color:gray">' ) .
 					'<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' .
@@ -1013,7 +1013,7 @@ function _makeExtraStuCols( $value, $column )
 		case 'PERCENT_GRADE':
 			if ( $THIS_RET['TOTAL_POINTS'] != 0 )
 			{
-				if ( $THIS_RET['POINTS'] != '-1' )
+				if ( $THIS_RET['POINTS'] >= 0 )
 				{
 					$red_span = ( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' )
 						&& ( $THIS_RET['POINTS'] > $THIS_RET['TOTAL_POINTS'] * $max_allowed );
@@ -1027,17 +1027,17 @@ function _makeExtraStuCols( $value, $column )
 					);
 				}
 
-				return _( 'N/A' );
+				return _( 'N/A' ); // Excused.
 			}
 
-			return _( 'E/C' );
+			return _( 'E/C' ); // Extra Credit.
 
 			break;
 
 		case 'LETTER_GRADE':
 			if ( $THIS_RET['TOTAL_POINTS'] != 0 )
 			{
-				if ( $THIS_RET['POINTS'] != '-1' )
+				if ( $THIS_RET['POINTS'] >= 0 )
 				{
 					return ( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' ? '' : '<span style="color:gray">' ) . '<b>' . _makeLetterGrade( $THIS_RET['POINTS'] / $THIS_RET['TOTAL_POINTS'] ) . '</b>' . ( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' ? '' : '</span>' );
 				}
