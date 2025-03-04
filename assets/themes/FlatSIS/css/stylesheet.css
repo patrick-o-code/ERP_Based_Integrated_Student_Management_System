@@ -63,6 +63,8 @@
 	max-height: 33vh;
 	overflow-y: scroll;
 	height: auto;
+	/* Prevent body from scrolling when help open */
+	overscroll-behavior: contain;
 }
 
 /* Better readability: format Help text in 3 columns max., 480px width min. (70 to 100 characters). */
@@ -1036,13 +1038,9 @@ div.uld {
 	line-height: inherit;
 }
 
-.checkbox-label {
-	padding: 2px 0;
-}
-
 span.underline-dots,
 span.uld,
-label.checkbox-label,
+.checkbox-label,
 .no-input-value {
 	line-height: 27px;
 	padding-bottom: 1px;
@@ -1298,7 +1296,8 @@ a > .button,
 	vertical-align: middle;
 }
 
-.button.smaller {
+.button.smaller,
+.list-header a > .button.smaller {
 	vertical-align: -12%;
 }
 
@@ -1633,6 +1632,10 @@ td.calendar-menu {
 
 #cboxLoadedContent h1 {
 	margin-top: 0.42em;
+}
+
+#cboxTitle {
+	left: 30px;
 }
 
 /* Add-on module/plugin README inside colorBox */

@@ -58,6 +58,8 @@
 	max-height: 33vh;
 	overflow-y: scroll;
 	height: auto;
+	/* Prevent body from scrolling when help open */
+	overscroll-behavior: contain;
 }
 
 /* Better readability: format Help text in 3 columns max., 480px width min. (70 to 100 characters). */
@@ -806,12 +808,13 @@ input[type=button] {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none
+	user-select: none;
+	line-height: 0.8;
 }
 
 .postbox th h3 {
 	line-height: 31px;
-	height: 34px;
+	height: 31px;
 	margin: 0;
 	border: 0
 }
@@ -972,13 +975,9 @@ div.uld {
 	line-height: inherit;
 }
 
-.checkbox-label {
-	padding: 1px 0;
-}
-
 span.underline-dots,
 span.uld,
-label.checkbox-label,
+.checkbox-label,
 .no-input-value {
 	line-height: 25px;
 	padding: 1px 1px 1px 0;
@@ -1224,7 +1223,8 @@ a > .button,
 	vertical-align: middle;
 }
 
-.button.smaller {
+.button.smaller,
+.list-header a > .button.smaller {
 	vertical-align: -12%;
 }
 
@@ -1728,7 +1728,7 @@ a .button + b {
 	width: 180px;
 	z-index: 999;
 	display: inline-block;
-	padding: 3px 7px 7px;
+	padding: 5px 7px 7px;
 	border-radius: 3px;
 	transition: opacity .3s;
 	text-align: left;

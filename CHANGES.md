@@ -35,6 +35,7 @@ Changes in 12.2
 - SQL allow Gradebook Grades < 0, not only '-1' (Excused) in EnterEligibility.php, Grades.php, ProgressReports.php, StudentGrades.php & FinalGrades.inc.php
 - Use FinalGradesQtrOrProCalculate() function in GradebookBreakdown.php
 - Fix FinalGradesGetAssignmentsPoints() when $mp_id is not UserMP() in FinalGrades.inc.php
+- CSS themes small fixes + Prevent body from scrolling when help open in stylesheet.css
 
 Changes in 12.1.3
 -----------------
