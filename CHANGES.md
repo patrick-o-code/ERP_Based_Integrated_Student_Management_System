@@ -34,6 +34,7 @@ Changes in 12.2
 - Add Course Period update Teacher action hook in Actions.php & Courses.fnc.php
 - SQL allow Gradebook Grades < 0, not only '-1' (Excused) in EnterEligibility.php, Grades.php, ProgressReports.php, StudentGrades.php & FinalGrades.inc.php
 - Use FinalGradesQtrOrProCalculate() function in GradebookBreakdown.php
+- Fix FinalGradesGetAssignmentsPoints() when $mp_id is not UserMP() in FinalGrades.inc.php
 
 Changes in 12.1.3
 -----------------

@@ -505,11 +505,13 @@ function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id, $assignment_type_id = 
 			sum(CASE WHEN gg.POINTS<0 THEN '0' ELSE (gg.POINTS/ga.POINTS)*ga.WEIGHT END) AS PARTIAL_WEIGHTED_GRADE";
 	}
 
+	$qtr_id = $mp === 'QTR' ? $mp_id : GetParentMP( 'QTR', $mp_id );
+
 	$extra['FROM'] = " JOIN gradebook_assignments ga ON
 		(((ga.COURSE_PERIOD_ID=cp.COURSE_PERIOD_ID
 				OR ga.COURSE_ID=cp.COURSE_ID)
 				AND ga.STAFF_ID=cp.TEACHER_ID)
-			AND ga.MARKING_PERIOD_ID='" . UserMP() . "')
+			AND ga.MARKING_PERIOD_ID='" . (int) $qtr_id . "')
 		LEFT OUTER JOIN gradebook_grades gg ON
 		(gg.STUDENT_ID=s.STUDENT_ID
 			AND gg.ASSIGNMENT_ID=ga.ASSIGNMENT_ID
@@ -545,7 +547,7 @@ function FinalGradesGetAssignmentsPoints( $cp_id, $mp_id, $assignment_type_id = 
 		$extra['WHERE'] .= " AND ga.POINTS>0";
 	}
 
-	if ( GetMP( $mp_id, 'MP' ) === 'PRO' )
+	if ( $mp === 'PRO' )
 	{
 		// FJ: limit Assignments to the ones due during the Progress Period.
 		$extra['WHERE'] .= " AND ((ga.ASSIGNED_DATE IS NULL OR (SELECT END_DATE
