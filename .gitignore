@@ -325,5 +325,6 @@ plugins/Stripe_Registration*
 plugins/Mali_Report_Cards*
 plugins/Prevent_Teachers_Adding_Deleting_Assignments*
 plugins/Scholarship_Expiration*
+plugins/Microsoft_Social_Login*
 locale/fr_FR.utf8_ParisComSup
 functions/1GetMP.php
