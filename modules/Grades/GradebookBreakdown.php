@@ -325,15 +325,7 @@ function _makeGrade( $value, $column )
 	if ( ! is_numeric( $_REQUEST['assignment_id'] )
 		&& empty( $_REQUEST['student_id'] ) )
 	{
-		$grade_id = issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['REPORT_CARD_GRADE_ID'], 0 );
-
-		$grade_letter = DBGetOne( "SELECT TITLE
-			FROM report_card_grades
-			WHERE SYEAR='" . UserSyear() . "'
-			AND SCHOOL_ID='" . UserSchool() . "'
-			AND ID='" . (int) $grade_id . "'" );
-
-		return $grade_letter;
+		return issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['GRADE_LETTER'] );
 	}
 
 	// Assignment

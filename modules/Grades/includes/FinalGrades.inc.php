@@ -313,6 +313,7 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 		$import_RET[$student_id] = [
 			1 => [
 				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total, $cp_id, 0, 'ID' ),
+				'GRADE_LETTER' => _makeLetterGrade( $total, $cp_id, 0, 'TITLE' ),
 				'GRADE_PERCENT' => is_null( $total ) ? null : round( 100 * $total, 1 ),
 			],
 		];
@@ -448,6 +449,7 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
 		$import_RET[$student_id] = [
 			1 => [
 				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total / 100, $cp_id, 0, 'ID' ),
+				'GRADE_LETTER' => _makeLetterGrade( $total / 100, $cp_id, 0, 'TITLE' ),
 				'GRADE_PERCENT' => round( $total, 1 ),
 			],
 		];
@@ -660,7 +662,7 @@ function FinalGradesSave( $cp_id, $mp_id, $final_grades )
 		}
 
 		$grade = $final_grade[1]['REPORT_CARD_GRADE_ID'];
-		$letter = $grades_RET[$grade][1]['TITLE'];
+		$letter = $final_grade[1]['GRADE_LETTER'];
 		$weighted = $grades_RET[$grade][1]['WEIGHTED_GP'];
 		$unweighted = $grades_RET[$grade][1]['UNWEIGHTED_GP'];
 		$scale = $grades_RET[$grade][1]['GP_SCALE'];

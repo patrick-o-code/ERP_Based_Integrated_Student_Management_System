@@ -878,15 +878,7 @@ function _makeExtraAssnCols( $assignment_id, $column )
 	{
 		if ( ! $assignment_id )
 		{
-			$grade_id = issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['REPORT_CARD_GRADE_ID'], 0 );
-
-			$grade_letter = DBGetOne( "SELECT TITLE
-				FROM report_card_grades
-				WHERE SYEAR='" . UserSyear() . "'
-				AND SCHOOL_ID='" . UserSchool() . "'
-				AND ID='" . (int) $grade_id . "'" );
-
-			return '<b>' . $grade_letter . '</b>';
+			return '<b>' . issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['GRADE_LETTER'] ) . '</b>';
 		}
 
 		if ( ! empty( $_REQUEST['include_all'] )
