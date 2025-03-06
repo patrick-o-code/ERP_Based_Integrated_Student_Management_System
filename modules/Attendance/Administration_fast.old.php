@@ -314,7 +314,7 @@ function _makeReasonInput( $value, $title )
 
 	$val = $current_RET[$THIS_RET['STUDENT_ID']][$THIS_RET['COURSE_PERIOD_ID']][1]['ATTENDANCE_REASON'];
 
-	return TextInput( $val, 'attendance[' . $THIS_RET['STUDENT_ID'] . '][' . $THIS_RET['COURSE_PERIOD_ID'] . '][ATTENDANCE_REASON]', '', $options );
+	return TextInput( $val, 'attendance[' . $THIS_RET['STUDENT_ID'] . '][' . $THIS_RET['COURSE_PERIOD_ID'] . '][ATTENDANCE_REASON]', '' );
 }
 
 /**
