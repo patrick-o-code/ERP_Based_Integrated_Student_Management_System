@@ -37,6 +37,7 @@ Changes in 12.2
 - Fix FinalGradesGetAssignmentsPoints() when $mp_id is not UserMP() in FinalGrades.inc.php
 - CSS themes small fixes + Prevent body from scrolling when help open in stylesheet.css
 - SQL avoid query, get GRADE_LETTER from FinalGradesQtrOrProCalculate() in Grades.php, GradebookBreakdown.php & FinalGrades.inc.php
+- PostgreSQL remove deprecated create_language_plpgsql() in rosariosis.sql
 
 Changes in 12.1.3
 -----------------

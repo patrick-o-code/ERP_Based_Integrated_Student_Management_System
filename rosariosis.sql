@@ -9,34 +9,11 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 
+--
 -- Fix #102 error language "plpgsql" does not exist
--- http://timmurphy.org/2011/08/27/create-language-if-it-doesnt-exist-in-postgresql/
---
--- Name: create_language_plpgsql(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE OR REPLACE FUNCTION create_language_plpgsql() RETURNS boolean AS $$
-    CREATE LANGUAGE plpgsql;
-    SELECT TRUE;
-$$ LANGUAGE SQL;
-
-SELECT CASE WHEN NOT
-    (
-        SELECT  TRUE AS exists
-        FROM    pg_language
-        WHERE   lanname = 'plpgsql'
-        UNION
-        SELECT  FALSE AS exists
-        ORDER BY exists DESC
-        LIMIT 1
-    )
-THEN
-    create_language_plpgsql()
-ELSE
-    FALSE
-END AS plpgsql_created;
-
-DROP FUNCTION create_language_plpgsql();
+CREATE OR REPLACE LANGUAGE plpgsql;
 
 
 --
