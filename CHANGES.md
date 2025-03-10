@@ -38,6 +38,7 @@ Changes in 12.2
 - CSS themes small fixes + Prevent body from scrolling when help open in stylesheet.css
 - SQL avoid query, get GRADE_LETTER from FinalGradesQtrOrProCalculate() in Grades.php, GradebookBreakdown.php & FinalGrades.inc.php
 - PostgreSQL remove deprecated create_language_plpgsql() in rosariosis.sql
+- SQL N/A grade (empty GPA value) does not affect GPA in rosariosis.sql, rosariosis_mysql.sql & Update.fnc.php
 
 Changes in 12.1.3
 -----------------

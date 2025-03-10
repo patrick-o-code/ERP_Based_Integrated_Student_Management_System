@@ -48,9 +48,10 @@ END;
 $$ LANGUAGE plpgsql;
 
 
---modif Francois: fix calc_gpa_mp() + credit()
 --
 -- Name: calc_gpa_mp(s_id integer, mp_id integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+-- @since 12.2 SQL N/A grade (empty GPA value) does not affect GPA
 --
 
 CREATE OR REPLACE FUNCTION calc_gpa_mp(s_id integer, mp_id integer) RETURNS integer AS $$
@@ -77,7 +78,9 @@ BEGIN
         sum( case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
     from student_report_card_grades where student_id = s_id
         and marking_period_id = mp_id
-        and not gp_scale = 0 group by student_id, marking_period_id
+        and not gp_scale = 0
+        and weighted_gp is not null
+        group by student_id, marking_period_id
     ) as rcg
     WHERE student_id = s_id and marking_period_id = mp_id;
     RETURN 1;
@@ -102,7 +105,10 @@ BEGIN
             sum(credit_attempted) as gp_credits,
             sum(case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
         from student_report_card_grades srcg
-        where srcg.student_id = s_id and srcg.marking_period_id = mp_id and not srcg.gp_scale = 0
+        where srcg.student_id = s_id
+        and srcg.marking_period_id = mp_id
+        and not srcg.gp_scale = 0
+        and weighted_gp is not null
         group by srcg.student_id, srcg.marking_period_id, short_name;
   END IF;
   RETURN 0;

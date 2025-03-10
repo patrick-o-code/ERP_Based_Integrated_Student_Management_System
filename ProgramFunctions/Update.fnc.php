@@ -277,6 +277,10 @@ function Update()
 		case version_compare( $from_version, '12.1', '<' ) :
 
 			$return = _update121();
+
+		case version_compare( $from_version, '12.2', '<' ) :
+
+			$return = _update122();
 	}
 
 	// Update version in DB config table.
@@ -1364,6 +1368,193 @@ function _update121()
 			WHERE modname='Accounting/StaffPayments.php&modfunc=remove');";
 
 	DBQuery( $insert_sql );
+
+	return $return;
+}
+
+
+/**
+ * Update to version 12.2
+ *
+ * 0. Drop calc_gpa_mp procedure (MySQL only)
+ * 0. Create plpgsql language in case it does not exist (PostgreSQL only)
+ * 1. SQL N/A grade (empty GPA value) does not affect GPA
+ *
+ * Local function
+ *
+ * @since 12.2
+ *
+ * @return boolean false if update failed or if not called by Update(), else true
+ */
+function _update122()
+{
+	global $DatabaseType;
+
+	_isCallerUpdate( debug_backtrace() );
+
+	$return = true;
+
+	if ( $DatabaseType === 'mysql' )
+	{
+		/**
+		 * MySQL
+		 *
+		 * 0. Drop calc_gpa_mp procedure
+		 * 1. SQL set min Credits to 0 & fix division by zero error
+		 */
+		$mysql_no_delimiter = MySQLRemoveDelimiter( "DROP PROCEDURE IF EXISTS calc_gpa_mp;
+
+		--
+		-- Name: calc_gpa_mp(s_id integer, mp_id integer); Type: FUNCTION;
+		--
+		-- @link https://stackoverflow.com/questions/9845171/run-a-query-in-a-mysql-stored-procedure-if-a-condition-is-true
+		-- @since 12.2 SQL N/A grade (empty GPA value) does not affect GPA
+		--
+
+		DELIMITER $$
+		CREATE PROCEDURE calc_gpa_mp(s_id integer, mp_id integer)
+		BEGIN
+			DECLARE oldrec integer;
+
+			SELECT count(*) INTO oldrec FROM student_mp_stats WHERE student_id = s_id and marking_period_id = mp_id;
+
+			IF oldrec > 0 THEN
+			UPDATE student_mp_stats sms
+			JOIN (
+				select
+				student_id,
+				marking_period_id,
+				sum(weighted_gp*credit_attempted/gp_scale) as sum_weighted_factors,
+				sum(unweighted_gp*credit_attempted/gp_scale) as sum_unweighted_factors,
+				sum(credit_attempted) as gp_credits,
+				sum( case when class_rank = 'Y' THEN weighted_gp*credit_attempted/gp_scale END ) as cr_weighted,
+				sum( case when class_rank = 'Y' THEN unweighted_gp*credit_attempted/gp_scale END ) as cr_unweighted,
+				sum( case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
+				from student_report_card_grades
+				where student_id = s_id
+				and marking_period_id = mp_id
+				and not gp_scale = 0
+				and weighted_gp is not null
+				group by student_id, marking_period_id
+			) as rcg
+			ON rcg.student_id = sms.student_id and rcg.marking_period_id = sms.marking_period_id
+			SET
+				sms.sum_weighted_factors = rcg.sum_weighted_factors,
+				sms.sum_unweighted_factors = rcg.sum_unweighted_factors,
+				sms.cr_weighted_factors = rcg.cr_weighted,
+				sms.cr_unweighted_factors = rcg.cr_unweighted,
+				sms.gp_credits = rcg.gp_credits,
+				sms.cr_credits = rcg.cr_credits;
+
+			ELSE
+			INSERT INTO student_mp_stats (student_id, marking_period_id, sum_weighted_factors, sum_unweighted_factors, grade_level_short, cr_weighted_factors, cr_unweighted_factors, gp_credits, cr_credits)
+				select
+					srcg.student_id,
+					srcg.marking_period_id,
+					sum(weighted_gp*credit_attempted/gp_scale) as sum_weighted_factors,
+					sum(unweighted_gp*credit_attempted/gp_scale) as sum_unweighted_factors,
+					(select eg.short_name
+						from enroll_grade eg, marking_periods mp
+						where eg.student_id = s_id
+						and eg.syear = mp.syear
+						and eg.school_id = mp.school_id
+						and eg.start_date <= mp.end_date
+						and mp.marking_period_id = mp_id
+						order by eg.start_date desc
+						limit 1) as short_name,
+					sum( case when class_rank = 'Y' THEN weighted_gp*credit_attempted/gp_scale END ) as cr_weighted,
+					sum( case when class_rank = 'Y' THEN unweighted_gp*credit_attempted/gp_scale END ) as cr_unweighted,
+					sum(credit_attempted) as gp_credits,
+					sum(case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
+				from student_report_card_grades srcg
+				where srcg.student_id = s_id
+				and srcg.marking_period_id = mp_id
+				and not srcg.gp_scale = 0
+				and weighted_gp is not null
+				group by srcg.student_id, srcg.marking_period_id, short_name;
+			END IF;
+		END$$
+		DELIMITER ;" );
+
+		DBQuery( $mysql_no_delimiter );
+
+		return $return;
+	}
+
+	/**
+	 * PostgreSQL
+	 *
+	 * 0. Create plpgsql language in case it does not exist
+	 * 1. SQL set min Credits to 0 & fix division by zero error
+	 */
+	DBQuery( "CREATE OR REPLACE LANGUAGE plpgsql;
+
+	--
+	-- Name: calc_gpa_mp(s_id integer, mp_id integer); Type: FUNCTION; Schema: public; Owner: postgres
+	--
+	-- @since 12.2 SQL N/A grade (empty GPA value) does not affect GPA
+	--
+
+	CREATE OR REPLACE FUNCTION calc_gpa_mp(s_id integer, mp_id integer) RETURNS integer AS $$
+	DECLARE
+		oldrec student_mp_stats%ROWTYPE;
+	BEGIN
+	  SELECT * INTO oldrec FROM student_mp_stats WHERE student_id = s_id and marking_period_id = mp_id;
+
+	  IF FOUND THEN
+		UPDATE student_mp_stats SET
+			sum_weighted_factors = rcg.sum_weighted_factors,
+			sum_unweighted_factors = rcg.sum_unweighted_factors,
+			cr_weighted_factors = rcg.cr_weighted,
+			cr_unweighted_factors = rcg.cr_unweighted,
+			gp_credits = rcg.gp_credits,
+			cr_credits = rcg.cr_credits
+		FROM (
+		select
+			sum(weighted_gp*credit_attempted/gp_scale) as sum_weighted_factors,
+			sum(unweighted_gp*credit_attempted/gp_scale) as sum_unweighted_factors,
+			sum(credit_attempted) as gp_credits,
+			sum( case when class_rank = 'Y' THEN weighted_gp*credit_attempted/gp_scale END ) as cr_weighted,
+			sum( case when class_rank = 'Y' THEN unweighted_gp*credit_attempted/gp_scale END ) as cr_unweighted,
+			sum( case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
+		from student_report_card_grades where student_id = s_id
+			and marking_period_id = mp_id
+			and not gp_scale = 0
+			and weighted_gp is not null
+			group by student_id, marking_period_id
+		) as rcg
+		WHERE student_id = s_id and marking_period_id = mp_id;
+		RETURN 1;
+	  ELSE
+		INSERT INTO student_mp_stats (student_id, marking_period_id, sum_weighted_factors, sum_unweighted_factors, grade_level_short, cr_weighted_factors, cr_unweighted_factors, gp_credits, cr_credits)
+			select
+				srcg.student_id,
+				srcg.marking_period_id,
+				sum(weighted_gp*credit_attempted/gp_scale) as sum_weighted_factors,
+				sum(unweighted_gp*credit_attempted/gp_scale) as sum_unweighted_factors,
+				(select eg.short_name
+					from enroll_grade eg, marking_periods mp
+					where eg.student_id = s_id
+					and eg.syear = mp.syear
+					and eg.school_id = mp.school_id
+					and eg.start_date <= mp.end_date
+					and mp.marking_period_id = mp_id
+					order by eg.start_date desc
+					limit 1) as short_name,
+				sum( case when class_rank = 'Y' THEN weighted_gp*credit_attempted/gp_scale END ) as cr_weighted,
+				sum( case when class_rank = 'Y' THEN unweighted_gp*credit_attempted/gp_scale END ) as cr_unweighted,
+				sum(credit_attempted) as gp_credits,
+				sum(case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
+			from student_report_card_grades srcg
+			where srcg.student_id = s_id
+			and srcg.marking_period_id = mp_id
+			and not srcg.gp_scale = 0
+			and weighted_gp is not null
+			group by srcg.student_id, srcg.marking_period_id, short_name;
+	  END IF;
+	  RETURN 0;
+	END;
+	$$ LANGUAGE plpgsql;" );
 
 	return $return;
 }

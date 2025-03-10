@@ -52,6 +52,7 @@ DELIMITER ;
 -- Name: calc_gpa_mp(s_id integer, mp_id integer); Type: FUNCTION;
 --
 -- @link https://stackoverflow.com/questions/9845171/run-a-query-in-a-mysql-stored-procedure-if-a-condition-is-true
+-- @since 12.2 SQL N/A grade (empty GPA value) does not affect GPA
 --
 
 DELIMITER $$
@@ -73,11 +74,11 @@ BEGIN
         sum( case when class_rank = 'Y' THEN weighted_gp*credit_attempted/gp_scale END ) as cr_weighted,
         sum( case when class_rank = 'Y' THEN unweighted_gp*credit_attempted/gp_scale END ) as cr_unweighted,
         sum( case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
-
         from student_report_card_grades
         where student_id = s_id
         and marking_period_id = mp_id
         and not gp_scale = 0
+        and weighted_gp is not null
         group by student_id, marking_period_id
     ) as rcg
     ON rcg.student_id = sms.student_id and rcg.marking_period_id = sms.marking_period_id
@@ -91,7 +92,6 @@ BEGIN
 
     ELSE
     INSERT INTO student_mp_stats (student_id, marking_period_id, sum_weighted_factors, sum_unweighted_factors, grade_level_short, cr_weighted_factors, cr_unweighted_factors, gp_credits, cr_credits)
-
         select
             srcg.student_id,
             srcg.marking_period_id,
@@ -111,7 +111,10 @@ BEGIN
             sum(credit_attempted) as gp_credits,
             sum(case when class_rank = 'Y' THEN credit_attempted END) as cr_credits
         from student_report_card_grades srcg
-        where srcg.student_id = s_id and srcg.marking_period_id = mp_id and not srcg.gp_scale = 0
+        where srcg.student_id = s_id
+        and srcg.marking_period_id = mp_id
+        and not srcg.gp_scale = 0
+        and weighted_gp is not null
         group by srcg.student_id, srcg.marking_period_id, short_name;
     END IF;
 END$$
