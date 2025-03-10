@@ -2,6 +2,25 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.2
+-----------
+
+Raise minimum **PostgreSQL** version from 8.4 to 9.2.
+
+Security:
+- Move RosarioSIS version number from login screen to Portal (admin only)
+- Remove INSTALL & README PDF files (use MarkDown files instead)
+
+Add [WebP](https://en.wikipedia.org/wiki/WebP) image format support
+
+Mailing Labels: Zip Code before City for non English speaking countries
+
+Grades
+- Grading Scales: "N/A" grade (empty GPA value) is now a [grade that does not affect GPA](https://www.rosariosis.org/forum/d/1238-is-there-a-way-to-add-a-grade-that-does-not-affect-the-gpa)
+
+[Microsoft Social Login](https://www.rosariosis.org/plugins/microsoft-social-login/) plugin
+
+
 New in 12.1
 -----------
 
