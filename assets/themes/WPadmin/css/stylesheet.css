@@ -940,22 +940,6 @@ h3 span {
 	width: auto
 }
 
-.size-3 {
-	font-size: 11px
-}
-
-.size-1 {
-	font-size: 13px
-}
-
-.sizep1 {
-	font-size: 15px
-}
-
-.sizep2 {
-	font-size: 16px
-}
-
 /* @since 12.0 Add .uld class, alias of .underline-dots */
 
 .underline-dots,
@@ -1901,6 +1885,7 @@ input[type=checkbox].toggle {
 .select2-container--default .select2-selection__choice {
 	margin-top: 3px !important;
 	margin-bottom: 0;
+	font-size: 13px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -1913,6 +1898,10 @@ input[type=checkbox].toggle {
 
 .select2-container--default li {
 	margin-bottom: 0;
+}
+
+.select2-container--default .select2-results__option {
+	padding: 5px 6px;
 }
 
 /* Fix Select2 dropdown hidden when inside colorBox (has z-index 9999) */
@@ -2077,6 +2066,7 @@ input[type=checkbox].toggle {
 	position: fixed;
 	bottom: 55px;
 	right: 15px;
+	z-index: 9;
 }
 
 /* Add-on module/plugin PREMIUM.md inside colorBox */
@@ -2091,4 +2081,22 @@ input[type=checkbox].toggle {
 	max-width: 260px;
 	padding-top: 7px;
 	padding-right: 7px;
+}
+
+/* Keep font size at the end so they can override other rules */
+
+.size-3 {
+	font-size: 11px
+}
+
+.size-1 {
+	font-size: 13px
+}
+
+.sizep1 {
+	font-size: 15px
+}
+
+.sizep2 {
+	font-size: 16px
 }

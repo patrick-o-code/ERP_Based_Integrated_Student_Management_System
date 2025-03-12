@@ -656,6 +656,7 @@ hr {
 	background: #ffc439;
 }
 
+.button-upsell-premium:active,
 .button-upsell-premium:hover,
 .button-upsell-premium:focus {
 	outline: none;
