@@ -16,7 +16,7 @@ Add [WebP](https://en.wikipedia.org/wiki/WebP) image format support
 Mailing Labels: Zip Code before City for non English speaking countries
 
 Grades
-- Grading Scales: "N/A" grade (empty GPA value) is now a [grade that does not affect GPA](https://www.rosariosis.org/forum/d/1238-is-there-a-way-to-add-a-grade-that-does-not-affect-the-gpa)
+- Grading Scales: "N/A" grade (empty GPA value & Breakoff) is now a [grade that does not affect GPA](https://www.rosariosis.org/forum/d/1238-is-there-a-way-to-add-a-grade-that-does-not-affect-the-gpa)
 
 [Microsoft Social Login](https://www.rosariosis.org/plugins/microsoft-social-login/) plugin
 
