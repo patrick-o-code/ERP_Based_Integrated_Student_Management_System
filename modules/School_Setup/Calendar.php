@@ -180,7 +180,7 @@ if ( $_REQUEST['modfunc'] === 'create'
 			$value = '';
 		}
 
-		$weekdays_inputs[] .= CheckboxInput(
+		$weekdays_inputs[] = CheckboxInput(
 			$value,
 			'weekdays[' . $id . ']',
 			$weekday,
