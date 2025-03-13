@@ -103,7 +103,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 				}
 				elseif ( ROSARIO_DEBUG )
 				{
-					echo 'Referral not emailed: ' . var_dump( $referral_id );
+					echo 'Referral not emailed: ' . $referral_id;
 				}
 			}
 		}
