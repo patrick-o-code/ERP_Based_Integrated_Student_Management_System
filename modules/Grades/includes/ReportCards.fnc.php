@@ -1688,7 +1688,7 @@ function GetReportCardCommentScales( $student_id, $course_periods_list )
 		$scale_title = $comment['SCALE_TITLE'];
 	}
 
-	$comments_scales = [];
+	$comment_scales = [];
 
 	foreach ( $comments as $scale_id => $comments_array )
 	{
