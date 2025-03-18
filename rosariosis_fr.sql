@@ -85,79 +85,79 @@ WHERE id=1;
 
 
 UPDATE report_card_grades
-SET title='10.0', gpa_value=10.0, break_off=100, comment='Très bien'
+SET title='10.0', gpa_value=10.0, break_off=97.5, comment='Très bien'
 WHERE id=1;
 
 UPDATE report_card_grades
-SET title='9.5', gpa_value=9.5, break_off=95, comment='Très bien'
+SET title='9.5', gpa_value=9.5, break_off=92.5, comment='Très bien'
 WHERE id=2;
 
 UPDATE report_card_grades
-SET title='9.0', gpa_value=9.0, break_off=90, comment='Très bien'
+SET title='9.0', gpa_value=9.0, break_off=87.5, comment='Très bien'
 WHERE id=3;
 
 UPDATE report_card_grades
-SET title='8.5', gpa_value=8.5, break_off=85, comment='Très bien'
+SET title='8.5', gpa_value=8.5, break_off=82.5, comment='Très bien'
 WHERE id=4;
 
 UPDATE report_card_grades
-SET title='8.0', gpa_value=8.0, break_off=80, comment='Bien'
+SET title='8.0', gpa_value=8.0, break_off=77.5, comment='Bien'
 WHERE id=5;
 
 UPDATE report_card_grades
-SET title='7.5', gpa_value=7.5, break_off=75, comment='Bien'
+SET title='7.5', gpa_value=7.5, break_off=72.5, comment='Bien'
 WHERE id=6;
 
 UPDATE report_card_grades
-SET title='7.0', gpa_value=7.0, break_off=70, comment='Bien'
+SET title='7.0', gpa_value=7.0, break_off=67.5, comment='Bien'
 WHERE id=7;
 
 UPDATE report_card_grades
-SET title='6.5', gpa_value=6.5, break_off=65, comment='Assez bien'
+SET title='6.5', gpa_value=6.5, break_off=62.5, comment='Assez bien'
 WHERE id=8;
 
 UPDATE report_card_grades
-SET title='6.0', gpa_value=6.0, break_off=60, comment='Assez bien'
+SET title='6.0', gpa_value=6.0, break_off=57.5, comment='Assez bien'
 WHERE id=9;
 
 UPDATE report_card_grades
-SET title='5.5', gpa_value=5.5, break_off=55, comment='Passable'
+SET title='5.5', gpa_value=5.5, break_off=52.5, comment='Passable'
 WHERE id=10;
 
 UPDATE report_card_grades
-SET title='5.0', gpa_value=5.0, break_off=50, comment='Passable'
+SET title='5.0', gpa_value=5.0, break_off=47.5, comment='Passable'
 WHERE id=11;
 
 UPDATE report_card_grades
-SET title='4.5', gpa_value=4.5, break_off=45, comment='Médiocre'
+SET title='4.5', gpa_value=4.5, break_off=42.5, comment='Médiocre'
 WHERE id=12;
 
 UPDATE report_card_grades
-SET title='4.0', gpa_value=4.0, break_off=40, comment='Médiocre'
+SET title='4.0', gpa_value=4.0, break_off=37.5, comment='Médiocre'
 WHERE id=13;
 
 UPDATE report_card_grades
-SET title='3.5', gpa_value=3.5, break_off=35, comment='Médiocre'
+SET title='3.5', gpa_value=3.5, break_off=32.5, comment='Médiocre'
 WHERE id=14;
 
 UPDATE report_card_grades
-SET title='3.0', gpa_value=3.0, break_off=30, comment='Médiocre'
+SET title='3.0', gpa_value=3.0, break_off=27.5, comment='Médiocre'
 WHERE id=15;
 
 INSERT INTO report_card_grades (syear, school_id, title, sort_order, gpa_value, break_off, comment, grade_scale_id, unweighted_gp)
-VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '2.5', 16, 2.5, 25, 'Insuffisant', 1, NULL);
+VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '2.5', 16, 2.5, 22.5, 'Insuffisant', 1, NULL);
 
 INSERT INTO report_card_grades (syear, school_id, title, sort_order, gpa_value, break_off, comment, grade_scale_id, unweighted_gp)
-VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '2.0', 17, 2.0, 20, 'Insuffisant', 1, NULL);
+VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '2.0', 17, 2.0, 17.5, 'Insuffisant', 1, NULL);
 
 INSERT INTO report_card_grades (syear, school_id, title, sort_order, gpa_value, break_off, comment, grade_scale_id, unweighted_gp)
-VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '1.5', 18, 1.5, 15, 'Insuffisant', 1, NULL);
+VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '1.5', 18, 1.5, 12.5, 'Insuffisant', 1, NULL);
 
 INSERT INTO report_card_grades (syear, school_id, title, sort_order, gpa_value, break_off, comment, grade_scale_id, unweighted_gp)
-VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '1.0', 19, 1.0, 10, 'Insuffisant', 1, NULL);
+VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '1.0', 19, 1.0, 7.5, 'Insuffisant', 1, NULL);
 
 INSERT INTO report_card_grades (syear, school_id, title, sort_order, gpa_value, break_off, comment, grade_scale_id, unweighted_gp)
-VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '0.5', 20, 0.5, 5, 'Insuffisant', 1, NULL);
+VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '0.5', 20, 0.5, 2.5, 'Insuffisant', 1, NULL);
 
 INSERT INTO report_card_grades (syear, school_id, title, sort_order, gpa_value, break_off, comment, grade_scale_id, unweighted_gp)
 VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, '0.0', 21, 0.0, 0, 'Insuffisant', 1, NULL);

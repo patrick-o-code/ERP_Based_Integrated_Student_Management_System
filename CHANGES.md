@@ -40,6 +40,7 @@ Changes in 12.2
 - PostgreSQL remove deprecated create_language_plpgsql() in rosariosis.sql
 - SQL N/A grade (empty GPA value) does not affect GPA in rosariosis.sql, rosariosis_mysql.sql & Update.fnc.php
 - CSS themes small fixes + Reduce multiple select2 font size in stylesheet.css & colors.css
+- SQL fix Breakoff percentages for 10 grading scale in rosariosis_fr.sql
 
 Changes in 12.1.3
 -----------------
