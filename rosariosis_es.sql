@@ -76,43 +76,43 @@ WHERE id=1;
 
 
 UPDATE report_card_grades
-SET title='5.0', gpa_value=5.0, break_off=100, comment='Superior'
+SET title='5.0', gpa_value=5.0, break_off=95, comment='Superior'
 WHERE id=1;
 
 UPDATE report_card_grades
-SET title='4.5', gpa_value=4.5, break_off=90, comment='Superior'
+SET title='4.5', gpa_value=4.5, break_off=85, comment='Superior'
 WHERE id=2;
 
 UPDATE report_card_grades
-SET title='4.0', gpa_value=4.0, break_off=80, comment='Alto'
+SET title='4.0', gpa_value=4.0, break_off=75, comment='Alto'
 WHERE id=3;
 
 UPDATE report_card_grades
-SET title='3.5', gpa_value=3.5, break_off=70, comment='Básico'
+SET title='3.5', gpa_value=3.5, break_off=65, comment='Básico'
 WHERE id=4;
 
 UPDATE report_card_grades
-SET title='3.0', gpa_value=3.0, break_off=60, comment='Básico'
+SET title='3.0', gpa_value=3.0, break_off=55, comment='Básico'
 WHERE id=5;
 
 UPDATE report_card_grades
-SET title='2.5', gpa_value=2.5, break_off=50, comment='Insuficiente'
+SET title='2.5', gpa_value=2.5, break_off=45, comment='Insuficiente'
 WHERE id=6;
 
 UPDATE report_card_grades
-SET title='2.0', gpa_value=2.0, break_off=40, comment='Insuficiente'
+SET title='2.0', gpa_value=2.0, break_off=35, comment='Insuficiente'
 WHERE id=7;
 
 UPDATE report_card_grades
-SET title='1.5', gpa_value=1.5, break_off=30, comment='Insuficiente'
+SET title='1.5', gpa_value=1.5, break_off=25, comment='Insuficiente'
 WHERE id=8;
 
 UPDATE report_card_grades
-SET title='1.0', gpa_value=1.0, break_off=20, comment='Insuficiente'
+SET title='1.0', gpa_value=1.0, break_off=15, comment='Insuficiente'
 WHERE id=9;
 
 UPDATE report_card_grades
-SET title='0.5', gpa_value=0.5, break_off=10, comment='Insuficiente'
+SET title='0.5', gpa_value=0.5, break_off=5, comment='Insuficiente'
 WHERE id=10;
 
 UPDATE report_card_grades
