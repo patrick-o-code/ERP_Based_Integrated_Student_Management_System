@@ -41,6 +41,7 @@ Changes in 12.2
 - SQL N/A grade (empty GPA value) does not affect GPA in rosariosis.sql, rosariosis_mysql.sql & Update.fnc.php
 - CSS themes small fixes + Reduce multiple select2 font size in stylesheet.css & colors.css
 - SQL fix Breakoff percentages for Main grading scale in rosariosis_fr.sql & rosariosis_es.sql
+- Fix regression since 12.0 display Assignment on Calendar in CalendarDay.inc.php & colors.css
 
 Changes in 12.1.3
 -----------------

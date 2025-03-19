@@ -447,11 +447,11 @@ hr {
 	border-color: #000
 }
 
-.calendar-event.assignment {
+.calendar-event .assignment {
 	border-color: #FF0000
 }
 
-.calendar-event.assigned {
+.calendar-event .assigned {
 	border-color: #00FF00
 }
 

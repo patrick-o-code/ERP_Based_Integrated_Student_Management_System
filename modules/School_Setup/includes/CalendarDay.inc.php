@@ -351,7 +351,7 @@ function CalendarDayAssignmentsHTMLDefault( $date, $assignments )
 
 	foreach ( (array) $assignments as $assignment )
 	{
-		$html .= '<div class="calendar-event assignment' . ( $assignment['ASSIGNED'] == 'Y' ? ' assigned' : '' ) . '">' .
+		$html .= '<div class="assignment' . ( $assignment['ASSIGNED'] == 'Y' ? ' assigned' : '' ) . '">' .
 			'<a href="' . URLEscape( $popup_url . '&assignment_id=' . $assignment['ID'] ) .
 				'" class="colorbox" title="' . AttrEscape( $assignment['TITLE'] ) . '">' .
 				$assignment['TITLE'] .
