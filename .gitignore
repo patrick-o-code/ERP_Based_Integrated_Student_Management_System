@@ -291,6 +291,7 @@ modules/Slovenian_Attendance_Excel_Sheet*
 modules/Slovenian_Grades*
 modules/Pedagogical_Plan*
 modules/Accounting_Premium*
+modules/update.sh
 plugins/Email_SMTP*
 plugins/Public_Pages*
 plugins/Custom_Transcripts*
@@ -326,5 +327,6 @@ plugins/Mali_Report_Cards*
 plugins/Prevent_Teachers_Adding_Deleting_Assignments*
 plugins/Scholarship_Expiration*
 plugins/Microsoft_Social_Login*
+plugins/update.sh
 locale/fr_FR.utf8_ParisComSup
 functions/1GetMP.php
