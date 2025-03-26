@@ -4,6 +4,7 @@
 Changes in 12.2.1
 -----------------
 - PostgreSQL on cPanel fix ERROR: must be owner of language plpgsql in rosariosis.sql & Update.fnc.php
+- PostgreSQL create plpgsql extension if not exists in rosariosis.sql
 
 Changes in 12.2
 ---------------
