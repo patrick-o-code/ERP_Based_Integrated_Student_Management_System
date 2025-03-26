@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.2.1
+-----------------
+- PostgreSQL on cPanel fix ERROR: must be owner of language plpgsql in rosariosis.sql & Update.fnc.php
+
 Changes in 12.2
 ---------------
 - Fix PostgreSQL error invalid input syntax for type integer: "2.0" in Periods.php, Assignments.php & MassCreateAssignments.php

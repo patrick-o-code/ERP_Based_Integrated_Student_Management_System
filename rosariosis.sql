@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 
 
 --
--- Fix #102 error language "plpgsql" does not exist
---
-
-CREATE OR REPLACE LANGUAGE plpgsql;
-
-
---
 -- Name: calc_cum_cr_gpa(mp_id integer, s_id integer); Type: FUNCTION; Schema: public; Owner: postgres
 -- @since 11.1 SQL set min Credits to 0 & fix division by zero error
 --

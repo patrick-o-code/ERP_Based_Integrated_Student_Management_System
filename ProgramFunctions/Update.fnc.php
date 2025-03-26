@@ -1487,15 +1487,7 @@ function _update122()
 	 * 0. Create plpgsql language in case it does not exist
 	 * 1. SQL set min Credits to 0 & fix division by zero error
 	 */
-	DBQuery( "CREATE OR REPLACE LANGUAGE plpgsql;
-
-	--
-	-- Name: calc_gpa_mp(s_id integer, mp_id integer); Type: FUNCTION; Schema: public; Owner: postgres
-	--
-	-- @since 12.2 SQL N/A grade (empty GPA value) does not affect GPA
-	--
-
-	CREATE OR REPLACE FUNCTION calc_gpa_mp(s_id integer, mp_id integer) RETURNS integer AS $$
+	DBQuery( "CREATE OR REPLACE FUNCTION calc_gpa_mp(s_id integer, mp_id integer) RETURNS integer AS $$
 	DECLARE
 		oldrec student_mp_stats%ROWTYPE;
 	BEGIN
