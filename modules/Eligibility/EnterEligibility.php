@@ -274,7 +274,13 @@ if ( $today > $END_DAY
 	|| ( $today == $START_DAY && date( 'Gi' ) < ( $START_HOUR . $START_MINUTE ) )
 	|| ( $today == $END_DAY && date( 'Gi' ) > ( $END_HOUR . $END_MINUTE ) ) )
 {
-	echo ErrorMessage( [ sprintf( _( 'You can only enter eligibility from %s %s to %s %s.' ), $days[$START_DAY], $START_HOUR . ':' . $START_MINUTE, $days[$END_DAY], $END_HOUR . ':' . $END_MINUTE ) ], 'error' );
+	echo ErrorMessage( [ sprintf(
+		_( 'You can only enter eligibility from %s %s to %s %s.' ),
+		$days[ ( $START_DAY == 7 ? 0 : $START_DAY ) ],
+		$START_HOUR . ':' . $START_MINUTE,
+		$days[ ( $END_DAY == 7 ? 0 : $END_DAY ) ],
+		$END_HOUR . ':' . $END_MINUTE
+	) ], 'error' );
 }
 else
 {

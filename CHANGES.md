@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.2.2
+-----------------
+- Fix PHP warning undefined offset: 7 when day is Sunday in EnterEligibility.php
+
 Changes in 12.2.1
 -----------------
 - PostgreSQL on cPanel fix ERROR: must be owner of language plpgsql in rosariosis.sql & Update.fnc.php
