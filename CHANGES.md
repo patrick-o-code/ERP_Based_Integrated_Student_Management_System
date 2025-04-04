@@ -4,6 +4,7 @@
 Changes in 12.2.2
 -----------------
 - Fix PHP warning undefined offset: 7 when day is Sunday in EnterEligibility.php
+- CSS WPadmin theme fix .underline-dots wrapping in stylesheet.css
 
 Changes in 12.2.1
 -----------------

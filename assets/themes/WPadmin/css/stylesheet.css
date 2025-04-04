@@ -964,7 +964,7 @@ span.uld,
 .checkbox-label,
 .no-input-value {
 	line-height: 25px;
-	padding: 1px 1px 1px 0;
+	padding: 1px 0;
 }
 
 .span-grade-points + label {
