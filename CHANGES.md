@@ -6,6 +6,7 @@ Changes in 12.2.2
 - Fix PHP warning undefined offset: 7 when day is Sunday in EnterEligibility.php
 - CSS WPadmin theme fix .underline-dots wrapping in stylesheet.css
 - Fix regression since 12.2 PostgreSQL error function sum(text) does not exist in StudentGrades.php
+- Fix anonymous statistics bar graph for individual assignments: average & Excused `*` in StudentGrades.php
 
 Changes in 12.2.1
 -----------------

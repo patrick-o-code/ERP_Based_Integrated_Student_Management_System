@@ -192,6 +192,7 @@ if ( UserStudentID()
 						$min_percent = $max_percent = $percent;
 						$avg_percent = 0;
 						$lower = $higher = 0;
+						$count_all = 0;
 
 						foreach ( (array) $all_RET as $xstudent_id => $student )
 						{
@@ -233,10 +234,15 @@ if ( UserStudentID()
 										$lower++;
 									}
 								}
+
+								$count_all++;
 							}
 						}
 
-						$avg_percent /= count( $all_RET );
+						if ( $count_all )
+						{
+							$avg_percent /= $count_all;
+						}
 
 						// FJ bargraph with rounded percent.
 						//$bargraph1 = bargraph1($percent===false?true:$percent,$min_percent,$avg_percent,$max_percent,1);
@@ -458,7 +464,7 @@ if ( UserStudentID()
 								$bargraph1 = bargraph1(
 									$assignment['POINTS'],
 									$all['MIN'],
-									$all['AVG'],
+									$all['AVG'] * $assignment['POINTS_POSSIBLE'],
 									$all['MAX'],
 									$assignment['POINTS_POSSIBLE']
 								);
@@ -470,7 +476,7 @@ if ( UserStudentID()
 								$bargraph1 = bargraph1(
 									true,
 									$all['MIN'],
-									$all['AVG'],
+									$all['AVG'] * $assignment['POINTS_POSSIBLE'],
 									$all['MAX'],
 									$assignment['POINTS_POSSIBLE']
 								);
@@ -672,7 +678,7 @@ function bargraph1( $x, $lo = 0, $avg = 0, $hi = 0, $max = 0 )
 	{
 		$scale = $hi > $max ? $hi : $max;
 		$w1 = round( 100 * $lo / $scale );
-		$w5 = round( 100 * ( 1.0 - $hi / $scale ) );
+		$w5 = floor( 100 * ( 1.0 - $hi / $scale ) );
 
 		if ( $x !== true )
 		{
@@ -719,7 +725,8 @@ function bargraph1( $x, $lo = 0, $avg = 0, $hi = 0, $max = 0 )
 			$correction = 2;
 
 			return '<div style="float:left; width:150px; border: #333 1px solid;">' .
-				( $w1 > 0 ? '<div style="width:' . ( $w1 - $correction ) . '%;float:left; background-color:#fff;">&nbsp;</div>' : '' ) .
+				// @since 12.2.3 Fix anonymous statistics bar when grade is * (Excused)
+				( $w1 + $w2 > 0 ? '<div style="width:' . ( $w1 - $correction ) . '%;float:left; background-color:#fff;">&nbsp;</div>' : '' ) .
 				( $w2 > 0 ? '<div style="width:' . $w2 . '%; background-color:#00a000;float:left;">&nbsp;</div>' : '' ) .
 				'<div style="width:2%; background-color:#00a000; float:left;">&nbsp;</div>' .
 				( $w4 > 0 ? '<div style="width:' . $w4 . '%; background-color:#00a000;float:left;">&nbsp;</div>' : '' ) .
