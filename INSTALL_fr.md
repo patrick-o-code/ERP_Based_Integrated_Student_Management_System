@@ -10,7 +10,7 @@ RosarioSIS a été testé sur:
 
 - Windows 10 avec Apache 2.4.58, MariaDB 10.4.32, et PHP 8.1.25
 - macOS Monterey avec Apache 2.4.54, Postgres 14.4, et PHP 8.0.21
-- Ubuntu 22.04 avec Apache 2.4.52, MariaDB 10.6.12, et PHP 5.6.40
+- Ubuntu 24.04 avec Apache 2.4.52, MySQL 8.0.41, et PHP 5.6.40
 - Ubuntu 22.04 avec Apache 2.4.57, Postgres 14.9, et PHP 8.1.2
 - Debian Bookworm avec Apache 2.4.57, Postgres 15.5, MariaDB 10.11.4, et PHP 8.3.10
 - Hébergement mutualisé avec cPanel, nginx, Postgres 9.2, et PHP 7.2
@@ -45,9 +45,9 @@ Décompressez la [dernière version](https://www.rosariosis.org/fr/download/) de
 - `$DatabaseDumpPath` Chemin complet vers l'utilitaire d'export de base de donnée, pg_dump (PostgreSQL), mysqldump (MySQL) ou mariadb-dump (MariaDB).
 - `$wkhtmltopdfPath` Chemin complet vers l'utilitaire de génération de PDF, wkhtmltopdf.
 
-- `$DefaultSyear` Année scolaire par défaut. Ne changer qu'après avoir lancé le programme _Report Final_.
+- `$DefaultSyear` Année scolaire par défaut. Ne changer qu'après avoir lancé le programme _Report final_. NE PAS changer à l'installation.
 - `$RosarioNotifyAddress` Adresse email pour les notifications (nouvel administrateur, nouvel élève / utilisateur, nouvelle inscription).
-- `$RosarioLocales` Liste des codes de langues séparées par des virgules. Voir le dossier `locale/` pour les codes disponibles.
+- `$RosarioLocales` Liste des codes de langues séparés par des virgules. Voir le dossier `locale/` pour les codes disponibles.
 
 #### Variables optionelles
 

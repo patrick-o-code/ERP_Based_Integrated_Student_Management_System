@@ -66,7 +66,7 @@ $wkhtmltopdfPath = '';
 /**
  * Default school year
  *
- * Do NOT change on install
+ * Do NOT change on installation
  * Change after rollover
  * Should match the database to be able to login
  *
