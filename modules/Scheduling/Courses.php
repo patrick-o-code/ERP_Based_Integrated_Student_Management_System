@@ -677,8 +677,8 @@ if ( ! empty( $_REQUEST['tables'] )
 		}
 	}
 
-	// Unset tables & redirect URL.
-	RedirectURL( [ 'tables' ] );
+	// Unset tables, ML_tables & redirect URL.
+	RedirectURL( [ 'tables', 'ML_tables' ] );
 }
 
 if ( $_REQUEST['modfunc'] === 'delete'
@@ -1479,11 +1479,13 @@ if (  ( ! $_REQUEST['modfunc']
 
 			$header = '<table class="width-100p valign-top"><tr class="st">';
 
-			$header .= '<td>' . TextInput(
+			// @since 12.3 Multilingual course title
+			$header .= '<td>' . MLTextInput(
 				issetVal( $RET['TITLE'] ),
 				'tables[courses][' . $_REQUEST['course_id'] . '][TITLE]',
-				_( 'Title' ),
-				'required maxlength=100 size=20'
+				( empty( $RET['TITLE'] ) ? '<span class="legend-red">' : '' ) . _( 'Title' ) .
+					( empty( $RET['TITLE'] ) ? '</span>' : '' ),
+				'maxlength=100 size=20'
 			) . '</td>';
 
 			$header .= '<td>' . TextInput(
@@ -1553,11 +1555,13 @@ if (  ( ! $_REQUEST['modfunc']
 
 			$header = '<table class="width-100p valign-top fixed-col"><tr class="st">';
 
-			$header .= '<td>' . TextInput(
+			// @since 12.3 Multilingual course title
+			$header .= '<td>' . MLTextInput(
 				issetVal( $RET['TITLE'] ),
 				'tables[course_subjects][' . $_REQUEST['subject_id'] . '][TITLE]',
-				_( 'Title' ),
-				'required maxlength=100 size=20'
+				( empty( $RET['TITLE'] ) ? '<span class="legend-red">' : '' ) . _( 'Title' ) .
+					( empty( $RET['TITLE'] ) ? '</span>' : '' ),
+				'maxlength=100 size=20'
 			) . '</td>';
 
 			if ( AllowEdit() )
