@@ -1813,8 +1813,6 @@ function GetReportCardCourseSpecificComments( $student_id, $comments_array )
 
 	foreach ( (array) $comments_array as $comment_course_title => $comments )
 	{
-		$course_comments[ $comment_course_title ] = [];
-
 		foreach ( (array) $comments as $comment => $sort_order )
 		{
 			if ( empty( $commentsA_RET[$comment] ) )
@@ -1844,7 +1842,7 @@ function GetReportCardCourseSpecificComments( $student_id, $comments_array )
 			' <small>(' . $commentsA_RET[$comment][1]['SCALE_TITLE'] . ')</small>';
 		}
 
-		if ( $course_comments[ $comment_course_title ] )
+		if ( ! empty( $course_comments[ $comment_course_title ] ) )
 		{
 			$course_comments[ $comment_course_title ] = implode( '<br />', $course_comments[ $comment_course_title ] ) .
 				FormatInputTitle( $comment_course_title );
