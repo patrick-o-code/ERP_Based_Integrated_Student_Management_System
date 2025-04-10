@@ -4,6 +4,7 @@
 Changes in 12.2.3
 -----------------
 - Fix return empty array when no "Course-specific Comments" in ReportCards.fnc.php
+- Fix PHP fatal error Unknown format specifier "," in Greek translation in locale/el_GR.utf8/rosariosis.po
 
 Changes in 12.2.2
 -----------------

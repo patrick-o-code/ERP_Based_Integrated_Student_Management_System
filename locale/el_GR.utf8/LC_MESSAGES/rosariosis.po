@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: Bottom.php:25 Bottom.php:31 modules/Food_Service/Menu.php:40
 #: modules/Food_Service/Menu.php:50
@@ -7408,7 +7408,7 @@ msgstr "Έχετε <b>αρνητικό</b> υπόλοιπο υπηρεσιών �
 
 #: modules/misc/Portal.php:497
 msgid "Some students have food service balances below %1.2f"
-msgstr "Μερικοί μαθητές έχουν υπόλοιπο υπηρεσιών φαγητού κάτω από %1,2f"
+msgstr "Μερικοί μαθητές έχουν υπόλοιπο υπηρεσιών φαγητού κάτω από %1.2f"
 
 #: modules/misc/Portal.php:634 modules/misc/Portal.php:905
 #: modules/misc/Portal.php:1089
@@ -7423,7 +7423,7 @@ msgstr "Λείπουν δεδομένα παρουσίας"
 
 #: modules/misc/Portal.php:934
 msgid "You have students with food service balance below %1.2f - please deposit at least the Minimum Deposit into you children's accounts."
-msgstr "Έχετε μαθητές με υπόλοιπο υπηρεσιών φαγητού κάτω από %1,2f - καταθέστε τουλάχιστον την Ελάχιστη Κατάθεση στους λογαριασμούς των παιδιών σας."
+msgstr "Έχετε μαθητές με υπόλοιπο υπηρεσιών φαγητού κάτω από %1.2f - καταθέστε τουλάχιστον την Ελάχιστη Κατάθεση στους λογαριασμούς των παιδιών σας."
 
 #: modules/misc/Portal.php:945
 msgid "Minimum Deposit"
