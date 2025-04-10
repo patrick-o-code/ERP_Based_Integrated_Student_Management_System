@@ -260,6 +260,7 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
  * Multi Languages Text Input
  *
  * @since 5.5.2 Fix save first language in ML fields if not en_US.utf8.
+ * @since 12.3 Fix use of 'required' in $extra
  *
  * @example MLTextInput( Config( 'TITLE' ), 'values[config][TITLE]', _( 'Program Title' ) )
  *
@@ -290,6 +291,11 @@ function MLTextInput( $value, $name, $title = '', $extra = '', $div = true )
 	{
 		return TextInput( ParseMLField( $value, $locale ), $name, $title, $extra, $div );
 	}
+
+	$required = $value == '' && mb_strpos( $extra, 'required' ) !== false;
+
+	// Remove 'required' from $extra. Manually added for first locale input only, see below.
+	$extra = str_replace( 'required', '', $extra );
 
 	$id = GetInputID( $name );
 
@@ -369,7 +375,7 @@ function setMLvalue(id, loc, value){
 		$title_break = '<br>';
 	}
 
-	return $return . FormatInputTitle( $title, '', false, $title_break );
+	return $return . FormatInputTitle( $title, '', $required, $title_break );
 }
 
 

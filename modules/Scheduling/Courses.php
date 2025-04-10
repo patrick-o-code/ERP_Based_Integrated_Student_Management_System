@@ -1483,9 +1483,8 @@ if (  ( ! $_REQUEST['modfunc']
 			$header .= '<td>' . MLTextInput(
 				issetVal( $RET['TITLE'] ),
 				'tables[courses][' . $_REQUEST['course_id'] . '][TITLE]',
-				( empty( $RET['TITLE'] ) ? '<span class="legend-red">' : '' ) . _( 'Title' ) .
-					( empty( $RET['TITLE'] ) ? '</span>' : '' ),
-				'maxlength=100 size=20'
+				_( 'Title' ),
+				'required maxlength=100 size=20'
 			) . '</td>';
 
 			$header .= '<td>' . TextInput(
@@ -1559,9 +1558,8 @@ if (  ( ! $_REQUEST['modfunc']
 			$header .= '<td>' . MLTextInput(
 				issetVal( $RET['TITLE'] ),
 				'tables[course_subjects][' . $_REQUEST['subject_id'] . '][TITLE]',
-				( empty( $RET['TITLE'] ) ? '<span class="legend-red">' : '' ) . _( 'Title' ) .
-					( empty( $RET['TITLE'] ) ? '</span>' : '' ),
-				'maxlength=100 size=20'
+				_( 'Title' ),
+				'required maxlength=100 size=20'
 			) . '</td>';
 
 			if ( AllowEdit() )

@@ -6,6 +6,7 @@ Changes in 12.3
 - Multilingual course title: use ParseMLField(), program wide
 - Multilingual course title: SQL change title column type from varchar(100) to text in Update.fnc.php, rosariosis.sql & rosariosis_mysql.sql
 - Multilingual course title: use MLTextInput() in Courses.php
+- MLTextInput() fix use of 'required' in $extra in Fields.fnc.php, Inputs.php & Courses.php
 
 Changes in 12.2.3
 -----------------
