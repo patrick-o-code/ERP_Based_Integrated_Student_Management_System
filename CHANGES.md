@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.2.3
+-----------------
+- Fix return empty array when no "Course-specific Comments" in ReportCards.fnc.php
+
 Changes in 12.2.2
 -----------------
 - Fix PHP warning undefined offset: 7 when day is Sunday in EnterEligibility.php
