@@ -22,7 +22,9 @@ function core_course_create_categories_object()
 	}
 	)*/
 
-	$name = $columns['TITLE'];
+	// @since 12.3 Multilingual course title
+	// @todo send to Moodle using https://docs.moodle.org/38/en/Multi-language_content_filter
+	$name = ParseMLField( DBUnescapeString( $columns['TITLE'] ) );
 
 	if ( $table_name == 'course_subjects' )
 	{
@@ -162,7 +164,9 @@ function core_course_update_categories_object()
 		return null;
 	}
 
-	$name = $columns['TITLE'];
+	// @since 12.3 Multilingual course title
+	// @todo send to Moodle using https://docs.moodle.org/38/en/Multi-language_content_filter
+	$name = ParseMLField( DBUnescapeString( $columns['TITLE'] ) );
 
 	if ( $table_name == 'courses' )
 	{

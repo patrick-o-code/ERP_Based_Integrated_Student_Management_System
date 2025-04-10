@@ -255,9 +255,9 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 	}
 	else
 	{
-		$course_title = DBGetOne( "SELECT TITLE
+		$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 			FROM courses
-			WHERE COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" );
+			WHERE COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" ) );
 
 		$period_title = DBGetOne( "SELECT TITLE
 			FROM course_periods

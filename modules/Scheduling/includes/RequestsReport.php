@@ -39,7 +39,12 @@ $count_RET = DBGet( "SELECT cs.TITLE as SUBJECT_TITLE,c.TITLE as COURSE_TITLE,sr
 	AND sr.COURSE_ID=c.COURSE_ID
 	AND sr.SYEAR='" . UserSyear() . "'
 	AND sr.SCHOOL_ID='" . UserSchool() . "'
-	GROUP BY cs.SORT_ORDER,cs.TITLE,sr.COURSE_ID,c.TITLE" );
+	GROUP BY cs.SORT_ORDER,cs.TITLE,sr.COURSE_ID,c.TITLE",
+	[
+		'SUBJECT_TITLE' => 'ParseMLField',
+		'COURSE_TITLE' => 'ParseMLField',
+	]
+);
 
 $columns = [
 	'SUBJECT_TITLE' => _( 'Subject' ),

@@ -497,6 +497,8 @@ function _makeTextInput( $value, $name )
 		{
 			$extra .= ' required';
 		}
+
+		$value = ParseMLField( $value );
 	}
 	elseif ( $name === 'COMMENT' )
 	{

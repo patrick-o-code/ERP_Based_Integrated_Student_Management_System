@@ -13,7 +13,11 @@ else
 		WHERE c.COURSE_ID=cp.COURSE_ID
 		AND cp.COURSE_PERIOD_ID='" . (int) $_REQUEST['course_period_id'] . "'
 		AND c.SUBJECT_ID=cs.SUBJECT_ID
-		AND cs.SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" );
+		AND cs.SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'",
+		[
+			'COURSE_TITLE' => 'ParseMLField',
+			'SUBJECT_TITLE' => 'ParseMLField',
+		] );
 
 	$last_year = $_REQUEST['last_year'] == 'true' ? 'ly_' : '';
 

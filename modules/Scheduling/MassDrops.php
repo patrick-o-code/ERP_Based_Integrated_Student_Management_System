@@ -172,9 +172,9 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 
 		if ( ! empty( $_SESSION['MassDrops.php'] ) )
 		{
-			$course_title = DBGetOne( "SELECT TITLE
+			$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 				FROM courses
-				WHERE COURSE_ID='" . (int) $_SESSION['MassDrops.php']['course_id'] . "'" );
+				WHERE COURSE_ID='" . (int) $_SESSION['MassDrops.php']['course_id'] . "'" ) );
 
 			$period_title = DBGetOne( "SELECT TITLE
 				FROM course_periods
@@ -271,9 +271,9 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 		$_SESSION['MassDrops.php']['course_id'] = issetVal( $_REQUEST['course_id'] );
 		$_SESSION['MassDrops.php']['course_period_id'] = issetVal( $_REQUEST['course_period_id'] );
 
-		$course_title = DBGetOne( "SELECT TITLE
+		$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 			FROM courses
-			WHERE COURSE_ID='" . (int) $_SESSION['MassDrops.php']['course_id'] . "'" );
+			WHERE COURSE_ID='" . (int) $_SESSION['MassDrops.php']['course_id'] . "'" ) );
 
 		$period_title = DBGetOne( "SELECT TITLE
 			FROM course_periods

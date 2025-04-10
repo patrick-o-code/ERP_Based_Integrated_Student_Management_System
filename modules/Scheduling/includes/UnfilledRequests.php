@@ -46,7 +46,11 @@ else //'None' as GENDER
 $extra['FROM'] = ',schedule_requests sr,courses c';
 //$extra['WHERE'] = ' AND sr.STUDENT_ID=ssm.STUDENT_ID AND sr.SYEAR=ssm.SYEAR AND sr.SCHOOL_ID=ssm.SCHOOL_ID AND sr.COURSE_ID=c.COURSE_ID AND NOT EXISTS (SELECT \'\' FROM schedule s WHERE s.STUDENT_ID=sr.STUDENT_ID AND s.COURSE_ID=sr.COURSE_ID)';
 $extra['WHERE'] = ' AND sr.STUDENT_ID=ssm.STUDENT_ID AND sr.SYEAR=ssm.SYEAR AND sr.SCHOOL_ID=ssm.SCHOOL_ID AND sr.COURSE_ID=c.COURSE_ID AND NOT EXISTS (SELECT \'\' FROM schedule s WHERE s.STUDENT_ID=sr.STUDENT_ID AND s.COURSE_ID=sr.COURSE_ID)';
-$extra['functions'] = [ 'WITH_TEACHER_ID' => '_makeRequestTeacher', 'WITH_PERIOD_ID' => '_makeRequestPeriod' ];
+$extra['functions'] = [
+	'WITH_TEACHER_ID' => '_makeRequestTeacher',
+	'WITH_PERIOD_ID' => '_makeRequestPeriod',
+	'COURSE' => 'ParseMLField',
+];
 
 if ( ! empty( $_REQUEST['include_seats'] ) )
 {

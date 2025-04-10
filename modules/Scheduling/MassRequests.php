@@ -90,9 +90,9 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 
 		if ( ! empty( $_SESSION['MassRequests.php'] ) )
 		{
-			$course_title = DBGetOne( "SELECT TITLE
+			$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 				FROM courses
-				WHERE COURSE_ID='" . (int) $_SESSION['MassRequests.php']['course_id'] . "'" );
+				WHERE COURSE_ID='" . (int) $_SESSION['MassRequests.php']['course_id'] . "'" ) );
 
 			echo $course_title;
 		}
@@ -198,9 +198,9 @@ if ( $_REQUEST['modfunc'] == 'choose_course' )
 		$_SESSION['MassRequests.php']['subject_id'] = issetVal( $_REQUEST['subject_id'] );
 		$_SESSION['MassRequests.php']['course_id'] = issetVal( $_REQUEST['course_id'] );
 
-		$course_title = DBGetOne( "SELECT TITLE
+		$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 			FROM courses
-			WHERE COURSE_ID='" . (int) $_SESSION['MassRequests.php']['course_id'] . "'" );
+			WHERE COURSE_ID='" . (int) $_SESSION['MassRequests.php']['course_id'] . "'" ) );
 
 		// @since 12.0 Use colorBox instead of popup window
 		?>

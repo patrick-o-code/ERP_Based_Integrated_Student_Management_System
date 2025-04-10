@@ -28,7 +28,7 @@ else
 	$extra['WHERE'] .= ' AND ssm.STUDENT_ID=srp.STUDENT_ID AND ssm.SYEAR=srp.SYEAR AND srp.COURSE_ID = c.COURSE_ID';
 
 //FJ add subject areas
-	$extra['functions'] += [ 'WITH_FULL_NAME' => '_makeExtra' ];
+	$extra['functions'] += [ 'WITH_FULL_NAME' => '_makeExtra', 'COURSE_TITLE' => 'ParseMLField' ];
 	$extra['group'] = [ 'STUDENT_ID' ];
 	//FJ add ORDER BY COURSE_TITLE
 	$extra['ORDER_BY'] = 'COURSE_TITLE';

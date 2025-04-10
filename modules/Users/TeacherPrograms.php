@@ -60,7 +60,7 @@ if ( UserStaffID() )
 			AND cp.SCHOOL_ID='" . UserSchool() . "'
 			AND cp.TEACHER_ID='" . UserStaffID() . "'
 			AND cp.MARKING_PERIOD_ID IN (" . GetAllMP( 'QTR', UserMP() ) . ")
-			ORDER BY c.TITLE,cp.SHORT_NAME" );
+			ORDER BY c.TITLE,cp.SHORT_NAME", [ 'COURSE_TITLE' => 'ParseMLField' ] );
 	}
 
 	/**

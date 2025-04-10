@@ -30,7 +30,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 	FROM course_periods cp,courses c
 	WHERE c.COURSE_ID=cp.COURSE_ID
 	AND cp.COURSE_PERIOD_ID IN (" . $cp_list . ")
-	ORDER BY TEACHER" );
+	ORDER BY TEACHER", [ 'COURSE_TITLE' => 'ParseMLField' ] );
 
 	$first_extra = $extra;
 	$handle = PDFStart();

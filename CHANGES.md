@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.3
+---------------
+- Multilingual course title: use ParseMLField(), program wide
+
 Changes in 12.2.3
 -----------------
 - Fix return empty array when no "Course-specific Comments" in ReportCards.fnc.php

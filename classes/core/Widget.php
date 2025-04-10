@@ -76,9 +76,9 @@ class Widget_course implements Widget
 					AND SYEAR=ssm.SYEAR
 					AND SCHOOL_ID=ssm.SCHOOL_ID)";
 
-			$subject_title = DBGetOne( "SELECT TITLE
+			$subject_title = ParseMLField( DBGetOne( "SELECT TITLE
 				FROM course_subjects
-				WHERE SUBJECT_ID='" . (int) $_REQUEST['w_subject_id'] . "'" );
+				WHERE SUBJECT_ID='" . (int) $_REQUEST['w_subject_id'] . "'" ) );
 
 			if ( ! $extra['NoSearchTerms'] )
 			{
@@ -97,9 +97,9 @@ class Widget_course implements Widget
 				AND w_ss.SCHOOL_ID=ssm.SCHOOL_ID
 				AND w_ss.COURSE_ID='" . (int) $_REQUEST['w_course_id'] . "'";
 
-			$course_title = DBGetOne( "SELECT TITLE
+			$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 				FROM courses
-				WHERE COURSE_ID='" . (int) $_REQUEST['w_course_id'] . "'" );
+				WHERE COURSE_ID='" . (int) $_REQUEST['w_course_id'] . "'" ) );
 
 			if ( ! $extra['NoSearchTerms'] )
 			{
@@ -121,7 +121,7 @@ class Widget_course implements Widget
 			$course = DBGet( "SELECT c.TITLE AS COURSE_TITLE,cp.TITLE,cp.COURSE_ID
 				FROM course_periods cp,courses c
 				WHERE c.COURSE_ID=cp.COURSE_ID
-				AND cp.COURSE_PERIOD_ID='" . (int) $_REQUEST['w_course_period_id'] . "'" );
+				AND cp.COURSE_PERIOD_ID='" . (int) $_REQUEST['w_course_period_id'] . "'", [ 'COURSE_TITLE' => 'ParseMLField' ] );
 
 			if ( ! $extra['NoSearchTerms'] )
 			{
@@ -170,7 +170,7 @@ class Widget_course implements Widget
 		AND cp.SCHOOL_ID='" . UserSchool() . "'
 		AND cp.COURSE_ID=c.COURSE_ID
 		AND cs.SUBJECT_ID=c.SUBJECT_ID
-		ORDER BY cs.SORT_ORDER IS NULL,cs.SORT_ORDER,cs.TITLE,cp.SHORT_NAME" );
+		ORDER BY cs.SORT_ORDER IS NULL,cs.SORT_ORDER,cs.TITLE,cp.SHORT_NAME", [ 'SUBJECT_TITLE' => 'ParseMLField' ] );
 
 		$course_period_options = [];
 
@@ -251,9 +251,9 @@ class Widget_request implements Widget
 			return $extra;
 		}
 
-		$course_title = DBGetOne( "SELECT c.TITLE
+		$course_title = ParseMLField( DBGetOne( "SELECT c.TITLE
 			FROM courses c
-			WHERE c.COURSE_ID='" . (int) $_REQUEST['request_course_id'] . "'" );
+			WHERE c.COURSE_ID='" . (int) $_REQUEST['request_course_id'] . "'" ) );
 
 		// Request.
 		if ( ! isset( $_REQUEST['missing_request_course'] )

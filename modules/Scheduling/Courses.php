@@ -113,7 +113,7 @@ if ( isset( $_REQUEST['course_modfunc'] )
 			UserSyear() - 1 :
 			UserSyear() ) . "'
 			AND SCHOOL_ID='" . UserSchool() . "'
-			ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE" );
+			ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE", [ 'TITLE' => 'ParseMLField' ] );
 
 		$courses_RET = DBGet( "SELECT SUBJECT_ID,COURSE_ID,TITLE
 			FROM courses
@@ -124,7 +124,7 @@ if ( isset( $_REQUEST['course_modfunc'] )
 			UserSyear() - 1 :
 			UserSyear() ) . "'
 			AND SCHOOL_ID='" . UserSchool() . "'
-			ORDER BY TITLE" );
+			ORDER BY TITLE", [ 'TITLE' => 'ParseMLField' ] );
 
 		// FJ http://centresis.org/forums/viewtopic.php?f=13&t=4112
 		$periods_RET = DBGet( "SELECT c.SUBJECT_ID,cp.COURSE_ID,cp.COURSE_PERIOD_ID,
@@ -866,7 +866,7 @@ if (  ( ! $_REQUEST['modfunc']
 
 	$subjects_sql .= " ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE";
 
-	$subjects_RET = DBGet( $subjects_sql );
+	$subjects_RET = DBGet( $subjects_sql, [ 'TITLE' => 'ParseMLField' ] );
 
 	if ( $_REQUEST['modfunc'] !== 'choose_course' )
 	{
@@ -990,11 +990,11 @@ if (  ( ! $_REQUEST['modfunc']
 			}
 			else
 			{
-				$RET = DBGet( "SELECT TITLE
+				$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 					FROM courses
-					WHERE COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" );
+					WHERE COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" ) );
 
-				$title = $RET[1]['TITLE'] . ' - ' . _( 'New Course Period' );
+				$title = $course_title . ' - ' . _( 'New Course Period' );
 
 				$RET = [];
 
@@ -1410,7 +1410,7 @@ if (  ( ! $_REQUEST['modfunc']
 					$parent = DBGet( "SELECT cp.TITLE as CP_TITLE,c.TITLE AS C_TITLE
 						FROM course_periods cp,courses c
 						WHERE c.COURSE_ID=cp.COURSE_ID
-						AND cp.COURSE_PERIOD_ID='" . (int) $RET['PARENT_ID'] . "'" );
+						AND cp.COURSE_PERIOD_ID='" . (int) $RET['PARENT_ID'] . "'", [ 'C_TITLE' => 'ParseMLField' ] );
 
 					$parent = $parent[1]['C_TITLE'] . ': ' . $parent[1]['CP_TITLE'];
 				}
@@ -1460,15 +1460,15 @@ if (  ( ! $_REQUEST['modfunc']
 
 				$RET = $RET[1];
 
-				$title = $RET['TITLE'];
+				$title = ParseMLField( $RET['TITLE'] );
 			}
 			else
 			{
-				$RET = DBGet( "SELECT TITLE
+				$subject_title = ParseMLField( DBGetOne( "SELECT TITLE
 					FROM course_subjects
-					WHERE SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" );
+					WHERE SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" ) );
 
-				$title = $RET[1]['TITLE'] . ' - ' . _( 'New Course' );
+				$title = $subject_title . ' - ' . _( 'New Course' );
 
 				$RET = [];
 			}
@@ -1540,7 +1540,7 @@ if (  ( ! $_REQUEST['modfunc']
 
 				$RET = $RET[1];
 
-				$title = $RET['TITLE'];
+				$title = ParseMLField( $RET['TITLE'] );
 			}
 			else
 			{
@@ -1736,7 +1736,7 @@ if (  ( ! $_REQUEST['modfunc']
 
 		$courses_sql .= " ORDER BY TITLE";
 
-		$courses_RET = DBGet( $courses_sql );
+		$courses_RET = DBGet( $courses_sql, [ 'TITLE' => 'ParseMLField' ] );
 
 		if ( ! empty( $courses_RET )
 			&& ! empty( $_REQUEST['course_id'] ) )
@@ -1959,7 +1959,7 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
  * @param $periods
  * @param $date
  *
- * @return string Available seats - filled seats.
+ * @return void Result is in $periods var passed by reference.
  */
 function calcSeats1( &$periods, $date )
 {

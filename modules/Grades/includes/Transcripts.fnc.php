@@ -241,7 +241,10 @@ if ( ! function_exists( 'TranscriptsGenerate' ) )
 			AND mp_type in (" . $mp_type_list . ")
 			AND school_id='" . (int) $school_id . "'
 			AND syear in (" . $syear_list . ")
-			ORDER BY mp_type, end_date", [], [ 'STUDENT_ID', 'SYEAR', 'MARKING_PERIOD_ID' ] );
+			ORDER BY mp_type, end_date",
+			[ 'COURSE_TITLE' => 'ParseMLField' ],
+			[ 'STUDENT_ID', 'SYEAR', 'MARKING_PERIOD_ID' ]
+		);
 
 		if ( empty( $t_grades ) || empty( $RET ) )
 		{

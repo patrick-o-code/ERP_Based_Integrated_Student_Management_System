@@ -38,7 +38,8 @@ AND se.END_DATE BETWEEN '" . $start_date . "' AND '" . $end_date . "'
 ORDER BY DATE DESC", [
 	'FULL_NAME' => '_makeStudentScheduleLink',
 	'START_DATE' => 'ProperDate',
-	'END_DATE' => 'ProperDate'
+	'END_DATE' => 'ProperDate',
+	'COURSE_TITLE' => 'ParseMLField',
 ] );
 
 $columns = [

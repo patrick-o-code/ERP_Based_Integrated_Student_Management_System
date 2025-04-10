@@ -77,7 +77,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 
 	//	$extra['functions'] = array('MARKING_PERIOD_ID' => 'GetMP','DAYS' => '_makeDays');
 	//FJ add subject areas
-	$extra['functions'] = [ 'MARKING_PERIOD_ID' => 'GetMP' ];
+	$extra['functions'] = [ 'MARKING_PERIOD_ID' => 'GetMP', 'TITLE' => 'ParseMLField', 'COURSE_TITLE' => 'ParseMLField' ];
 	$extra['group'] = [ 'STUDENT_ID' ];
 	$extra['ORDER'] = ',c.TITLE,p_cp.TITLE,sr.MARKING_PERIOD_ID';
 
@@ -229,7 +229,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 
 		$schedule_table_RET = DBGet(
 			$schedule_table_sql,
-			[ 'DAYS' => '_GetDays' ],
+			[ 'DAYS' => '_GetDays', 'TITLE' => 'ParseMLField' ],
 			[ 'STUDENT_ID', 'SCHOOL_PERIOD' ]
 		);
 

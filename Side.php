@@ -541,7 +541,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 				AND (cp.TEACHER_ID='" . User( 'STAFF_ID' ) . "'
 					OR SECONDARY_TEACHER_ID='" . User( 'STAFF_ID' ) . "')
 				AND cp.MARKING_PERIOD_ID IN (" . ( $all_mp ? $all_mp : '0' ) . ")
-				ORDER BY c.TITLE,cp.SHORT_NAME" );
+				ORDER BY c.TITLE,cp.SHORT_NAME", [ 'COURSE_TITLE' => 'ParseMLField' ] );
 
 			/**
 			 * Get the Full Year marking period id

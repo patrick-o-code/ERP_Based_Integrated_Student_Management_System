@@ -9,7 +9,7 @@ if ( $_REQUEST['modfunc'] === 'XMLHttpRequest' )
 		"UPPER(c.TITLE) LIKE '" . mb_strtoupper( $_REQUEST['course_title'] ) .
 		"%' AND c.SYEAR='" . UserSyear() .
 		"' AND c.SCHOOL_ID='" . UserSchool() . "'
-		ORDER BY c.TITLE" );
+		ORDER BY c.TITLE", [ 'TITLE' => 'ParseMLField' ] );
 
 	echo '<?phpxml version="1.0" standalone="yes"?><courses>';
 
@@ -197,7 +197,7 @@ function processRequest()
 	$subjects_RET = DBGet( "SELECT SUBJECT_ID,TITLE
 		FROM course_subjects
 		WHERE SYEAR='" . UserSyear() . "'
-		AND SCHOOL_ID='" . UserSchool() . "'" );
+		AND SCHOOL_ID='" . UserSchool() . "'", [ 'TITLE' => 'ParseMLField' ] );
 
 	$subjects = '<select name="subject_id" id="subject_id" onchange="document.getElementById(\'courses_div\').innerHTML = \'\';SendXMLRequest(this.value,this.form.course_title.value);">';
 	$subjects .= '<option value="">' . _( 'All Subjects' ) . '</option>';
@@ -244,7 +244,7 @@ function processRequest()
 
 function _makeCourse( $value, $column )
 {
-	return $value;
+	return ParseMLField( $value );
 }
 
 function _makeTeacher( $value, $column )

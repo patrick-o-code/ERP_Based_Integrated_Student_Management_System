@@ -251,6 +251,7 @@ if ( isset( $_REQUEST['student_id'] ) && $_REQUEST['student_id'] !== 'new' )
 		'ATTENDANCE_TEACHER_CODE' => '_makeCode',
 		'ATTENDANCE_REASON' => '_makeReasonInput',
 		'COMMENT' => '_makeReason',
+		'COURSE' => 'ParseMLField',
 	];
 
 	if ( SchoolInfo( 'NUMBER_DAYS_ROTATION' ) !== null )

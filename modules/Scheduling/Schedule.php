@@ -263,6 +263,7 @@ if ( UserStudentID()
 			'SCHEDULER_LOCK' => '_makeLock',
 			'START_DATE' => '_makeDate',
 			'END_DATE' => '_makeDate',
+			'TITLE' => 'ParseMLField',
 		]
 	);
 
@@ -354,7 +355,11 @@ if ( UserStudentID()
 		}
 
 		$extra['WHERE'] .= ' AND sr.STUDENT_ID=ssm.STUDENT_ID AND sr.SYEAR=ssm.SYEAR AND sr.SCHOOL_ID=ssm.SCHOOL_ID AND sr.COURSE_ID=c.COURSE_ID AND NOT EXISTS (SELECT \'\' FROM schedule s WHERE s.STUDENT_ID=sr.STUDENT_ID AND s.COURSE_ID=sr.COURSE_ID)';
-		$extra['functions'] = [ 'WITH_TEACHER_ID' => '_makeRequestTeacher', 'WITH_PERIOD_ID' => '_makeRequestPeriod' ];
+		$extra['functions'] = [
+			'COURSE' => 'ParseMLField',
+			'WITH_TEACHER_ID' => '_makeRequestTeacher',
+			'WITH_PERIOD_ID' => '_makeRequestPeriod',
+		];
 
 		$columns = [
 			'COURSE' => _( 'Request' ),

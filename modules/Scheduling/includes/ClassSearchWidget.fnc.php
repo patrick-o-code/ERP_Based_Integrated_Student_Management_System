@@ -70,7 +70,7 @@ function _classSearchWidgetFindCourse( $extra )
 		FROM course_subjects
 		WHERE SCHOOL_ID='" . UserSchool() . "'
 		AND SYEAR='" . UserSyear() . "'
-		ORDER BY TITLE" );
+		ORDER BY TITLE", [ 'TITLE' => 'ParseMLField' ] );
 
 	echo '<tr class="st"><td><label for="subject_id">' . _( 'Subject' ) . '</label></td><td>';
 

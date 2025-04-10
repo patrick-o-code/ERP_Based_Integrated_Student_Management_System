@@ -1229,6 +1229,8 @@ if ( ! function_exists( 'GetReportCardsExtra' ) )
 		// Parent: associated students.
 		$extra['ASSOCIATED'] = User( 'STAFF_ID' );
 
+		$extra['functions'] = [ 'COURSE_TITLE' => 'ParseMLField' ];
+
 		return $extra;
 	}
 }

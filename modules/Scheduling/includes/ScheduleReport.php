@@ -37,9 +37,9 @@ if ( $_REQUEST['subject_id'] )
 
 if ( $_REQUEST['subject_id'] )
 {
-	$subject_title = DBGetOne( "SELECT TITLE
+	$subject_title = ParseMLField( DBGetOne( "SELECT TITLE
 		FROM course_subjects
-		WHERE SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" );
+		WHERE SUBJECT_ID='" . (int) $_REQUEST['subject_id'] . "'" ) );
 
 	$header = '<a href="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
 		'&include_child_mps=' . $_REQUEST['include_child_mps'] ) . '">' . _( 'Top' ) . '</a>
@@ -52,9 +52,9 @@ if ( $_REQUEST['subject_id'] )
 	{
 		$location = 'courses';
 
-		$course_RET = DBGet( "SELECT TITLE
+		$course_title = ParseMLField( DBGetOne( "SELECT TITLE
 			FROM courses
-			WHERE COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" );
+			WHERE COURSE_ID='" . (int) $_REQUEST['course_id'] . "'" ) );
 
 		$course_link_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
 			'&modfunc=students&subject_id=' . $_REQUEST['subject_id'] .
@@ -62,7 +62,7 @@ if ( $_REQUEST['subject_id'] )
 			'&include_child_mps=' . $_REQUEST['include_child_mps'];
 
 		$header .= ' &rsaquo; <a href="' . URLEscape( $course_link_url ) . '">' .
-			$course_RET[1]['TITLE'] . '</a>';
+			$course_title . '</a>';
 
 		$list_students = _( 'List Students' );
 
@@ -103,7 +103,7 @@ $subject_RET = DBGet( "SELECT s.SUBJECT_ID,s.TITLE
 	FROM course_subjects s
 	WHERE s.SYEAR='" . UserSyear() . "'
 	AND s.SCHOOL_ID='" . UserSchool() . "'
-	ORDER BY s.SORT_ORDER IS NULL,s.SORT_ORDER,s.TITLE" );
+	ORDER BY s.SORT_ORDER IS NULL,s.SORT_ORDER,s.TITLE", [ 'TITLE' => 'ParseMLField' ] );
 
 if ( ! empty( $subject_RET ) && $_REQUEST['subject_id'] )
 {
@@ -159,7 +159,7 @@ if ( $_REQUEST['modfunc'] === 'courses'
 		AND c.COURSE_ID=cp.COURSE_ID
 		AND c.SYEAR='" . UserSyear() . "'
 		AND c.SCHOOL_ID='" . UserSchool() . "'
-		ORDER BY c.TITLE", [], [ 'COURSE_ID' ] );
+		ORDER BY c.TITLE", [ 'TITLE' => 'ParseMLField' ], [ 'COURSE_ID' ] );
 
 	$RET = calcSeats( $_RET, [ 'COURSE_ID', 'TITLE', 'COUNT_REQUESTS' ] );
 
