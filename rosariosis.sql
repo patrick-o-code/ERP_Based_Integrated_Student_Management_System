@@ -355,7 +355,7 @@ CREATE TABLE courses (
     subject_id integer NOT NULL,
     school_id integer NOT NULL,
     grade_level integer,
-    title varchar(100) NOT NULL,
+    title text NOT NULL, -- @since 12.3 Multilingual course title
     short_name varchar(25),
     rollover_id integer,
     credit_hours numeric(6,2),
@@ -365,6 +365,7 @@ CREATE TABLE courses (
     FOREIGN KEY (school_id,syear) REFERENCES schools(id,syear)
 );
 
+COMMENT ON COLUMN courses.title IS 'Title can be multilingual, use ParseMLField()';
 
 --
 -- Name: course_periods; Type: TABLE; Schema: public; Owner: rosariosis; Tablespace:
@@ -788,7 +789,7 @@ CREATE TABLE course_subjects (
     syear numeric(4,0) NOT NULL,
     school_id integer NOT NULL,
     subject_id serial PRIMARY KEY,
-    title varchar(100) NOT NULL,
+    title text NOT NULL, -- @since 12.3 Multilingual course title
     short_name varchar(25),
     sort_order numeric,
     rollover_id integer,
@@ -797,6 +798,7 @@ CREATE TABLE course_subjects (
     FOREIGN KEY (school_id,syear) REFERENCES schools(id,syear)
 );
 
+COMMENT ON COLUMN course_subjects.title IS 'Title can be multilingual, use ParseMLField()';
 
 --
 -- Name: custom_fields; Type: TABLE; Schema: public; Owner: rosariosis; Tablespace:

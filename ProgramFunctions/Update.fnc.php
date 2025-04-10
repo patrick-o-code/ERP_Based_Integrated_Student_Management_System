@@ -281,6 +281,10 @@ function Update()
 		case version_compare( $from_version, '12.2', '<' ) :
 
 			$return = _update122();
+
+		case version_compare( $from_version, '12.3', '<' ) :
+
+			$return = _update123();
 	}
 
 	// Update version in DB config table.
@@ -1547,6 +1551,55 @@ function _update122()
 	  RETURN 0;
 	END;
 	$$ LANGUAGE plpgsql;" );
+
+	return $return;
+}
+
+
+/**
+ * Update to version 12.3
+ *
+ * 1. courses & course_subjects tables:
+ * Multilingual course title: SQL change title column type from varchar(100) to text
+ * Needs to DROP course_details view first to then recreate it.
+ *
+ * Local function
+ *
+ * @since 12.3
+ *
+ * @return boolean false if update failed or if not called by Update(), else true
+ */
+function _update123()
+{
+	global $DatabaseType;
+
+	_isCallerUpdate( debug_backtrace() );
+
+	$return = true;
+
+	/**
+	 * 1. courses & course_subjects tables:
+	 * Multilingual course title: SQL change title column type from varchar(100) to text
+	 * Needs to DROP course_details view first to then recreate it.
+	 */
+	$sql_drop_view = "DROP VIEW course_details;";
+
+	$sql_create_view = "CREATE VIEW course_details AS
+		SELECT cp.school_id, cp.syear, cp.marking_period_id, c.subject_id, cp.course_id, cp.course_period_id, cp.teacher_id, c.title AS course_title, cp.title AS cp_title, cp.grade_scale_id, cp.mp, cp.credits FROM course_periods cp, courses c WHERE (cp.course_id = c.course_id);";
+
+	if ( $DatabaseType === 'mysql' )
+	{
+		$sql_alter_table = "ALTER TABLE courses MODIFY TITLE text;
+			ALTER TABLE course_subjects MODIFY TITLE text;";
+	}
+	else
+	{
+		// PostgreSQL.
+		$sql_alter_table = "ALTER TABLE courses ALTER TITLE TYPE text;
+			ALTER TABLE course_subjects ALTER TITLE TYPE text;";
+	}
+
+	DBQuery( $sql_drop_view . $sql_alter_table . $sql_create_view );
 
 	return $return;
 }

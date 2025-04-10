@@ -336,7 +336,7 @@ CREATE TABLE courses (
     subject_id integer NOT NULL,
     school_id integer NOT NULL,
     grade_level integer,
-    title varchar(100) NOT NULL,
+    title text NOT NULL COMMENT 'Title can be multilingual, use ParseMLField()', -- @since 12.3 Multilingual course title
     short_name varchar(25),
     rollover_id integer,
     credit_hours numeric(6,2),
@@ -786,7 +786,7 @@ CREATE TABLE course_subjects (
     syear numeric(4,0) NOT NULL,
     school_id integer NOT NULL,
     subject_id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    title varchar(100) NOT NULL,
+    title text NOT NULL COMMENT 'Title can be multilingual, use ParseMLField()', -- @since 12.3 Multilingual course title
     short_name varchar(25),
     sort_order numeric,
     rollover_id integer,

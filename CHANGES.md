@@ -4,6 +4,7 @@
 Changes in 12.3
 ---------------
 - Multilingual course title: use ParseMLField(), program wide
+- Multilingual course title: SQL change title column type from varchar(100) to text in Update.fnc.php, rosariosis.sql & rosariosis_mysql.sql
 
 Changes in 12.2.3
 -----------------
