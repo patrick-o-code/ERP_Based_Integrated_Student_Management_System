@@ -4,6 +4,8 @@
  * Parse MarkDown
  *
  * @since 2.9
+ * @since 12.3 Fix PHP8.4 Implicitly marking parameter as nullable is deprecated
+ * @link https://github.com/erusev/parsedown/pull/900
  *
  * @package RosarioSIS
  * @subpackage classes
@@ -150,13 +152,13 @@ class Parsedown
 
 	protected function lines(array $lines)
 	{
-		$CurrentBlock = null;
+		$CurrentBlock = array();
 
 		foreach ($lines as $line)
 		{
 			if (chop($line) === '')
 			{
-				if (isset($CurrentBlock))
+				if (!empty($CurrentBlock))
 				{
 					$CurrentBlock['interrupted'] = true;
 				}
@@ -262,7 +264,7 @@ class Parsedown
 
 			# ~
 
-			if (isset($CurrentBlock) and ! isset($CurrentBlock['type']) and ! isset($CurrentBlock['interrupted']))
+			if (!empty($CurrentBlock) and ! isset($CurrentBlock['type']) and ! isset($CurrentBlock['interrupted']))
 			{
 				$CurrentBlock['element']['text'] .= "\n".$text;
 			}
@@ -324,9 +326,9 @@ class Parsedown
 	#
 	# Code
 
-	protected function blockCode($Line, $Block = null)
+	protected function blockCode($Line, $Block = array())
 	{
-		if (isset($Block) and ! isset($Block['type']) and ! isset($Block['interrupted']))
+		if (!empty($Block) and ! isset($Block['type']) and ! isset($Block['interrupted']))
 		{
 			return;
 		}
@@ -719,9 +721,9 @@ class Parsedown
 	#
 	# Setext
 
-	protected function blockSetextHeader($Line, array $Block = null)
+	protected function blockSetextHeader($Line, array $Block = array())
 	{
-		if ( ! isset($Block) or isset($Block['type']) or isset($Block['interrupted']))
+		if (empty($Block) or isset($Block['type']) or isset($Block['interrupted']))
 		{
 			return;
 		}
@@ -857,9 +859,9 @@ class Parsedown
 	#
 	# Table
 
-	protected function blockTable($Line, array $Block = null)
+	protected function blockTable($Line, array $Block = array())
 	{
-		if ( ! isset($Block) or isset($Block['type']) or isset($Block['interrupted']))
+		if (empty($Block) or isset($Block['type']) or isset($Block['interrupted']))
 		{
 			return;
 		}
