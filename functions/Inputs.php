@@ -356,7 +356,7 @@ function setMLvalue(id, loc, value){
 				ParseMLField( $value, $loc ),
 				'ML_' . $name . '[' . $loc . ']',
 				'',
-				$extra . ( $key == 0 ? ' required' : '' ) .
+				$extra . ( $key == 0 && $required ? ' required' : '' ) .
 					' onchange="' . AttrEscape( $onchange_js ) . '"',
 				false
 			);
