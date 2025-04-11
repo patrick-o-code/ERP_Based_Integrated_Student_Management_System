@@ -8,6 +8,7 @@ Changes in 12.3
 - Multilingual course title: use MLTextInput() in Courses.php
 - MLTextInput() fix use of 'required' in $extra in Fields.fnc.php, Inputs.php & Courses.php
 - Fix PHP8.4 Constant CURLOPT_BINARYTRANSFER is deprecated in curl.php
+- Fix PHP8.4 deprecated passing E_USER_ERROR to trigger_error() in curl.php & Markdownify/Converter.php
 
 Changes in 12.2.3
 -----------------

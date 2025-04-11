@@ -60,7 +60,8 @@ class curl {
 	public function __construct($options = array()){
 		if (!function_exists('curl_init')) {
 			$this->error = 'cURL module must be enabled!';
-			trigger_error($this->error, E_USER_ERROR);
+			// FJ fix PHP8.4 deprecated passing E_USER_ERROR to trigger_error()
+			throw new \Exception($this->error);
 			return false;
 		}
 		// the options of curl should be init here.
