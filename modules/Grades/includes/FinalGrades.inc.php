@@ -200,6 +200,7 @@ function FinalGradesAllMPSave( $cp_id, $qtr_id )
  * @since 11.8.5 Fix Final Grade calculation when both "Weight Assignments" & "Weight Assignment Categories" checked
  * @since 12.2 Add $assignment_type_id param
  * @since 12.2 Save null percent: N/A final grade
+ * @since 12.2.3 Fix SQL error when percent grade > 999.9
  *
  * @param int  $cp_id              Course Period ID.
  * @param int  $mp_id              Marking Period ID.
@@ -310,11 +311,25 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 			}
 		}
 
+		if ( ! is_null( $total ) )
+		{
+			$total *= 100;
+
+			if ( $total > 999.9 )
+			{
+				$total = '999.9';
+			}
+			elseif ( $total < 0 )
+			{
+				$total = '0';
+			}
+		}
+
 		$import_RET[$student_id] = [
 			1 => [
-				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total, $cp_id, 0, 'ID' ),
-				'GRADE_LETTER' => _makeLetterGrade( $total, $cp_id, 0, 'TITLE' ),
-				'GRADE_PERCENT' => is_null( $total ) ? null : round( 100 * $total, 1 ),
+				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total / 100, $cp_id, 0, 'ID' ),
+				'GRADE_LETTER' => _makeLetterGrade( $total / 100, $cp_id, 0, 'TITLE' ),
+				'GRADE_PERCENT' => is_null( $total ) ? null : round( $total, 1 ),
 			],
 		];
 	}
@@ -330,6 +345,7 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
  * @uses _makeLetterGrade()
  *
  * @since 11.8
+ * @since 12.2.3 Fix SQL error when percent grade > 999.9
  *
  * @global $warning Warning: Add "Final Grading Percentages are not configured."
  *
@@ -444,6 +460,15 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
 		if ( $total_percent != 0 )
 		{
 			$total /= $total_percent;
+		}
+
+		if ( $total > 999.9 )
+		{
+			$total = '999.9';
+		}
+		elseif ( $total < 0 )
+		{
+			$total = '0';
 		}
 
 		$import_RET[$student_id] = [
