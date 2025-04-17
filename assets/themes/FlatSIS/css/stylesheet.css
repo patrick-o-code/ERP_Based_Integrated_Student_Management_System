@@ -1774,11 +1774,6 @@ a .button + b {
 	text-transform: none;
 }
 
-.underline-dots + .checkbox-label .tooltip,
-.uld + .checkbox-label .tooltip {
-	margin-top: 4px;
-}
-
 .tooltip:before {
 	content: "i";
 	font-family: monospace;
