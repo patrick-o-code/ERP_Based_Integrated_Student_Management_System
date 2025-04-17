@@ -620,6 +620,11 @@ function Warehouse( $mode )
 			$RTL_languages = [ 'ar', 'he', 'dv', 'fa', 'ur', 'ps' ];
 
 			$dir_RTL = in_array( $lang_2_chars, $RTL_languages ) ? ' dir="RTL"' : '';
+
+			$stylesheet_css = 'assets/themes/' . Preferences( 'THEME' ) . '/stylesheet.css';
+
+			// @since 12.3 Cache killer: use file last modified time hash instead of RosarioSIS version
+			$stylesheet_css_hash = hash( 'adler32', filemtime( $stylesheet_css ) );
 			?>
 <!doctype html>
 <html lang="<?php echo $lang_2_chars; ?>"<?php echo $dir_RTL; ?>>
@@ -631,7 +636,7 @@ function Warehouse( $mode )
 	<link rel="icon" href="apple-touch-icon.png" sizes="128x128">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
-	<link rel="stylesheet" href="assets/themes/<?php echo Preferences( 'THEME' ); ?>/stylesheet.css?v=<?php echo ROSARIO_VERSION; ?>">
+	<link rel="stylesheet" href="<?php echo $stylesheet_css; ?>?<?php echo $stylesheet_css_hash; ?>">
 	<style>.highlight,.highlight-hover:hover{background-color:<?php echo Preferences( 'HIGHLIGHT' ); ?> !important;}</style>
 	<?php
 
@@ -755,9 +760,11 @@ function WarehouseHeaderJS()
 {
 	$lang_2_chars = mb_substr( $_SESSION['locale'], 0, 2 );
 
+	// @since 12.3 Cache killer: use file last modified time hash instead of RosarioSIS version
+	$plugins_min_js_hash = hash( 'adler32', filemtime( 'assets/js/plugins.min.js' ) );
 	?>
 	<script src="assets/js/jquery.js?v=3.7.1"></script>
-	<script src="assets/js/plugins.min.js?v=<?php echo ROSARIO_VERSION; ?>"></script>
+	<script src="assets/js/plugins.min.js?<?php echo $plugins_min_js_hash; ?>"></script>
 	<script src="assets/js/jscalendar/lang/calendar-<?php echo file_exists( 'assets/js/jscalendar/lang/calendar-' . $lang_2_chars . '.js' ) ? $lang_2_chars : 'en'; ?>.js"></script>
 	<?php
 	// Add scripts.js file from theme if any found.
