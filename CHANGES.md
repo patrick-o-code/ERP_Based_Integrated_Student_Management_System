@@ -16,6 +16,7 @@ Changes in 12.2.3
 - Fix return empty array when no "Course-specific Comments" in ReportCards.fnc.php
 - Fix PHP fatal error Unknown format specifier "," in Greek translation in locale/el_GR.utf8/rosariosis.po
 - Fix SQL error when percent grade > 999.9 in FinalGrades.inc.php
+- Revert CSS FlatSIS theme adjust tooltip position in stylesheet.css
 
 Changes in 12.2.2
 -----------------
