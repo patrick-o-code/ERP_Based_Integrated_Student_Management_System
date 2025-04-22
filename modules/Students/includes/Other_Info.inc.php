@@ -12,16 +12,14 @@ $fields_RET = DBGet( "SELECT ID,TITLE,TYPE,SELECT_OPTIONS,DEFAULT_SELECTION,REQU
 
 $fields_RET = ParseMLArray( $fields_RET, 'TITLE' );
 
-$value = [];
-
 if ( UserStudentID() )
 {
 	$custom_RET = DBGet( "SELECT *
 		FROM students
 		WHERE STUDENT_ID='" . UserStudentID() . "'" );
-
-	$value = $custom_RET[1];
 }
+
+$value = ! empty( $custom_RET[1] ) ? $custom_RET[1] : [];
 
 if ( ! empty( $fields_RET ) )
 {
