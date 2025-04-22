@@ -69,3 +69,13 @@ if ( ! function_exists( 'utf8_encode' ) )
 	 */
 	require_once 'functions/PHPCompatibility/xml.php';
 }
+
+if ( ! extension_loaded( 'ctype' ) )
+{
+	/**
+	 * Include PHP ctype extension emulation by Symfony.
+	 *
+	 * @since 12.3
+	 */
+	require_once 'functions/PHPCompatibility/ctype.php';
+}
