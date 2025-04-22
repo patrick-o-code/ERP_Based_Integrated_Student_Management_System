@@ -1059,6 +1059,12 @@ textarea {
 	margin-top: 2px;
 }
 
+/* Fix Dashboard tip message row too tall */
+
+td > .legend-gray:first-child {
+	margin-bottom: 0;
+}
+
 .logo {
 	max-width: 150px;
 	max-height: 150px

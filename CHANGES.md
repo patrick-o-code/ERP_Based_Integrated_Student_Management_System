@@ -13,6 +13,8 @@ Changes in 12.3
 - Security: Cache killer: use file last modified time hash instead of RosarioSIS version in Warehouse.php
 - Include PHP ctype extension emulation by Symfony in Ctype.php, PHPCompatibility.php & ctype.php
 - Themes: Remove unused font files, 427KB gain in FlatSIS/fonts/Lato/ & WPadmin/fonts/opensans/
+- WPadmin theme: convert ttf to woff2 font files, 105KB gain in WPadmin/fonts/opensans/
+- CSS WPadmin: Fix Dashboard tip message row too tall in stylesheet.css
 
 Changes in 12.2.3
 -----------------

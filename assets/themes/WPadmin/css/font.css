@@ -2,14 +2,14 @@
 
 @font-face {
 	font-family: 'Open Sans';
-	src: url('fonts/opensans/Regular.woff') format('woff'), url('fonts/opensans/Regular.ttf') format('truetype');
+	src: url('fonts/opensans/Regular.woff2') format('woff2'), url('fonts/opensans/Regular.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Open Sans';
-	src: url('fonts/opensans/Italic.woff') format('woff'), url('fonts/opensans/Italic.ttf') format('truetype');
+	src: url('fonts/opensans/Italic.woff2') format('woff2'), url('fonts/opensans/Italic.woff') format('woff');
 	font-weight: normal;
 	font-style: italic;
 }
@@ -62,14 +62,14 @@
 
 @font-face {
 	font-family: 'Open Sans';
-	src: url('fonts/opensans/SemiboldItalic.woff') format('woff'), url('fonts/opensans/SemiboldItalic.ttf') format('truetype');
+	src: url('fonts/opensans/SemiboldItalic.woff2') format('woff2'), url('fonts/opensans/SemiboldItalic.woff') format('woff');
 	font-weight: 600;
 	font-style: italic;
 }
 
 @font-face {
 	font-family: 'Open Sans';
-	src: url('fonts/opensans/Semibold.woff') format('woff'), url('fonts/opensans/Semibold.ttf') format('truetype');
+	src: url('fonts/opensans/Semibold.woff2') format('woff2'), url('fonts/opensans/Semibold.woff') format('woff');
 	font-weight: 600;
 	font-style: normal;
 }
