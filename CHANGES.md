@@ -12,6 +12,7 @@ Changes in 12.3
 - Fix PHP8.4 Implicitly marking parameter as nullable is deprecated in Parsedown.php
 - Security: Cache killer: use file last modified time hash instead of RosarioSIS version in Warehouse.php
 - Include PHP ctype extension emulation by Symfony in Ctype.php, PHPCompatibility.php & ctype.php
+- Themes: Remove unused font files, 427KB gain in FlatSIS/fonts/Lato/ & WPadmin/fonts/opensans/
 
 Changes in 12.2.3
 -----------------
