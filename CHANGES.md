@@ -17,6 +17,7 @@ Changes in 12.3
 - CSS WPadmin: Fix Dashboard tip message row too tall in stylesheet.css
 - Move SQL translation file to locale/[locale_code]/ folder
 - Fix Rollover order: move Grading Scales before Courses in Rollover.php
+- Allow object methods (callable) in $functions param in DBGet.fnc.php
 
 Changes in 12.2.3
 -----------------

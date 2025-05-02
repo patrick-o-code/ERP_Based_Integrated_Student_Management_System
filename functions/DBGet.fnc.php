@@ -36,11 +36,12 @@
  * @since 4.5 Can omit DBQuery call.
  * @example $table_RET = DBGet( "SELECT column FROM table;" );
  * @since 11.8 Performance: avoid silencing PHP error with @, use isset() instead
+ * @since 12.3 Allow object methods (callable) in $functions param
  *
  * @global array    $THIS_RET  Current row of the query result
  *
- * @param  resource $QI        PostgreSQL result resource or SQL statement string.
- * @param  array    $functions Associative array( 'COLUMN' => 'FunctionName' ); Functions to apply (optional).
+ * @param  resource $QI        Result resource or SQL statement string.
+ * @param  array    $functions Associative `[ 'COL1' => 'FunctionName', 'COL2' => [ $object, 'methodName' ] ]` Functions or object methods to apply (optional).
  * @param  array    $index     Indexes of the resulting array (4 maximum) (optional).
  *
  * @return array    null if no results, else an array of formatted results
@@ -56,7 +57,7 @@ function DBGet( $QI, $functions = [], $index = [] )
 	foreach ( $functions as $key => $function )
 	{
 		if ( ! $function
-			|| ! function_exists( $function ) )
+			|| ! is_callable( $function ) )
 		{
 			unset( $functions[ $key ] );
 		}
@@ -101,7 +102,7 @@ function DBGet( $QI, $functions = [], $index = [] )
 
 			if ( isset( $functions[ $key ] ) )
 			{
-				$result = $functions[ $key ]( $value, $key );
+				$result = call_user_func( $functions[ $key ], $value, $key );
 			}
 
 			if ( ! $index_count )
