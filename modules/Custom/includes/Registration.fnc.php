@@ -172,7 +172,7 @@ function RegistrationFormOutput( $config )
 
 	if ( $sibling_id )
 	{
-		echo RegistrationSiblingUseContactsAddress( $sibling_id );
+		echo RegistrationSiblingUseContactsAddress( $sibling_id ) . '<br>';
 	}
 
 	echo '<div id="registration_contacts_address_wrapper">';

@@ -226,9 +226,7 @@ function RegistrationSaveStudent( $config, $values )
 	// Textarea fields MarkDown sanitize.
 	$values = FilterCustomFieldsMarkdown( 'custom_fields', 'students' );
 
-	$sql = "UPDATE students SET ";
-
-	$go = false;
+	$insert_columns = [];
 
 	foreach ( (array) $values as $column => $value )
 	{
@@ -244,17 +242,14 @@ function RegistrationSaveStudent( $config, $values )
 			$value = implode( '||', $value ) ? '||' . implode( '||', $value ) : '';
 		}
 
-		$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "',";
-
-		$go = true;
+		$insert_columns[ $column ] = $value;
 	}
 
-	$sql = mb_substr( $sql, 0, -1 ) . " WHERE STUDENT_ID='" . UserStudentID() . "'";
-
-	if ( $go )
-	{
-		DBQuery( $sql );
-	}
+	DBUpdate(
+		'students',
+		$insert_columns,
+		[ 'STUDENT_ID' => UserStudentID() ]
+	);
 
 	if ( ! empty( $_FILES ) )
 	{

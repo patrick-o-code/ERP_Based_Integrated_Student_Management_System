@@ -17,68 +17,32 @@ if ( $_REQUEST['modfunc'] === 'update' )
 
 			if ( empty( $columns['SORT_ORDER'] ) || is_numeric( $columns['SORT_ORDER'] ) )
 			{
+				$table = $_REQUEST['tab_id'] !== 'new' ?
+					'report_card_comment_codes' : 'report_card_comment_code_scales';
+
 				if ( $id !== 'new' )
 				{
-					if ( $_REQUEST['tab_id'] !== 'new' )
-					{
-						$sql = "UPDATE report_card_comment_codes SET ";
-					}
-					else
-					{
-						$sql = "UPDATE report_card_comment_code_scales SET ";
-					}
-
-					foreach ( (array) $columns as $column => $value )
-					{
-						$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "',";
-					}
-
-					if ( $_REQUEST['tab_id'] !== 'new' )
-					{
-						$sql = mb_substr( $sql, 0, -1 ) . " WHERE ID='" . (int) $id . "'";
-					}
-					else
-					{
-						$sql = mb_substr( $sql, 0, -1 ) . " WHERE ID='" . (int) $id . "'";
-					}
-
-					DBQuery( $sql );
+					DBUpdate(
+						$table,
+						$columns,
+						[ 'ID' => (int) $id ]
+					);
 				}
 
 				// New: check for Title
 				elseif ( $columns['TITLE'] )
 				{
+					$insert_columns = [ 'SCHOOL_ID' => UserSchool() ];
+
 					if ( $_REQUEST['tab_id'] !== 'new' )
 					{
-						$sql = 'INSERT INTO report_card_comment_codes ';
-						$fields = 'SCHOOL_ID,SCALE_ID,';
-						$values = "'" . UserSchool() . "','" . $_REQUEST['tab_id'] . "',";
-					}
-					else
-					{
-						$sql = 'INSERT INTO report_card_comment_code_scales ';
-						$fields = 'SCHOOL_ID,';
-						$values = "'" . UserSchool() . "',";
+						$insert_columns['SCALE_ID'] = (int) $_REQUEST['tab_id'];
 					}
 
-					$go = false;
-
-					foreach ( (array) $columns as $column => $value )
-					{
-						if ( ! empty( $value ) || $value == '0' )
-						{
-							$fields .= DBEscapeIdentifier( $column ) . ',';
-							$values .= "'" . $value . "',";
-							$go = true;
-						}
-					}
-
-					$sql .= '(' . mb_substr( $fields, 0, -1 ) . ') values(' . mb_substr( $values, 0, -1 ) . ')';
-
-					if ( $go )
-					{
-						DBQuery( $sql );
-					}
+					DBInsert(
+						$table,
+						$insert_columns + $columns
+					);
 				}
 			}
 			else

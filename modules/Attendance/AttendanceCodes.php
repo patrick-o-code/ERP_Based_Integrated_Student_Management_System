@@ -22,11 +22,15 @@ if ( $_REQUEST['modfunc'] === 'update'
 				if ( isset( $columns['DEFAULT_CODE'] )
 					&& $columns['DEFAULT_CODE'] == 'Y' )
 				{
-					DBQuery( "UPDATE attendance_codes
-						SET DEFAULT_CODE=NULL
-						WHERE SYEAR='" . UserSyear() . "'
-						AND SCHOOL_ID='" . UserSchool() . "'
-						AND TABLE_NAME='" . (int) $_REQUEST['table'] . "'" );
+					DBUpdate(
+						'attendance_codes',
+						[ 'DEFAULT_CODE' => '' ], // NULL
+						[
+							'SYEAR' => UserSyear(),
+							'SCHOOL_ID' => UserSchool(),
+							'TABLE_NAME' => (int) $_REQUEST['table'],
+						]
+					);
 				}
 
 				$table = $_REQUEST['table'] !== 'new' ? 'attendance_codes' : 'attendance_code_categories';
@@ -99,11 +103,15 @@ if ( $_REQUEST['modfunc'] === 'remove'
 			WHERE SYEAR='" . UserSyear() . "'
 			AND SCHOOL_ID='" . UserSchool() . "'" );
 
-		DBQuery( "UPDATE course_periods
-			SET DOES_ATTENDANCE=NULL
-			WHERE DOES_ATTENDANCE=','
-			AND SYEAR='" . UserSyear() . "'
-			AND SCHOOL_ID='" . UserSchool() . "'" );
+		DBUpdate(
+			'course_periods',
+			[ 'DOES_ATTENDANCE' => '' ], // NULL
+			[
+				'DOES_ATTENDANCE' => ',',
+				'SYEAR' => UserSyear(),
+				'SCHOOL_ID' => UserSchool(),
+			]
+		);
 
 		// Unset modfunc & ID & redirect URL.
 		RedirectURL( [ 'modfunc', 'id' ] );

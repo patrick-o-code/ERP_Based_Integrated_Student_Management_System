@@ -11,16 +11,11 @@ if ( $_REQUEST['modfunc'] === 'update' )
 	{
 		if ( $id !== 'new' )
 		{
-			$sql = "UPDATE history_marking_periods SET ";
-
-			foreach ( (array) $columns as $column => $value )
-			{
-				$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "',";
-			}
-
-			$sql = mb_substr( $sql, 0, -1 ) . " WHERE MARKING_PERIOD_ID='" . (int) $id . "'";
-
-			DBQuery( $sql );
+			DBUpdate(
+				'history_marking_periods',
+				$columns,
+				[ 'MARKING_PERIOD_ID' => (int) $id ]
+			);
 		}
 
 		// New: check for Title.
@@ -40,29 +35,12 @@ if ( $_REQUEST['modfunc'] === 'update' )
 					AUTO_INCREMENT=" . (int) ( $mp_id + 1 ) );
 			}
 
-			$sql = 'INSERT INTO history_marking_periods ';
-			$fields = 'MARKING_PERIOD_ID,SCHOOL_ID,';
-			$values = $mp_id . ",'" . UserSchool() . "',";
+			$insert_columns = [ 'MARKING_PERIOD_ID' => (int) $mp_id, 'SCHOOL_ID' => UserSchool() ];
 
-			$go = false;
-
-			foreach ( (array) $columns as $column => $value )
-			{
-				if ( ! empty( $value )
-					|| $value == '0' )
-				{
-					$fields .= DBEscapeIdentifier( $column ) . ',';
-					$values .= "'" . $value . "',";
-					$go = true;
-				}
-			}
-
-			$sql .= '(' . mb_substr( $fields, 0, -1 ) . ') values(' . mb_substr( $values, 0, -1 ) . ')';
-
-			if ( $go )
-			{
-				DBQuery( $sql );
-			}
+			DBInsert(
+				'history_marking_periods',
+				$insert_columns + $columns
+			);
 		}
 	}
 

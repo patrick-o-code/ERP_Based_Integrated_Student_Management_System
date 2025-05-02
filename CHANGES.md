@@ -18,6 +18,7 @@ Changes in 12.3
 - Move SQL translation file to locale/[locale_code]/ folder
 - Fix Rollover order: move Grading Scales before Courses in Rollover.php
 - Allow object methods (callable) in $functions param in DBGet.fnc.php
+- Use DBInsert() & DBUpdate() functions, program wide
 
 Changes in 12.2.3
 -----------------

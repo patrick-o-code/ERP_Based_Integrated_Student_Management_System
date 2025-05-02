@@ -26,18 +26,15 @@ if ( ! empty( $_REQUEST['attendance'] )
 	{
 		foreach ( (array) $values as $school_date => $columns)
 		{
-			$sql = "UPDATE attendance_period SET ADMIN='Y',";
-
-			foreach ( (array) $columns as $column => $value )
-			{
-				$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "',";
-			}
-
-			$sql = mb_substr( $sql, 0, -1 ) . " WHERE SCHOOL_DATE='" . $school_date . "'
-				AND PERIOD_ID='" . (int) $_REQUEST['period_id'] . "'
-				AND STUDENT_ID='" . (int) $student_id . "'";
-
-			DBQuery( $sql );
+			DBUpdate(
+				'attendance_period',
+				[ 'ADMIN' => 'Y' ] + $columns,
+				[
+					'SCHOOL_DATE' => $school_date,
+					'PERIOD_ID' => (int) $_REQUEST['period_id'],
+					'STUDENT_ID' => (int) $student_id,
+				]
+			);
 
 			UpdateAttendanceDaily( $student_id, $school_date );
 		}

@@ -49,9 +49,11 @@ if ( ! empty( $_REQUEST['values'] )
 				}
 
 				// Update CATEGORY_ with ID now we have it.
-				DBQuery( "UPDATE discipline_fields
-					SET COLUMN_NAME='CATEGORY_" . $id . "'
-					WHERE ID='" . (int) $id . "'" );
+				DBUpdate(
+					'discipline_fields',
+					[ 'COLUMN_NAME' => 'CATEGORY_' . (int) $id ],
+					[ 'ID' => (int) $id ]
+				);
 
 				$create_index = true;
 
