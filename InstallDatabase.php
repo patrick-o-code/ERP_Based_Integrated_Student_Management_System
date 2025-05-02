@@ -30,11 +30,11 @@ require_once 'database.inc.php';
 // Fix PHP Fatal error maximum execution time of 120 seconds exceeded
 set_time_limit( 240 );
 
-// rosariosis_[lang].sql files available for database translation.
-$lang = [
-	'fr' => 'French',
-	'pt_BR' => 'Portuguese (Brazil)',
-	'es' => 'Spanish',
+// rosariosis.sql files available for database translation.
+$locales = [
+	'fr_FR.utf8' => 'French',
+	'pt_BR.utf8' => 'Portuguese (Brazil)',
+	'es_ES.utf8' => 'Spanish',
 ];
 
 // Test if database is already installed first.
@@ -46,8 +46,8 @@ if ( _configTableCheck() )
 
 	$config_login = db_fetch_row( $result );
 
-	if ( empty( $_POST['lang'] )
-		|| ! in_array( $_POST['lang'], array_keys( $lang ) )
+	if ( empty( $_POST['locale'] )
+		|| ! in_array( $_POST['locale'], array_keys( $locales ) )
 		|| $config_login['CONFIG_VALUE'] !== 'No' )
 	{
 		die( 'Database already installed.' );
@@ -64,9 +64,10 @@ if ( _configTableCheck() )
 
 	$addons_sql = $rosariosis_sql = '';
 
-	$rosariosis_sql_file = 'rosariosis_' . $_POST['lang'] . '.sql';
+	// @since 12.3 Move SQL translation file to locale/[locale_code]/ folder
+	$rosariosis_sql_file = 'locale/' . $_POST['locale'] . '/rosariosis.sql';
 
-	$addons_sql_file = 'rosariosis_addons_' . $_POST['lang'] . '.sql';
+	$addons_sql_file = 'locale/' . $_POST['locale'] . '/rosariosis_addons.sql';
 
 	// Translate Database.
 	if ( file_exists( $rosariosis_sql_file ) )
@@ -133,9 +134,9 @@ if ( file_exists( 'rosariosis_addons.sql' ) )
 ?>
 <form method="POST">
 	Translate database to
-	<select name="lang">
-		<?php foreach ( $lang as $lang_code => $lang_name ) : ?>
-			<option value="<?php echo $lang_code; ?>"><?php echo $lang_name; ?></option>
+	<select name="locale">
+		<?php foreach ( $locales as $locale_code => $locale_name ) : ?>
+			<option value="<?php echo $locale_code; ?>"><?php echo $locale_name; ?></option>
 		<?php endforeach; ?>
 	</select>
 	<br />

@@ -15,6 +15,7 @@ Changes in 12.3
 - Themes: Remove unused font files, 427KB gain in FlatSIS/fonts/Lato/ & WPadmin/fonts/opensans/
 - WPadmin theme: convert ttf to woff2 font files, 105KB gain in WPadmin/fonts/opensans/
 - CSS WPadmin: Fix Dashboard tip message row too tall in stylesheet.css
+- Move SQL translation file to locale/[locale_code]/ folder
 
 Changes in 12.2.3
 -----------------
