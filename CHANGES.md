@@ -16,6 +16,7 @@ Changes in 12.3
 - WPadmin theme: convert ttf to woff2 font files, 105KB gain in WPadmin/fonts/opensans/
 - CSS WPadmin: Fix Dashboard tip message row too tall in stylesheet.css
 - Move SQL translation file to locale/[locale_code]/ folder
+- Fix Rollover order: move Grading Scales before Courses in Rollover.php
 
 Changes in 12.2.3
 -----------------
