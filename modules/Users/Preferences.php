@@ -118,6 +118,7 @@ if ( ! empty( $_REQUEST['values'] )
 		}
 
 		if ( $_REQUEST['tab'] == 'display_options'
+			&& isset( $_REQUEST['values']['Preferences']['THEME'] )
 			&& ! in_array( $_REQUEST['values']['Preferences']['THEME'], $theme_options ) )
 		{
 			// Security fix #352 selected theme does not exist
