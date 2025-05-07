@@ -29,6 +29,11 @@ function AddonMakeReadMe( $type, $addon_title, $activated = '' )
 	// Format & translate plugin title
 	$addon_title_echo = _( str_replace( '_', ' ', $addon_title ) );
 
+	if ( $addon_title === 'School_Setup' )
+	{
+		$addon_title_echo = _( 'School' );
+	}
+
 	if ( ! in_array( $addon_title, $RosarioCorePlugins )
 		&& ! in_array( $addon_title, $RosarioCoreModules )
 		&& $activated )
