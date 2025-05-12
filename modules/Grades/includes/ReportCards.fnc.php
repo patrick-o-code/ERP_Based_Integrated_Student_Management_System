@@ -1207,7 +1207,7 @@ if ( ! function_exists( 'GetReportCardsExtra' ) )
 			AND rc_cp.COURSE_PERIOD_ID=sg1.COURSE_PERIOD_ID
 			AND sg1.STUDENT_ID=ssm.STUDENT_ID";
 
-		$extra['ORDER_BY'] = "s.LAST_NAME,s.FIRST_NAME,sg1.COURSE_TITLE";
+		$extra['ORDER_BY'] = "s.LAST_NAME,s.FIRST_NAME,COURSE_TITLE";
 
 		if ( ! empty( $_REQUEST['elements']['group_subjects'] ) )
 		{
@@ -1221,7 +1221,7 @@ if ( ! function_exists( 'GetReportCardsExtra' ) )
 				$extra['ORDER_BY'] .= ",SUBJECT_SORT_ORDER IS NULL";
 			}
 
-			$extra['ORDER_BY'] .= ",SUBJECT_SORT_ORDER,SUBJECT_ID,sg1.COURSE_TITLE";
+			$extra['ORDER_BY'] .= ",SUBJECT_SORT_ORDER,SUBJECT_ID,COURSE_TITLE";
 		}
 
 		$extra['group'] = [ 'STUDENT_ID', 'COURSE_PERIOD_ID', 'MARKING_PERIOD_ID' ];

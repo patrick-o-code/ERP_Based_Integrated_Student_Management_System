@@ -19,6 +19,7 @@ Changes in 12.3
 - Fix Rollover order: move Grading Scales before Courses in Rollover.php
 - Allow object methods (callable) in $functions param in DBGet.fnc.php
 - Use DBInsert() & DBUpdate() functions, program wide
+- Fix potential SQL error SELECT DISTINCT, ORDER BY expressions must appear in select list in ReportCards.fnc.php
 
 Changes in 12.2.3
 -----------------
