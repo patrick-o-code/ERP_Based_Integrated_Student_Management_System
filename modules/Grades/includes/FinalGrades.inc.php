@@ -313,11 +313,10 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 
 		if ( ! is_null( $total ) )
 		{
-			$total *= 100;
-
-			if ( $total > 999.9 )
+			if ( $total > 9.999 )
 			{
-				$total = '999.9';
+				// Fix SQL error when percent grade > 999.9
+				$total = '9.999';
 			}
 			elseif ( $total < 0 )
 			{
@@ -327,9 +326,9 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 
 		$import_RET[$student_id] = [
 			1 => [
-				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total / 100, $cp_id, 0, 'ID' ),
-				'GRADE_LETTER' => _makeLetterGrade( $total / 100, $cp_id, 0, 'TITLE' ),
-				'GRADE_PERCENT' => is_null( $total ) ? null : round( $total, 1 ),
+				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total, $cp_id, 0, 'ID' ),
+				'GRADE_LETTER' => _makeLetterGrade( $total, $cp_id, 0, 'TITLE' ),
+				'GRADE_PERCENT' => is_null( $total ) ? null : round( $total * 100, 1 ),
 			],
 		];
 	}

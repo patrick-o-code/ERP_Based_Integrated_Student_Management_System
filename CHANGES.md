@@ -21,6 +21,7 @@ Changes in 12.3
 - Use DBInsert() & DBUpdate() functions, program wide
 - Fix potential SQL error SELECT DISTINCT, ORDER BY expressions must appear in select list in ReportCards.fnc.php
 - CSS use .legend-gray.size-1 for details label in StudentAssignments.fnc.php
+- Fix regression since 12.2.3 Save null percent: N/A final grade
 
 Changes in 12.2.3
 -----------------
