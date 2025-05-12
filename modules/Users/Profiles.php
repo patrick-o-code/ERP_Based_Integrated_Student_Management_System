@@ -26,15 +26,7 @@ if ( ! isset( $menu ) )
 
 $_REQUEST['profile_id'] = issetVal( $_REQUEST['profile_id'] );
 
-// Sanitize requested Profile ID.
-
-if ( isset( $_REQUEST['profile_id'] )
-	&& $_REQUEST['profile_id'] !== (string) (int) $_REQUEST['profile_id'] )
-{
-	$_REQUEST['profile_id'] = false;
-}
-
-if ( $_REQUEST['profile_id'] !== false )
+if ( $_REQUEST['profile_id'] != '' ) // Warning: can be '0'.
 {
 	$exceptions_RET = DBGet( "SELECT PROFILE_ID,MODNAME,CAN_USE,CAN_EDIT
 		FROM profile_exceptions
@@ -56,11 +48,8 @@ if ( $_REQUEST['profile_id'] !== false )
 if ( $_REQUEST['modfunc'] === 'delete'
 	&& AllowEdit() )
 {
-	if ( isset( $_REQUEST['profile_id'] )
-		&& (int) $_REQUEST['profile_id'] > 3 )
+	if ( (int) $_REQUEST['profile_id'] > 3 )
 	{
-		$_REQUEST['profile_id'] = (int) $_REQUEST['profile_id'];
-
 		$profile_RET = DBGet( "SELECT TITLE
 			FROM user_profiles
 			WHERE ID='" . (int) $_REQUEST['profile_id'] . "'" );
@@ -297,7 +286,7 @@ if ( $_REQUEST['modfunc'] != 'delete' )
 
 			echo '<td><a href="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&profile_id=' . $id ) . '">' .
 				// HTML add arrow to indicate sub-profile.
-				( $id > 3 ? '&#10551; ' : '' ) . _( $profile[1]['TITLE'] ) . ' &nbsp; </a>';
+				( $id > 3 ? '&#10551; ' : '' ) . _( $profile[1]['TITLE'] ) . '</a>';
 			echo '</td>';
 
 			echo '<td><div class="arrow right"></div></td>';
