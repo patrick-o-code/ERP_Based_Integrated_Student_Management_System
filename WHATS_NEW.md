@@ -2,6 +2,26 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.3
+-----------
+
+Scheduling
+- Courses: Multilingual course (and subject) title
+
+[PDF Header Footer Premium](https://www.rosariosis.org/plugins/pdf-header-footer/) plugin
+- Per program Header / Footer, sponsored by Rousseau International, Cameroon
+- Substitution codes to insert school information, page number, document title or current date, sponsored by Lamine Samate, Mali
+
+[Class Diary Premium](https://www.rosariosis.org/modules/class-diary/) module
+- Teachers can edit existing entries, sponsored by Form'alacarte, France
+
+Themes:
+- Remove unused font files, 427KB gain
+- WPadmin: convert ttf to woff2 font files, 105KB gain
+
+Move SQL translation file to locale/[locale_code]/ folder
+
+
 New in 12.2
 -----------
 
