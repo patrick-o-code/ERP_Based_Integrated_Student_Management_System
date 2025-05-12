@@ -20,6 +20,7 @@ Changes in 12.3
 - Allow object methods (callable) in $functions param in DBGet.fnc.php
 - Use DBInsert() & DBUpdate() functions, program wide
 - Fix potential SQL error SELECT DISTINCT, ORDER BY expressions must appear in select list in ReportCards.fnc.php
+- CSS use .legend-gray.size-1 for details label in StudentAssignments.fnc.php
 
 Changes in 12.2.3
 -----------------

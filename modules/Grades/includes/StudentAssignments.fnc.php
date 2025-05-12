@@ -303,6 +303,7 @@ function StudentAssignmentSubmissionOutput( $assignment_id )
  *
  * @since 4.5
  * @since 10.6 Truncate Assignment Title & Category to 36 chars only if has words > 36 chars
+ * @since 12.3 CSS use .legend-gray.size-1 for details label
  *
  * @param array $assignment Assignment details array
  */
@@ -324,14 +325,14 @@ function StudentAssignmentDrawHeaders( $assignment )
 	// Display Assignment details.
 	// Due date - Assigned date.
 	DrawHeader(
-		_( 'Due Date' ) . ': <b>' . $due_date . '</b>',
-		_( 'Assigned Date' ) . ': <b>' . $assigned_date . '</b>'
+		'<span class="legend-gray size-1">' . _( 'Due Date' ) . '</span> ' . $due_date,
+		'<span class="legend-gray size-1">' . _( 'Assigned Date' ) . '</span> ' . $assigned_date
 	);
 
 	// Course - Teacher.
 	DrawHeader(
-		_( 'Course Title' ) . ': <b>' . $assignment['COURSE_TITLE'] . '</b>',
-		_( 'Teacher' ) . ': <b>' . GetTeacher( $assignment['STAFF_ID'] ) . '</b>'
+		'<span class="legend-gray size-1">' . _( 'Course Title' ) . '</span> ' . $assignment['COURSE_TITLE'],
+		'<span class="legend-gray size-1">' . _( 'Teacher' ) . '</span> ' . GetTeacher( $assignment['STAFF_ID'] )
 	);
 
 	$type_color = '';
@@ -384,23 +385,23 @@ function StudentAssignmentDrawHeaders( $assignment )
 
 	// Title - Type.
 	DrawHeader(
-		_( 'Title' ) . ': <b>' . $title,
-		_( 'Category' ) . ': <b>' . $type_color . $category . '</b>'
+		'<span class="legend-gray size-1">' . _( 'Title' ) . '</span> ' . $title,
+		'<span class="legend-gray size-1">' . _( 'Category' ) . '</span> ' . $type_color . $category
 	);
 
 	// @since 4.4 Assignment File.
 	$file_header = $assignment['FILE'] ?
-		_( 'File' ) . ': ' . GetAssignmentFileLink( $assignment['FILE'] ) :
+		'<span class="legend-gray size-1">' . _( 'File' ) . '</span> ' . GetAssignmentFileLink( $assignment['FILE'] ) :
 		'';
 
 	// @since 11.0 Add Weight Assignments option
 	$weight_header = ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] ) ?
-		_( 'Weight' ) . ': <b>' . issetVal( $assignment['WEIGHT'], 0 ) . '</b>' :
+		'<span class="legend-gray size-1">' . _( 'Weight' ) . '</span> ' . issetVal( $assignment['WEIGHT'], 0 ) :
 		'';
 
 	// Points.
 	DrawHeader(
-		_( 'Points' ) . ': <b>' . $assignment['POINTS'] . '</b>',
+		'<span class="legend-gray size-1">' . _( 'Points' ) . '</span> ' . $assignment['POINTS'],
 		$file_header ? $file_header : $weight_header
 	);
 
