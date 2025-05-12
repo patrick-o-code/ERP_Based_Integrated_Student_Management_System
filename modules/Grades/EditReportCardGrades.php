@@ -261,7 +261,7 @@ if ( UserStudentID() )
 
 		if ( $mp_id != '0' )
 		{
-			echo PopTable( 'header', $displayname );
+			PopTable( 'header', $displayname );
 
 			echo '<fieldset><legend>' . _( 'Marking Period Statistics' ) . '</legend>';
 
@@ -287,7 +287,7 @@ if ( UserStudentID() )
 
 			echo '</fieldset>';
 
-			echo PopTable( 'footer' ) . '<br />';
+			PopTable( 'footer' ) . '<br />';
 		}
 
 		$sms_grade_level = TextInput(
@@ -319,7 +319,7 @@ if ( UserStudentID() )
 					) . ', ' . $mp['TITLE'];
 				}
 
-				echo PopTable( 'header', _( 'Add another marking period' ) );
+				PopTable( 'header', _( 'Add another marking period' ) );
 
 				echo '<table class="cellpadding-5"><tr class="st"><td>';
 				echo SelectInput(
@@ -334,7 +334,7 @@ if ( UserStudentID() )
 				echo $sms_grade_level;
 				echo '</td></tr></table>';
 
-				echo PopTable( 'footer' );
+				PopTable( 'footer' );
 			}
 		}
 		else

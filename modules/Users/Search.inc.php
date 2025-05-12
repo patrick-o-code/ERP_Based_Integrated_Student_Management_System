@@ -105,11 +105,11 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 				if ( $extra['search'] )
 				{
-					echo PopTable( 'header', _( 'Widgets' ) );
+					PopTable( 'header', _( 'Widgets' ) );
 
 					echo $extra['search'];
 
-					echo PopTable( 'footer' ) . '<br />';
+					PopTable( 'footer' ) . '<br />';
 				}
 
 				ob_start();
@@ -123,11 +123,11 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 				if ( $staff_fields_all )
 				{
-					echo PopTable( 'header', _( 'User Fields' ) );
+					PopTable( 'header', _( 'User Fields' ) );
 
 					echo $staff_fields_all;
 
-					echo PopTable( 'footer' ) . '<br />';
+					PopTable( 'footer' ) . '<br />';
 				}
 
 				echo '<a href="' . PreparePHP_SELF( $_REQUEST, [], [ 'advanced' => 'N' ] ) . '">' . _( 'Basic Search' ) . '</a>';

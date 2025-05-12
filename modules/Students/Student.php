@@ -775,7 +775,7 @@ if (  ( UserStudentID()
 
 		echo '<br />';
 
-		echo PopTable( 'header', $tabs, 'width="100%"' );
+		PopTable( 'header', $tabs, 'width="100%"' );
 
 		$PopTable_opened = true;
 
@@ -803,7 +803,7 @@ if (  ( UserStudentID()
 			}
 		}
 
-		echo PopTable( 'footer' );
+		PopTable( 'footer' );
 
 		echo '<br /><div class="center">' . SubmitButton() . '</div>';
 		echo '</form>';

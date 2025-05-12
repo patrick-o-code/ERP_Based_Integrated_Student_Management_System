@@ -44,13 +44,13 @@ if ( User( 'PROFILE' ) === 'admin' )
 
 		echo '<br />';
 
-		echo PopTable( 'header', _( 'Registration' ) );
+		PopTable( 'header', _( 'Registration' ) );
 
 		$config = RegistrationFormConfig();
 
 		RegistrationFormOutput( $config );
 
-		echo PopTable( 'footer' );
+		PopTable( 'footer' );
 	}
 
 	if ( ! $_REQUEST['modfunc'] )
@@ -179,13 +179,13 @@ else
 
 		echo '<br />';
 
-		echo PopTable( 'header', _( 'Registration' ) );
+		PopTable( 'header', _( 'Registration' ) );
 
 		$config = RegistrationFormConfig();
 
 		RegistrationFormOutput( $config );
 
-		echo PopTable( 'footer' );
+		PopTable( 'footer' );
 
 		echo '<br /><div class="center">' . SubmitButton() . '</div></form>';
 	}

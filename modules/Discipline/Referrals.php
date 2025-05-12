@@ -229,7 +229,7 @@ if ( ! $_REQUEST['modfunc']
 
 		echo '</table>';
 
-		echo PopTable( 'footer' );
+		PopTable( 'footer' );
 
 		if ( AllowEdit() )
 		{

@@ -108,20 +108,20 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 				Widgets( 'all', $extra );
 
-				echo PopTable( 'header', _( 'Widgets' ) );
+				PopTable( 'header', _( 'Widgets' ) );
 
 				echo $extra['search'];
 
-				echo PopTable( 'footer' ) . '<br />';
+				PopTable( 'footer' ) . '<br />';
 
-				echo PopTable( 'header', _( 'Student Fields' ) );
+				PopTable( 'header', _( 'Student Fields' ) );
 
 				Search(
 					'student_fields_all',
 					! empty( $extra['student_fields'] ) ? $extra['student_fields'] : []
 				);
 
-				echo PopTable( 'footer' ) . '<br />';
+				PopTable( 'footer' ) . '<br />';
 
 				echo '<a href="' . PreparePHP_SELF( $_REQUEST, [], [ 'advanced' => 'N' ] ) . '">' .
 					_( 'Basic Search' ) . '</a>';
