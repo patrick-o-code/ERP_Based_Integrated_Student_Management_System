@@ -5,6 +5,9 @@
 New in 12.3
 -----------
 
+Grades
+- Input Final Grades: "N/A" grade (empty GPA value & Breakoff) is now handled by the "Get Gradebook Grades" link
+
 Scheduling
 - Courses: Multilingual course (and subject) title
 

@@ -345,6 +345,7 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
  *
  * @since 11.8
  * @since 12.2.3 Fix SQL error when percent grade > 999.9
+ * @since 12.3 Save null percent: N/A final grade
  *
  * @global $warning Warning: Add "Final Grading Percentages are not configured."
  *
@@ -429,7 +430,14 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
 
 	foreach ( (array) $percents_RET as $student_id => $percents )
 	{
-		$total = $total_percent = 0;
+		$total_percent = 0;
+
+		/**
+		 * N/A for all children Marking Periods case
+		 *
+		 * @since 12.3 Save null percent: N/A final grade
+		 */
+		$total = null;
 
 		foreach ( (array) $percents as $percent )
 		{
@@ -450,6 +458,12 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
 				}
 			}
 
+			if ( is_null( $percent['GRADE_PERCENT'] ) )
+			{
+				// N/A final grade
+				continue;
+			}
+
 			$total += $percent['GRADE_PERCENT'] *
 				issetVal( $gradebook_config[$prefix . $percent['MARKING_PERIOD_ID']] );
 
@@ -459,11 +473,14 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
 		if ( $total_percent != 0 )
 		{
 			$total /= $total_percent;
+
+			$total /= 100;
 		}
 
-		if ( $total > 999.9 )
+		if ( $total > 9.999 )
 		{
-			$total = '999.9';
+			// Fix SQL error when percent grade > 999.9
+			$total = '9.999';
 		}
 		elseif ( $total < 0 )
 		{
@@ -472,9 +489,9 @@ function FinalGradesSemOrFYCalculate( $cp_id, $mp_id, $mode = 'continue' )
 
 		$import_RET[$student_id] = [
 			1 => [
-				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total / 100, $cp_id, 0, 'ID' ),
-				'GRADE_LETTER' => _makeLetterGrade( $total / 100, $cp_id, 0, 'TITLE' ),
-				'GRADE_PERCENT' => round( $total, 1 ),
+				'REPORT_CARD_GRADE_ID' => _makeLetterGrade( $total, $cp_id, 0, 'ID' ),
+				'GRADE_LETTER' => _makeLetterGrade( $total, $cp_id, 0, 'TITLE' ),
+				'GRADE_PERCENT' => is_null( $total ) ? null : round( $total * 100, 1 ),
 			],
 		];
 	}
