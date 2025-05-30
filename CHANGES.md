@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.3.1
+-----------------
+- CSS fix FlatSIS theme for RTL (Arabic): submenu on mouseover in rtl.css
+
 Changes in 12.3
 ---------------
 - Multilingual course title: use ParseMLField(), program wide

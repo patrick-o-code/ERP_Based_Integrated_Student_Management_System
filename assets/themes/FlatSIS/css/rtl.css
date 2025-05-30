@@ -19,7 +19,7 @@ html[dir="RTL"] #BottomButtonMenu {
 
 html[dir="RTL"] .wp-submenu {
 	right: 0;
-	left: auto;
+	left: auto !important;
 	-webkit-transition: 0s top, 0s right;
 	transition: 0s top, 0s right;
 }
@@ -39,11 +39,11 @@ html.no-touch[dir="RTL"] .menu-module:hover .menu-top:after {
 /* Edge browser fix: Do not merge focus-within styles with hover styles */
 
 html.no-touch[dir="RTL"] .menu-module:focus-within .wp-submenu {
-	right: 217px;
+	right: 224px;
 }
 
 html.no-touch[dir="RTL"] .menu-module:hover .wp-submenu {
-	right: 217px;
+	right: 224px;
 }
 
 html[dir="RTL"] #selectedModuleLink:after,
