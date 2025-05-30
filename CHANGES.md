@@ -3,7 +3,8 @@
 
 Changes in 12.3.1
 -----------------
-- CSS fix FlatSIS theme for RTL (Arabic): submenu on mouseover in rtl.css
+- CSS fix themes for RTL (Arabic): submenu on mouseover, arrows, password input, calendar days in rtl.css
+- CSS themes remove deprecated .toggle class & small adjustments in stylesheet.css & zresponsive.css
 
 Changes in 12.3
 ---------------

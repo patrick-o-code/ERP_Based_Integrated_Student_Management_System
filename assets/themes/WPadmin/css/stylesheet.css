@@ -105,6 +105,10 @@ select {
 	display: inline-block;
 }
 
+#search .postbox {
+	margin-bottom: 16px;
+}
+
 textarea {
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1737,36 +1741,6 @@ a .button + b {
 .tooltip:hover > i {
 	visibility: visible;
 	opacity: 1
-}
-
-/* @deprecated since 10.0 Toggle, CSS checkbox hack */
-
-.toggle {
-	cursor: pointer;
-}
-
-input[type=checkbox].toggle {
-	position: absolute;
-	left: -9999px;
-}
-
-.toggle ~ .toggle-me {
-	/* Hidden State */
-	display: none;
-}
-
-.toggle:checked ~ .toggle-me {
-	/* Toggled State */
-	display: block;
-}
-
-.toggle:before {
-	content: "\25b6\0000a0";
-	vertical-align: 10%
-}
-
-.toggle:checked + .toggle:before {
-	content: "\25bc\0000a0"
 }
 
 /* MiniColors */

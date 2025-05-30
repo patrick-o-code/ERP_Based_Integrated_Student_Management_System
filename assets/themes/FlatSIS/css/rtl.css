@@ -74,10 +74,12 @@ html[dir="RTL"] .tooltip > i {
 /*arrows*/
 
 html[dir="RTL"] .arrow.right:before,
-html[dir="RTL"] .switchMenu:before,
-html[dir="RTL"] .switchMenu.switched:before,
-html[dir="RTL"] .toggle:before {
+html[dir="RTL"] .switchMenu:before {
 	content: "\25c0\0000a0";
+}
+
+html[dir="RTL"] .switchMenu.switched::before {
+	content: "\25bc\0000a0";
 }
 
 /* Fix for RTL languages */
@@ -126,6 +128,33 @@ html[dir="RTL"] #LO_search {
 	padding-left: 28px;
 }
 
+html[dir="RTL"] .header2.align-right input[type="button"],
+html[dir="RTL"] .header2.align-right input[type="reset"],
+html[dir="RTL"] .header2.align-right input[type="submit"] {
+	margin: 0 16px 0 0;
+}
+
+/* Password Input */
+
+html[dir="RTL"] input:has(+ .password-toggle) {
+	padding-right: 22px;
+}
+
+/* Teacher programs */
+
+html[dir="RTL"] .teacher-programs-wrapper {
+	margin-left: 0;
+	margin-right: -9px;
+}
+
+/* Calendar event */
+
+html[dir="RTL"] .calendar-event div {
+	border-left-width: 0;
+	border-right-width: 4px;
+	border-right-style: solid;
+}
+
 /* Select2 */
 
 html[dir="RTL"] .select2-container--default .select2-selection__rendered {
@@ -142,6 +171,17 @@ html[dir="RTL"] .select2-container--default .select2-selection__rendered {
 		left: 0;
 		right: auto;
 	}
+	.calendar-day.hover:hover > table {
+		left: auto;
+		right: 0;
+		box-shadow: -2px 2px 2px 1px #9f9f9f
+	}
+	/*fridays, saturdays*/
+	.calendar-day.thu-fri-sat.hover:hover > table {
+		left: 0;
+		right: auto;
+		box-shadow: 2px 2px 2px 1px #9f9f9f
+	}
 }
 
 /*mobile + tablet vertical*/
@@ -150,5 +190,17 @@ html[dir="RTL"] .select2-container--default .select2-selection__rendered {
 	html[dir="RTL"] .header1 h2 {
 		padding-left: 0;
 		padding-right: 42px;
+	}
+}
+
+@media only screen and (max-width: 479px) {
+	html[dir="RTL"] .st > .align-right,
+	html[dir="RTL"] .st > .center {
+		text-align: right;
+	}
+	html[dir="RTL"] .header2.align-right input[type="button"],
+	html[dir="RTL"] .header2.align-right input[type="reset"],
+	html[dir="RTL"] .header2.align-right input[type="submit"] {
+		margin: 0 0 0 16px;
 	}
 }

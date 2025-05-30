@@ -119,6 +119,10 @@ select {
 	width: 100%;
 }
 
+#search .postbox {
+	margin-bottom: 16px;
+}
+
 /* Fix date (year and day) select width */
 
 #search #general_table select[name^="day_"],
@@ -1099,7 +1103,7 @@ textarea {
 .markdown-to-html th,
 .markdown-to-html td {
 	border: 1px solid #bbb;
-	padding: 5px;
+	padding: 5px 10px;
 }
 
 .markdown-to-html {
@@ -1824,36 +1828,6 @@ a .button + b {
 .tooltip:hover > i {
 	visibility: visible;
 	opacity: 1
-}
-
-/* @deprecated since 10.0 Toggle, CSS checkbox hack */
-
-.toggle {
-	cursor: pointer;
-}
-
-input[type=checkbox].toggle {
-	position: absolute;
-	left: -9999px;
-}
-
-.toggle ~ .toggle-me {
-	/* Hidden State */
-	display: none;
-}
-
-.toggle:checked ~ .toggle-me {
-	/* Toggled State */
-	display: block;
-}
-
-.toggle:before {
-	content: "\25b6\0000a0";
-	vertical-align: 10%
-}
-
-.toggle:checked + .toggle:before {
-	content: "\25bc\0000a0"
 }
 
 /* MiniColors */

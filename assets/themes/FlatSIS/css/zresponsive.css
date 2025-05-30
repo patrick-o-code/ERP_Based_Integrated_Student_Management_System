@@ -67,10 +67,10 @@
 		margin-bottom: 5px;
 	}
 	.adminmenu a {
-		padding: 2px 12px;
+		padding: 3px 12px;
 	}
 	.wp-submenu a {
-		padding: 5px 12px;
+		padding: 6px 12px;
 	}
 	#menu form {
 		padding: 5px 12px;
@@ -87,8 +87,15 @@
 	.no-touch .menu-module:hover .menu-top:after {
 		content: "";
 	}
+	.no-touch .menu-module:hover .wp-submenu,
+	.no-touch .menu-module:focus-within .wp-submenu,
 	.no-touch .menu-module:hover .wp-submenu {
 		top: -1000em;
+		left: 0;
+	}
+	.no-touch .menu-module .wp-submenu,
+	.no-touch .menu-module:hover .wp-submenu {
+		width: 100%;
 	}
 	#body {
 		width: auto !important;

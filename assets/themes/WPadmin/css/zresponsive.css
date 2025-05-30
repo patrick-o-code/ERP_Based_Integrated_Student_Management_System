@@ -74,7 +74,7 @@
 		padding: 4px 5px 2px 11px;
 	}
 	.wp-submenu a {
-		padding: 4px 11px
+		padding: 5px 11px
 	}
 	#menu form {
 		padding: 5px 11px;
@@ -89,8 +89,15 @@
 	.no-touch .menu-module:hover .menu-top:after {
 		content: "";
 	}
+	.no-touch .menu-module:hover .wp-submenu,
+	.no-touch .menu-module:focus-within .wp-submenu,
 	.no-touch .menu-module:hover .wp-submenu {
 		top: -1000em;
+		left: 0;
+	}
+	.no-touch .menu-module .wp-submenu,
+	.no-touch .menu-module:hover .wp-submenu {
+		width: 100%;
 	}
 	#body {
 		width: auto !important;
