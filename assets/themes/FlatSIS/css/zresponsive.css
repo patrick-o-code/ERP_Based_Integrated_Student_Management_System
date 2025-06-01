@@ -384,13 +384,13 @@
 		top: 0;
 		left: 0;
 		background-color: inherit;
-		box-shadow: 2px 2px 2px 1px #9f9f9f
+		box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1)
 	}
 	/*fridays, saturdays*/
 	.calendar-day.thu-fri-sat.hover:hover > table {
 		right: 0;
 		left: auto;
-		box-shadow: -2px 2px 2px 1px #9f9f9f
+		box-shadow: -2px 2px 2px 1px rgba(0, 0, 0, 0.1)
 	}
 	/* Scheduling Requests Courses div */
 	#courses_div {

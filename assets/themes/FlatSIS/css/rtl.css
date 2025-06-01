@@ -171,16 +171,16 @@ html[dir="RTL"] .select2-container--default .select2-selection__rendered {
 		left: 0;
 		right: auto;
 	}
-	.calendar-day.hover:hover > table {
+	html[dir="RTL"] .calendar-day.hover:hover > table {
 		left: auto;
 		right: 0;
-		box-shadow: -2px 2px 2px 1px #9f9f9f
+		box-shadow: -2px 2px 2px 1px rgba(0, 0, 0, 0.1)
 	}
 	/*fridays, saturdays*/
-	.calendar-day.thu-fri-sat.hover:hover > table {
+	html[dir="RTL"] .calendar-day.thu-fri-sat.hover:hover > table {
 		left: 0;
 		right: auto;
-		box-shadow: 2px 2px 2px 1px #9f9f9f
+		box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1)
 	}
 }
 
