@@ -5,6 +5,7 @@ Changes in 12.3.1
 -----------------
 - CSS fix themes for RTL (Arabic): submenu on mouseover, arrows, password input, calendar days in rtl.css
 - CSS themes remove deprecated .toggle class & small adjustments in stylesheet.css & zresponsive.css
+- Default School Year: 2025 (2025-2026) in config.inc.sample.php, rosariosis.sql & rosariosis_mysql.sql
 
 Changes in 12.3
 ---------------

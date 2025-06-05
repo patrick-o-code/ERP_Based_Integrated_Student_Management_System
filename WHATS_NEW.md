@@ -5,6 +5,8 @@
 New in 12.3
 -----------
 
+Default School Year: 2025 (2025-2026)
+
 Grades
 - Input Final Grades: "N/A" grade (empty GPA value & Breakoff) is now handled by the "Get Gradebook Grades" link
 

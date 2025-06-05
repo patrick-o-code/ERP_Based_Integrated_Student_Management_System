@@ -66,13 +66,13 @@ $wkhtmltopdfPath = '';
 /**
  * Default school year
  *
- * Do NOT change on installation
+ * Do NOT change during installation
  * Change after rollover
  * Should match the database to be able to login
  *
  * @see School > Rollover program
  */
-$DefaultSyear = '2024';
+$DefaultSyear = '2025';
 
 
 /**
