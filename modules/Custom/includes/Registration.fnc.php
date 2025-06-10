@@ -461,6 +461,8 @@ function RegistrationAddressFields( $name, $categories )
  *
  * @uses RegistrationStudentFields()
  *
+ * @since 12.4 HTML use header4 instead of nested fieldset
+ *
  * @param array $student Student config.
  */
 function RegistrationStudent( $student )
@@ -471,11 +473,9 @@ function RegistrationStudent( $student )
 			FROM students
 			WHERE STUDENT_ID='" . UserStudentID() . "'" );
 
-		echo '<br /><fieldset><legend>' . sprintf( _( 'Information about %s' ), $student_name ) . '</legend>';
+		echo '<h4>' . sprintf( _( 'Information about %s' ), $student_name ) . '</h4>';
 
 		RegistrationStudentFields( 'students', $student['fields'] );
-
-		echo '</fieldset>';
 	}
 }
 
@@ -498,15 +498,22 @@ function RegistrationStudentFields( $name, $categories )
 
 	$category_ids = explode( '||', trim( $categories, '||' ) );
 
-	$separator = '';
-
 	foreach ( (array) $category_ids as $category_id )
 	{
 		$category_title = DBGetOne( "SELECT TITLE
 			FROM student_field_categories
 			WHERE ID='" . (int) $category_id . "'" );
 
-		echo '<br /><fieldset class="cellpadding-5"><legend>' . ParseMLField( $category_title ) . '</legend>';
+		if ( empty( $br ) )
+		{
+			$br = '<br>';
+		}
+		else
+		{
+			echo $br;
+		}
+
+		echo '<fieldset class="cellpadding-5"><legend>' . ParseMLField( $category_title ) . '</legend>';
 
 		$_REQUEST['category_id'] = $category_id;
 

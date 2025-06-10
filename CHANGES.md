@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.4
+---------------
+- HTML use header4 instead of nested fieldset in Registration.fnc.php
+
 Changes in 12.3.1
 -----------------
 - CSS fix themes for RTL (Arabic): submenu on mouseover, arrows, password input, calendar days in rtl.css
