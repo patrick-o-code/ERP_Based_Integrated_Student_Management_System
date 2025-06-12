@@ -66,8 +66,12 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 				}
 			}
 
-			echo '<label><input type="checkbox" name="include_inactive" value="Y" /> ' .
-			_( 'Include Parents of Inactive Students' ) . '</label><br />';
+			if ( empty( $extra['profile'] )
+				|| $extra['profile'] === 'parent' )
+			{
+				echo '<label><input type="checkbox" name="include_inactive" value="Y" /> ' .
+				_( 'Include Parents of Inactive Students' ) . '</label><br />';
+			}
 
 			echo '<br />' . Buttons( _( 'Submit' ) ) . '</div><br />';
 
