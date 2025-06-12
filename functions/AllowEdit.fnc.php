@@ -107,7 +107,7 @@ function AllowEdit( $modname = false, $cache_all = false )
 }
 
 /**
- * Temporary Allow Edit, for non admin users
+ * Temporary Allow Edit, for non admin users or admin with "Can Use" only
  * Useful when calling `*Input()` functions that require AllowEdit()
  *
  * @since 12.4
@@ -225,7 +225,8 @@ function AllowUse( $modname = false, $cache_all = false )
 
 	if ( in_array( $modname, $allow_misc ) )
 	{
-		return true;
+		// @since 12.4 Security: allow everyone to use Portal, allow admin only to use popups
+		return $modname === 'misc/Portal.php' || User( 'PROFILE' ) === 'admin';
 	}
 
 	if ( isset( $_REQUEST['modname'] ) && $modname === $_REQUEST['modname'] )

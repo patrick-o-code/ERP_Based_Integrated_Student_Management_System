@@ -7,6 +7,7 @@ Changes in 12.4
 - New "Add / Drop Breakdown over Time" program in AddDropBreakdownTime.php
 - Hide "Include Parents of Inactive Students" checkbox if profile is not parent in Users/Search.inc.php
 - Add AllowEditTemporary() & AllowEditTeacher() functions in AllowEdit.fnc.php
+- Security: Security: allow everyone to use Portal, allow admin only to use popups in AllowEdit.fnc.php
 
 Changes in 12.3.1
 -----------------
