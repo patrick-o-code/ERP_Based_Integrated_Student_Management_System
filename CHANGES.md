@@ -4,6 +4,7 @@
 Changes in 12.4
 ---------------
 - HTML use header4 instead of nested fieldset in Registration.fnc.php
+- New "Add / Drop Breakdown over Time" program in AddDropBreakdownTime.php
 
 Changes in 12.3.1
 -----------------
