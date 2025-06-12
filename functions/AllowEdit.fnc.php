@@ -106,6 +106,74 @@ function AllowEdit( $modname = false, $cache_all = false )
 	return ! empty( $_ROSARIO['AllowEdit'][ $modname ] );
 }
 
+/**
+ * Temporary Allow Edit, for non admin users
+ * Useful when calling `*Input()` functions that require AllowEdit()
+ *
+ * @since 12.4
+ *
+ * @param string $mode Mode: start|stop.
+ *
+ * @return bool False if wrong mode.
+ */
+function AllowEditTemporary( $mode = 'start' )
+{
+	global $_ROSARIO;
+
+	static $allow_edit_tmp = false;
+
+	if ( $mode === 'start' )
+	{
+		if ( ! AllowEdit() )
+		{
+			// Temporary AllowEdit for non admin users for SelectIpnut display.
+			$_ROSARIO['allow_edit'] = true;
+
+			$allow_edit_tmp = true;
+		}
+
+		return true;
+	}
+
+	if ( $mode === 'stop' )
+	{
+		if ( $allow_edit_tmp )
+		{
+			// Remove temporary AllowEdit for non admin users for input display.
+			$_ROSARIO['allow_edit'] = false;
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Force Allow Edit, for teacher users
+ * Useful when calling `*Input()` functions that require AllowEdit()
+ * If running as a teacher program then `$_ROSARIO['allow_edit']`
+ * will already be set according to admin permissions
+ *
+ * @since 12.4
+ *
+ * @return bool False if not teacher or $_ROSARIO['allow_edit'] already set according to admin permissions.
+ */
+function AllowEditTeacher()
+{
+	global $_ROSARIO;
+
+	if ( User( 'PROFILE' ) === 'teacher'
+		&& ! isset( $_ROSARIO['allow_edit'] ) )
+	{
+		// Temporary AllowEdit for non admin users for input display.
+		$_ROSARIO['allow_edit'] = true;
+
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Can Use program check

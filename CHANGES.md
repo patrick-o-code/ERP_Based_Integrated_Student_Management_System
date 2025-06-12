@@ -6,6 +6,7 @@ Changes in 12.4
 - HTML use header4 instead of nested fieldset in Registration.fnc.php
 - New "Add / Drop Breakdown over Time" program in AddDropBreakdownTime.php
 - Hide "Include Parents of Inactive Students" checkbox if profile is not parent in Users/Search.inc.php
+- Add AllowEditTemporary() & AllowEditTeacher() functions in AllowEdit.fnc.php
 
 Changes in 12.3.1
 -----------------
