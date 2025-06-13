@@ -57,13 +57,15 @@ if ( ! empty( $_REQUEST['assignment_id'] ) )
 
 	DrawHeader( '<a href="' . URLEscape( $assignments_link ) . '">&laquo; ' . _( 'Back' ) . '</a>' );
 
-	$_ROSARIO['allow_edit'] = true;
-
 	$form_action = PreparePHP_SELF( $_REQUEST, [], [ 'modfunc' => 'submit' ] );
 
 	echo '<form method="POST" action="' . $form_action . '">';
 
+	AllowEditTemporary( 'start' );
+
 	StudentAssignmentSubmissionOutput( $_REQUEST['assignment_id'] );
+
+	AllowEditTemporary( 'stop' );
 
 	echo '</form>';
 }

@@ -190,6 +190,8 @@ if ( ! $_REQUEST['modfunc'] )
 {
 	echo '<form action="' . PreparePHP_SELF( $_REQUEST ) . '" method="GET">';
 
+	AllowEditTemporary( 'start' );
+
 	$select_options = [
 		'' => _( 'Enrolled' ) . ' / ' . _( 'Dropped' ),
 		'enrolled' => _( 'Enrolled' ),
@@ -205,6 +207,8 @@ if ( ! $_REQUEST['modfunc'] )
 		'onchange="ajaxPostForm(this.form);"',
 		false
 	);
+
+	AllowEditTemporary( 'stop' );
 
 	$all_schools = '';
 

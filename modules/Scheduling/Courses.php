@@ -744,12 +744,7 @@ if (  ( ! $_REQUEST['modfunc']
 	if ( User( 'PROFILE' ) !== 'admin' )
 	{
 		// @since 12.1 Add "Show only my courses" checkbox
-		if ( empty( $_ROSARIO['allow_edit'] ) )
-		{
-			$_ROSARIO['allow_edit'] = true;
-
-			$allow_edit_tmp = true;
-		}
+		AllowEditTemporary( 'start' );
 
 		$show_only_my_courses_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
 			( $show_only_my_courses ? '' : '&show_only_my_courses=Y' );
@@ -770,10 +765,7 @@ if (  ( ! $_REQUEST['modfunc']
 
 		DrawHeader( '', $show_only_my_courses_input );
 
-		if ( ! empty( $allow_edit_tmp ) )
-		{
-			$_ROSARIO['allow_edit'] = false;
-		}
+		AllowEditTemporary( 'stop' );
 	}
 
 	if ( $_REQUEST['modfunc'] !== 'choose_course' )

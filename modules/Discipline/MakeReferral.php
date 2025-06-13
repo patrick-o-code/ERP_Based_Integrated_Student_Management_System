@@ -135,8 +135,7 @@ if ( ! $_REQUEST['modfunc'] )
 {
 	if ( $_REQUEST['search_modfunc'] === 'list' )
 	{
-		//FJ teachers need AllowEdit (to edit the input fields)
-		$_ROSARIO['allow_edit'] = true;
+		AllowEditTeacher();
 
 		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
 			'&modfunc=save&include_inactive=' . $_REQUEST['include_inactive']  ) . '" method="POST">';

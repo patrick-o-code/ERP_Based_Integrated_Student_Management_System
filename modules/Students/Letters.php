@@ -4,10 +4,7 @@ require_once 'ProgramFunctions/MarkDownHTML.fnc.php';
 require_once 'ProgramFunctions/Template.fnc.php';
 require_once 'ProgramFunctions/Substitutions.fnc.php';
 
-if ( User( 'PROFILE' ) === 'teacher' )
-{
-	$_ROSARIO['allow_edit'] = true;
-}
+AllowEditTeacher();
 
 if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )

@@ -47,7 +47,7 @@ $course_id = DBGetOne( "SELECT COURSE_ID
 	FROM course_periods
 	WHERE COURSE_PERIOD_ID='" . UserCoursePeriod() . "'" );
 
-$_ROSARIO['allow_edit'] = true;
+AllowEditTeacher();
 
 // Add eventual Dates to $_REQUEST['tables'].
 AddRequestedDates( 'tables', 'post' );

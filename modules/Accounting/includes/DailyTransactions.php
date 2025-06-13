@@ -362,15 +362,7 @@ function _makeCurrency( $value, $column )
  */
 function _categorySelect( $category )
 {
-	global $_ROSARIO;
-
-	// Temporary AllowEdit so menu can be viewed in read-only
-	if ( ! AllowEdit() )
-	{
-		$_ROSARIO['allow_edit'] = true;
-
-		$allow_edit_tmp = true;
-	}
+	AllowEditTemporary( 'start' );
 
 	// Build options menu
 	$category_RET = DBGet( "SELECT ID,TITLE,SHORT_NAME,TYPE
@@ -412,11 +404,7 @@ function _categorySelect( $category )
 		false
 	);
 
-	// Temporary AllowEdit removed
-	if ( ! empty( $allow_edit_tmp ) )
-	{
-		$_ROSARIO['allow_edit'] = false;
-	}
+	AllowEditTemporary( 'stop' );
 
 	return $menu;
 }

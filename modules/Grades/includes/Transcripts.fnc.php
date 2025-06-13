@@ -25,8 +25,7 @@ if ( ! function_exists( 'TranscriptsIncludeForm' ) )
 	 */
 	function TranscriptsIncludeForm( $include_on_title = 'Include on Transcript', $mailing_labels = true )
 	{
-		global $extra,
-			$_ROSARIO;
+		global $extra;
 
 		$return = '<table class="width-100p">';
 
@@ -64,12 +63,11 @@ if ( ! function_exists( 'TranscriptsIncludeForm' ) )
 			'total' => _( 'Total' ),
 		];
 
-		if ( User( 'PROFILE' ) !== 'admin' )
-		{
-			$_ROSARIO['allow_edit'] = true;
-		}
+		AllowEditTemporary( 'start' );
 
 		$return .= '<br /><br />' . RadioInput( '', 'showgpa_or_total', _( 'Last row' ), $gpa_or_total_options );
+
+		AllowEditTemporary( 'stop' );
 
 		// Limit Cetificate to admin.
 

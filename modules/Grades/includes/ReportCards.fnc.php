@@ -31,8 +31,7 @@ if ( ! function_exists( 'ReportCardsIncludeForm' ) )
 	 */
 	function ReportCardsIncludeForm( $include_on_title = 'Include on Report Card', $mailing_labels = true )
 	{
-		global $extra,
-			$_ROSARIO;
+		global $extra;
 
 		$other_attendance_codes = _getOtherAttendanceCodes();
 
@@ -148,10 +147,7 @@ if ( ! function_exists( 'ReportCardsIncludeForm' ) )
 				'gpa' => _( 'GPA' ),
 			];
 
-			if ( User( 'PROFILE' ) !== 'admin' )
-			{
-				$_ROSARIO['allow_edit'] = true;
-			}
+			AllowEditTemporary( 'start' );
 
 			$return .= '<td>' . MultipleCheckboxInput( '', 'elements[last_row][]', _( 'Last row' ), $gpa_or_total_options ) . '</td>';
 
@@ -163,6 +159,8 @@ if ( ! function_exists( 'ReportCardsIncludeForm' ) )
 			];
 
 			$return .= '<td>' . MultipleCheckboxInput( '', 'elements[last_row][]', _( 'Last row' ), $class_rank_or_average_options ) . '</td>';
+
+			AllowEditTemporary( 'stop' );
 		}
 
 		$return .= '</tr></table></td></tr>';

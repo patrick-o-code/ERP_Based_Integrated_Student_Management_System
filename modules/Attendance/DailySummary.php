@@ -15,15 +15,8 @@ $report_link = PreparePHP_SELF(
 	[ 'report', 'attendance' ]
 ) . '&report=';
 
-$tmp_allow_edit = false;
-
-if ( ! AllowEdit() )
-{
-	// Temporary AllowEdit for non admin users for SelectIpnut display.
-	$_ROSARIO['allow_edit'] = true;
-
-	$tmp_allow_edit = true;
-}
+// Temporary AllowEdit for non admin users for SelectInput display.
+AllowEditTemporary( 'start' );
 
 $report_select = SelectInput(
 	$_REQUEST['report'],
@@ -40,11 +33,7 @@ $report_select = SelectInput(
 	false
 );
 
-if ( $tmp_allow_edit )
-{
-	// Remove temporary AllowEdit for non admin users for SelectIpnut display.
-	$_ROSARIO['allow_edit'] = false;
-}
+AllowEditTemporary( 'stop' );
 
 DrawHeader( $report_select );
 

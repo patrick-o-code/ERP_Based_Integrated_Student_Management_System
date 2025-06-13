@@ -52,23 +52,11 @@ if ( ! $_REQUEST['modfunc'] )
 {
 	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname']  ) . '" method="GET">';
 
-	if ( ! AllowEdit() )
-	{
-		$_ROSARIO['allow_edit'] = true;
-
-		$allow_edit_tmp = true;
-	}
-
 	DrawHeader(
-		_( 'From' ) . ' ' . DateInput( $start_date, 'start', '', false, false ) . ' - ' .
-		_( 'To' ) . ' ' . DateInput( $end_date, 'end', '', false, false ) .
+		_( 'From' ) . ' ' . PrepareDate( $start_date, '_start', false ) . ' - ' .
+		_( 'To' ) . ' ' . PrepareDate( $end_date, '_end', false ) .
 		Buttons( _( 'Go' ) )
 	);
-
-	if ( ! empty( $allow_edit_tmp ) )
-	{
-		$_ROSARIO['allow_edit'] = false;
-	}
 
 	echo '</form>';
 

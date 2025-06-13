@@ -381,8 +381,6 @@ function _sendPasswordResetEmail( $user_id, $user_type, $email )
 
 function _passwordResetForm( $hash, $user_id )
 {
-	global $_ROSARIO;
-
 	if ( ! $hash
 		|| ! $user_id )
 	{
@@ -399,7 +397,7 @@ function _passwordResetForm( $hash, $user_id )
 		<?php PopTable( 'header', _( 'Reset your password' ) ); ?>
 
 			<?php
-			$_ROSARIO['allow_edit'] = true;
+			AllowEditTemporary( 'start' );
 
 			echo PasswordInput(
 				'',
@@ -408,7 +406,7 @@ function _passwordResetForm( $hash, $user_id )
 				'strength maxlength="42" tabindex="1" required'
 			);
 
-			$_ROSARIO['allow_edit'] = false;
+			AllowEditTemporary( 'stop' );
 			?>
 
 			<br />

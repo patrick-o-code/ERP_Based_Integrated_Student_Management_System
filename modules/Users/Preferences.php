@@ -516,9 +516,7 @@ if ( ! $_REQUEST['modfunc'] )
 
 	if ( $_REQUEST['tab'] === 'password' )
 	{
-		$allow_edit_tmp = AllowEdit();
-
-		$_ROSARIO['allow_edit'] = true;
+		AllowEditTemporary( 'start' );
 
 		//FJ password fields are required
 		echo '<table class="cellpadding-5"><tr><td>';
@@ -539,7 +537,7 @@ if ( ! $_REQUEST['modfunc'] )
 
 		echo '</td></tr></table>';
 
-		$_ROSARIO['allow_edit'] = $allow_edit_tmp;
+		AllowEditTemporary( 'stop' );
 	}
 
 	// Student Fields tab.

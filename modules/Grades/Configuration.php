@@ -102,8 +102,7 @@ echo '<fieldset><legend>' . _( 'Assignments' ) . '</legend><table class="cellpad
 
 if ( ! empty( $grades ) )
 {
-	// Allow Edit fields for teachers.
-	$_ROSARIO['allow_edit'] = true;
+	AllowEditTeacher();
 
 	$rounding_options = [
 		'UP' => _( 'Up' ),
@@ -297,8 +296,7 @@ $grades[ $course_period_id ][ $i ] = $grades[ $course_period_id ][ $i ]['TITLE']
 
 if ( ! empty( $grades ) )
 {
-	// Allow Edit fields for teachers.
-	$_ROSARIO['allow_edit'] = true;
+	AllowEditTeacher();
 
 	echo '<fieldset><legend>' . _( 'Score Breakoff Points' ) . '</legend>';
 

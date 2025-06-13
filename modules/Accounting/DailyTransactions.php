@@ -37,14 +37,7 @@ else
  */
 function _programMenu( $program )
 {
-	global $_ROSARIO;
-
-	if ( ! AllowEdit() )
-	{
-		$_ROSARIO['allow_edit'] = true;
-
-		$allow_edit_tmp = true;
-	}
+	AllowEditTemporary( 'start' );
 
 	$link = PreparePHP_SELF(
 		[],
@@ -64,10 +57,7 @@ function _programMenu( $program )
 		false
 	);
 
-	if ( ! empty( $allow_edit_tmp ) )
-	{
-		$_ROSARIO['allow_edit'] = false;
-	}
+	AllowEditTemporary( 'stop' );
 
 	return $menu;
 }

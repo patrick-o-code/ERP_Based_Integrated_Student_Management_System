@@ -215,7 +215,7 @@ if ( ! function_exists( 'FirstLoginFormFields' ) )
 		if ( ( $mode === 'after_install' && User( 'STAFF_ID' ) === '1' )
 			|| $mode === 'force_password_change' )
 		{
-			$_ROSARIO['allow_edit'] = true;
+			AllowEditTemporary( 'start' );
 
 			// @since 11.1 Prevent using App name, username, or email in the password
 			$_ROSARIO['PasswordInput']['user_inputs'] = [
@@ -230,6 +230,8 @@ if ( ! function_exists( 'FirstLoginFormFields' ) )
 				_( 'New Password' ),
 				'required strength autofocus'
 			);
+
+			AllowEditTemporary( 'stop' );
 		}
 
 		return $fields;
@@ -251,7 +253,6 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 	function FirstLoginPoll()
 	{
 		global $locale,
-			$_ROSARIO,
 			$DatabaseType,
 			$db_connection;
 
@@ -303,7 +304,7 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 
 		$fields[] = '<input type="hidden" name="php_version" value="' . AttrEscape( $php_version ) . '">';
 
-		$_ROSARIO['allow_edit'] = true;
+		AllowEditTemporary( 'start' );
 
 		$usage_options = [
 			'testing' => _( 'Testing' ),
@@ -333,11 +334,11 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			'0',
 			'students',
 			_( 'Students' ),
-			'type="number" min="0" max="99999" length="4"',
+			'type="number" min="0" max="99999"',
 			false
 		);
 
-		$_ROSARIO['allow_edit'] = false;
+		AllowEditTemporary( 'stop' );
 
 		$fields[] = '<div class="center">' . Buttons( _( 'Submit' ), _( 'Cancel' ) ) . '</div>';
 

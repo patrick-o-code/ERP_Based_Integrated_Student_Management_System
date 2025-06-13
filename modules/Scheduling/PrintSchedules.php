@@ -350,11 +350,7 @@ if ( ! $_REQUEST['modfunc'] )
 
 		$extra['header_right'] = Buttons( _( 'Create Schedules for Selected Students' ) );
 
-		if ( User( 'PROFILE' ) !== 'admin' )
-		{
-			// Allow edit for non admins so we can use Input functions.
-			$_ROSARIO['allow_edit'] = true;
-		}
+		AllowEditTemporary( 'start' );
 
 		$extra['extra_header_left'] = '<table class="cellpadding-5"><tr><td>' . SelectInput(
 			'',
@@ -408,6 +404,8 @@ if ( ! $_REQUEST['modfunc'] )
 		) . '</td></tr>';
 
 		$extra['extra_header_left'] .= '<tr><td><table>';
+
+		AllowEditTemporary( 'stop' );
 
 		Widgets( 'mailing_labels' );
 

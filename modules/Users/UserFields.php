@@ -13,8 +13,6 @@ $_REQUEST['category_id'] = issetVal( $_REQUEST['category_id'], '' );
 
 DrawHeader( ProgramTitle() );
 
-//$_ROSARIO['allow_edit'] = true;
-
 if ( isset( $_POST['tables'] )
 	&& is_array( $_POST['tables'] )
 	&& AllowEdit() )
