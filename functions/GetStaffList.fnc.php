@@ -22,6 +22,8 @@
  * please make sure you sum SQL queries to COUNT total results before ListOutput().
  * @see example in Student_Billing/includes/DailyTransactions.php
  *
+ * @since 12.4 Remove unused `$extra['staff_fields']['view']`
+ *
  * @see Search()
  *
  * @uses StaffWidgets()          add Staff Widgets SQL to $extra
@@ -118,12 +120,7 @@ function GetStaffList( &$extra = [] )
 				FROM program_user_config
 				WHERE TITLE=cast(cf.ID AS char(10))
 				AND PROGRAM='StaffFieldsView'
-				AND USER_ID='" . User('STAFF_ID') . "')='Y'" .
-				( ! empty( $extra['staff_fields']['view'] ) ?
-					" OR cf.ID IN (" . $extra['staff_fields']['view'] . ")" :
-					''
-				) .
-			")
+				AND USER_ID='" . User('STAFF_ID') . "')='Y')
 			AND cf.CATEGORY_ID=sfc.ID
 			ORDER BY sfc.SORT_ORDER IS NULL,sfc.SORT_ORDER,cf.SORT_ORDER,cf.TITLE" );
 
@@ -153,44 +150,6 @@ function GetStaffList( &$extra = [] )
 		}
 
 		$extra['SELECT'] .= $select;
-	}
-	else
-	{
-		if ( empty( $extra['columns_after'] ) )
-		{
-			$extra['columns_after'] = [];
-		}
-
-		if ( ! empty( $extra['staff_fields']['view'] ) )
-		{
-			$view_fields_RET = DBGet( "SELECT cf.ID,cf.TYPE,cf.TITLE
-				FROM staff_fields cf
-				WHERE cf.ID IN (" . $extra['staff_fields']['view'] . ")
-				ORDER BY cf.SORT_ORDER IS NULL,cf.SORT_ORDER,cf.TITLE" );
-
-			foreach ( $view_fields_RET as $field )
-			{
-				$field_key = 'CUSTOM_' . $field['ID'];
-				$extra['columns_after'][ $field_key ] = $field['TITLE'];
-
-				if ( $field['ID'] === '200000000' )
-				{
-					$field_key = 'EMAIL';
-
-					$functions[ $field_key ] = 'makeEmail';
-				}
-				elseif ( $field['ID'] === '200000001' )
-				{
-					$functions[ $field_key ] = 'makePhone';
-				}
-				else
-				{
-					$functions[ $field_key ] = makeFieldTypeFunction( $field['TYPE'], 'staff' );
-				}
-			}
-
-			$extra['SELECT'] .= $select;
-		}
 	}
 
 	if ( User( 'PROFILE' ) !== 'admin' )
@@ -344,21 +303,11 @@ function appendStaffSQL( $sql, $extra = [] )
 		&& $_REQUEST['usrid'] )
 	{
 		// FJ allow comma separated list of staff IDs
-		$usrid_array = explode( ',', $_REQUEST['usrid'] );
-
-		$usrids = [];
-
-		foreach ( $usrid_array as $usrid )
-		{
-			if ( is_numeric( $usrid ) )
-			{
-				$usrids[] = $usrid;
-			}
-		}
+		$usrids = explode( ',', $_REQUEST['usrid'] );
 
 		if ( $usrids )
 		{
-			$usrids = implode( ',', $usrids );
+			$usrids = implode( ',', array_map( 'intval', $usrids ) );
 
 			$sql .= " AND s.STAFF_ID IN (" . $usrids . ")";
 

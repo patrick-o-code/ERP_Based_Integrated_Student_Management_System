@@ -37,12 +37,8 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 			StaffWidgets( 'user', $extra );
 
-			Search(
-				'staff_fields',
-				isset( $extra['staff_fields'] ) && is_array( $extra['staff_fields'] ) ?
-				$extra['staff_fields'] :
-				[]
-			);
+			// @since 12.4 Remove unused `$extra['staff_fields']['view']`
+			Search( 'staff_fields', [] );
 
 			echo '</table><div class="center">';
 
@@ -118,10 +114,8 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 				ob_start();
 
-				Search(
-					'staff_fields_all',
-					! empty( $extra['staff_fields'] ) ? $extra['staff_fields'] : []
-				);
+				// @since 12.4 Remove unused `$extra['staff_fields']['view']`
+				Search( 'staff_fields_all', [] );
 
 				$staff_fields_all = ob_get_clean();
 
@@ -134,7 +128,7 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 					PopTable( 'footer' ) . '<br />';
 				}
 
-				echo '<a href="' . PreparePHP_SELF( $_REQUEST, [], [ 'advanced' => 'N' ] ) . '">' . _( 'Basic Search' ) . '</a>';
+				echo '<a href="' . PreparePHP_SELF( $_REQUEST, [ 'advanced' ] ) . '">' . _( 'Basic Search' ) . '</a>';
 			}
 			else
 			{

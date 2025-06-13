@@ -19,6 +19,8 @@
  * please make sure you sum SQL queries to COUNT total results before ListOutput().
  * @see example in Student_Billing/includes/DailyTransactions.php
  *
+ * @since 12.4 Remove unused `$extra['student_fields']['view']`
+ *
  * @see Search()
  *
  * @uses Widgets()               add Widgets SQL to $extra
@@ -126,10 +128,7 @@ function GetStuList( &$extra = [] )
 				FROM program_user_config
 				WHERE TITLE=cast(cf.ID AS char(10))
 				AND PROGRAM='StudentFieldsView'
-				AND USER_ID='" . User( 'STAFF_ID' ) . "')='Y'" .
-				( ! empty( $extra['student_fields']['view'] ) ?
-					" OR cf.ID IN (" . $extra['student_fields']['view'] . ")" :
-					'' ) . ")
+				AND USER_ID='" . User( 'STAFF_ID' ) . "')='Y')
 			AND cf.CATEGORY_ID=sfc.ID
 			ORDER BY sfc.SORT_ORDER IS NULL,sfc.SORT_ORDER,cf.SORT_ORDER IS NULL,cf.SORT_ORDER,cf.TITLE" );
 
@@ -384,39 +383,6 @@ function GetStuList( &$extra = [] )
 	// Original View.
 	else
 	{
-		if ( isset( $extra['student_fields']['view'] ) )
-		{
-			if ( ! isset( $extra['columns_after'] ) )
-			{
-				$extra['columns_after'] = [];
-			}
-
-			$view_fields_RET = DBGet( "SELECT cf.ID,cf.TYPE,cf.TITLE
-				FROM custom_fields cf
-				WHERE cf.ID IN (" . $extra['student_fields']['view'] . ")
-				ORDER BY cf.SORT_ORDER IS NULL,cf.SORT_ORDER,cf.TITLE" );
-
-			foreach ( $view_fields_RET as $field )
-			{
-				$field_key = 'CUSTOM_' . $field['ID'];
-
-				$extra['columns_after'][ $field_key ] = $field['TITLE'];
-
-				if ( Config( 'STUDENTS_EMAIL_FIELD' ) === $field['ID'] )
-				{
-					$functions[ $field_key ] = 'makeEmail';
-				}
-				else
-				{
-					$functions[ $field_key ] = makeFieldTypeFunction( $field['TYPE'] );
-				}
-
-				$select .= ',s.' . DBEscapeIdentifier( $field_key );
-			}
-
-			$extra['SELECT'] .= $select;
-		}
-
 		if ( ! empty( $_REQUEST['addr'] )
 			|| ! empty( $extra['addr'] ) )
 		{
@@ -507,7 +473,7 @@ function GetStuList( &$extra = [] )
 					FROM student_enrollment
 					WHERE STUDENT_ID=ssm.STUDENT_ID
 					AND SYEAR='" . UserSyear() . "'
-					ORDER BY SYEAR DESC,START_DATE DESC
+					ORDER BY START_DATE DESC
 					LIMIT 1 )";
 			}
 			else
@@ -1202,16 +1168,12 @@ function appendSQL( $sql, $extra = [] )
 	if ( isset( $_REQUEST['stuid'] )
 		&& ! empty( $_REQUEST['stuid'] ) )
 	{
-		// FJ allow comma separated list of student IDs.
-		$stuid_array = explode( ',', $_REQUEST['stuid'] );
-
-		$stuids = array_filter( $stuid_array, function( $stuid ){
-			return (string)(int)$stuid == $stuid && $stuid > 0;
-		});
+		// Allow comma separated list of student IDs.
+		$stuids = explode( ',', $_REQUEST['stuid'] );
 
 		if ( $stuids )
 		{
-			$stuids = implode( ',', $stuids );
+			$stuids = implode( ',', array_map( 'intval', $stuids ) );
 
 			//$sql .= " AND ssm.STUDENT_ID IN '".$_REQUEST['stuid']."'";
 			$sql .= " AND ssm.STUDENT_ID IN (" . $stuids . ")";
@@ -1506,4 +1468,6 @@ function makePhotoTipMessage( $full_name, $column )
 	{
 		return MakeStudentPhotoTipMessage( $THIS_RET['STUDENT_ID'], $full_name );
 	}
+
+	return $full_name;
 }

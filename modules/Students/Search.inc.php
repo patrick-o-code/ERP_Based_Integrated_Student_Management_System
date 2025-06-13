@@ -40,12 +40,8 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 			Widgets( 'user', $extra );
 
-			Search(
-				'student_fields',
-				isset( $extra['student_fields'] ) && is_array( $extra['student_fields'] ) ?
-				$extra['student_fields'] :
-				[]
-			);
+			// @since 12.4 Remove unused `$extra['student_fields']['view']`
+			Search( 'student_fields', [] );
 
 			echo '</table><div class="center">';
 
@@ -116,14 +112,12 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 				PopTable( 'header', _( 'Student Fields' ) );
 
-				Search(
-					'student_fields_all',
-					! empty( $extra['student_fields'] ) ? $extra['student_fields'] : []
-				);
+				// @since 12.4 Remove unused `$extra['student_fields']['view']`
+				Search( 'student_fields_all', [] );
 
 				PopTable( 'footer' ) . '<br />';
 
-				echo '<a href="' . PreparePHP_SELF( $_REQUEST, [], [ 'advanced' => 'N' ] ) . '">' .
+				echo '<a href="' . PreparePHP_SELF( $_REQUEST, [ 'advanced' ] ) . '">' .
 					_( 'Basic Search' ) . '</a>';
 			}
 			else

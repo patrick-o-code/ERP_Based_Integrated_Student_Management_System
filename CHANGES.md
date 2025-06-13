@@ -8,6 +8,7 @@ Changes in 12.4
 - Hide "Include Parents of Inactive Students" checkbox if profile is not parent in Users/Search.inc.php
 - Add AllowEditTemporary() & AllowEditTeacher() functions in AllowEdit.fnc.php
 - Security: Security: allow everyone to use Portal, allow admin only to use popups in AllowEdit.fnc.php
+- Remove unused `$extra['staff_fields']['view']` & `$extra['student_fields']['view']` vars in GetStaffList.fnc.php, GetStuList.fnc.php & Search.inc.php
 
 Changes in 12.3.1
 -----------------
