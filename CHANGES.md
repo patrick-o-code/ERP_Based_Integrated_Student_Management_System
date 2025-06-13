@@ -10,6 +10,7 @@ Changes in 12.4
 - Use AllowEditTemporary() & AllowEditTeacher() functions, program wide
 - Security: Security: allow everyone to use Portal, allow admin only to use popups in AllowEdit.fnc.php
 - Remove unused `$extra['staff_fields']['view']` & `$extra['student_fields']['view']` vars in GetStaffList.fnc.php, GetStuList.fnc.php & Search.inc.php
+- Use vertically align list data option 'valign-middle' in StudentSummary.php
 
 Changes in 12.3.1
 -----------------

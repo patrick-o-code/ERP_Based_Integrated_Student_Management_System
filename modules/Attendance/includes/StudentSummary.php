@@ -260,7 +260,10 @@ if ( $is_student_report )
 		$days_RET,
 		$columns,
 		'Day',
-		'Days'
+		'Days',
+		[],
+		[],
+		[ 'valign-middle' => true ]
 	);
 }
 
