@@ -64,6 +64,15 @@ if ( ! empty( $_REQUEST['category_id'] ) )
 		AND du.SYEAR='" . UserSyear() . "'
 		AND du.SCHOOL_ID='" . UserSchool() . "'" );
 
+	if ( empty( $category_RET ) )
+	{
+		// Fix PHP warning Undefined array key 1
+		RedirectURL( 'category_id' );
+	}
+}
+
+if ( ! empty( $category_RET ) )
+{
 	$category_RET[1]['SELECT_OPTIONS'] = explode( "\r", str_replace( [ "\r\n", "\n" ], "\r", $category_RET[1]['SELECT_OPTIONS'] ) );
 
 	$extra = [];

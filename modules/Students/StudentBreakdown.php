@@ -61,7 +61,13 @@ if ( ! empty( $_REQUEST['field_id'] ) )
 		$fields_RET = DBGet( "SELECT TITLE,SELECT_OPTIONS AS OPTIONS,TYPE
 			FROM custom_fields WHERE ID='" . (int) $_REQUEST['field_id'] . "'" );
 
-		if ( $fields_RET[1]['OPTIONS'] )
+		if ( empty( $fields_RET ) )
+		{
+			// Fix PHP warning Undefined array key 1
+			RedirectURL( 'field_id' );
+		}
+
+		if ( ! empty( $fields_RET[1]['OPTIONS'] ) )
 		{
 			$fields_RET[1]['OPTIONS'] = explode( "\r", str_replace( [ "\r\n", "\n" ], "\r", $fields_RET[1]['OPTIONS'] ) );
 		}
@@ -71,7 +77,8 @@ if ( ! empty( $_REQUEST['field_id'] ) )
 
 	$extra = [];
 
-	if ( in_array( $fields_RET[1]['TYPE'], [ 'select', 'autos', 'exports' ] ) )
+	if ( ! empty( $fields_RET[1]['TYPE'] )
+		&& in_array( $fields_RET[1]['TYPE'], [ 'select', 'autos', 'exports' ] ) )
 	{
 		// Autos pull-down fields.
 		if ( $fields_RET[1]['TYPE'] === 'autos' )
@@ -125,7 +132,8 @@ if ( ! empty( $_REQUEST['field_id'] ) )
 			$chart['chart_data'][1][] = (int) issetVal( $totals_RET[ $option ][1]['COUNT'] );
 		}
 	}
-	elseif ( $fields_RET[1]['TYPE'] === 'multiple' )
+	elseif ( ! empty( $fields_RET[1]['TYPE'] )
+		&& $fields_RET[1]['TYPE'] === 'multiple' )
 	{
 		$extra['SELECT_ONLY'] = $field_column . " AS TITLE ";
 
@@ -153,7 +161,8 @@ if ( ! empty( $_REQUEST['field_id'] ) )
 			$chart['chart_data'][1][] = issetVal( $options_count[ $option ], 0 );
 		}
 	}
-	elseif ( $fields_RET[1]['TYPE'] === 'radio' )
+	elseif ( ! empty( $fields_RET[1]['TYPE'] )
+		&& $fields_RET[1]['TYPE'] === 'radio' )
 	{
 		$extra['SELECT_ONLY'] = "COALESCE(" . $field_column . ",'N') AS TITLE,COUNT(*) AS COUNT ";
 
@@ -171,7 +180,8 @@ if ( ! empty( $_REQUEST['field_id'] ) )
 
 		$chart['chart_data'][1][] = (int) issetVal( $totals_RET['N'][1]['COUNT'] );
 	}
-	elseif ( $fields_RET[1]['TYPE'] === 'numeric' )
+	elseif ( ! empty( $fields_RET[1]['TYPE'] )
+		&& $fields_RET[1]['TYPE'] === 'numeric' )
 	{
 		$extra['SELECT_ONLY'] = "COALESCE(max(" . $field_column . "),0) as MAX,COALESCE(min(" . $field_column . "),0) AS MIN ";
 
