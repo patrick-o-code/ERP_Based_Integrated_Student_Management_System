@@ -128,7 +128,17 @@ if ( $_REQUEST['modfunc'] == 'gradebook' )
 
 			$code = 'PASSING';
 
-			if ( $grade['GPA_VALUE'] == '0' || ! $grade['GPA_VALUE'] )
+			if ( $total_percent == 0 )
+			{
+				/**
+				 * Excused (*) for all assignments case
+				 * or only E/C (extra credit) assignments case
+				 *
+				 * @since 12.4 Select Incomplete code when N/A grade
+				 */
+				$code = 'INCOMPLETE';
+			}
+			elseif ( $grade['GPA_VALUE'] == '0' || ! $grade['GPA_VALUE'] )
 			{
 				$code = 'FAILING';
 			}

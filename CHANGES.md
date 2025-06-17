@@ -12,6 +12,7 @@ Changes in 12.4
 - Remove unused `$extra['staff_fields']['view']` & `$extra['student_fields']['view']` vars in GetStaffList.fnc.php, GetStuList.fnc.php & Search.inc.php
 - Use vertically align list data option 'valign-middle' in StudentSummary.php
 - Fix PHP warning Undefined array key 1 in CategoryBreakdown.php, CategoryBreakdownTime.php, StudentFieldBreakdown.php & StudentBreakdown.php
+- Select Incomplete code when N/A grade in EnterEligibility.php
 
 Changes in 12.3.1
 -----------------
