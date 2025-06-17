@@ -4,8 +4,7 @@ Place here the Modules you want to add to RosarioSIS.
 
 ## Activate
 
-Activate them via:
-_School > Configuration > Modules_
+Activate them from the _School > Configuration > Modules_ menu
 
 ## Files
 
@@ -33,7 +32,7 @@ add_action( 'Warehouse.php|header', 'MyModuleCronDo' );
  * Run daily CRON on page load.
  * Do my CRON logic.
  *
- * @uses Warehouse.php|header_head action hook
+ * @uses Warehouse.php|header action hook
  */
 function MyModuleCronDo()
 {

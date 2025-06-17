@@ -6,8 +6,7 @@ Note: if you wish to add menu entries, please create a [module](https://gitlab.c
 
 ## Activate
 
-Activate them via:
-_School > Configuration > Plugins_
+Activate them from the _School > Configuration > Plugins_ menu
 
 ## Files
 
