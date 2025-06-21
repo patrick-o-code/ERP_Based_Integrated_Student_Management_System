@@ -168,6 +168,14 @@ if ( $_REQUEST['modfunc'] === 'update'
 		}
 	}
 
+	if ( User( 'PROFILE' ) === 'admin'
+		&& isset( $_REQUEST['staff']['PROFILE'] )
+		&& ! in_array( $_REQUEST['staff']['PROFILE'], [ 'admin', 'teacher', 'parent', 'none' ] ) )
+	{
+		// Security fix: default to none when selected profile does not exist
+		$_REQUEST['staff']['PROFILE'] = 'none';
+	}
+
 	if ( ! empty( $_POST['staff'] )
 		|| ! empty( $_FILES ) )
 	{

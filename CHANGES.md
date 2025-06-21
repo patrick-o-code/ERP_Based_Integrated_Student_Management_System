@@ -13,6 +13,7 @@ Changes in 12.4
 - Use vertically align list data option 'valign-middle' in StudentSummary.php
 - Fix PHP warning Undefined array key 1 in CategoryBreakdown.php, CategoryBreakdownTime.php, StudentFieldBreakdown.php & StudentBreakdown.php
 - Select Incomplete code when N/A grade in EnterEligibility.php
+- Security fix: default to none when selected profile does not exist in User.php
 
 Changes in 12.3.1
 -----------------
