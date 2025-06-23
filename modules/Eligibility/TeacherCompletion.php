@@ -66,6 +66,12 @@ $begin_year = DBGetOne( "SELECT min(" . _SQLUnixTimestamp( 'SCHOOL_DATE' ) . ") 
 	WHERE SCHOOL_ID='" . UserSchool() . "'
 	AND SYEAR='" . UserSyear() . "'" );
 
+if ( is_null( $begin_year ) )
+{
+	// Fix PHP warning undefined variable $date_select when no calendars
+	ErrorMessage( [ _( 'There are no calendars yet setup.' ) ], 'fatal' );
+}
+
 if ( $start
 	&& $begin_year )
 {

@@ -14,6 +14,7 @@ Changes in 12.4
 - Fix PHP warning Undefined array key 1 in CategoryBreakdown.php, CategoryBreakdownTime.php, StudentFieldBreakdown.php & StudentBreakdown.php
 - Select Incomplete code when N/A grade in EnterEligibility.php
 - Security fix: default to none when selected profile does not exist in User.php
+- Fix PHP warning undefined variable $date_select when no calendars in Eligibility/TeacherCompletion.php
 
 Changes in 12.3.1
 -----------------
