@@ -15,6 +15,7 @@ Changes in 12.4
 - Select Incomplete code when N/A grade in EnterEligibility.php
 - Security fix: default to none when selected profile does not exist in User.php
 - Fix PHP warning undefined variable $date_select when no calendars in Eligibility/TeacherCompletion.php
+- Update French & Spanish translations in rosariosis.po
 
 Changes in 12.3.1
 -----------------
