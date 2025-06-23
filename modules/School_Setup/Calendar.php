@@ -457,7 +457,7 @@ if ( ! isset( $_REQUEST['calendar_id'] )
 			$_REQUEST['calendar_id'] = $calendar_id;
 		}
 		else
-			$no_calendars_error[] = _( 'There are no calendars setup yet.' );
+			$no_calendars_error[] = _( 'There are no calendars yet setup.' );
 	}
 }
 
