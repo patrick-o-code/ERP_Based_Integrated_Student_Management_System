@@ -478,7 +478,8 @@ if ( $_REQUEST['modfunc'] === 'save' )
 				AND c.CATEGORY_ID=cc.ID
 				AND co.COURSE_ID=c.COURSE_ID
 				AND c.SCALE_ID=cs.ID
-				ORDER BY c.SORT_ORDER IS NULL,c.SORT_ORDER", [], [ 'COURSE_ID' ] );
+				ORDER BY c.SORT_ORDER IS NULL,c.SORT_ORDER",
+				[ 'COURSE_TITLE' => 'ParseMLField' ], [ 'COURSE_ID' ] );
 
 				if ( $commentsA_RET )
 				{

@@ -483,7 +483,7 @@ function GetAssignment( $assignment_id )
 		AND gat.ASSIGNMENT_TYPE_ID=ga.ASSIGNMENT_TYPE_ID
 		AND ga.MARKING_PERIOD_ID='" . UserMP() . "'"; // Why not?
 
-	$assignment_RET = DBGet( $assignment_sql, [], [ 'ASSIGNMENT_ID' ] );
+	$assignment_RET = DBGet( $assignment_sql, [ 'COURSE_TITLE' => 'ParseMLField' ], [ 'ASSIGNMENT_ID' ] );
 
 	$assignment[$assignment_id] = isset( $assignment_RET[$assignment_id] ) ?
 	$assignment_RET[$assignment_id][1] : false;
@@ -632,6 +632,7 @@ function StudentAssignmentsListOutput()
 	$assignments_RET = DBGet(
 		DBQuery( $assignments_sql ),
 		[
+			'COURSE_TITLE' => 'ParseMLField',
 			'TITLE' => 'MakeAssignmentTitle',
 			'STAFF_ID' => 'GetTeacher',
 			'DUE_DATE' => 'MakeAssignmentDueDate',

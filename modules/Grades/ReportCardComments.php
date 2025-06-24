@@ -130,7 +130,8 @@ if ( ! $_REQUEST['modfunc'] )
 				FROM course_periods
 				WHERE SUBJECT_ID=course_subjects.SUBJECT_ID
 				AND GRADE_SCALE_ID IS NOT NULL)>0
-			ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE", [], [ 'SUBJECT_ID' ] );
+			ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE",
+			[ 'TITLE' => 'ParseMLField' ], [ 'SUBJECT_ID' ] );
 
 		if ( ! $_REQUEST['subject_id'] || empty( $subjects_RET[$_REQUEST['subject_id']] ) )
 		{
@@ -146,7 +147,8 @@ if ( ! $_REQUEST['modfunc'] )
 				FROM course_periods
 				WHERE COURSE_ID=courses.COURSE_ID
 				AND GRADE_SCALE_ID IS NOT NULL)>0
-			ORDER BY TITLE", [], [ 'COURSE_ID' ] );
+			ORDER BY TITLE",
+			[ 'TITLE' => 'ParseMLField' ], [ 'COURSE_ID' ] );
 
 		if ( ! $_REQUEST['course_id'] || empty( $courses_RET[$_REQUEST['course_id']] ) )
 		{
@@ -221,7 +223,8 @@ if ( ! $_REQUEST['modfunc'] )
 		$courses_RET = DBGet( "SELECT TITLE,SUBJECT_ID,
 			(SELECT TITLE FROM course_subjects WHERE SUBJECT_ID=courses.SUBJECT_ID) AS SUBJECT
 			FROM courses
-			WHERE COURSE_ID='" . (int) $course_period_RET[1]['COURSE_ID'] . "'" );
+			WHERE COURSE_ID='" . (int) $course_period_RET[1]['COURSE_ID'] . "'",
+			[ 'TITLE' => 'ParseMLField', 'SUBJECT' => 'ParseMLField' ] );
 
 		$_REQUEST['subject_id'] = $courses_RET[1]['SUBJECT_ID'];
 		$_REQUEST['course_id'] = $course_period_RET[1]['COURSE_ID'];

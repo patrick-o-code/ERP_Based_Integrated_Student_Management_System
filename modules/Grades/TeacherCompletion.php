@@ -98,7 +98,8 @@ $RET = DBGet( "SELECT s.STAFF_ID," . DisplayNameSQL( 's' ) . " AS FULL_NAME,s.RO
 	AND c.COURSE_ID=cp.COURSE_ID
 	AND s.PROFILE='teacher'" .
 	( $_REQUEST['school_period'] ? " AND cpsp.PERIOD_ID='" . (int) $_REQUEST['school_period'] . "'" : '' ) .
-	" ORDER BY FULL_NAME", [ 'FULL_NAME' => 'makePhotoTipMessage' ], [ 'STAFF_ID' ] );
+	" ORDER BY FULL_NAME",
+	[ 'COURSE_TITLE' => 'ParseMLField', 'FULL_NAME' => 'makePhotoTipMessage' ], [ 'STAFF_ID' ] );
 
 if ( empty( $_REQUEST['school_period'] ) )
 {
