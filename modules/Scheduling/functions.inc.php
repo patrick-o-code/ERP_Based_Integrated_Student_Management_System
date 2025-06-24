@@ -31,7 +31,7 @@ function MyWidgets( $item )
 					{
 						$_ROSARIO['SearchTerms'] .= '<b>' . _( 'Last Year Course' ) . ': </b>' .
 							( ! empty( $_REQUEST['w_ly_course_period_id_not'] ) ? _( 'Not' ) . ' ' : '' ) .
-							$subject_title . '<br />';
+							ParseMLField( $subject_title ) . '<br />';
 					}
 				}
 				// Course.
@@ -49,7 +49,7 @@ function MyWidgets( $item )
 					{
 						$_ROSARIO['SearchTerms'] .= '<b>' . _( 'Last Year Course' ) . ': </b>' .
 							( ! empty( $_REQUEST['w_ly_course_period_id_not'] ) ? _( 'Not' ) . ' ' : '' ) .
-							$course_title . '<br />';
+							ParseMLField( $course_title ) . '<br />';
 					}
 				}
 				// Course Period.
@@ -62,7 +62,8 @@ function MyWidgets( $item )
 					$course = DBGet( "SELECT c.TITLE AS COURSE_TITLE,cp.TITLE,cp.COURSE_ID
 						FROM course_periods cp,courses c
 						WHERE c.COURSE_ID=cp.COURSE_ID
-						AND cp.COURSE_PERIOD_ID='" . (int) $_REQUEST['w_ly_course_period_id'] . "'" );
+						AND cp.COURSE_PERIOD_ID='" . (int) $_REQUEST['w_ly_course_period_id'] . "'",
+						[ 'COURSE_TITLE' => 'ParseMLField' ] );
 
 					if ( ! $extra['NoSearchTerms'] )
 					{

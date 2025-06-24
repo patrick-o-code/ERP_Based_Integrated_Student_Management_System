@@ -117,7 +117,7 @@ $sql = "SELECT " . DisplayNameSQL( 's' ) . " AS FULL_NAME,sp.TITLE,cpsp.PERIOD_I
 		AND ac.SCHOOL_DATE BETWEEN '" . $start_date . "' AND '" . $end_date . "')
 	ORDER BY FULL_NAME";
 
-$RET = DBGet( $sql, [ 'FULL_NAME' => 'makePhotoTipMessage' ], [ 'STAFF_ID' ] );
+$RET = DBGet( $sql, [ 'COURSE_TITLE' => 'ParseMLField', 'FULL_NAME' => 'makePhotoTipMessage' ], [ 'STAFF_ID' ] );
 
 if ( empty( $_REQUEST['school_period'] ) )
 {

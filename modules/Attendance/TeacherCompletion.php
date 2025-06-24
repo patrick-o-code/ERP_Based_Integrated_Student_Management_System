@@ -140,7 +140,7 @@ else
 		ORDER BY FULL_NAME";
 }
 
-$RET = DBGet( $sql, [ 'FULL_NAME' => 'makePhotoTipMessage' ], [ 'STAFF_ID' ] );
+$RET = DBGet( $sql, [ 'COURSE_TITLE' => 'ParseMLField', 'FULL_NAME' => 'makePhotoTipMessage' ], [ 'STAFF_ID' ] );
 
 if ( empty( $_REQUEST['school_period'] ) )
 {

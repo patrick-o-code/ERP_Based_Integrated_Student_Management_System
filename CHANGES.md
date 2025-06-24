@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.3.2
+-----------------
+- Multilingual course title: use ParseMLField() in TeacherCompletion.php, Grades/Configuration.php, FinalGrades.php, MassCreateAssignments.php, ReportCardComments.php, StudentAssignments.fnc.php, StudentGrades.php, Portal.php, Scheduling/functions.inc.php & Calendar.php
+
 Changes in 12.3.1
 -----------------
 - CSS fix themes for RTL (Arabic): submenu on mouseover, arrows, password input, calendar days in rtl.css

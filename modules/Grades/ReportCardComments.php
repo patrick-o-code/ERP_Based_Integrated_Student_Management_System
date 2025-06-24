@@ -130,7 +130,8 @@ if ( ! $_REQUEST['modfunc'] )
 				FROM course_periods
 				WHERE SUBJECT_ID=course_subjects.SUBJECT_ID
 				AND GRADE_SCALE_ID IS NOT NULL)>0
-			ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE", [], [ 'SUBJECT_ID' ] );
+			ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE",
+			[ 'TITLE' => 'ParseMLField' ], [ 'SUBJECT_ID' ] );
 
 		if ( ! $_REQUEST['subject_id'] || empty( $subjects_RET[$_REQUEST['subject_id']] ) )
 		{

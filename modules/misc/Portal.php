@@ -571,6 +571,7 @@ switch ( User( 'PROFILE' ) )
 		AND mp.SYEAR='" . UserSyear() . "'
 		ORDER BY a.DUE_DATE,a.TITLE",
 			[
+				'COURSE' => 'ParseMLField',
 				'DUE_DATE' => 'ProperDate',
 				/*'DAY' => '_eventDay',*/
 				'ASSIGNED_DATE' => 'ProperDate',
@@ -842,6 +843,7 @@ switch ( User( 'PROFILE' ) )
 			AND mp.SYEAR='" . UserSyear() . "'
 			ORDER BY a.DUE_DATE,a.TITLE",
 				[
+					'COURSE' => 'ParseMLField',
 					'DUE_DATE' => 'MakeAssignmentDueDate',
 					/*'DAY' => '_eventDay',*/
 					/*'DESCRIPTION' => 'makeTextarea',*/
@@ -1026,6 +1028,7 @@ switch ( User( 'PROFILE' ) )
 			AND mp.SYEAR='" . UserSyear() . "'
 			ORDER BY a.DUE_DATE,a.TITLE",
 				[
+					'COURSE' => 'ParseMLField',
 					'DUE_DATE' => 'MakeAssignmentDueDate',
 					/*'DAY' => '_eventDay',*/
 					/*'DESCRIPTION' => 'makeTextarea',*/

@@ -585,7 +585,8 @@ if ( $_REQUEST['modfunc'] === 'detail' )
 				OR c.COURSE_ID=(SELECT cp.COURSE_ID
 					FROM course_periods cp
 					WHERE cp.COURSE_PERIOD_ID=a.COURSE_PERIOD_ID))
-			AND a.ASSIGNMENT_ID='" . (int) $_REQUEST['assignment_id'] . "'" );
+			AND a.ASSIGNMENT_ID='" . (int) $_REQUEST['assignment_id'] . "'",
+			[ 'COURSE' => 'ParseMLField' ] );
 
 		$title = $RET[1]['TITLE'];
 

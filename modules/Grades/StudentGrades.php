@@ -43,7 +43,7 @@ if ( UserStudentID()
 	AND cp.GRADE_SCALE_ID IS NOT NULL" .
 		( User( 'PROFILE' ) === 'teacher' ? ' AND cp.TEACHER_ID=\'' . User( 'STAFF_ID' ) . '\'' : '' ) . "
 	AND c.COURSE_ID=cp.COURSE_ID
-	ORDER BY cp.SHORT_NAME, cp.TITLE", [], [ 'COURSE_PERIOD_ID' ] );
+	ORDER BY cp.SHORT_NAME, cp.TITLE", [ 'COURSE_TITLE' => 'ParseMLField' ], [ 'COURSE_PERIOD_ID' ] );
 //echo '<pre>'; var_dump($courses_RET); echo '</pre>';
 
 	if ( isset( $_REQUEST['id'] )

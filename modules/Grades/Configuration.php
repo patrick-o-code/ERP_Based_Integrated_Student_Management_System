@@ -96,7 +96,8 @@ AND cp.SYEAR='" . UserSyear() . "'
 AND rcg.GRADE_SCALE_ID=cp.GRADE_SCALE_ID
 AND cp.GRADE_SCALE_ID IS NOT NULL
 AND cp.DOES_BREAKOFF='Y'
-ORDER BY rcg.BREAK_OFF IS NULL,rcg.BREAK_OFF DESC,rcg.SORT_ORDER IS NULL,rcg.SORT_ORDER", [], [ 'COURSE_PERIOD_ID' ] );
+ORDER BY rcg.BREAK_OFF IS NULL,rcg.BREAK_OFF DESC,rcg.SORT_ORDER IS NULL,rcg.SORT_ORDER",
+[ 'COURSE_TITLE' => 'ParseMLField' ], [ 'COURSE_PERIOD_ID' ] );
 
 echo '<fieldset><legend>' . _( 'Assignments' ) . '</legend><table class="cellpadding-5 width-100p">';
 

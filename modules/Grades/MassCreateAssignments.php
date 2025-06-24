@@ -639,7 +639,12 @@ if ( ! $_REQUEST['modfunc'] )
 				AND cp.COURSE_ID=c.COURSE_ID
 				AND cs.SUBJECT_ID=c.SUBJECT_ID" . $course_periods_limit_sql .
 				" ORDER BY COURSE, cp.SHORT_NAME",
-				[ 'COURSE_PERIOD_ID' => 'MakeChooseCheckbox', 'MARKING_PERIOD_ID' => 'GetMP' ]
+				[
+					'COURSE_PERIOD_ID' => 'MakeChooseCheckbox',
+					'MARKING_PERIOD_ID' => 'GetMP',
+					'COURSE' => 'ParseMLField',
+					'SUBJECT' => 'ParseMLField',
+				]
 			);
 
 			ListOutput(
