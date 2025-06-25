@@ -33,6 +33,10 @@ SET config_value='Rosario Student Information System|fr_FR.utf8:Logiciel de gest
 WHERE title='TITLE';
 
 UPDATE config
+SET config_value='€'
+WHERE title='CURRENCY';
+
+UPDATE config
 SET config_value=','
 WHERE title='DECIMAL_SEPARATOR';
 
