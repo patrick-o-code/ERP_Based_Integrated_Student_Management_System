@@ -2950,7 +2950,7 @@ INSERT INTO resources VALUES (NULL, 1, 'Print Handbook', 'Help.php', NULL, NULL,
 INSERT INTO resources VALUES (NULL, 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO resources VALUES (NULL, 1, 'Forum', 'https://www.rosariosis.org/forum/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO resources VALUES (NULL, 1, 'Contribute', 'https://www.rosariosis.org/contribute/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariois/-/issues/new', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariois/-/issues', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
