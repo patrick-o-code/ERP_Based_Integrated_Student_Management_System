@@ -263,20 +263,20 @@ UPDATE templates
 SET template='<br /><br /><br />
 <div style="text-align: center;"><span style="font-size: xx-large;"><strong>__SCHOOL_ID__</strong><br /></span><br /><span style="font-size: xx-large;">Nous reconnaissons par la présente<br /><br /></span></div>
 <div style="text-align: center;"><span style="font-size: xx-large;"><strong>__FIRST_NAME__ __LAST_NAME__</strong><br /><br /></span></div>
-<div style="text-align: center;"><span style="font-size: xx-large;">Qui a obtenu les <br />mentions</span></div>'
+<div style="text-align: center;"><span style="font-size: xx-large;">qui a obtenu les <br />mentions</span></div>'
 WHERE modname='Grades/HonorRoll.php';
 
 UPDATE templates
 SET template='<div style="text-align: center;">__CLIPART__<br /><br /><strong><span style="font-size: xx-large;">__SCHOOL_ID__<br /></span></strong><br /><span style="font-size: xx-large;">Nous reconnaissons par la présente<br /><br /></span></div>
 <div style="text-align: center;"><strong><span style="font-size: xx-large;">__FIRST_NAME__ __LAST_NAME__<br /><br /></span></strong></div>
-<div style="text-align: center;"><span style="font-size: xx-large;">Qui a obtenu les mentions pour<br />__SUBJECT__</span></div>'
+<div style="text-align: center;"><span style="font-size: xx-large;">qui a obtenu les mentions pour<br />__SUBJECT__</span></div>'
 WHERE modname='Grades/HonorRollSubject.php';
 
 UPDATE templates
 SET template='<h2 style="text-align: center;">Certificat d''Études</h2>
-<p>Le Recteur et le Secrétariat certifient:</p>
+<p>Le recteur et le secrétariat certifient :</p>
 <p>Que __FIRST_NAME__ __LAST_NAME__ identifié avec le numéro __SSECURITY__ a suivi les études dans cet établissement correspondant au niveau __GRADE_ID__ pour l''année __YEAR__ et a obtenu les notes ici mentionnées.</p>
-<p>L''Élève est promu au niveau __NEXT_GRADE_ID__.</p>
+<p>L''élève est promu au niveau __NEXT_GRADE_ID__.</p>
 <p>__BLOCK2__</p>
 <p>&nbsp;</p>
 <table style="border-collapse: collapse; width: 100%;" border="0" cellpadding="10"><tbody><tr>
@@ -293,7 +293,7 @@ WHERE modname='Grades/Transcripts.php';
 UPDATE templates
 SET template='Cher __PARENT_NAME__,
 
-Un compte Parent pour l''école __SCHOOL_ID__ a été créé pour accéder aux informations de l''école et des élèves suivants :
+Un compte parent pour l''école __SCHOOL_ID__ a été créé pour accéder aux informations de l''école et des élèves suivants :
 __ASSOCIATED_STUDENTS__
 
 Vos identifiants :
@@ -309,7 +309,7 @@ WHERE modname='Custom/CreateParents.php';
 UPDATE templates
 SET template='Cher __PARENT_NAME__,
 
-Un compte Parent pour l''école __SCHOOL_ID__ a été créé pour accéder aux informations de l''école et des élèves suivants :
+Un compte parent pour l''école __SCHOOL_ID__ a été créé pour accéder aux informations de l''école et des élèves suivants :
 __ASSOCIATED_STUDENTS__
 
 Vos identifiants :
@@ -439,7 +439,7 @@ WHERE id=200000001;
 --
 
 UPDATE school_gradelevels
-SET short_name='CP', title='Cours Primaire'
+SET short_name='CP', title='Cours Préparatoire'
 WHERE id=1;
 
 UPDATE school_gradelevels
