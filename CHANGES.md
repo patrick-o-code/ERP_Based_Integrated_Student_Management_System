@@ -16,6 +16,7 @@ Changes in 12.4
 - Security fix: default to none when selected profile does not exist in User.php
 - Fix PHP warning undefined variable $date_select when no calendars in Eligibility/TeacherCompletion.php
 - Update French & Spanish translations in rosariosis.po
+- Security: add `.htaccess` file to block direct access to potentially sensitive files in .htaccess
 
 Changes in 12.3.2
 -----------------
