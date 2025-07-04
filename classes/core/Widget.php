@@ -1386,12 +1386,12 @@ class Widget_discipline_fields implements Widget
 				AND dr.SCHOOL_ID=ssm.SCHOOL_ID) ' . $extra['FROM'];
 		}
 
-		$extra = $this->_discipline_fields_search( $extra );
+		$extra = $this->_disciplineFieldsSearch( $extra );
 
 		return $extra;
 	}
 
-	private function _discipline_fields_search( $extra )
+	private function _disciplineFieldsSearch( $extra )
 	{
 		$categories_RET = DBGet( "SELECT f.ID,u.TITLE,f.DATA_TYPE,u.SELECT_OPTIONS
 			FROM discipline_fields f,discipline_field_usage u
