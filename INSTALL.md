@@ -100,7 +100,7 @@ local   all             all                                     md5
 
 ---------------------------------------------
 
-The following instructions are for **MySQL** (RosarioSIS version 10 or higher):
+The following instructions are for **MySQL**:
 
 1. Login to MySQL as the root user:
 ```bash
