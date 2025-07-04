@@ -1121,6 +1121,8 @@ if ( ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 
 	$gb_header = [];
 
+	$ugsc_header = '';
+
 	if ( AllowEdit() )
 	{
 		$gb_header[] = '<a href="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
@@ -1188,7 +1190,7 @@ if ( ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 				}
 
 				// @since 11.4 Add "Use Grade Scale Comments" option.
-				$gb_header[] = CheckboxInput(
+				$ugsc_header = CheckboxInput(
 					issetVal( $_REQUEST['use_grade_scale_comments'], '' ),
 					'use_grade_scale_comments',
 					sprintf(
@@ -1204,7 +1206,7 @@ if ( ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 
 	// CSS .rseparator responsive separator: hide text separator & break line
 	DrawHeader( implode( '<span class="rseparator"> | </span>', $gb_header ) );
-	DrawHeader( '', $tipmessage );
+	DrawHeader( $ugsc_header, $tipmessage );
 }
 else
 {

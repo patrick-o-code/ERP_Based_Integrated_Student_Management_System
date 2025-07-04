@@ -18,6 +18,7 @@ Changes in 12.4
 - Update French & Spanish translations in rosariosis.po
 - Security: add `.htaccess` file to block direct access to potentially sensitive files in .htaccess
 - CSS WPadmin theme fix password strength bars in stylesheet.css
+- Move the "Use Grade Scale Comments" checkbox down to the next header in InputFinalGrades.php
 
 Changes in 12.3.2
 -----------------
