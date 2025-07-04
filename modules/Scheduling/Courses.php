@@ -1110,7 +1110,7 @@ if (  ( ! $_REQUEST['modfunc']
 				AND SYEAR='" . UserSyear() . "'
 				ORDER BY TBL,SORT_ORDER IS NULL,SORT_ORDER,START_DATE" );
 
-			unset( $options );
+			$options = [];
 
 			foreach ( (array) $mp_RET as $mp )
 			{
