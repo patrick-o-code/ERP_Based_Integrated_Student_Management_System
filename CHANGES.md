@@ -19,6 +19,7 @@ Changes in 12.4
 - Security: add `.htaccess` file to block direct access to potentially sensitive files in .htaccess
 - CSS WPadmin theme fix password strength bars in stylesheet.css
 - Move the "Use Grade Scale Comments" checkbox down to the next header in InputFinalGrades.php
+- Hide totals if user has no access to the Daily Transactions program in Accounting/includes/Dashboard.fnc.php & Student_Billing/includes/Dashboard.fnc.php
 
 Changes in 12.3.2
 -----------------

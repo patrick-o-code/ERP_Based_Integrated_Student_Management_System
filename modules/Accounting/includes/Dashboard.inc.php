@@ -38,11 +38,18 @@ if ( ! function_exists( 'DashboardAccountingAdmin' ) )
 	 *
 	 * @since 4.0
 	 * @since 9.3 SQL use CAST(X AS char(X)) instead of to_char() for MySQL compatibility
+	 * @since 12.4 Hide totals if user has no access to the Daily Transactions program
 	 *
 	 * @return array Dashboard data
 	 */
 	function DashboardAccountingAdmin()
 	{
+		if ( ! AllowUse( 'Accounting/DailyTransactions.php' ) )
+		{
+			// Hide totals if user has no access to the Daily Transactions program
+			return [];
+		}
+
 		$general_balance = 0;
 
 		$incomes_RET = DBGet( "SELECT CAST(ASSIGNED_DATE AS char(7)) AS YEAR_MONTH_DATE,

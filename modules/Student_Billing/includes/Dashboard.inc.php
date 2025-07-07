@@ -38,11 +38,18 @@ if ( ! function_exists( 'DashboardStudentBillingAdmin' ) )
 	 *
 	 * @since 4.0
 	 * @since 9.3 SQL use CAST(X AS char(X)) instead of to_char() for MySQL compatibility
+	 * @since 12.4 Hide totals if user has no access to the Daily Transactions program
 	 *
 	 * @return array Dashboard data
 	 */
 	function DashboardStudentBillingAdmin()
 	{
+		if ( ! AllowUse( 'Student_Billing/DailyTransactions.php' ) )
+		{
+			// Hide totals if user has no access to the Daily Transactions program
+			return [];
+		}
+
 		$balance = 0;
 
 		// Limit Results to Months between User MP Start & End Date.
