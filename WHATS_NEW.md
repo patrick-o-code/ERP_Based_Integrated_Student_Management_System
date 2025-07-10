@@ -2,6 +2,20 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.4
+-----------
+
+**Breaking change**, please upgrade the following add-on:
+- [TinyMCE Record Audio Video](https://www.rosariosis.org/plugins/tinymce-record-audio-video/) plugin version 10.4+ (April, 2025)
+
+Security: add [`.htaccess`](https://en.wikipedia.org/wiki/.htaccess) file to block direct access to potentially sensitive files
+
+Students
+- Add / Drop Breakdown over Time: new report under _Add / Drop Report_, sponsored by Rousseau International, Cameroon
+
+[Meeting](https://www.rosariosis.org/modules/meeting/) & Meeting Premium modules, sponsored by English National Program, France
+
+
 New in 12.3
 -----------
 
