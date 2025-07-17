@@ -231,6 +231,14 @@ if ( ! $_REQUEST['modfunc'] )
 			SubmitButton( _( 'Go' ) )
 	);
 
+	if ( $end_date < $start_date )
+	{
+		// Fix PHP warning: fatal error when end date < start date
+		$error[] = _( 'Start date must be anterior to end date.' );
+
+		echo ErrorMessage( $error, 'fatal' );
+	}
+
 	echo '<br />';
 
 	if ( ! $_REQUEST['event_type'] ) // Enrolled / Dropped

@@ -470,6 +470,14 @@ if ( ! $_REQUEST['modfunc'] )
 		$advanced_link
 	);
 
+	if ( $end_date < $start_date )
+	{
+		// Fix PHP warning: fatal error when end date < start date
+		$error[] = _( 'Start date must be anterior to end date.' );
+
+		echo ErrorMessage( $error, 'fatal' );
+	}
+
 	if ( ! empty( $_ROSARIO['SearchTerms'] ) )
 	{
 		DrawHeader( $_ROSARIO['SearchTerms'] );

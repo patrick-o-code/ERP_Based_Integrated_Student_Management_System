@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.4.1
+-----------------
+- Fix PHP warning: fatal error when end date < start date in AddDropBreakdownTime.php & CategoryBreakdownTime.php
+
 Changes in 12.4
 ---------------
 - HTML use header4 instead of nested fieldset in Registration.fnc.php
