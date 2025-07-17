@@ -239,7 +239,7 @@ plugins/PDF_Header_Footer*
 plugins/Report_Cards_PDF_2_Copies_Landscape
 modules/Access_Log/
 modules/School_Inventory/
-modules/Graduation_Paths/
+modules/Graduation_Paths*
 modules/Email/
 modules/Email_Parents*
 modules/Email_Students*
@@ -328,6 +328,7 @@ plugins/Mali_Report_Cards*
 plugins/Prevent_Teachers_Adding_Deleting_Assignments*
 plugins/Scholarship_Expiration*
 plugins/Microsoft_Social_Login*
+plugins/Previous_Next_Student*
 plugins/update.sh
 locale/fr_FR.utf8_ParisComSup
 functions/1GetMP.php
