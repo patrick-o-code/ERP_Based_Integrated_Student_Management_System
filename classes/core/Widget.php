@@ -1336,39 +1336,6 @@ class Widget_discipline_fields implements Widget
 			}*/
 		}
 
-		// FJ bugfix wrong advanced student search results, due to discipline numeric fields.
-		if ( isset( $_REQUEST['discipline_begin'] )
-			&& is_array( $_REQUEST['discipline_begin'] ) )
-		{
-			$key = array_keys( $_REQUEST['discipline_begin'] );
-			$size = count( $key );
-
-			for ( $i = 0; $i < $size; $i++ )
-			{
-				if ( ! $_REQUEST['discipline_begin'][ $key[ $i ] ]
-					|| ! is_numeric( $_REQUEST['discipline_begin'][ $key[ $i ] ] ) )
-				{
-					unset( $_REQUEST['discipline_begin'][ $key[ $i ] ] );
-				}
-			}
-		}
-
-		if ( isset( $_REQUEST['discipline_end'] )
-			&& is_array( $_REQUEST['discipline_end'] ) )
-		{
-			$key = array_keys( $_REQUEST['discipline_end'] );
-			$size = count( $key );
-
-			for ( $i = 0; $i < $size; $i++ )
-			{
-				if ( ! ( $_REQUEST['discipline_end'][ $key[ $i ] ] )
-					|| ! is_numeric( $_REQUEST['discipline_end'][ $key[ $i ] ] ) )
-				{
-					unset( $_REQUEST['discipline_end'][ $key[ $i ] ] );
-				}
-			}
-		}
-
 		if ( empty( $_REQUEST['discipline'] )
 			&& empty( $_REQUEST['discipline_begin'] )
 			&& empty( $_REQUEST['discipline_end'] ) )
@@ -1437,8 +1404,11 @@ class Widget_discipline_fields implements Widget
 
 				case 'numeric':
 
-					if ( ! empty( $_REQUEST['discipline_begin'][ $category['ID'] ] )
-						&& ! empty( $_REQUEST['discipline_end'][ $category['ID'] ] ) )
+					// Fix search discipline numeric field for "0" value
+					if ( isset( $_REQUEST['discipline_begin'][ $category['ID'] ] )
+						&& is_numeric( $_REQUEST['discipline_begin'][ $category['ID'] ] )
+						&& isset( $_REQUEST['discipline_end'][ $category['ID'] ] )
+						&& is_numeric( $_REQUEST['discipline_end'][ $category['ID'] ] ) )
 					{
 						$discipline_begin = $_REQUEST['discipline_begin'][ $category['ID'] ];
 						$discipline_end = $_REQUEST['discipline_end'][ $category['ID'] ];
@@ -1447,13 +1417,12 @@ class Widget_discipline_fields implements Widget
 						{
 							// Numeric Discipline field: invert values so BETWEEN works.
 							$discipline_begin = $_REQUEST['discipline_end'][ $category['ID'] ];
-
 							$discipline_end = $_REQUEST['discipline_begin'][ $category['ID'] ];
 						}
 
 						$extra['WHERE'] .= " AND dr.CATEGORY_" . $category['ID'] .
-							" BETWEEN '" . $discipline_begin .
-							"' AND '" . $discipline_end . "' ";
+							" BETWEEN '" . (int) $discipline_begin .
+							"' AND '" . (int) $discipline_end . "' ";
 
 						if ( ! $extra['NoSearchTerms'] )
 						{

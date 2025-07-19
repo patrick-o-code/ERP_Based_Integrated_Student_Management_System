@@ -4,6 +4,7 @@
 Changes in 12.4.1
 -----------------
 - Fix PHP warning: fatal error when end date < start date in AddDropBreakdownTime.php & CategoryBreakdownTime.php
+- Fix search discipline numeric field for "0" value in Widget.php
 
 Changes in 12.4
 ---------------
