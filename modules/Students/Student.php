@@ -205,14 +205,14 @@ if ( $_REQUEST['modfunc'] === 'update'
 
 		if ( ! empty( $_REQUEST['students']['USERNAME'] ) )
 		{
-			// Check username uniqueness.
+			// Check username uniqueness (case-insensitive).
 			$existing_username = DBGet( "SELECT 'exists'
 				FROM staff
-				WHERE USERNAME='" . $_REQUEST['students']['USERNAME'] . "'
+				WHERE UPPER(USERNAME)=UPPER('" . $_REQUEST['students']['USERNAME'] . "')
 				AND SYEAR='" . UserSyear() . "'
 				UNION SELECT 'exists'
 				FROM students
-				WHERE USERNAME='" . $_REQUEST['students']['USERNAME'] . "'
+				WHERE UPPER(USERNAME)=UPPER('" . $_REQUEST['students']['USERNAME'] . "')
 				AND STUDENT_ID!='" . (int) UserStudentID() . "'" );
 
 			if ( ! empty( $existing_username ) )
