@@ -7,6 +7,7 @@ Changes in 12.4.1
 - Fix search discipline numeric field for "0" value in Widget.php
 - SQL case-insensitive username uniqueness check in Student.php, User.php & ImportUsers.fnc.php
 - Deprecate `$extra['second_col']` & `$extra['extra_search']`, use `$extra['search']` instead in ReferralLog.php, ClassSearchWidget.fnc.php, Search.inc.php & Export.php
+- Fix MySQL error fsti.TRANSACTION_ID isn't in GROUP BY in MenuReports.php
 
 Changes in 12.4
 ---------------
