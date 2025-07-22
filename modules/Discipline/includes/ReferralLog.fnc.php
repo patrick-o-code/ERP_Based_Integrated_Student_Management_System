@@ -8,7 +8,7 @@
  *
  * To be uses in Search form
  *
- * @example $extra['second_col'] .= ReferralLogIncludeForm();
+ * @example $extra['search'] .= ReferralLogIncludeForm();
  *
  * @return string Include in Discipline Log form
  */

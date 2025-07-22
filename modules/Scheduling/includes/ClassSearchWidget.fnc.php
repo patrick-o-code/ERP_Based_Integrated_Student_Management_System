@@ -123,10 +123,11 @@ function _classSearchWidgetFindCourse( $extra )
  */
 function _classSearchWidgetCoursePeriodsListOutput( $extra = '' )
 {
-	if ( ! empty( $extra['extra_search'] ) )
+	// @deprecated since 12.4.1 `$extra['extra_search']`, use `$extra['search']` instead
+	if ( ! empty( $extra['search'] ) )
 	{
 		// Print Class Lists misc/Export.php Fields table.
-		echo '<table>' . $extra['extra_search'] . '</table>';
+		echo '<table>' . $extra['search'] . '</table>';
 	}
 
 	if ( ! empty( $extra['header_right'] ) )

@@ -13,9 +13,10 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 {
 	DrawHeader( ProgramTitle() );
 
-	$extra['second_col'] = issetVal( $extra['second_col'], '' );
+	// @deprecated since 12.4.1 `$extra['second_col']`, use `$extra['search']` instead
+	$extra['search'] = issetVal( $extra['search'], '' );
 
-	$extra['second_col'] .= ReferralLogIncludeForm();
+	$extra['search'] .= ReferralLogIncludeForm();
 
 	Search( 'student_id', $extra );
 }

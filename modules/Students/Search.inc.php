@@ -75,6 +75,7 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 			echo '<br />' . Buttons( _( 'Submit' ) ) . '</div><br />';
 
 			if ( ! empty( $extra['search'] )
+				// @deprecated since 12.4.1 `$extra['second_col']` & `$extra['extra_search']`, use `$extra['search']` instead
 				|| ! empty( $extra['extra_search'] )
 				|| ! empty( $extra['second_col'] ) )
 			{
@@ -87,11 +88,35 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 
 				if ( ! empty( $extra['extra_search'] ) )
 				{
+					/**
+					 * Deprecate `$extra['extra_search']`, use `$extra['search']` instead
+					 *
+					 * @deprecated since 12.4.1
+					 *
+					 * Raise deprecation notice.
+					 */
+					trigger_error(
+						'$extra[\'extra_search\'] is deprecated since RosarioSIS 12.4.1, use $extra[\'search\'] instead',
+						E_USER_DEPRECATED
+					);
+
 					echo $extra['extra_search'];
 				}
 
 				if ( ! empty( $extra['second_col'] ) )
 				{
+					/**
+					 * Deprecate `$extra['second_col']`, use `$extra['search']` instead
+					 *
+					 * @deprecated since 12.4.1
+					 *
+					 * Raise deprecation notice.
+					 */
+					trigger_error(
+						'$extra[\'second_col\'] is deprecated since RosarioSIS 12.4.1, use $extra[\'search\'] instead',
+						E_USER_DEPRECATED
+					);
+
 					echo $extra['second_col'];
 				}
 

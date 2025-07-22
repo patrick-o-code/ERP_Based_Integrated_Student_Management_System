@@ -3,13 +3,14 @@ require_once 'ProgramFunctions/miscExport.fnc.php';
 
 //echo '<pre>'; var_dump($_REQUEST); echo '</pre>';
 
-$extra['extra_search'] = issetVal( $extra['extra_search'], '' );
-$extra['extra_search'] .= '<tr>
+// @deprecated since 12.4.1 `$extra['extra_search']`, use `$extra['search']` instead
+$extra['search'] = issetVal( $extra['search'], '' );
+$extra['search'] .= '<tr>
 		<td></td>
 		<td><div id="fields_div"></div></td>
 	</tr>';
 
-$extra['extra_search'] .= '<tr>
+$extra['search'] .= '<tr>
 		<td></td>
 		<td>
 			<input type="hidden" name="relation" />
@@ -20,7 +21,7 @@ $extra['extra_search'] .= '<tr>
 		</td>
 	</tr>';
 
-$extra['extra_search'] .= '<script>
+$extra['search'] .= '<script>
 	function exportSubmit() {
 		document.search.relation.value=document.getElementById("relation").value;
 		document.search.residence.value=document.getElementById("residence").checked;
