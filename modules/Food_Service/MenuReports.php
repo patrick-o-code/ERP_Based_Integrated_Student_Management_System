@@ -3,10 +3,10 @@
 $_REQUEST['type_select'] = issetVal( $_REQUEST['type_select'], '' );
 
 // Set start date.
-$start_date = RequestedDate( 'start', date( 'Y-m' ) . '-01', 'set' );
+$start_date = RequestedDate( 'start', date( 'Y-m' ) . '-01' );
 
 // Set end date.
-$end_date = RequestedDate( 'end', DBDate(), 'set' );
+$end_date = RequestedDate( 'end', DBDate() );
 
 DrawHeader( ProgramTitle() );
 
@@ -311,8 +311,7 @@ else
 	$LO_columns = [ 'TYPE' => _( 'Type' ), 'DISCOUNT' => _( 'Discount' ) ] + $users_columns + $types_columns;
 }
 
-$PHP_tmp_SELF = PreparePHP_SELF();
-echo '<form action="' . $PHP_tmp_SELF . '" method="POST">';
+echo '<form action="Modules.php?modname=' . $_REQUEST['modname'] . '&menu_id=' . $_REQUEST['menu_id'] . '" method="GET">';
 
 DrawHeader(
 	_( 'Timeframe' ) . ': ' .
@@ -324,31 +323,20 @@ DrawHeader(
 DrawHeader( $type_select );
 echo '<br />';
 
-$date_start_end_type_url_params = '&day_start=' . $_REQUEST['day_start'] .
-	'&month_start=' . $_REQUEST['month_start'] . '&year_start=' . $_REQUEST['year_start'] .
-	'&day_end=' . $_REQUEST['day_end'] . '&month_end=' . $_REQUEST['month_end'] .
-	'&year_end=' . $_REQUEST['year_end'] . '&type_select=' . $_REQUEST['type_select'];
-
 $tabs = [];
 
 foreach ( (array) $menus_RET as $id => $menu )
 {
 	$tabs[] = [
 		'title' => $menu[1]['TITLE'],
-		'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&menu_id=' . $id .
-		$date_start_end_type_url_params,
+		'link' => PreparePHP_SELF( [], [], [ 'menu_id' => $id ] ),
 	];
 }
 
 $LO_options = [
 	'count' => false,
-	'download' => false,
 	'search' => false,
-	'header' => WrapTabs(
-		$tabs,
-		'Modules.php?modname=' . $_REQUEST['modname'] . '&menu_id=' . $_REQUEST['menu_id'] .
-		$date_start_end_type_url_params
-	),
+	'header' => WrapTabs( $tabs, PreparePHP_SELF() ),
 ];
 
 ListOutput( $LO_types, $LO_columns, '.', '.', [], [ [ '' ] ], $LO_options );
