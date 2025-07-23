@@ -12,6 +12,7 @@ Changes in 12.4.1
 - Fix SQL syntax error in Food_Service/Users/ActivityReport.php
 - SQL limit Activity Report to selected student/user in ActivityReport.php
 - Deprecate Sort by Name checkbox: we now only have 1 student/user in the list in ActivityReport.php
+- SQL INSERT STUDENT_ID INTO food_service_transactions in Food_Service/Students/Transactions.php
 
 Changes in 12.4
 ---------------

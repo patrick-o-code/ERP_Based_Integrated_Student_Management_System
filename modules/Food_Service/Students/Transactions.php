@@ -36,9 +36,9 @@ if ( $_REQUEST['modfunc'] === 'save'
 
 		if ( in_array( $_REQUEST['values']['TYPE'], $types ) && ( $amount = is_money( $_REQUEST['values']['AMOUNT'] ) ) )
 		{
-			$fields = 'SYEAR,SCHOOL_ID,ACCOUNT_ID,BALANCE,' . DBEscapeIdentifier( 'TIMESTAMP' ) . ',SHORT_NAME,DESCRIPTION,SELLER_ID';
+			$fields = 'SYEAR,SCHOOL_ID,ACCOUNT_ID,STUDENT_ID,BALANCE,' . DBEscapeIdentifier( 'TIMESTAMP' ) . ',SHORT_NAME,DESCRIPTION,SELLER_ID';
 
-			$values = "'" . UserSyear() . "','" . UserSchool() . "','" . $account_id . "',
+			$values = "'" . UserSyear() . "','" . UserSchool() . "','" . $account_id . "','" . UserStudentID() . "',
 				(SELECT BALANCE FROM food_service_accounts WHERE ACCOUNT_ID='" . (int) $account_id . "'),
 				CURRENT_TIMESTAMP,'" . mb_strtoupper( $_REQUEST['values']['TYPE'] ) . "','" .
 				$_REQUEST['values']['TYPE'] . "','" . User( 'STAFF_ID' ) . "'";
