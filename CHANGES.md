@@ -10,10 +10,8 @@ Changes in 12.4.1
 - Fix MySQL error fsti.TRANSACTION_ID isn't in GROUP BY in MenuReports.php
 - Fix & simplify form & tabs URL, use GET method & `PreparePHP_SELF()` in MenuReports.php
 - Fix SQL syntax error in Food_Service/Users/ActivityReport.php
-- SQL limit Activity Report to selected student/user in ActivityReport.php
-- Deprecate Sort by Name checkbox: we now only have 1 student/user in the list in ActivityReport.php
+- Remove useless Find a Student/User search in ActivityReport.php
 - SQL INSERT STUDENT_ID INTO food_service_transactions in Food_Service/Students/Transactions.php
-- SQL relate student based on his ACCOUNT_ID as STUDENT_ID was NULL for Transactions in ActivityReport.php
 
 Changes in 12.4
 ---------------

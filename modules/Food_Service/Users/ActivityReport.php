@@ -3,20 +3,9 @@
 $_REQUEST['detailed_view'] = issetVal( $_REQUEST['detailed_view'], '' );
 $_REQUEST['type_select'] = issetVal( $_REQUEST['type_select'], '' );
 
-StaffWidgets( 'fsa_status' );
-StaffWidgets( 'fsa_barcode' );
-StaffWidgets( 'fsa_exists_Y' );
-
-$extra['SELECT'] .= ",(SELECT coalesce(STATUS,'" . DBEscapeString( _( 'Active' ) ) . "') FROM food_service_staff_accounts WHERE STAFF_ID=s.STAFF_ID) AS STATUS";
-$extra['SELECT'] .= ",(SELECT BALANCE FROM food_service_staff_accounts WHERE STAFF_ID=s.STAFF_ID) AS BALANCE";
-$extra['functions'] += [ 'BALANCE' => 'red' ];
-$extra['columns_after'] = [ 'BALANCE' => _( 'Balance' ), 'STATUS' => _( 'Status' ) ];
-
-Search( 'staff_id', $extra );
-
-if ( UserStaffID() && ! $_REQUEST['modfunc'] )
+if ( ! $_REQUEST['modfunc'] )
 {
-	$where = " AND STAFF_ID='" . UserStaffID() . "' ";
+	$where = '';
 
 	if ( ! empty( $_REQUEST['type_select'] ) )
 	{
@@ -173,8 +162,7 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 		PrepareDate( $date, '_date' ) . ' &mdash; ' . $type_select . ' &mdash; ' .
 		$staff_select . SubmitButton( _( 'Go' ) ) );
 
-	// @deprecated since 12.4.1 Sort by Name checkbox: we now only have 1 user in the list
-	// DrawHeader( CheckBoxOnclick( 'by_name', _( 'Sort by Name' ) ) );
+	DrawHeader( CheckBoxOnclick( 'by_name', _( 'Sort by Name' ) ) );
 
 	echo '</form>';
 

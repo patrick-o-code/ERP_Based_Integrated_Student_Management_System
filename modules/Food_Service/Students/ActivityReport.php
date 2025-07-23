@@ -3,32 +3,9 @@
 $_REQUEST['detailed_view'] = issetVal( $_REQUEST['detailed_view'], '' );
 $_REQUEST['type_select'] = issetVal( $_REQUEST['type_select'], '' );
 
-Widgets( 'fsa_discount' );
-Widgets( 'fsa_status' );
-Widgets( 'fsa_barcode' );
-Widgets( 'fsa_account_id' );
-
-$extra['SELECT'] .= ",coalesce(fssa.STATUS,'" . DBEscapeString( _( 'Active' ) ) . "') AS STATUS";
-$extra['SELECT'] .= ",(SELECT BALANCE FROM food_service_accounts WHERE ACCOUNT_ID=fssa.ACCOUNT_ID) AS BALANCE";
-
-if ( ! mb_strpos( $extra['FROM'], 'fssa' ) )
+if ( ! $_REQUEST['modfunc'] )
 {
-	$extra['FROM'] = ",food_service_student_accounts fssa";
-	$extra['WHERE'] .= " AND fssa.STUDENT_ID=s.STUDENT_ID";
-}
-
-$extra['functions'] += [ 'BALANCE' => 'red' ];
-$extra['columns_after'] = [ 'BALANCE' => _( 'Balance' ), 'STATUS' => _( 'Status' ) ];
-
-Search( 'student_id', $extra );
-
-if ( UserStudentID()
-	&& ! $_REQUEST['modfunc'] )
-{
-	// Note: relate student based on his ACCOUNT_ID as STUDENT_ID was NULL for Transactions.
-	$where = " AND ACCOUNT_ID=(SELECT ACCOUNT_ID
-		FROM food_service_student_accounts
-		WHERE STUDENT_ID='" . UserStudentID() . "') ";
+	$where = '';
 
 	if ( ! empty( $_REQUEST['type_select'] ) )
 	{
@@ -197,8 +174,7 @@ if ( UserStudentID()
 		$type_select . ' &mdash; ' . $staff_select .
 		SubmitButton( _( 'Go' ) ) );
 
-	// @deprecated since 12.4.1 Sort by Name checkbox: we now only have 1 student in the list
-	// DrawHeader( CheckBoxOnclick( 'by_name', _( 'Sort by Name' ) ) );
+	DrawHeader( CheckBoxOnclick( 'by_name', _( 'Sort by Name' ) ) );
 
 	echo '</form>';
 
