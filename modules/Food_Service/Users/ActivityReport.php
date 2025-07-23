@@ -16,7 +16,7 @@ Search( 'staff_id', $extra );
 
 if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 {
-	$where = "AND STAFF_ID='" . UserStaffID() . "' ";
+	$where = " AND STAFF_ID='" . UserStaffID() . "' ";
 
 	if ( ! empty( $_REQUEST['type_select'] ) )
 	{
@@ -50,7 +50,8 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 		WHERE SYEAR='" . UserSyear() . "'
 		AND fst.TIMESTAMP BETWEEN '" . $date . "' AND date '" . $date . "' +1
 		AND SCHOOL_ID='" . UserSchool() . "'" . $where . "
-		ORDER BY " . ( ! empty( $_REQUEST['by_name'] ) ? "FULL_NAME," : '' ) . "fst.TRANSACTION_ID DESC", [ 'DATE' => 'ProperDateTime', 'SHORT_NAME' => 'bump_count' ] );
+		ORDER BY " . ( ! empty( $_REQUEST['by_name'] ) ? "FULL_NAME," : '' ) . "fst.TRANSACTION_ID DESC",
+		[ 'DATE' => 'ProperDateTime', 'SHORT_NAME' => 'bump_count' ] );
 
 		foreach ( (array) $RET as $RET_key => $RET_val )
 		{
@@ -117,7 +118,8 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 		WHERE SYEAR='" . UserSyear() . "'
 		AND fst.TIMESTAMP BETWEEN '" . $date . "' AND date '" . $date . "' +1
 		AND SCHOOL_ID='" . UserSchool() . "'" . $where . "
-		ORDER BY " . ( ! empty( $_REQUEST['by_name'] ) ? "FULL_NAME," : '' ) . "fst.TRANSACTION_ID DESC", [ 'DATE' => 'ProperDateTime', 'SHORT_NAME' => 'bump_count' ] );
+		ORDER BY " . ( ! empty( $_REQUEST['by_name'] ) ? "FULL_NAME," : '' ) . "fst.TRANSACTION_ID DESC",
+		[ 'DATE' => 'ProperDateTime', 'SHORT_NAME' => 'bump_count' ] );
 
 		$columns = [
 			'TRANSACTION_ID' => _( 'ID' ),
