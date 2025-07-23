@@ -16,7 +16,7 @@ Search( 'staff_id', $extra );
 
 if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 {
-	$where = '';
+	$where = "AND STAFF_ID='" . UserStaffID() . "' ";
 
 	if ( ! empty( $_REQUEST['type_select'] ) )
 	{

@@ -25,7 +25,7 @@ Search( 'student_id', $extra );
 if ( UserStudentID()
 	&& ! $_REQUEST['modfunc'] )
 {
-	$where = '';
+	$where = "AND STUDENT_ID='" . UserStudentID() . "' ";
 
 	if ( ! empty( $_REQUEST['type_select'] ) )
 	{
