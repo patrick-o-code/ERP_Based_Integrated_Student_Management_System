@@ -34,7 +34,8 @@ User( 'PROFILE' ) === 'student'?'':DrawHeader($header);
 if ( $_REQUEST['modfunc'] === 'delete'
 	&& AllowEdit() )
 {
-	if ( $_REQUEST['item_id'] != '' )
+	if ( isset( $_REQUEST['item_id'] )
+		&& $_REQUEST['item_id'] != '' )
 	{
 		if ( DeletePrompt( _( 'Transaction Item' ) ) )
 		{
