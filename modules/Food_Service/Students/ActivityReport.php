@@ -256,7 +256,7 @@ if ( ! $_REQUEST['modfunc'] )
 		'Transaction Types',
 		false,
 		$types_group,
-		[ 'save' => false, 'search' => false, 'print' => false ]
+		[ 'search' => false ]
 	);
 
 	ListOutput(
@@ -266,6 +266,6 @@ if ( ! $_REQUEST['modfunc'] )
 		'Transactions',
 		$link,
 		$group,
-		[ 'save' => false, 'search' => false, 'print' => false ]
+		[ 'search' => false ]
 	);
 }

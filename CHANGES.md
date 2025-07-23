@@ -11,6 +11,7 @@ Changes in 12.4.1
 - Fix & simplify form & tabs URL, use GET method & `PreparePHP_SELF()` in MenuReports.php
 - Fix SQL syntax error in Food_Service/Users/ActivityReport.php
 - Remove useless Find a Student/User search in ActivityReport.php
+- Allow list export in ActivityReport.php
 - SQL INSERT STUDENT_ID INTO food_service_transactions in Food_Service/Students/Transactions.php
 
 Changes in 12.4
