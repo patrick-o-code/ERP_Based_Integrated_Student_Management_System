@@ -171,7 +171,8 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 		PrepareDate( $date, '_date' ) . ' &mdash; ' . $type_select . ' &mdash; ' .
 		$staff_select . SubmitButton( _( 'Go' ) ) );
 
-	DrawHeader( CheckBoxOnclick( 'by_name', _( 'Sort by Name' ) ) );
+	// @deprecated since 12.4.1 Sort by Name checkbox: we now only have 1 user in the list
+	// DrawHeader( CheckBoxOnclick( 'by_name', _( 'Sort by Name' ) ) );
 
 	echo '</form>';
 
