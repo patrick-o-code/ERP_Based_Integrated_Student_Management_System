@@ -9,6 +9,7 @@ Changes in 12.4.1
 - Deprecate `$extra['second_col']` & `$extra['extra_search']`, use `$extra['search']` instead in ReferralLog.php, ClassSearchWidget.fnc.php, Search.inc.php & Export.php
 - Fix MySQL error fsti.TRANSACTION_ID isn't in GROUP BY in MenuReports.php
 - Fix & simplify form & tabs URL, use GET method & `PreparePHP_SELF()` in MenuReports.php
+- Fix SQL syntax error in Food_Service/Users/ActivityReport.php
 
 Changes in 12.4
 ---------------
