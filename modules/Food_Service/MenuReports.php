@@ -220,7 +220,7 @@ if ( 'sales' == $_REQUEST['type_select'] )
 			'TYPE' => '<b>' . _( 'Totals' ) . '</b>',
 			'ELLIGIBLE' => '<b>' . number_format( $users_totals['']['ELLIGIBLE'], 1 ) . '</b>',
 			'DAYS_POSSIBLE' => '<b>' . number_format(  ( ! empty( $users_totals['']['ELLIGIBLE'] ) ? $users_totals['']['DAYS'] / $users_totals['']['ELLIGIBLE'] : 0 ), 1 ) . '</b>',
-			'TOTAL_ELLIGIBLE' => '<b>' . $users_totals['']['DAYS'] . '</b>',
+			'TOTAL_ELLIGIBLE' => '<b>' . issetVal( $users_totals['']['DAYS'] ) . '</b>',
 			'PARTICIPATED' => '<b>' . $users_totals['']['PARTICIPATED'] . '</b>',
 			'TOTAL' => '<b>' . format( $total ) . '</b>',
 		] + array_map( 'bold_format', $types_totals[''] ),
