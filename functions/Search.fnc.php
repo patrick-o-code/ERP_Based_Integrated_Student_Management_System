@@ -415,7 +415,7 @@ function Search( $type, $extra = null )
 			}
 			elseif ( $type === 'student_fields' )
 			{
-				$i = isset( $i ) ? $i : 0;
+				$i = 0;
 
 				if ( Preferences( 'USERNAME', 'StudentFieldsSearch' ) === 'Y' )
 				{
@@ -436,7 +436,7 @@ function Search( $type, $extra = null )
 			}
 			elseif ( $type === 'staff_fields' )
 			{
-				$i = isset( $i ) ? $i : 0;
+				$i = 0;
 			}
 
 			foreach ( $categories_RET as $category )
