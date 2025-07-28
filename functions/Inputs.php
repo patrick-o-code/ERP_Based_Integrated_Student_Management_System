@@ -750,18 +750,18 @@ function CheckboxInput( $value, $name, $title = '', $checked = '', $new = false,
  * @since 4.5 Allow associative $options array.
  * @since 6.1 Allow numeric key (ID) in associative $options array.
  * @since 10.8.1 Fix save all unchecked, add hidden empty checkbox
+ * @since 12.4.1 Fix display value text when associative $options array
  *
  * @example MultipleCheckboxInput( $value, 'values[' . $id . '][' . $name . '][]' );
  *
  * @uses GetInputID() to generate ID from name
  * @uses InputDivOnclick()
  *       if ( AllowEdit() && !isset( $_REQUEST['_ROSARIO_PDF'] ) && ! $new && $div )
- * @uses InputDivOnclick()
  *
  * @param  string  $value   Input value(s), delimited by 2 pipes. For example: '||Value1||Value2||'.
  * @param  string  $name    Input name.
  * @param  string  $title   Input title (optional). Defaults to ''.
- * @param  array   $options Input options: array( option_value => option_text ).
+ * @param  array   $options Input options: [ 'option_value' => 'option_text' ].
  * @param  string  $extra   Extra HTML attributes added to the input. (optional).
  * @param  boolean $div     Is input wrapped into <div onclick>? (optional). Defaults to true.
  *
@@ -773,9 +773,31 @@ function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $d
 
 	$required = $value == '' && mb_strpos( $extra, 'required' ) !== false;
 
-	$multiple_value = ( $value != '' ) ?
-		str_replace( '||', ', ', mb_substr( $value, 2, -2 ) ) :
-		'-';
+	$associative_array = $options !== array_values( $options );
+
+	if ( $associative_array
+		&& $value != '' )
+	{
+		$values = explode( '||', trim( $value, '|' ) );
+
+		$multiple_value = [];
+
+		foreach ( (array) $options as $option_value => $option )
+		{
+			if ( in_array( $option_value, $values ) )
+			{
+				$multiple_value[] = $option;
+			}
+		}
+
+		$multiple_value = implode( ', ', $multiple_value );
+	}
+	else
+	{
+		$multiple_value = ( $value != '' ) ?
+			str_replace( '||', ', ', mb_substr( $value, 2, -2 ) ) :
+			'-';
+	}
 
 	if ( ! AllowEdit()
 		|| isset( $_REQUEST['_ROSARIO_PDF'] ) )
@@ -786,8 +808,6 @@ function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $d
 	$multiple_html = '<table class="cellspacing-0 cellpadding-5"><tr class="st">';
 
 	$i = 0;
-
-	$associative_array = $options !== array_values( $options );
 
 	foreach ( (array) $options as $option_value => $option )
 	{

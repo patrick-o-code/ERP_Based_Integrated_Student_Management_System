@@ -13,6 +13,7 @@ Changes in 12.4.1
 - Remove useless Find a Student/User search in ActivityReport.php
 - Allow list export in ActivityReport.php
 - SQL INSERT STUDENT_ID INTO food_service_transactions in Food_Service/Students/Transactions.php
+- Fix display value text when associative $options array in Inputs.php
 
 Changes in 12.4
 ---------------
