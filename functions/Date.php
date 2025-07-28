@@ -284,6 +284,7 @@ function PrepareDate( $date, $name_attr = '', $allow_na = true, $options = [] )
 	if ( $options['short'] )
 	{
 		$extraM = ' style="max-width: 65px;"';
+		$extraY = ' style="max-width: 65px;"';
 	}
 
 	// Submit on date change.
