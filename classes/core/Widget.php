@@ -1290,7 +1290,7 @@ class Widget_incident_date implements Widget
 		}
 
 		return '<tr class="st"><td>' . _( 'Incident Date' ) . '</td><td>
-		<table class="cellspacing-0"><tr><td>
+		<table class="cellspacing-0 valign-middle"><tr><td>
 		<span class="sizep2">&ge;</span>&nbsp;
 		</td><td>' .
 		PrepareDate( $discipline_entry_begin_default, '_discipline_entry_begin', true, [ 'short' => true ] ) .
@@ -1790,7 +1790,7 @@ class Widget_enrolled implements Widget
 	function html()
 	{
 		return '<tr class="st"><td>' . _( 'Attendance Start' ) . '</td><td>
-		<table class="cellspacing-0"><tr><td class="sizep2">
+		<table class="cellspacing-0 valign-middle"><tr><td class="sizep2">
 		&ge;
 		</td><td>' .
 		PrepareDate( '', '_enrolled_begin', true, [ 'short' => true ] ) .

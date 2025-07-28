@@ -625,7 +625,7 @@ function Search( $type, $extra = null )
 					<label>&nbsp;<input type="checkbox" name="' . AttrEscape( 'cust_null[' . $col['COLUMN_NAME'] . ']' ) . '"> ' .
 					_( 'No Value' ) . '</label>
 					</td>
-					<td><table class="cellspacing-0">
+					<td><table class="cellspacing-0 valign-middle">
 					<tr><td><span class="sizep2">&ge;</span>&nbsp;</td>
 					<td>' . PrepareDate(
 						'',

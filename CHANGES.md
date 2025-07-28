@@ -14,6 +14,7 @@ Changes in 12.4.1
 - Allow list export in ActivityReport.php
 - SQL INSERT STUDENT_ID INTO food_service_transactions in Food_Service/Students/Transactions.php
 - Fix display value text when associative $options array in Inputs.php
+- CSS add .valign-middle class to ≥ & ≤ signs for date fields in Widget.php & Search.fnc.php
 
 Changes in 12.4
 ---------------
