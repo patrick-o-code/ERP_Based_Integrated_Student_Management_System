@@ -556,6 +556,7 @@ function GetAssignmentsFilesPath( $teacher_id )
  * Delete any existing file.
  *
  * @since 4.4
+ * @since 12.4.1 Security #358 Add full timestamp to file name
  *
  * @param int    $teacher_id    Teacher staff ID.
  * @param int    $assignment_id Assignment ID.
@@ -574,11 +575,8 @@ function UploadAssignmentTeacherFile( $assignment_id, $teacher_id, $file_input_i
 		return '';
 	}
 
-	// @since 9.0 Add microseconds to filename format to make it harder to predict.
-	$microseconds = substr( (string) microtime(), 2, 6 );
-
-	// Filename = [course_title]_[assignment_ID].ext.
-	$file_name_no_ext = no_accents( $assignment['COURSE_TITLE'] . '_' . $assignment_id . '.' . $microseconds );
+	// Filename = [course_title]_[assignment_ID]_[timestamp].ext.
+	$file_name_no_ext = FileNameTimestamp( $assignment['COURSE_TITLE'] . '_' . $assignment_id, true );
 
 	// Delete existing Assignment File.
 	// Security: use FileDelete() instead of unlink()

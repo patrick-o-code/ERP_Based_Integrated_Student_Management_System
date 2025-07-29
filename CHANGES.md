@@ -15,6 +15,7 @@ Changes in 12.4.1
 - SQL INSERT STUDENT_ID INTO food_service_transactions in Food_Service/Students/Transactions.php
 - Fix display value text when associative $options array in Inputs.php
 - CSS add .valign-middle class to ≥ & ≤ signs for date fields in Widget.php & Search.fnc.php
+- Security #358 Add full timestamp to file name in StudentAssignments.fnc.php
 
 Changes in 12.4
 ---------------
