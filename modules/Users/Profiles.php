@@ -107,6 +107,11 @@ if ( $_REQUEST['modfunc'] === 'update'
 
 	$categories_RET = DBGet( "SELECT ID,TITLE FROM student_field_categories" );
 
+	if ( ! isset( $xprofile ) )
+	{
+		$xprofile = '';
+	}
+
 	foreach ( (array) $categories_RET as $category )
 	{
 		$file = 'Students/Student.php&category_id=' . $category['ID'];
@@ -217,7 +222,7 @@ if ( $_REQUEST['modfunc'] === 'update'
 			ajaxLink( 'Side.php' );
 		</script>
 		<?php
-}
+	}
 }
 
 if ( $_REQUEST['modfunc']
