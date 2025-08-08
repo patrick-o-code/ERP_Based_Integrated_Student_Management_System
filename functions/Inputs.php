@@ -780,15 +780,7 @@ function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $d
 	{
 		$values = explode( '||', trim( $value, '|' ) );
 
-		$multiple_value = [];
-
-		foreach ( (array) $options as $option_value => $option )
-		{
-			if ( in_array( $option_value, $values ) )
-			{
-				$multiple_value[] = $option;
-			}
-		}
+		$multiple_value = array_intersect_key( $options, array_flip( $values ) );
 
 		$multiple_value = implode( ', ', $multiple_value );
 	}
