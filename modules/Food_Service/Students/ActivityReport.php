@@ -77,7 +77,6 @@ if ( ! $_REQUEST['modfunc'] )
 			'BALANCE' => _( 'Balance' ),
 			'DISCOUNT' => _( 'Discount' ),
 			'DESCRIPTION' => _( 'Description' ),
-			'DISCOUNT' => _( 'Discount' ),
 			'AMOUNT' => _( 'Amount' ),
 			'SELLER' => _( 'User' ),
 		];
