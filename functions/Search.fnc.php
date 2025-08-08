@@ -415,12 +415,10 @@ function Search( $type, $extra = null )
 			}
 			elseif ( $type === 'student_fields' )
 			{
-				$i = 0;
-
 				if ( Preferences( 'USERNAME', 'StudentFieldsSearch' ) === 'Y' )
 				{
 					// Add Username to Find a User form.
-					$categories_RET[1]['text'][ $i++ ] = [
+					$categories_RET[1]['text'][0] = [
 						'ID' => '1',
 						'CATEGORY_TITLE' => '',
 						'COLUMN_NAME' => 'USERNAME',
@@ -429,14 +427,6 @@ function Search( $type, $extra = null )
 						'SELECT_OPTIONS' => null,
 					];
 				}
-			}
-			elseif ( $type === 'staff_fields_all' )
-			{
-				$i = 1;
-			}
-			elseif ( $type === 'staff_fields' )
-			{
-				$i = 0;
 			}
 
 			foreach ( $categories_RET as $category )
