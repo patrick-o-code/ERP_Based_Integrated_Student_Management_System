@@ -536,7 +536,7 @@ if ( $_REQUEST['modfunc'] === 'update'
 				// @since 4.5 Include Student/User Info tab from custom plugin.
 				require 'plugins/' . $include . '.inc.php';
 			}
-			else
+			elseif ( file_exists( 'modules/' . $include . '.inc.php' ) )
 			{
 				require 'modules/' . $include . '.inc.php';
 			}
@@ -781,7 +781,7 @@ if (  ( UserStaffID()
 					// @since 4.5 Include Student/User Info tab from custom plugin.
 					require 'plugins/' . $include . '.inc.php';
 				}
-				else
+				elseif ( file_exists( 'modules/' . $include . '.inc.php' ) )
 				{
 					require 'modules/' . $include . '.inc.php';
 				}

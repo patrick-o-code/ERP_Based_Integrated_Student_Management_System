@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.4.2
+-----------------
+- Fix PHP fatal error failed opening required add-on file in Student.php & User.php
+
 Changes in 12.4.1
 -----------------
 - Fix PHP warning: fatal error when end date < start date in AddDropBreakdownTime.php & CategoryBreakdownTime.php
