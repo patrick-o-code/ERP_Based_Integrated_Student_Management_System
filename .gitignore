@@ -292,6 +292,9 @@ modules/Slovenian_Grades*
 modules/Pedagogical_Plan*
 modules/Accounting_Premium*
 modules/IPSJ*
+modules/Seating_Chart*
+modules/Ecuador_Retake_Exam*
+modules/Liberty_Cambodia*
 modules/update.sh
 plugins/Email_SMTP*
 plugins/Public_Pages*
@@ -329,6 +332,7 @@ plugins/Prevent_Teachers_Adding_Deleting_Assignments*
 plugins/Scholarship_Expiration*
 plugins/Microsoft_Social_Login*
 plugins/Previous_Next_Student*
+plugins/Unsaved_Changes_Warning*
 plugins/update.sh
 locale/fr_FR.utf8_ParisComSup
 functions/1GetMP.php
