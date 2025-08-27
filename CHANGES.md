@@ -5,6 +5,7 @@ Changes in 12.4.2
 -----------------
 - Fix PHP fatal error failed opening required add-on file in Student.php & User.php
 - Fix remove '&bottomfunc=print' from redirect_to URL param in index.php
+- Fix include students active as of requested MP's end date in Grades.fnc.php
 
 Changes in 12.4.1
 -----------------

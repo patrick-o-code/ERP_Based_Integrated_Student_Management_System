@@ -259,6 +259,7 @@ function GetClassAverage( $course_period_id, $marking_period_id, $letter_or_perc
  *
  * @since 9.1
  * @since 11.0 Cache Class average percent
+ * @since 12.4.2 Fix include students active as of requested MP's end date
  *
  * @param int $course_period_id  Course Period ID.
  * @param int $marking_period_id Marking Period ID.
@@ -283,6 +284,8 @@ function GetClassAveragePercent( $course_period_id, $marking_period_id )
 		AND rc_cp.COURSE_PERIOD_ID=sg1.COURSE_PERIOD_ID
 		AND sg1.STUDENT_ID=ssm.STUDENT_ID
 		AND sg1.GRADE_PERCENT IS NOT NULL";
+
+	$extra['DATE'] = GetMP( $marking_period_id, 'END_DATE' );
 
 	$students_RET = GetStuList( $extra );
 
