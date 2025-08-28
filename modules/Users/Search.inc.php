@@ -216,7 +216,7 @@ else
 		$plural = $options_plural[$extra['profile']];
 
 		$columns = [
-			'FULL_NAME' => $singular,
+			'FULL_NAME' => _( $singular ),
 			'STAFF_ID' => sprintf( _( '%s ID' ), Config( 'NAME' ) ),
 		];
 	}
