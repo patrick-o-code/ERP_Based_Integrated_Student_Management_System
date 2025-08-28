@@ -279,6 +279,9 @@
 	.rt img {
 		max-height: 2em
 	}
+	.rt .rt2colorBox img {
+		max-height: unset;
+	}
 	.rt input,
 	.rt select {
 		margin: 0
