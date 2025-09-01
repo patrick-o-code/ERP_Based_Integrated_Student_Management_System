@@ -30,7 +30,8 @@ if ( $_REQUEST['tab'] === 'print_options' )
 	$page_size_options = [ 'A4' => 'A4', 'LETTER' => _( 'US Letter' ) ];
 }
 
-if ( ! empty( $_REQUEST['values'] )
+if ( $_REQUEST['modfunc'] === 'save'
+	&& ! empty( $_REQUEST['values'] )
 	&& ! empty( $_POST['values'] ) )
 {
 	if ( $_REQUEST['tab'] == 'password' )
@@ -148,8 +149,8 @@ if ( ! empty( $_REQUEST['values'] )
 		ThemeLiveUpdate( Preferences( 'THEME' ), $old_theme, false );
 	}
 
-	// Unset values & redirect URL.
-	RedirectURL( 'values' );
+	// Unset modfunc, values & redirect URL.
+	RedirectURL( [ 'modfunc', 'values' ] );
 }
 
 // Unset search modfunc & redirect URL.
@@ -168,7 +169,9 @@ if ( ! $_REQUEST['modfunc'] )
 			'WidgetsSearch','StaffFieldsSearch','StaffFieldsView','StaffWidgetsSearch')",
 		[], [ 'PROGRAM', 'TITLE' ] );
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=' . $_REQUEST['tab'] ) . '" method="POST">';
+	echo '<form action="' . URLEscape(
+		'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save&tab=' . $_REQUEST['tab']
+	) . '" method="POST">';
 
 	DrawHeader( '', Buttons( _( 'Save' ) ) );
 

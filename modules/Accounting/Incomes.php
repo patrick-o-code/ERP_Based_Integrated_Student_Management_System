@@ -19,8 +19,7 @@ if ( empty( $_REQUEST['print_statements'] ) )
 	DrawHeader( ProgramTitle() );
 }
 
-if ( ! empty( $_REQUEST['values'] )
-	&& $_POST['values']
+if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
 	// Add eventual Dates to $_REQUEST['values'].
@@ -66,8 +65,8 @@ if ( ! empty( $_REQUEST['values'] )
 		}
 	}
 
-	// Unset values & dates & redirect URL.
-	RedirectURL( [ 'values', 'month_values', 'day_values', 'year_values' ] );
+	// Unset modfunc, values, dates & redirect URL.
+	RedirectURL( [ 'modfunc', 'values', 'month_values', 'day_values', 'year_values' ] );
 }
 
 if ( $_REQUEST['modfunc'] === 'remove'
@@ -181,7 +180,7 @@ if ( ! $_REQUEST['modfunc'] )
 
 	if ( ! $_REQUEST['print_statements'] && AllowEdit() )
 	{
-		echo '<form action="' . PreparePHP_SELF() . '" method="POST">';
+		echo '<form action="' . PreparePHP_SELF( [], [], [ 'modfunc' => 'save' ] ) . '" method="POST">';
 
 		DrawHeader( '', SubmitButton() );
 

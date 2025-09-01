@@ -181,8 +181,7 @@ if ( $_REQUEST['modfunc'] == 'gradebook' )
 	RedirectURL( 'modfunc' );
 }
 
-if ( ! empty( $_REQUEST['values'] )
-	&& ! empty( $_POST['values'] ) )
+if ( $_REQUEST['modfunc'] === 'save' )
 {
 	$course_period_id = UserCoursePeriod();
 
@@ -233,7 +232,7 @@ if ( ! empty( $_REQUEST['values'] )
 		WHERE SCHOOL_DATE BETWEEN '" . $start_date . "' AND '" . $end_date . "'
 		AND COURSE_PERIOD_ID='" . (int) $course_period_id . "'", [], [ 'STUDENT_ID' ] );
 
-	RedirectURL( 'values' );
+	RedirectURL( [ 'modfunc', 'values' ] );
 }
 
 $extra['SELECT'] = issetVal( $extra['SELECT'], '' );
@@ -276,8 +275,9 @@ if ( $cp_title )
  * Must be used in combination with
  * `if ( ! empty( $_REQUEST['period'] ) ) SetUserCoursePeriod( $_REQUEST['period'] );`
  */
-echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
-	'&period=' . UserCoursePeriod() ) . '" method="POST">';
+echo '<form action="' . URLEscape(
+	'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save&period=' . UserCoursePeriod()
+) . '" method="POST">';
 
 if ( $today > $END_DAY
 	| $today < $START_DAY

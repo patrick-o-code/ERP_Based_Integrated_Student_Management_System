@@ -14,14 +14,13 @@ if ( empty( $_REQUEST['print_statements'] ) )
 	Search( 'staff_id', issetVal( $extra ) );
 }
 
-// Add eventual Dates to $_REQUEST['values'].
-AddRequestedDates( 'values', 'post' );
-
-if ( ! empty( $_REQUEST['values'] )
-	&& $_POST['values']
+if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit()
 	&& UserStaffID() )
 {
+	// Add eventual Dates to $_REQUEST['values'].
+	AddRequestedDates( 'values', 'post' );
+
 	foreach ( (array) $_REQUEST['values'] as $id => $columns )
 	{
 		if ( $id !== 'new' )
@@ -58,8 +57,8 @@ if ( ! empty( $_REQUEST['values'] )
 		}
 	}
 
-	// Unset values & redirect URL.
-	RedirectURL( 'values' );
+	// Unset modfunc, values, accounting_salaries & redirect URL.
+	RedirectURL( [ 'modfunc', 'values', 'accounting_salaries' ] );
 }
 
 if ( $_REQUEST['modfunc'] === 'remove'
@@ -152,7 +151,9 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 	if ( empty( $_REQUEST['print_statements'] )
 		&& AllowEdit() )
 	{
-		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&staff_id=' . UserStaffID() ) . '" method="POST">';
+		echo '<form action="' . URLEscape(
+			'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save&staff_id=' . UserStaffID()
+		) . '" method="POST">';
 		DrawHeader( '', SubmitButton() );
 		$options = [ 'valign-middle' => true ];
 	}

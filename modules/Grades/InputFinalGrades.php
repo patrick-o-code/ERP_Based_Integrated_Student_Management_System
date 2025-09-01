@@ -347,8 +347,7 @@ if ( $_REQUEST['modfunc'] === 'clearall' )
 	RedirectURL( 'modfunc' );
 }
 
-if ( ! empty( $_REQUEST['values'] )
-	&& $_POST['values'] )
+if ( $_REQUEST['modfunc'] === 'save' )
 {
 	require_once 'ProgramFunctions/_makeLetterGrade.fnc.php';
 	require_once 'ProgramFunctions/_makePercentGrade.fnc.php';
@@ -359,6 +358,8 @@ if ( ! empty( $_REQUEST['values'] )
 	$course_period_mp = DBGetOne( "SELECT MP
 		FROM course_periods
 		WHERE COURSE_PERIOD_ID='" . (int) $course_period_id . "'" );
+
+	$_REQUEST['values'] = issetVal( $_REQUEST['values'] );
 
 	foreach ( (array) $_REQUEST['values'] as $student_id => $columns )
 	{
@@ -923,8 +924,8 @@ if ( ! empty( $_REQUEST['values'] )
 		AND MARKING_PERIOD_ID='" . (int) $_REQUEST['mp'] . "'
 		AND COURSE_PERIOD_ID='" . (int) $course_period_id . "'" ) );
 
-	// Unset values & redirect URL.
-	RedirectURL( 'values' );
+	// Unset modfunc, values & redirect URL.
+	RedirectURL( [ 'modfunc', 'values' ] );
 }
 
 $mps_onchange_URL = URLEscape( "Modules.php?modname=" . $_REQUEST['modname'] .
@@ -1017,7 +1018,7 @@ $stu_RET = GetStuList( $extra );
  * Must be used in combination with
  * `if ( ! empty( $_REQUEST['period'] ) ) SetUserCoursePeriod( $_REQUEST['period'] );`
  */
-echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
+echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save' .
 	( ! empty( $categories_RET ) && GetMP( $_REQUEST['mp'], 'DOES_COMMENTS' ) == 'Y' ?
 		'&tab_id=' . $_REQUEST['tab_id'] : '' ) .
 	'&mp=' . $_REQUEST['mp'] . '&period=' . $course_period_id  ) . '" method="POST">';

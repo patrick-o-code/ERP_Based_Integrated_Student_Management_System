@@ -2,8 +2,7 @@
 
 DrawHeader( ProgramTitle() );
 
-if ( ! empty( $_REQUEST['values'] )
-	&& $_POST['values']
+if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
 	foreach ( (array) $_REQUEST['values'] as $id => $columns )
@@ -170,8 +169,8 @@ if ( ! empty( $_REQUEST['values'] )
 		}
 	}
 
-	// Unset values & redirect URL.
-	RedirectURL( 'values' );
+	// Unset modfunc, values & redirect URL.
+	RedirectURL( [ 'modfunc', 'values' ] );
 }
 
 if ( $_REQUEST['modfunc'] === 'delete'
@@ -281,7 +280,9 @@ if ( ! $_REQUEST['modfunc'] )
 		'DATA_TYPE' => _makeType( '', 'DATA_TYPE' ),
 	];
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname']  ) . '" method="POST">';
+	echo '<form action="' . URLEscape(
+		'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save'
+	) . '" method="POST">';
 
 	DrawHeader( '', SubmitButton() );
 

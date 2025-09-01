@@ -10,8 +10,7 @@ if ( empty( $_REQUEST['print_statements'] ) )
 	Search( 'student_id', issetVal( $extra ) );
 }
 
-if ( ! empty( $_REQUEST['values'] )
-	&& $_POST['values']
+if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit()
 	&& UserStudentID() )
 {
@@ -66,8 +65,8 @@ if ( ! empty( $_REQUEST['values'] )
 		}
 	}
 
-	// Unset values, month_values, day_values, year_values & redirect URL.
-	RedirectURL( [ 'values', 'month_values', 'day_values', 'year_values' ] );
+	// Unset modfunc, values, dates & redirect URL.
+	RedirectURL( [ 'modfunc', 'values', 'month_values', 'day_values', 'year_values' ] );
 }
 
 if ( $_REQUEST['modfunc'] === 'remove'
@@ -228,7 +227,9 @@ if ( UserStudentID()
 
 	if ( empty( $_REQUEST['print_statements'] ) )
 	{
-		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&student_id=' . UserStudentID() ) . '" method="POST">';
+		echo '<form action="' . URLEscape(
+			'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save&student_id=' . UserStudentID()
+		) . '" method="POST">';
 		//DrawStudentHeader();
 
 		if ( AllowEdit() )

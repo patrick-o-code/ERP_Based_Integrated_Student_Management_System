@@ -6,12 +6,14 @@ require_once 'modules/Discipline/includes/Referral.fnc.php';
 
 DrawHeader( ProgramTitle() );
 
-// Add eventual Dates to $_REQUEST['values'].
-AddRequestedDates( 'values', 'post' );
-
-if ( ! empty( $_POST['values'] )
+if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
+	$_REQUEST['values'] = issetVal( $_REQUEST['values'] );
+
+	// Add eventual Dates to $_REQUEST['values'].
+	AddRequestedDates( 'values', 'post' );
+
 	$categories_RET = DBGet( "SELECT df.ID,df.DATA_TYPE,du.TITLE,du.SELECT_OPTIONS
 		FROM discipline_fields df,discipline_field_usage du
 		WHERE du.SYEAR='" . UserSyear() . "'
@@ -65,8 +67,8 @@ if ( ! empty( $_POST['values'] )
 		[ 'ID' => (int) $_REQUEST['referral_id'] ]
 	);
 
-	// Unset values & redirect URL.
-	RedirectURL( 'values' );
+	// Unset modfunc, values & redirect URL.
+	RedirectURL( [ 'modfunc', 'values' ] );
 }
 
 echo ErrorMessage( $error );
@@ -164,7 +166,9 @@ if ( ! $_REQUEST['modfunc']
 	{
 		$RET = $RET[1];
 
-		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&referral_id=' . $_REQUEST['referral_id']  ) . '" method="POST">';
+		echo '<form action="' . URLEscape(
+			'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save&referral_id=' . $_REQUEST['referral_id']
+		) . '" method="POST">';
 
 		DrawHeader( '', SubmitButton() );
 

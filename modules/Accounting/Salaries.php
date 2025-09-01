@@ -15,8 +15,7 @@ if ( empty( $_REQUEST['print_statements'] ) )
 	Search( 'staff_id', issetVal( $extra ) );
 }
 
-if ( ! empty( $_REQUEST['values'] )
-	&& $_POST['values']
+if ( $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit()
 	&& UserStaffID() )
 {
@@ -62,8 +61,8 @@ if ( ! empty( $_REQUEST['values'] )
 		}
 	}
 
-	// Unset values & redirect URL.
-	RedirectURL( 'values' );
+	// Unset modfunc, values & redirect URL.
+	RedirectURL( [ 'modfunc', 'values' ] );
 }
 
 echo ErrorMessage( $error );
@@ -164,7 +163,9 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 
 	if ( empty( $_REQUEST['print_statements'] ) && AllowEdit() )
 	{
-		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&staff_id=' . UserStaffID()  ) . '" method="POST">';
+		echo '<form action="' . URLEscape(
+			'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=save&staff_id=' . UserStaffID()
+		) . '" method="POST">';
 
 		DrawHeader( '', SubmitButton() );
 

@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.5
+---------------
+- Add '&modfunc=save' to form URL in Expenses.php, Incomes.php, Salaries.php, StaffPayments.php, DisciplineForm.php, Referrals.php, EnterEligibility.php, InputFinalGrades.php, StudentFees.php, StudentPayments.php & Preferences.php
+
 Changes in 12.4.2
 -----------------
 - Fix PHP fatal error failed opening required add-on file in Student.php & User.php
