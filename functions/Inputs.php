@@ -499,6 +499,7 @@ function TextAreaInput( $value, $name, $title = '', $extra = '', $div = true, $t
  * @see TinyMCE Javascript plugin for HTML edition in assets/js/tinymce/
  *
  * @since 2.9
+ * @since 12.5 Fix add .tinymce CSS class when class already set in $extra param
  *
  * @global $locale Locale to translate TinyMCE interface.
  *
@@ -519,7 +520,19 @@ function TinyMCEInput( $value, $name, $title = '', $extra = '' )
 
 	$wrapper = '';
 
-	$extra = 'class="tinymce" ' . $extra;
+	if ( ! $extra
+		|| mb_strpos( $extra, 'class=' ) === false )
+	{
+		$extra .= ' class="tinymce"';
+	}
+	elseif ( mb_strpos( $extra, 'class=' ) !== false )
+	{
+		$extra = str_replace(
+			[ 'class="', "class='" ],
+			[ 'class="tinymce ', "class='tinymce " ],
+			$extra
+		);
+	}
 
 	if ( mb_strpos( (string) $extra, 'class=' ) !== false )
 	{
