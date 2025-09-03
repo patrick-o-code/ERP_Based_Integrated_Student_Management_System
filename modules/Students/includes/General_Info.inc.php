@@ -91,7 +91,7 @@ if ( AllowEdit() && ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 			$student_name_html,
 			$student['FIRST_NAME'] . ' ' . $student['MIDDLE_NAME'] . ' ' .
 			$student['LAST_NAME'] . ' ' . $student['NAME_SUFFIX'],
-			FormatInputTitle( _( 'Name' ), $id )
+			FormatInputTitle( _( 'Name' ) )
 		);
 	}
 }

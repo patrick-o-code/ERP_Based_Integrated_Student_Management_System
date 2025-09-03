@@ -123,7 +123,7 @@ if ( AllowEdit() && ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 			$user_name_html,
 			$staff_title . ' ' . $staff['FIRST_NAME'] . ' ' .
 			$staff['MIDDLE_NAME'] . ' ' . $staff['LAST_NAME'] . ' ' . $staff_suffix,
-			FormatInputTitle( _( 'Name' ), $id )
+			FormatInputTitle( _( 'Name' ) )
 		);
 	}
 }
@@ -376,8 +376,8 @@ if ( basename( $_SERVER['PHP_SELF'] ) != 'index.php' )
 
 			$id = 'schools';
 
-			$title = FormatInputTitle( _( 'Schools' ), $id );
-			$title_nobr = FormatInputTitle( _( 'Schools' ), $id, false, '' );
+			$title = FormatInputTitle( _( 'Schools' ) );
+			$title_nobr = FormatInputTitle( _( 'Schools' ), '', false, '' );
 
 			if ( $_REQUEST['staff_id'] !== 'new'
 				&& AllowEdit() )
