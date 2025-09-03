@@ -270,7 +270,6 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
  * @uses ParseMLField() to get localized options
  *
  * @global $RosarioLocales Returns simple TextInput() if only 1 locale set
- * @global $locale         Get current locale
  *
  * @param  string  $value Input value.
  * @param  string  $name  Input name.
@@ -282,14 +281,13 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
  */
 function MLTextInput( $value, $name, $title = '', $extra = '', $div = true )
 {
-	global $RosarioLocales,
-		$locale;
+	global $RosarioLocales;
 
 	$value = is_array( $value ) ? $value[0] : $value;
 
 	if ( count( $RosarioLocales ) < 2 )
 	{
-		return TextInput( ParseMLField( $value, $locale ), $name, $title, $extra, $div );
+		return TextInput( ParseMLField( $value, $_SESSION['locale'] ), $name, $title, $extra, $div );
 	}
 
 	$required = $value == '' && mb_strpos( $extra, 'required' ) !== false;
@@ -343,7 +341,7 @@ function setMLvalue(id, loc, value){
 		foreach ( (array) $RosarioLocales as $key => $loc )
 		{
 			$language = function_exists( 'locale_get_display_language' ) ?
-				ucfirst( locale_get_display_language( $loc, $locale ) ) :
+				ucfirst( locale_get_display_language( $loc, $_SESSION['locale'] ) ) :
 				str_replace( '.utf8', '', $loc );
 
 			$return .= '<label><img src="locale/' . $loc . '/flag.png" class="button bigger" alt="' . AttrEscape( $language ) . '" title="' . AttrEscape( $language ) . '"> ';
