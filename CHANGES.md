@@ -5,6 +5,7 @@ Changes in 12.5
 ---------------
 - Add '&modfunc=save' to form URL in Expenses.php, Incomes.php, Salaries.php, StaffPayments.php, DisciplineForm.php, Referrals.php, EnterEligibility.php, InputFinalGrades.php, StudentFees.php, StudentPayments.php & Preferences.php
 - SQL fix #359 duplicate entries when school is renamed after Rollover in AddDrop.php, thanks to @HubertQuiquet
+- SQL case-insensitive username uniqueness check in ImportUsers.fnc.php
 
 Changes in 12.4.2
 -----------------

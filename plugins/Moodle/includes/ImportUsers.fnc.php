@@ -452,15 +452,15 @@ function MoodleUserImportUser( $user, $profile )
 
 	$username = $user['username'];
 
-	// Check username uniqueness.
+	// Check username uniqueness (case-insensitive).
 	$existing_username = DBGet( "SELECT 'exists'
 		FROM staff
-		WHERE USERNAME='" . $username . "'
+		WHERE UPPER(USERNAME)=UPPER('" . DBEscapeString( $username ) . "')
 		AND SYEAR='" . UserSyear() . "'
 		AND STAFF_ID!='" . UserStaffID() . "'
 		UNION SELECT 'exists'
 		FROM students
-		WHERE USERNAME='" . $username . "'" );
+		WHERE UPPER(USERNAME)=UPPER('" . DBEscapeString( $username ) . "')" );
 
 	if ( $existing_username )
 	{
