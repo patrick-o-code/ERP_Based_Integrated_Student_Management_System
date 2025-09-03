@@ -384,7 +384,7 @@ if ( ! $_REQUEST['modfunc'] && ! empty( $email_column ) )
 		list( $template_new, $template_old ) = explode( '__BLOCK2__', $template );
 
 		$extra['extra_header_left'] .= '<tr class="st"><td>' .
-		'<textarea name="inputcreateparentstext_new" id="inputcreateparentstext_new" cols="100" rows="5">' .
+		'<textarea name="inputcreateparentstext_new" id="inputcreateparentstext_new" cols="100" rows="10">' .
 		$template_new . '</textarea>' .
 		FormatInputTitle(
 			_( 'New Parent Account' ) . ' - ' . _( 'Email Text' ),
