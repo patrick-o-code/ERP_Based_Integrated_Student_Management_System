@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.4.3
+-----------------
+- SQL fix #359 duplicate entries when school is renamed after Rollover in AddDrop.php, thanks to @HubertQuiquet
+
 Changes in 12.4.2
 -----------------
 - Fix PHP fatal error failed opening required add-on file in Student.php & User.php
