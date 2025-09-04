@@ -1314,26 +1314,37 @@ class Widget_discipline_fields implements Widget
 
 	function extra( $extra )
 	{
-		if ( isset( $_REQUEST['discipline'] )
-			&& is_array( $_REQUEST['discipline'] ) )
+		if ( ! empty( $_REQUEST['discipline'] ) )
 		{
-			// Modify loop: use for instead of foreach.
-			$key = array_keys( $_REQUEST['discipline'] );
-			$size = count( $key );
-
-			for ( $i = 0; $i < $size; $i++ )
+			foreach ( (array) $_REQUEST['discipline'] as $key => $value )
 			{
-				if ( ! ( $_REQUEST['discipline'][ $key[ $i ] ] ) )
+				if ( ! $_REQUEST['discipline'][ $key ] )
 				{
-					unset( $_REQUEST['discipline'][ $key[ $i ] ] );
+					unset( $_REQUEST['discipline'][ $key ] );
 				}
 			}
+		}
 
-			/*foreach ( (array) $_REQUEST['discipline'] as $key => $value)
+		if ( ! empty( $_REQUEST['discipline_begin'] ) )
+		{
+			foreach ( (array) $_REQUEST['discipline_begin'] as $key => $value )
 			{
-				if(! $value)
-					unset($_REQUEST['discipline'][ $key ]);
-			}*/
+				if ( ! is_numeric( $_REQUEST['discipline_begin'][ $key ] ) )
+				{
+					unset( $_REQUEST['discipline_begin'][ $key ] );
+				}
+			}
+		}
+
+		if ( ! empty( $_REQUEST['discipline_end'] ) )
+		{
+			foreach ( (array) $_REQUEST['discipline_end'] as $key => $value )
+			{
+				if ( ! is_numeric( $_REQUEST['discipline_end'][ $key ] ) )
+				{
+					unset( $_REQUEST['discipline_end'][ $key ] );
+				}
+			}
 		}
 
 		if ( empty( $_REQUEST['discipline'] )

@@ -4,10 +4,14 @@
 Changes in 12.5
 ---------------
 - Add '&modfunc=save' to form URL in Expenses.php, Incomes.php, Salaries.php, StaffPayments.php, DisciplineForm.php, Referrals.php, EnterEligibility.php, InputFinalGrades.php, StudentFees.php, StudentPayments.php & Preferences.php
-- SQL fix #359 duplicate entries when school is renamed after Rollover in AddDrop.php, thanks to @HubertQuiquet
 - SQL case-insensitive username uniqueness check in ImportUsers.fnc.php
 - Fix HTML error label's for attribute doesn't match any element id in General_Info.php
 - Fix add .tinymce CSS class when class already set in $extra param in Inputs.php
+
+Changes in 12.4.3
+-----------------
+- SQL fix #359 duplicate entries when school is renamed after Rollover in AddDrop.php, thanks to @HubertQuiquet
+- Fix regression since 12.4.1 search discipline numeric field in Widget.php
 
 Changes in 12.4.2
 -----------------
