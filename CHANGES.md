@@ -22,6 +22,7 @@ Changes in 12.5
 - JS remove inline code from FileInput() in Inputs.php & FileInput.js
 - JS remove inline code from MLTextInput() in Inputs.php & MLTextInput.js
 - JS remove inline code from MarkDownInputPreview() in Inputs.php & MarkDownInputPreview.js
+- JS required group of checkboxes in Inputs.php & MultipleCheckboxInput.js
 
 Changes in 12.4.3
 -----------------

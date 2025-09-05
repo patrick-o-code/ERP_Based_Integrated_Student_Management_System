@@ -742,6 +742,7 @@ function CheckboxInput( $value, $name, $title = '', $checked = '', $new = false,
  * @since 6.1 Allow numeric key (ID) in associative $options array.
  * @since 10.8.1 Fix save all unchecked, add hidden empty checkbox
  * @since 12.4.1 Fix display value text when associative $options array
+ * @since 12.5 JS required group of checkboxes
  *
  * @example MultipleCheckboxInput( $value, 'values[' . $id . '][' . $name . '][]' );
  *
@@ -753,16 +754,26 @@ function CheckboxInput( $value, $name, $title = '', $checked = '', $new = false,
  * @param  string  $name    Input name.
  * @param  string  $title   Input title (optional). Defaults to ''.
  * @param  array   $options Input options: [ 'option_value' => 'option_text' ].
- * @param  string  $extra   Extra HTML attributes added to the input. (optional).
+ * @param  string  $extra   Extra HTML attributes added to the input. 'required' means at least 1 checked (optional).
  * @param  boolean $div     Is input wrapped into <div onclick>? (optional). Defaults to true.
  *
  * @return string  Inputs HTML
  */
 function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $div = true )
 {
+	static $js_included = false;
+
 	$id = GetInputID( $name );
 
-	$required = $value == '' && mb_strpos( $extra, 'required' ) !== false;
+	$required = mb_strpos( $extra, 'required' ) !== false; // Note: do not check for $value == '' yet.
+
+	/**
+	 * Remove 'required' from $extra.
+	 * Want don't want all checkboxes checked. We likely want at least 1 checked.
+	 *
+	 * @since 12.5
+	 */
+	$extra = str_replace( 'required', '', $extra );
 
 	$associative_array = $options !== array_values( $options );
 
@@ -788,7 +799,33 @@ function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $d
 		return $multiple_value . FormatInputTitle( $title );
 	}
 
-	$multiple_html = '<table class="cellspacing-0 cellpadding-5"><tr class="st">';
+	$js = '';
+
+	if ( $required
+		&& count( $options ) > 1
+		&& ! $js_included )
+	{
+		/**
+		 * JS required group of checkboxes
+		 * Alert user on form submit if no checkboxes in the group are checked.
+		 *
+		 * @link https://stackoverflow.com/questions/6218494/using-the-html5-required-attribute-for-a-group-of-checkboxes
+		 *
+		 * @since 12.5
+		 */
+		$js = '<script src="assets/js/csp/functions/MultipleCheckboxInput.js?v12.5"></script>';
+
+		$alert = _( 'Please check at least one checkbox in the group.' );
+
+		// Disabled input value used by JS.
+		$js .= '<input type="hidden" disabled id="multiple_checkbox_input_required_alert" value="' .
+			AttrEscape( $alert ) . '" />';
+
+		$js_included = true;
+	}
+
+	$multiple_html = '<table class="cellspacing-0 cellpadding-5 multiple-checkbox-input ' .
+		( $required ? 'required' : '' ) . '"><tr class="st">';
 
 	$i = 0;
 
@@ -813,14 +850,19 @@ function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $d
 		'</label></td>';
 	}
 
-	$multiple_html .= '</tr></table>' . FormatInputTitle( $title, '', $required, '' );
+	$multiple_html .= '</tr></table>' . FormatInputTitle(
+		$title,
+		'',
+		( $required && $value == '' ),
+		''
+	);
 
 	$multiple_html .= '<input type="hidden" name="' . AttrEscape( $name ) . '" value="">';
 
 	if ( trim( (string) $value, '|' ) == ''
 		|| ! $div )
 	{
-		return $multiple_html;
+		return $multiple_html . $js;
 	}
 
 	return InputDivOnclick(
@@ -828,7 +870,7 @@ function MultipleCheckboxInput( $value, $name, $title, $options, $extra = '', $d
 		$multiple_html,
 		$multiple_value,
 		FormatInputTitle( $title )
-	);
+	) . $js;
 }
 
 
