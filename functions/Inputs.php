@@ -193,6 +193,31 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 
 	$extra .= ' type="password" autocomplete="new-password"';
 
+	$min_required_strength = $strength ? Config( 'PASSWORD_STRENGTH' ) : 0;
+
+	$password_strength_js = '';
+
+	if ( $min_required_strength )
+	{
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$extra .= ' data-min-strength="' . AttrEscape( $min_required_strength ) . '"';
+
+		// Error message when trying to submit the form.
+		$extra .= ' data-error="' . AttrEscape( _( 'Your password must be stronger.' ) ) . '"';
+
+		// @since 11.1 Prevent using App name, username, or email in the password
+		$user_inputs = array_merge(
+			[ Config( 'NAME' ) ],
+			// Add username & email to this global var before calling PasswordInput().
+			issetVal( $_ROSARIO['PasswordInput']['user_inputs'], [] )
+		);
+
+		$extra .= ' data-user-inputs="' . AttrEscape( json_encode( $user_inputs ) ) . '"';
+
+		// Call our jQuery PasswordStrength plugin based on zxcvbn.
+		$password_strength_js = '<script src="assets/js/csp/functions/PasswordInput.js?v=12.5"></script>';
+	}
+
 	$input = TextInput( ( $value !== str_repeat( '*', 8 ) ? $value : '' ), $name, '', $extra, false );
 
 	$lock_icons = button( 'unlocked', '', '', 'password-toggle password-show' ) .
@@ -200,10 +225,7 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 
 	$password_strength_bars = '';
 
-	$min_required_strength = $strength ? Config( 'PASSWORD_STRENGTH' ) : 0;
-
-	if ( $strength
-		&& $min_required_strength )
+	if ( $min_required_strength )
 	{
 		$password_strength_bars = '<div class="password-strength-bars">
 			<span class="score0"></span>
@@ -213,28 +235,6 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 			<span class="score4"></span>
 		</div>';
 	}
-
-	// @since 11.1 Prevent using App name, username, or email in the password
-	$user_inputs = array_merge(
-		[ Config( 'NAME' ) ],
-		// Add username & email to this global var before calling PasswordInput().
-		issetVal( $_ROSARIO['PasswordInput']['user_inputs'], [] )
-	);
-
-	ob_start();
-
-	// Call our jQuery PasswordStrength plugin based on zxcvbn.
-	?>
-	<script>
-		$('#' + <?php echo json_encode( $id ); ?>).passwordStrength(
-			<?php echo (int) $min_required_strength; ?>,
-			// Error message when trying to submit the form.
-			<?php echo json_encode( _( 'Your password must be stronger.' ) ); ?>,
-			<?php echo json_encode( $user_inputs ); ?>
-		);
-	</script>
-	<?php
-	$password_strength_js = ob_get_clean();
 
 	$input .= $lock_icons . $password_strength_bars .
 		FormatInputTitle( $title, $id, $required ) . $password_strength_js;
