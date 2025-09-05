@@ -724,6 +724,15 @@ window.onload = function() {
 		ajaxPostForm(this, e);
 	});
 
+	/**
+	 * Bottom.php buttons click related events
+	 *
+	 * @since 12.5
+	 *
+	 * @uses bottomButtonClick() function
+	 */
+	$('.BottomButton').on('click', bottomButtonClick);
+
 	if (!isMobileMenu()) {
 		fixedMenu();
 
@@ -930,6 +939,29 @@ var expandMenu = function() {
 		!$('#menu').hasClass('hide')) {
 		// @since 5.1 Prevent scrolling body while Menu is open.
 		$('body').css('overflow', 'hidden');
+	}
+}
+
+/**
+ * Bottom.php buttons click related events
+ *
+ * @since 12.5
+ *
+ * @uses expandMenu() & toggleHelp() functions
+ */
+bottomButtonClick = function() {
+	if (this.id === 'BottomButtonMenu') {
+		return expandMenu();
+	}
+
+	if (this.id === 'BottomButtonPrint') {
+		this.href = 'Bottom.php?bottomfunc=print&' + window.location.search.substring(1);
+
+		return;
+	}
+
+	if (this.id === 'BottomButtonHelp') {
+		return toggleHelp();
 	}
 }
 

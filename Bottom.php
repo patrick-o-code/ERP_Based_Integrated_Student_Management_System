@@ -22,7 +22,7 @@ if ( empty( $_REQUEST['bottomfunc'] ) ) : ?>
 		<a href="#body" class="a11y-hidden BottomButton">
 			<?php echo _( 'Skip to main content' ); // Accessibility link to skip menus. ?>
 		</a>
-		<a id="BottomButtonMenu" href="#" onclick="expandMenu(); return false;" title="<?php echo AttrEscape( _( 'Menu' ) ); ?>" class="BottomButton">
+		<a id="BottomButtonMenu" href="#!" title="<?php echo AttrEscape( _( 'Menu' ) ); ?>" class="BottomButton">
 			<svg viewBox="0 0 24 24">
 				<line x1="3" y1="12" x2="21" y2="12"></line>
 				<line x1="3" y1="6" x2="21" y2="6"></line>
@@ -86,12 +86,11 @@ if ( empty( $_REQUEST['bottomfunc'] ) ) : ?>
 		 */
 		do_action( 'Bottom.php|bottom_buttons' ); ?>
 
-		<a href="" target="_blank" title="<?php echo AttrEscape( _( 'Print' ) ); ?>" class="BottomButton"
-			onclick="this.href = 'Bottom.php?bottomfunc=print&' + window.location.search.substring(1);">
+		<a id="BottomButtonPrint" href="" target="_blank" title="<?php echo AttrEscape( _( 'Print' ) ); ?>" class="BottomButton">
 			<img src="<?php echo $btn_path; ?>print.png" alt="">
 			<span><?php echo _( 'Print' ); ?></span>
 		</a>
-		<a href="#" onclick="toggleHelp();return false;" title="<?php echo AttrEscape( _( 'Help' ) ); ?>" class="BottomButton">
+		<a id="BottomButtonHelp" href="#!" title="<?php echo AttrEscape( _( 'Help' ) ); ?>" class="BottomButton">
 			<img src="<?php echo $btn_path; ?>help.png" alt="">
 			<span><?php echo _( 'Help' ); ?></span>
 		</a>

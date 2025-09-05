@@ -11,6 +11,7 @@ Changes in 12.5
 - JS add setInnerHTML() function in warehouse.js
 - JS add submenuOnTouch() function in warehouse.js
 - JS Prevent submitting form if no checkboxes are checked in warehouse.js & Inputs.php
+- JS add bottomButtonClick() Bottom.php buttons click related events in warehouse.js & Bottom.php
 
 Changes in 12.4.3
 -----------------
