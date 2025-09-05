@@ -159,11 +159,10 @@ function Prompt( $title = 'Confirm', $question = '', $message = '' )
  */
 function BackPrompt( $message )
 {
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>
-		alert(<?php echo json_encode( (string) $message ); ?>);
-		window.close();
-	</script>
+	<input type="hidden" disabled id="back_prompt" value="<?php echo AttrEscape( $message ); ?>" />
+	<script src="assets/js/csp/functions/BackPrompt.js?v=12.5"></script>
 
 	<?php exit();
 }

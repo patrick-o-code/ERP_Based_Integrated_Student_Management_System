@@ -17,6 +17,7 @@ Changes in 12.5
 - JS use #x_redirect_url value instead of XRedirectUrl global var in warehouse.js & PreparePHP_SELF.fnc.php
 - JS Trigger custom ajaxPrepare event in warehouse.js
 - Deprecate `_printPageHead()` function & rework display logic in PasswordHelp.php
+- JS add backPrompt() function in BackPrompt.js & Prompts.php
 
 Changes in 12.4.3
 -----------------
