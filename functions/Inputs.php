@@ -1650,6 +1650,8 @@ function CheckCaptcha()
  */
 function FileInput( $name, $title = '', $extra = '', $max_file_size = 0 )
 {
+	static $js_included = false;
+
 	require_once 'ProgramFunctions/FileUpload.fnc.php';
 
 	$id = GetInputID( $name );
@@ -1672,9 +1674,17 @@ function FileInput( $name, $title = '', $extra = '', $max_file_size = 0 )
 		$extra .= ' title="' . AttrEscape( sprintf( _( 'Maximum file size: %01.0fMb' ), $max_file_size ) ) . '"';
 	}
 
+	$js = '';
+
+	if ( ! $js_included )
+	{
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$js = '<script src="assets/js/csp/functions/FileInput.js?v=12.5"></script>';
+	}
+
 	return '<input type="file" id="' . $id . '" name="' . AttrEscape( $name ) . '" ' . $extra .
-		' onchange="fileInputSizeValidate(this,' . (float) $max_file_size . ');"><span class="loading"></span>' .
-		$ftitle;
+		' class="onchange-file-input" data-max-size="' . (float) $max_file_size . '"><span class="loading"></span>' .
+		$ftitle . $js;
 }
 
 

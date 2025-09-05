@@ -19,6 +19,7 @@ Changes in 12.5
 - Deprecate `_printPageHead()` function & rework display logic in PasswordHelp.php
 - JS add backPrompt() function in BackPrompt.js & Prompts.php
 - JS remove inline code from CaptchaInput() in Inputs.php & CaptchaInput.js
+- JS remove inline code from FileInput() in Inputs.php & FileInput.js
 
 Changes in 12.4.3
 -----------------
