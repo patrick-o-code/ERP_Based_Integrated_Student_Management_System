@@ -27,6 +27,7 @@ Changes in 12.5
 - JS remove inline code from DeletePrompt() & Prompt() + add .button-prompt-cancel CSS class in Prompts.php & Prompt.js
 - JS remove inline code from Search() in Search.fnc.php & Search.js
 - JS remove inline code from Select2Input() in Inputs.php & Select2Input.js
+- JS remove inline code from TinyMCEInput() in Inputs.php & TinyMCEInput.js
 
 Changes in 12.4.3
 -----------------

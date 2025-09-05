@@ -465,6 +465,7 @@ function TextAreaInput( $value, $name, $title = '', $extra = '', $div = true, $t
  *
  * @example TinyMCEInput( $RET[1]['TEMPLATE'], 'tinymce_textarea' )
  * @example TinyMCEInput( $html, 'tinymce_horizontal', _( 'Horizontal PDF' ), 'class="tinymce-horizontal"' )
+ * @example TinyMCEInput( $html, 'letter_text', _( 'Letter Text' ), 'class="tinymce-document"' )
  *
  * @uses TextAreaInput()
  *
@@ -538,78 +539,21 @@ function TinyMCEInput( $value, $name, $title = '', $extra = '' )
 
 	if ( ! $js_included )
 	{
-		$tinymce_language = '';
-
-		$tinymce_directionality = 'ltr';
-
-		if ( $locale !== 'en_US.utf8' )
-		{
-			if ( file_exists( 'assets/js/tinymce/langs/' . mb_substr( $locale, 0, 2 ) . '.js' ) )
-			{
-				// For example: es (Spanish).
-				$tinymce_language = mb_substr( $locale, 0, 2 );
-			}
-			elseif ( file_exists( 'assets/js/tinymce/langs/' . mb_substr( $locale, 0, 5 ) . '.js' ) )
-			{
-				// For example: fr_FR (French).
-				$tinymce_language = mb_substr( $locale, 0, 5 );
-			}
-
-			if ( $tinymce_language )
-			{
-				$lang_2_chars = mb_substr( $locale, 0, 2 );
-
-				// Right to left direction.
-				$RTL_languages = [ 'ar', 'he', 'dv', 'fa', 'ur', 'ps' ];
-
-				$tinymce_directionality = in_array( $lang_2_chars, $RTL_languages ) ? 'rtl' : 'ltr';
-			}
-		}
-
 		// Include main TinyMCE javascript
 		// and its configuration (plugin, language...).
 		ob_start(); ?>
 
-<script src="assets/js/tinymce/tinymce.min.js?v=4.9.8"></script>
-<script>
-	tinymceSettings = {
-		selector: '.tinymce',
-		plugins: 'link image pagebreak paste table textcolor colorpicker code fullscreen hr media lists',
-		toolbar: "bold italic underline bullist numlist alignleft aligncenter alignright alignjustify link image forecolor backcolor code fullscreen",
-		menu: {
-			// file: {title: 'File', items: 'newdocument'},
-			edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext'},
-			insert: {title: 'Insert', items: 'media | hr pagebreak | inserttable cell row column'},
-			// view: {title: 'View', items: 'visualaid'},
-			format: {title: 'Format', items: 'formats | removeformat'}
-		},
-		paste_data_images: true,
-		images_upload_handler: function (blobInfo, success, failure) {
-			success("data:" + blobInfo.blob().type + ";base64," + blobInfo.base64());
-		},
-		pagebreak_separator: '<div style="page-break-after: always;"></div>',
-		language: <?php echo json_encode( $tinymce_language ); ?>,
-		directionality : <?php echo json_encode( $tinymce_directionality ); ?>,
-		relative_urls: false,
-		// verify_html: false,
-		remove_script_host: false,
-		external_plugins: {
-			// Add your plugins using the action hook below.
-		}
-	};
-</script>
+		<script src="assets/js/tinymce/tinymce.min.js?v=4.9.8"></script>
+		<script src="assets/js/csp/functions/TinyMCEInput.js?v=12.5"></script>
 		<?php
 		/**
 		 * TinyMCE before init action hook
 		 *
 		 * @since 5.3
 		 */
-		do_action( 'functions/Inputs.php|tinymce_before_init' ); ?>
-<script>
-	tinymce.init(tinymceSettings);
-</script><!-- /TinyMCE -->
+		do_action( 'functions/Inputs.php|tinymce_before_init' );
 
-		<?php $tinymce_js = ob_get_clean();
+		$tinymce_js = ob_get_clean();
 
 		$js_included = true;
 	}
