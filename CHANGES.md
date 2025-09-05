@@ -9,6 +9,7 @@ Changes in 12.5
 - Fix add .tinymce CSS class when class already set in $extra param in Inputs.php
 - JS add CSP root, functions & programFunctions (global, always loaded) in Gruntfile.js, assets/js/csp/
 - JS add setInnerHTML() function in warehouse.js
+- JS add submenuOnTouch() function in warehouse.js
 
 Changes in 12.4.3
 -----------------

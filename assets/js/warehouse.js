@@ -601,6 +601,9 @@ var ajaxPrepare = function(target, scrollTop) {
 		if (!isMobileMenu()) {
 			submenuOffset();
 		}
+		if (isTouchDevice()) {
+			$(".adminmenu .menu-top").on('click touch', submenuOnTouch);
+		}
 	}
 
 	var h3 = $('#body h3.title').first().text(),
@@ -686,21 +689,8 @@ window.onload = function() {
 		NodeList.prototype.forEach = Array.prototype.forEach;
 	}
 
-	// @since 4.4 Open submenu on touch (mobile & tablet).
 	if (isTouchDevice()) {
-		$(".adminmenu .menu-top").on('click touch', function(e) {
-			e.preventDefault();
-
-			$("#selectedModuleLink").attr('id', '');
-			$(this).attr('id', 'selectedModuleLink');
-
-			if ($(this).offset().top < this.scrollHeight) {
-				/* Mobile: Adjust scroll position to selectedModuleLink when X position is < 0 */
-				$('#menu').scrollTop($('#menu')[0].scrollTop - Math.abs($(this).offset().top) - this.scrollHeight);
-			}
-
-			return false;
-		});
+		$(".adminmenu .menu-top").on('click touch', submenuOnTouch);
 	}
 
 	$(document).on('click', 'a', function(e) {
@@ -861,6 +851,21 @@ function submenuOffset() {
 		submenu.css("margin-top", (moveup < 0 ? moveup : 0) + 'px');
 	});
 }
+
+var submenuOnTouch = function(e) {
+	// @since 4.4 Open submenu on touch (mobile & tablet).
+	e.preventDefault();
+
+	$("#selectedModuleLink").attr('id', '');
+	$(this).attr('id', 'selectedModuleLink');
+
+	if ($(this).offset().top < this.scrollHeight) {
+		/* Mobile: Adjust scroll position to selectedModuleLink when X position is < 0 */
+		$('#menu').scrollTop($('#menu')[0].scrollTop - Math.abs($(this).offset().top) - this.scrollHeight);
+	}
+
+	return false;
+};
 
 // Bottom.php JS.
 var toggleHelp = function() {
