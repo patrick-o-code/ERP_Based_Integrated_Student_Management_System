@@ -715,6 +715,9 @@ var ajaxPrepare = function(target, scrollTop) {
 			i.setAttribute('tabindex', '0');
 		});
 	}
+
+	// @since 12.5 Trigger custom ajaxPrepare event
+	$(target).trigger('ajaxPrepare');
 }
 
 

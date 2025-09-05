@@ -15,6 +15,7 @@ Changes in 12.5
 - JS deprecate switchMenu() function: use `<details><summary>` instead in warehouse.js, General_Info.inc.php, Search.fnc.php & Widgets.php
 - JS ajaxPrepare(): handle #ajax_update_body, #menu_user_session & #warehouse_user_session in warehouse.js, Side.php & Warehouse.php
 - JS use #x_redirect_url value instead of XRedirectUrl global var in warehouse.js & PreparePHP_SELF.fnc.php
+- JS Trigger custom ajaxPrepare event in warehouse.js
 
 Changes in 12.4.3
 -----------------
