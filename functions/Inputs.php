@@ -1924,36 +1924,14 @@ function MakeChooseCheckbox( $value, $column = '', $controller_name = '' )
 
 		$id = 'controller' . $controller_i;
 
+		// @since 12.5 CSP remove unsafe-inline Javascript
 		$return = '<input type="checkbox" value="Y" name="' . $id . '" id="' . $id . '"
-			onclick="' . AttrEscape( 'checkAll(this.form,this.checked,' .
-				json_encode( $name . '[]' ) .
-				');' ) . '"' .
+			class="onclick-checkall" data-name-like="' . AttrEscape( $name . '[]' ) . '"' .
+			( $required ? ' data-error="' . AttrEscape( _( 'You must choose at least one element from the list.' ) ) . '"' : '' ) .
 			( $checked ? ' checked' : '' ) . '>
 			<label for="' . $id . '" class="a11y-hidden">' . _( 'Check All' ) . '</label>';
 
-		if ( ! $required )
-		{
-			return $return;
-		}
-
-		ob_start();
-
-		// JS Prevent submitting form if no checkboxes are checked.
-		?>
-		<script>
-			$('#<?php echo $id; ?>').closest('form').on('submit', function(e) {
-				if ( ! $('input[name=<?php echo json_encode( $name . '[]' ); ?>]:checked').length ) {
-					e.preventDefault();
-					e.stopImmediatePropagation();
-					$('#<?php echo $id; ?>')[0].scrollIntoView({behavior: "smooth"});
-					alert(<?php echo json_encode( _( 'You must choose at least one element from the list.' ) ); ?>);
-					return false;
-				}
-			});
-		</script>
-		<?php
-
-		return $return . ob_get_clean();
+		return $return;
 	}
 
 	if ( isset( $_REQUEST['_ROSARIO_PDF'] ) )

@@ -10,6 +10,7 @@ Changes in 12.5
 - JS add CSP root, functions & programFunctions (global, always loaded) in Gruntfile.js, assets/js/csp/
 - JS add setInnerHTML() function in warehouse.js
 - JS add submenuOnTouch() function in warehouse.js
+- JS Prevent submitting form if no checkboxes are checked in warehouse.js & Inputs.php
 
 Changes in 12.4.3
 -----------------

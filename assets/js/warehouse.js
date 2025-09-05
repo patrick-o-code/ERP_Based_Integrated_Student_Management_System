@@ -503,6 +503,9 @@ function getURLParam(url, name) {
  * @since 12.0 Use FormData instead of jQuery Form Plugin
  * Breaking change: FormData will not send the submit input name, please use modfunc instead
  *
+ * @since 12.5 Prevent submitting form if no checkboxes are checked
+ * @see PHP MakeChooseCheckbox() function
+ *
  * @deprecated submit param since 12.0, still set it to `true` if your are developing an add-on.
  *
  * @see ajaxPrepare below
@@ -515,6 +518,25 @@ function getURLParam(url, name) {
 var ajaxPostForm = function(form, event) {
 	var target = form.target || 'body',
 		event = (typeof event !== 'undefined') ? event : false;
+
+	$('.onclick-checkall[data-error]', form).first().each(function() {
+		// Prevent submitting form if no checkboxes are checked
+		if ( $('input[name="' + this.dataset.nameLike + '"]:checked').length ) {
+			return true;
+		}
+
+		if (event && typeof event.preventDefault === 'function') {
+			event.preventDefault();
+
+			event.stopImmediatePropagation();
+		}
+
+		this.scrollIntoView({behavior: "smooth"});
+
+		alert(this.dataset.error);
+
+		return false;
+	});
 
 	if (form.action.indexOf('_ROSARIO_PDF') != -1) // Print PDF.
 	{
