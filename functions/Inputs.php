@@ -1218,6 +1218,7 @@ function ChosenSelectInput( $value, $name, $title = '', $options = [], $allow_na
  * @link https://select2.org/
  *
  * @since 10.7
+ * @since 12.5 Select2 AJAX results: add `data-ajax-url="my_ajax_results_url"` param to $extra
  *
  * @example Select2Input( $value, 'values[' . $id . '][' . $name . ']', '', $options, 'N/A', $extra )
  *
@@ -1247,15 +1248,7 @@ function Select2Input( $value, $name, $title = '', $options = [], $allow_na = 'N
 		<!-- Select2 -->
 		<script src="assets/js/jquery-select2/select2.min.js"></script>
 		<link rel="stylesheet" href="assets/js/jquery-select2/select2.min.css">
-		<script>
-			$(document).ready(function(){
-				$('.select2-select').select2({
-					language: {
-						noResults: function() { return ''; }
-					}
-				});
-			});
-		</script>
+		<script src="assets/js/csp/functions/Select2Input.js?v=12.5"></script>
 		<?php $select2_included = true;
 
 		$js = ob_get_clean();
@@ -1298,19 +1291,6 @@ function Select2Input( $value, $name, $title = '', $options = [], $allow_na = 'N
 		&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 	{
 		$id = GetInputID( $name );
-
-		// On InputDivOnClick(), call Select2 (once).
-		$return .= '<script>var select2Div' . $id . '=false;
-		$("#div' . $id . '").on("click", function() {
-			if (select2Div' . $id . ') return;
-
-			select2Div' . $id . '=true;
-			$("#' . $id . '").select2({
-				language: {
-					noResults: function() { return ""; }
-				}
-			});
-		});</script>';
 	}
 
 	return $return;
