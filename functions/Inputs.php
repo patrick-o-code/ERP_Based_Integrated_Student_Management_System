@@ -1580,13 +1580,14 @@ function CaptchaInput( $name, $title, $extra = '' )
 
 	$required = true;
 
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	ob_start(); ?>
-	<div class="captcha">
+	<div class="captcha" id="<?php echo $id_base; ?>">
 		<span id="<?php echo $id_base; ?>-n1"></span> + <span id="<?php echo $id_base; ?>-n2"></span> = <input id="<?php echo $id_base; ?>-input" name="<?php echo AttrEscape( $name ); ?>[input]" type="number" required>
 		<input id="<?php echo $id_base; ?>-answer" name="<?php echo AttrEscape( $name ); ?>[answer]" type="hidden" <?php echo $extra; ?>>
 		<?php echo FormatInputTitle( $title, $id_base . '-input', $required ); ?>
 	</div>
-	<script>captcha(<?php echo json_encode( $id_base ); ?>);</script>
+	<script src="assets/js/csp/functions/CaptchaInput.js?v=12.5"></script>
 	<?php
 
 	return ob_get_clean();

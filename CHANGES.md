@@ -18,6 +18,7 @@ Changes in 12.5
 - JS Trigger custom ajaxPrepare event in warehouse.js
 - Deprecate `_printPageHead()` function & rework display logic in PasswordHelp.php
 - JS add backPrompt() function in BackPrompt.js & Prompts.php
+- JS remove inline code from CaptchaInput() in Inputs.php & CaptchaInput.js
 
 Changes in 12.4.3
 -----------------
