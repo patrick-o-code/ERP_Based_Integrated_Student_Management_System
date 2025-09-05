@@ -7,6 +7,7 @@ Changes in 12.5
 - SQL case-insensitive username uniqueness check in ImportUsers.fnc.php
 - Fix HTML error label's for attribute doesn't match any element id in General_Info.php
 - Fix add .tinymce CSS class when class already set in $extra param in Inputs.php
+- JS add CSP root, functions & programFunctions (global, always loaded) in Gruntfile.js, assets/js/csp/
 
 Changes in 12.4.3
 -----------------

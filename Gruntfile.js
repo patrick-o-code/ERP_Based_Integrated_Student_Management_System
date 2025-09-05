@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+				//banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
 				// https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
 				sourceMap: true
 			},
@@ -60,6 +60,9 @@ module.exports = function(grunt) {
 						'assets/js/jquery-captcha/jquery-captcha.js',
 						'assets/js/jquery-passwordstrength/jquery-passwordstrength.js',
 						'assets/js/warehouse.js',
+						'assets/js/csp/csp.js',
+						'assets/js/csp/functions.js',
+						'assets/js/csp/programFunctions.js',
 					]
 				}
 			}
