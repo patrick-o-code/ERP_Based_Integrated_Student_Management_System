@@ -156,11 +156,13 @@ function Search( $type, $extra = null )
 			{
 				echo '<tr><td>' . _( 'Grade Levels' ) . '</td>
 				<td>&nbsp;<label class="nobr"><input type="checkbox" name="grades_not" value="Y">&nbsp;' .
-					_( 'Not' ) . '</label> &nbsp;
-				<label class="nobr"><input type="checkbox" value="Y" name="controller" onclick="checkAll(this.form,this.checked,\'grades\');">&nbsp;' .
-					_( 'Check All' ) . '</label>
-				</td></tr>
-				<tr><td></td><td><table class="cellpadding-5"><tr>';
+					_( 'Not' ) . '</label> &nbsp;';
+
+				// @since 12.5 CSP remove unsafe-inline Javascript
+				echo '<label class="nobr"><input type="checkbox" value="Y" name="controller" class="onclick-checkall" data-name-like="grades[">&nbsp;' .
+					_( 'Check All' ) . '</label></td></tr>';
+
+				echo '<tr><td></td><td><table class="cellpadding-5"><tr>';
 
 				$i = 0;
 
@@ -249,7 +251,7 @@ function Search( $type, $extra = null )
 			}
 
 			echo '<tr><td><label for="profile">' . _( 'Profile' ) . '</label></td>
-				<td><select name="profile" id="profile" onchange="_selectStudentGradeLevel(this);" autocomplete="off">';
+				<td><select name="profile" id="profile" autocomplete="off">';
 
 			foreach ( $options as $key => $val )
 			{
@@ -280,14 +282,8 @@ function Search( $type, $extra = null )
 
 			echo '</select></td></tr>';
 
-			// Show Student Grade Level when selected Profile is "Parent".
-			echo '<script>
-				var _selectStudentGradeLevel = function( select ) {
-					var show = select.value === "parent";
-
-					return $("#student_grade_level_row").toggle( show );
-				};
-			</script>';
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			echo '<script src="assets/js/csp/functions/Search.js?v=12.5"></script>';
 
 		break;
 
