@@ -301,35 +301,11 @@ function MLTextInput( $value, $name, $title = '', $extra = '', $div = true )
 		&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 	{
 		// Ng - foreach possible language.
-		ob_start(); ?>
-<script>
-function setMLvalue(id, loc, value){
-	var res = document.getElementById(id).value.split("|");
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$return = '<script src="assets/js/csp/functions/MLTextInput.js?12.5"></script>';
 
-	if (loc === "") {
-		res[0] = value;
-	} else {
-		var found = 0;
-		for ( var i = 1; i < res.length; i++ ) {
-			if (res[i].substring(0, loc.length) == loc) {
-				found = 1;
-				if (value === "") {
-					for ( var j = i + 1; j < res.length; j++ )
-						res[j - 1] = res[j];
-					res.pop();
-				} else {
-					res[i] = loc + ":" + value;
-				}
-			}
-		}
-		if ((found === 0) && (value !== "")) res.push(loc + ":" + value);
-	}
-	document.getElementById(id).value = res.join("|");
-}
-</script>
-<?php 	$return = ob_get_clean();
-
-		$return .= '<div class="ml-text-input"><input type="hidden" id="' . $id . '" name="' . AttrEscape( $name ) . '" value="' . AttrEscape( $value ) . '" autocomplete="off">';
+		$return .= '<div class="ml-text-input"><input type="hidden" id="' . $id . '" name="' .
+			AttrEscape( $name ) . '" value="' . AttrEscape( $value ) . '" autocomplete="off">';
 
 		if ( mb_strpos( $extra, 'size=' ) === false
 			&& $value != '' )
@@ -346,16 +322,12 @@ function setMLvalue(id, loc, value){
 
 			$return .= '<label><img src="locale/' . $loc . '/flag.png" class="button bigger" alt="' . AttrEscape( $language ) . '" title="' . AttrEscape( $language ) . '"> ';
 
-			//$return .= TextInput(ParseMLField($value, $loc),'ML_'.$name.'['.$loc.']','',$extra." onchange=\"javascript:setMLvalue('".$name."','".($id==0?'':$loc)."',this.value);\"",false);
-
-			$onchange_js = 'setMLvalue(' . json_encode( $id ) . ',' . json_encode( $loc ) . ',this.value);';
-
 			$return .= TextInput(
 				ParseMLField( $value, $loc ),
 				'ML_' . $name . '[' . $loc . ']',
 				'',
 				$extra . ( $key == 0 && $required ? ' required' : '' ) .
-					' onchange="' . AttrEscape( $onchange_js ) . '"',
+					' data-id="' . AttrEscape( $id ) . '" data-loc="' . AttrEscape( $loc ) . '"',
 				false
 			);
 

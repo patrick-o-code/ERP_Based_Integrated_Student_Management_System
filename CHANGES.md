@@ -20,6 +20,7 @@ Changes in 12.5
 - JS add backPrompt() function in BackPrompt.js & Prompts.php
 - JS remove inline code from CaptchaInput() in Inputs.php & CaptchaInput.js
 - JS remove inline code from FileInput() in Inputs.php & FileInput.js
+- JS remove inline code from MLTextInput() in Inputs.php & MLTextInput.js
 
 Changes in 12.4.3
 -----------------
