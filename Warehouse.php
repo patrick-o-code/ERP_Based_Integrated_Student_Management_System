@@ -699,19 +699,29 @@ function Warehouse( $mode )
 <?php
 
 			if ( isset( $_ROSARIO['page'] )
-				&& $_ROSARIO['page'] === 'modules' ): ?>
-<script>
-	var modname = <?php echo json_encode( $_REQUEST['modname'] ); ?>;
-	if (typeof menuStudentID !== 'undefined'
-		&& (menuStudentID != "<?php echo UserStudentID(); ?>"
-			|| menuStaffID != "<?php echo UserStaffID(); ?>"
-			|| menuSchool != "<?php echo UserSchool(); ?>"
-			|| menuMP != "<?php echo UserMP(); ?>"
-			|| menuCoursePeriod != "<?php echo UserCoursePeriod(); ?>")) {
-		ajaxLink( 'Side.php?sidefunc=update' );
-	}
-</script>
-<?php
+				&& $_ROSARIO['page'] === 'modules' ):
+
+				/**
+				 * User session array
+				 * Compare with left menu and update if needed
+				 *
+				 * @var array
+				 *
+				 * @see warehouse.js ajaxPrepare()
+				 *
+				 * @since 12.5 CSP remove unsafe-inline Javascript
+				 */
+				$user_session = [
+					'modname' => $_REQUEST['modname'],
+					'studentId' => UserStudentID(),
+					'staffId' => UserStaffID(),
+					'school' => UserSchool(),
+					'mp' => UserMP(),
+					'period' => UserCoursePeriod(),
+				];
+			?>
+		<input type="hidden" disabled id="warehouse_user_session" data-value="<?php echo AttrEscape( json_encode( $user_session ) ); ?>" />
+			<?php
 			/**
 			 * Hook.
 			 *

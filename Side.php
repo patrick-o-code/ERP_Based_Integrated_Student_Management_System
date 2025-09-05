@@ -74,8 +74,6 @@ $old_period = UserCoursePeriod();
 
 $unset_student = $unset_staff = $update_body = false;
 
-$addJavascripts = '';
-
 /**
  * Change current
  * School / SchoolYear / MarkingPeriod / CoursePeriod / Student
@@ -351,20 +349,34 @@ if ( $update_body )
 	 * @see warehouse.js
 	 *
 	 * @since 12.0 Remove use of $_SESSION['_REQUEST_vars']
+	 * @since 12.5 CSP remove unsafe-inline Javascript
 	 */
-	$addJavascripts .= 'ajaxUpdateBody(' . json_encode( $update_body_params ) . ');';
+	$ajax_update_body = '<input type="hidden" disabled id="ajax_update_body" data-value="' .
+		AttrEscape( json_encode( $update_body_params ) ) . '" />';
 }
 
 /**
+ * User session array
  * Set menu
  * Student / User / School / Marking Period / CoursePeriod
  * check if have been changed in Warehouse.php
+ *
+ * @var array
+ *
+ * @see warehouse.js ajaxPrepare()
+ *
+ * @since 12.5 CSP remove unsafe-inline Javascript
  */
-$addJavascripts .= 'var menuStudentID="' . UserStudentID() . '",
-	menuStaffID="' . UserStaffID() . '",
-	menuSchool="' . UserSchool() . '",
-	menuMP="' . UserMP() . '",
-	menuCoursePeriod="' . UserCoursePeriod() . '";';
+$user_session = [
+	'studentId' => UserStudentID(),
+	'staffId' => UserStaffID(),
+	'school' => UserSchool(),
+	'mp' => UserMP(),
+	'period' => UserCoursePeriod(),
+];
+
+$menu_user_session = '<input type="hidden" disabled id="menu_user_session" data-value="' .
+	AttrEscape( json_encode( $user_session ) ) . '" />';
 
 if ( ! isset( $_REQUEST['sidefunc'] )
 	|| $_REQUEST['sidefunc'] !== 'update' ) : ?>
@@ -373,7 +385,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 
 <?php endif; ?>
 
-	<script><?php echo $addJavascripts; ?></script>
+	<?php echo ( $update_body ? $ajax_update_body : '' ) . $menu_user_session; ?>
 
 	<?php // User Information. ?>
 

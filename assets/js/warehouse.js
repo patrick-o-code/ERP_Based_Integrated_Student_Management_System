@@ -630,12 +630,36 @@ var ajaxPrepare = function(target, scrollTop) {
 		}
 	}
 
-	var h3 = $('#body h3.title').first().text(),
-		h2 = $('#body h2').first().text();
+	if (target == '#menu-top') {
+		if ($('#ajax_update_body').length) {
+			// @see Side.php
+			ajaxUpdateBody($('#ajax_update_body').data('value'));
+		}
+	}
 
-	document.title = (h2 && h3 ? h2 + ' | ' + h3 : h2 + h3);
+	if ($('#menu_user_session').length) {
+		// @see Side.php
+		menuUserSession = $('#menu_user_session').data('value');
+	}
 
 	if (target == '#body') {
+		if ($('#warehouse_user_session').length) {
+			// @see Warehouse.php
+			var warehouseUserSession = $('#warehouse_user_session').data('value');
+
+			modname = warehouseUserSession.modname;
+
+			if (typeof menuUserSession.studentId !== 'undefined'
+				&& (menuUserSession.studentId != warehouseUserSession.studentId
+					|| menuUserSession.staffId != warehouseUserSession.staffId
+					|| menuUserSession.school != warehouseUserSession.school
+					|| menuUserSession.mp != warehouseUserSession.mp
+					|| menuUserSession.period != warehouseUserSession.period)) {
+				// Current Student / User / School / Marking Period / CoursePeriod has changed
+				// Update left menu
+				ajaxLink('Side.php?sidefunc=update');
+			}
+		}
 
 		if (window.modname) {
 			// @since 12.0 CSS Add modname class to body, ie .modname-grades-reportcards-php for modname=Grades/ReportCards.php
@@ -643,6 +667,11 @@ var ajaxPrepare = function(target, scrollTop) {
 
 			document.body.setAttribute('class', 'modules ' + modnameClass);
 		}
+
+		var h3 = $('#body h3.title').first().text(),
+			h2 = $('#body h2').first().text();
+
+		document.title = (h2 && h3 ? h2 + ' | ' + h3 : h2 + h3);
 
 		openMenu();
 
