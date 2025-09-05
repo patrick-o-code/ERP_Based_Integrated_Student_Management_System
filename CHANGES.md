@@ -21,6 +21,7 @@ Changes in 12.5
 - JS remove inline code from CaptchaInput() in Inputs.php & CaptchaInput.js
 - JS remove inline code from FileInput() in Inputs.php & FileInput.js
 - JS remove inline code from MLTextInput() in Inputs.php & MLTextInput.js
+- JS remove inline code from MarkDownInputPreview() in Inputs.php & MarkDownInputPreview.js
 
 Changes in 12.4.3
 -----------------
