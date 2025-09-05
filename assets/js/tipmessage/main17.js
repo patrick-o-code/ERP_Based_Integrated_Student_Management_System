@@ -4,7 +4,10 @@
  * @version 1.7
  * @copyright Essam Gamal 2003
  * @copyright François Jacquet 2015-2018
- * @example <div onmouseover="stm([tiptitle,tipmsg]);">Tip</a>
+ * @example <div onmouseover="stm([tiptitle,tipmsg]);">Tip</div>
+ *
+ * @since 12.5 CSP remove unsafe-inline Javascript
+ * @example <div class="onmouseover-tipmsg" data-title="Title" data-msg="Message">Tip</div>
  */
 
 var mig = {};
@@ -97,4 +100,4 @@ function mig_init() {
 }
 
 // Init.
-$(document).ready(mig_init);
+$(mig_init);
