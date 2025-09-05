@@ -235,9 +235,7 @@ if ( ! empty( $_REQUEST['h'] )
 				exit;
 			}
 
-			_passwordResetForm( $_REQUEST['h'], $user_id );
-
-			exit;
+			$password_reset_form = true;
 		}
 		else
 		{
@@ -246,6 +244,25 @@ if ( ! empty( $_REQUEST['h'] )
 	}
 }
 
+$_ROSARIO['page'] = 'password-reset';
+
+Warehouse( 'header' );
+
+$_ROSARIO['HeaderIcon'] = 'misc';
+
+DrawHeader( _( 'Password help' ) );
+
+if ( ! empty( $password_reset_form ) )
+{
+	_passwordResetForm( $_REQUEST['h'], $user_id );
+
+	Warehouse( 'footer' );
+
+	exit;
+}
+
+echo ErrorMessage( $error );
+
 // If Student email field config option not set,
 // notify that no student can use the password reset.
 if ( ! Config( 'STUDENTS_EMAIL_FIELD' ) )
@@ -253,9 +270,9 @@ if ( ! Config( 'STUDENTS_EMAIL_FIELD' ) )
 	$note[] = _( 'Password reset is not activated for students.' );
 }
 
-// Forgot your password? form.
-_printPageHead( _( 'Forgot your password?' ) );
+echo ErrorMessage( $note, 'note' );
 
+// Forgot your password? form.
 ?>
 <form action="PasswordReset.php" method="POST" target="_top">
 
@@ -387,8 +404,6 @@ function _passwordResetForm( $hash, $user_id )
 		return;
 	}
 
-	_printPageHead( _( 'Reset your password' ) );
-
 	?>
 	<form action="PasswordReset.php" method="POST" target="_top">
 
@@ -416,10 +431,10 @@ function _passwordResetForm( $hash, $user_id )
 
 	</form>
 	<?php
-	Warehouse( 'footer' );
 }
 
 
+// @deprecated since 12.5
 function _printPageHead( $title )
 {
 	global $locale,
