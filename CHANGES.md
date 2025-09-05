@@ -24,6 +24,7 @@ Changes in 12.5
 - JS remove inline code from MarkDownInputPreview() in Inputs.php & MarkDownInputPreview.js
 - JS required group of checkboxes in Inputs.php & MultipleCheckboxInput.js
 - JS remove inline code from PasswordInput() in Inputs.php & PasswordInput.js
+- JS remove inline code from DeletePrompt() & Prompt() + add .button-prompt-cancel CSS class in Prompts.php & Prompt.js
 
 Changes in 12.4.3
 -----------------

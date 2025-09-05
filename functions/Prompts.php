@@ -14,6 +14,7 @@
  *
  * @since 11.4 Use 'delete_ok' URL param instead of submit button name
  * @since 12.1 JS If inside colorBox, close it on Cancel
+ * @since 12.5 CSP remove unsafe-inline Javascript: add .button-prompt-cancel CSS class
  *
  * @example if ( DeletePrompt( _( 'Title' ) ) ) DBQuery( "DELETE FROM BOK WHERE ID='" . (int) $_REQUEST['benchmark_id'] . "'" );
  *
@@ -55,24 +56,26 @@ function DeletePrompt( $title, $action = 'Delete', $remove_modfunc_on_cancel = t
 
 		PopTable( 'header', _( 'Confirm' ) . ( mb_strpos( $action, ' ' ) === false ? ' ' . $action : '' ) );
 
-		if ( $remove_modfunc_on_cancel )
+		$onclick_ajax_link = $js = '';
+
+		if ( ! $remove_modfunc_on_cancel )
 		{
-			// If inside colorBox, close it. Otherwise, go back in browser history.
-			$cancel_onclick_js = 'if ($(this).closest("#colorbox").length) $.colorbox.close(); else self.history.go(-1);';
+			$onclick_ajax_link = ' class="onclick-ajax-link" data-link="' . $PHP_tmp_SELF_cancel . '"';
 		}
 		else
 		{
-			$cancel_onclick_js = 'ajaxLink(' . json_encode( $PHP_tmp_SELF_cancel ) . ');';
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			$js = '<script src="assets/js/csp/functions/Prompt.js?v=12.5"></script>';
 		}
 
 		echo '<br><div class="center">' . button( 'warning', '', '', 'bigger' ) .
 			'<h4>' . sprintf( _( 'Are you sure you want to %s that %s?' ), $action, $title ) . '</h4>
 			<form action="' . $PHP_tmp_SELF . '" method="POST">' .
 				SubmitButton( _( 'OK' ), 'delete_ok', '' ) .
-				'<input type="button" name="delete_cancel" class="button-primary" value="' . AttrEscape( _( 'Cancel' ) ) . '"
-					onclick="' . AttrEscape( $cancel_onclick_js ) . '">
+				'<input type="button" name="delete_cancel" class="button-primary button-prompt-cancel" value="' .
+				AttrEscape( _( 'Cancel' ) ) . '"' . $onclick_ajax_link . '>
 			</form>
-		</div><br>';
+		</div><br>' . $js;
 
 		PopTable( 'footer' );
 
@@ -94,6 +97,7 @@ function DeletePrompt( $title, $action = 'Delete', $remove_modfunc_on_cancel = t
  *
  * @since 11.4 Use 'delete_ok' URL params instead of submit button name
  * @since 12.1 JS If inside colorBox, close it on Cancel
+ * @since 12.5 CSP remove unsafe-inline Javascript: add .button-prompt-cancel CSS class
  *
  * @example if ( Prompt( _( 'Confirm' ), _( 'Do you want to dance?' ), $message ) )
  *
@@ -120,8 +124,8 @@ function Prompt( $title = 'Confirm', $question = '', $message = '' )
 
 		PopTable( 'header', $title );
 
-		// If inside colorBox, close it. Otherwise, go back in browser history.
-		$cancel_onclick_js = 'if ($(this).closest("#colorbox").length) $.colorbox.close(); else self.history.go(-1);';
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$js = '<script src="assets/js/csp/functions/Prompt.js?v=12.5"></script>';
 
 		echo '<h4 class="center">' . $question . '</h4>
 			<form action="' . $PHP_tmp_SELF . '" method="POST">' .
@@ -129,10 +133,10 @@ function Prompt( $title = 'Confirm', $question = '', $message = '' )
 				'<div class="center"><br>' .
 				SubmitButton( _( 'OK' ), 'delete_ok', '' ) .
 				// If inside colorBox, close it. Otherwise, go back in browser history.
-				'<input type="button" name="delete_cancel" class="button-primary" value="' . AttrEscape( _( 'Cancel' ) ) .
-					'" onclick="' . AttrEscape( $cancel_onclick_js ) . '">
+				'<input type="button" name="delete_cancel" class="button-primary button-prompt-cancel" value="' .
+					AttrEscape( _( 'Cancel' ) ) . '">
 				</div>
-			</form><br>';
+			</form><br>' . $js;
 
 		PopTable( 'footer' );
 
