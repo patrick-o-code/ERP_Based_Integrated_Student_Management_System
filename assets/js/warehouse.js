@@ -11,15 +11,17 @@ var addHTML = function(html, id, replace) {
 	// jQuery does not handle IDs with brackets [], check _makeMultipleInput().
 	var el = document.getElementById(id);
 
-	// Here we use jQuery so inline Javascript gets evaluated!
+	// Here we use setInnerHTML() (not jQuery) so Javascript gets loaded
 	if (replace) {
-		$(el).html(html);
+		setInnerHTML(el, html);
 	} else {
-		$(el).append(html);
+		// Append HTML
+		setInnerHTML(el, el.innerHTML + html);
 	}
 }
 
 // @since 12.0 Wrapper for addHTML() used by InputDivOnclick()
+// @deprecated since 12.5 Use csp.functions.inputDivOnclick() instead
 var inputAddHTML = function(divId) {
 	addHTML(iHtml[divId], 'div' + divId, true);
 
@@ -547,11 +549,48 @@ var ajaxSuccess = function(data, target, url) {
 
 	// Change URL after AJAX.
 	//http://stackoverflow.com/questions/5525890/how-to-change-url-after-an-ajax-request#5527095
-	$('#' + target).html(data);
+	// Fix CSP inline script violation: do NOT use jQuery .html() function here
+	setInnerHTML(document.getElementById(target), data);
 
 	if (history.pushState && target == 'body' && document.URL != url) history.pushState(null, document.title, url);
 
 	ajaxPrepare('#' + target, true);
+}
+
+/**
+ * Set inner HTML
+ * Fix CSP inline script violation: do NOT use jQuery .html() function here
+ * while retaining the possibility to load <script> inside the injected HTML
+ *
+ * @since 12.5
+ *
+ * @link https://stackoverflow.com/questions/2592092/executing-script-elements-inserted-with-innerhtml
+ *
+ * @param {object} el   DOM element.
+ * @param {string} html HTML to inject into the element. May contain <script>.
+ */
+var setInnerHTML = function(el, html) {
+	el.innerHTML = html;
+
+	Array.from(el.querySelectorAll('script')).forEach(oldScriptEl => {
+		const newScriptEl = document.createElement('script');
+
+		Array.from(oldScriptEl.attributes).forEach(attr => {
+			newScriptEl.setAttribute(attr.name, attr.value);
+		});
+
+		/**
+		 * Fix JS error object is not defined: set async="false" so scripts are loaded in the right order
+		 *
+		 * @link https://stackoverflow.com/questions/7308908/waiting-for-dynamically-loaded-script
+		 */
+		newScriptEl.async = false;
+
+		const scriptText = document.createTextNode(oldScriptEl.innerHTML);
+		newScriptEl.appendChild(scriptText);
+
+		oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
+	});
 }
 
 var ajaxPrepare = function(target, scrollTop) {
@@ -611,7 +650,7 @@ var ajaxPrepare = function(target, scrollTop) {
 		 * Make onclick div focusable when accessed by tab key
 		 *
 		 * @since 12.0
-		 * @see InputDivOnclick()
+		 * @see PHP InputDivOnclick() function
 		 *
 		 * Use vanilla JS for speed
 		 */
@@ -679,7 +718,7 @@ window.onload = function() {
 		submenuOffset();
 	}
 
-	$(window).resize(function(){
+	$(window).on('resize', function() {
 		if (!isMobileMenu()) {
 			// @since 8.7 Allow scrolling body whether Menu is open or not.
 			$('body').css('overflow', '');
