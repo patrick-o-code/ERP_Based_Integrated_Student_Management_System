@@ -458,10 +458,10 @@ function Search( $type, $extra = null )
 				if ( $type === 'student_fields_all'
 					|| $type === 'staff_fields_all' )
 				{
-					echo '<a onclick="switchMenu(this); return false;" href="#" class="switchMenu">
-					<b>' . $category_title . '</b></a>
-					<br>
-					<table class="widefat width-100p col1-align-right hide">';
+					// @since 12.5 CSP remove unsafe-inline Javascript
+					echo '<details>
+					<summary><a>' . $category_title . '</a></summary>
+					<table class="widefat width-100p col1-align-right">';
 
 					$TR_classes .= 'st';
 
@@ -650,7 +650,7 @@ function Search( $type, $extra = null )
 				if ( $type === 'student_fields_all'
 					|| $type === 'staff_fields_all' )
 				{
-					echo '</table>';
+					echo '</table></details>';
 				}
 			}
 

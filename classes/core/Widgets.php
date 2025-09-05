@@ -210,10 +210,10 @@ class Widgets
 	 */
 	function wrapHeader( $title )
 	{
-		$this->html[] = '<a onclick="switchMenu(this); return false;" href="#" class="switchMenu">
-			<b>' . $title . '</b></a>
-			<br>
-			<table class="widefat width-100p col1-align-right hide">';
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$this->html[] = '<details>
+			<summary><a>' . $title . '</a></summary>
+			<table class="widefat width-100p col1-align-right">';
 	}
 
 	/**
@@ -224,7 +224,7 @@ class Widgets
 	 */
 	function wrapFooter()
 	{
-		$this->html[] = '</table>';
+		$this->html[] = '</table></details>';
 	}
 
 	/**

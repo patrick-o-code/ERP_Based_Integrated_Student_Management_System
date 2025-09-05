@@ -54,6 +54,8 @@ var checkAll = function(form, value, name_like) {
  * used for the Advanced search widgets.
  * Toggles the next adjacent table element visibility.
  *
+ * @deprecated since 12.5 CSP remove unsafe-inline Javascript: use `<details><summary>` instead
+ *
  * @param  {DOMelement} el The element, this.
  */
 var switchMenu = function(el) {

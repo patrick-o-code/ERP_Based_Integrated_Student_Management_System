@@ -5,17 +5,15 @@ echo '<table class="general-info width-100p valign-top fixed-col"><tr class="st"
 if ( AllowEdit()
 	&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) ):
 ?>
-	<a href="#" onclick="$('.user-photo-form,.user-photo').toggle(); return false;"><?php
-	echo button( 'add', '', '', 'smaller' ) . '&nbsp;' . _( 'User Photo' );
-?></a><br />
-	<div class="user-photo-form hide"><?php
+	<details><summary><?php	echo _( 'User Photo' ); ?></summary>
+	<div class="user-photo-form"><?php
 	echo FileInput(
 		'photo',
 		_( 'User Photo' ) . ' (.jpg, .png, .gif, .webp)',
 		// Fix photo use mime types, not file extensions so mobile browsers allow camera
 		'accept="image/jpeg, image/png, image/gif, image/webp"'
 	);
-?></div>
+	?></div></details>
 <?php endif;
 
 // @since 9.0 Fix Improper Access Control security issue: add random string to photo file name.

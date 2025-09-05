@@ -12,6 +12,7 @@ Changes in 12.5
 - JS add submenuOnTouch() function in warehouse.js
 - JS Prevent submitting form if no checkboxes are checked in warehouse.js & Inputs.php
 - JS add bottomButtonClick() Bottom.php buttons click related events in warehouse.js & Bottom.php
+- JS deprecate switchMenu() function: use `<details><summary>` instead in warehouse.js, General_Info.inc.php, Search.fnc.php & Widgets.php
 
 Changes in 12.4.3
 -----------------
