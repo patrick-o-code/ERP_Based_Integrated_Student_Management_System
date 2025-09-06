@@ -11,13 +11,22 @@ $message = '<table><tr><td colspan="7" class="center">' . _( 'From' ) . ' ' .
 
 if ( Prompt( _( 'Confirm' ), _( 'When do you want to recalculate the daily attendance?' ), $message ) )
 {
-	//FJ display notice while calculating daily attendance
+	// Display notice while calculating daily attendance
 	echo '<br />';
+
 	PopTable( 'header', _( 'Recalculate Daily Attendance' ) );
-	echo '<div id="messageDIV" class="center"><span class="loading"></span> ' . _( 'Calculating ...' ) . ' </div>';
+
+	$msg_done = ErrorMessage( [ _( 'The Daily Attendance for that timeframe has been recalculated.' ) ], 'note' );
+
+	echo '<div id="message_div" data-msg-done="' . AttrEscape( $msg_done ) . '" class="center">
+		<span class="loading" style="visbility: visible;"></span> ' . _( 'Calculating ...' ) . ' </div>';
+
 	PopTable( 'footer' );
+
+	// Note: buffer & flush not working with AJAX
 	ob_flush();
 	flush();
+	ignore_user_abort( true );
 	set_time_limit( 300 );
 
 	$current_RET = DBGet( "SELECT DISTINCT SCHOOL_DATE
@@ -51,6 +60,9 @@ if ( Prompt( _( 'Confirm' ), _( 'When do you want to recalculate the daily atten
 
 	$_REQUEST['modfunc'] = false;
 
-	//FJ display notice while calculating daily attendance
-	echo '<script>var msg_done=' . json_encode( ErrorMessage( [ _( 'The Daily Attendance for that timeframe has been recalculated.' ) ], 'note' ) ) . '; document.getElementById("messageDIV").innerHTML = msg_done;</script>';
+	// Display note after calculating daily attendance
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	?>
+	<script src="assets/js/csp/modules/attendance/FixDailyAttendance.js?v=12.5"></script>
+	<?php
 }

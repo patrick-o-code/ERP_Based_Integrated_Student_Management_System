@@ -34,6 +34,7 @@ Changes in 12.5
 - JS remove inline reload menu code in MarkingPeriods.php, Rollover.php, Modules.inc.php, Profiles.php & ReloadMenu.js
 - JS remove inline code from `_makePaymentsCommentsInput()` in Accounting/functions.inc.php & MakePaymentsCommentsInput.js
 - JS remove inline code from program in Administration.php & Administration.js
+- JS remove inline code from program in FixDailyAttendance.php & FixDailyAttendance.js
 
 Changes in 12.4.3
 -----------------
