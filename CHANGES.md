@@ -28,6 +28,7 @@ Changes in 12.5
 - JS remove inline code from Search() in Search.fnc.php & Search.js
 - JS remove inline code from Select2Input() in Inputs.php & Select2Input.js
 - JS remove inline code from TinyMCEInput() in Inputs.php & TinyMCEInput.js
+- JS remove inline code from Widget_course in Widget.php & Course.js
 
 Changes in 12.4.3
 -----------------

@@ -198,7 +198,7 @@ class Widget_course implements Widget
 			'',
 			$course_period_options,
 			'N/A',
-			'group onchange="wCourseIdUpdate(this.value);" autocomplete="off"'
+			'group class="onchange-widget-course-id-update" autocomplete="off"'
 		);
 
 		$html = '<tr class="st"><td><label for="course_period_select">' . _( 'Course' ) . '</label></td><td>' .
@@ -216,20 +216,8 @@ class Widget_course implements Widget
 		<input type="hidden" name="w_subject_id" value="">
 		</div></td></tr>';
 
-		return $html . '<script>var wCourseIdUpdate = function( val ) {
-			if ( ! val ) {
-				$("[name=w_course_period_id]").val( "" );
-				$("[name=w_course_id]").val( "" );
-				$("[name=w_subject_id]").val( "" );
-				$("[name=course_div").hide();
-				return;
-			}
-			$("#course_div").show();
-			var values = val.split(",");
-			$("[name=w_course_period_id]").val( values[2] );
-			$("[name=w_course_id]").val( values[1] );
-			$("[name=w_subject_id]").val( values[0] );
-		};</script>';
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		return $html . '<script src="assets/js/csp/widget/Course.js?v=12.5"></script>';
 	}
 }
 
