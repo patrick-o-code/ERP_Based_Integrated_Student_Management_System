@@ -149,20 +149,8 @@ function _makePaymentsCommentsInput( $value, $name )
 	}
 
 	// JS automatically fills the Comments & Amount inputs.
-	ob_start();
-	?>
-	<script>
-		var accountingPaymentsSalariesReconcile = function( amountComments ) {
-			var separatorIndex = amountComments.indexOf( '|' ),
-				amount = amountComments.substring( 0, separatorIndex ),
-				comments = amountComments.substring( separatorIndex + 1 );
-
-			$('#valuesnewAMOUNT').val( amount );
-			$('#valuesnewCOMMENTS').val( comments );
-		};
-	</script>
-	<?php
-	$js = ob_get_clean();
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	$js = '<script src="assets/js/csp/modules/accounting/MakePaymentsCommentsInput.js?v=12.5"></script>';
 
 	// Select so we can search Salaries by date, amount, & title.
 	$select_input = SelectInput(
@@ -171,7 +159,7 @@ function _makePaymentsCommentsInput( $value, $name )
 		'',
 		$salaries_options,
 		'N/A',
-		'onchange="accountingPaymentsSalariesReconcile(this.value);" style="width: 250px;"'
+		'class="onchange-accounting-salaries" style="width: 250px;"'
 	);
 
 	return $text_input . ' ' . $js . $select_input;
