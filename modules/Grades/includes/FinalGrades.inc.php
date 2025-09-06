@@ -9,6 +9,8 @@
 
 if ( $_REQUEST['modfunc'] === 'final_grades_all_mp_save_ajax' )
 {
+	ob_clean();
+
 	// Note: no need to call RedirectURL() & unset $_REQUEST params here as we die just after.
 	$cp_ids = empty( $_REQUEST['cp_id'] ) ? '0' : $_REQUEST['cp_id'];
 	$qtr_id = empty( $_REQUEST['qtr_id'] ) ? '0' : $_REQUEST['qtr_id'];
@@ -47,6 +49,7 @@ if ( $_REQUEST['modfunc'] === 'final_grades_all_mp_save_ajax' )
  */
 function FinalGradesAllMPSaveAJAX( $cp_id, $qtr_id )
 {
+	// Call FinalGradesAllMPSave() using 'final_grades_all_mp_save_ajax' modfunc.
 	$url = PreparePHP_SELF( [
 		'modname' => $_REQUEST['modname'],
 		'modfunc' => 'final_grades_all_mp_save_ajax',
@@ -55,11 +58,10 @@ function FinalGradesAllMPSaveAJAX( $cp_id, $qtr_id )
 		// 'include_inactive' => 'Y',
 	] );
 
-	// Call FinalGradesAllMPSave() using 'final_grades_all_mp_save_ajax' modfunc.
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>
-		$.ajax( <?php echo json_encode( $url ); ?> );
-	</script>
+	<input type="hidden" disabled id="ajax_url" value="<?php echo $url; ?>" />
+	<script src="assets/js/csp/modules/AjaxUrl.js?v=12.5"></script>
 	<?php
 
 	return true;

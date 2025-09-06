@@ -10,6 +10,8 @@
 
 if ( $_REQUEST['modfunc'] === 'class_rank_ajax' )
 {
+	ob_clean();
+
 	// Note: no need to call RedirectURL() & unset $_REQUEST params here as we die just after.
 	$mp_id = empty( $_REQUEST['mp_id'] ) ? '0' : $_REQUEST['mp_id'];
 
@@ -38,11 +40,12 @@ function ClassRankMaybeCalculate( $mp_id )
 	}
 
 	// Call ClassRankCalculateAJAX() using 'class_rank_ajax' modfunc.
+	$url = 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=class_rank_ajax&mp_id=' . $mp_id;
+
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>
-		$.ajax( 'Modules.php?modname=' + <?php echo json_encode( $_REQUEST['modname'] ); ?> +
-			'&modfunc=class_rank_ajax&mp_id=' + <?php echo json_encode( $mp_id ); ?> );
-	</script>
+	<input type="hidden" disabled id="ajax_url" value="<?php echo URLEscape( $url ); ?>" />
+	<script src="assets/js/csp/modules/AjaxUrl.js?v=12.5"></script>
 	<?php
 
 	return true;

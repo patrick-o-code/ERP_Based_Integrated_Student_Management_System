@@ -29,6 +29,7 @@ Changes in 12.5
 - JS remove inline code from Select2Input() in Inputs.php & Select2Input.js
 - JS remove inline code from TinyMCEInput() in Inputs.php & TinyMCEInput.js
 - JS remove inline code from Widget_course in Widget.php & Course.js
+- JS remove inline AJAX call in ClassRank.inc.php, FinalGrades.inc.php, Addon.fnc.php, Modules.inc.php, Plugins.inc.php & AjaxUrl.js
 
 Changes in 12.4.3
 -----------------

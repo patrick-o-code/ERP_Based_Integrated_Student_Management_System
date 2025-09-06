@@ -305,6 +305,20 @@ if ( $_REQUEST['modfunc'] === 'activate'
 	RedirectURL( [ 'modfunc', 'module' ] );
 }
 
+if ( $_REQUEST['modfunc'] === 'installation_statistics_post'
+	&& AllowEdit() )
+{
+	ob_clean();
+
+	if ( ! empty( $_REQUEST['addon_dir'] ) )
+	{
+		// cURL POST in the background (AJAX request)
+		AddonInstallationStatisticsPost( 'module', $_REQUEST['addon_dir'] );
+	}
+
+	exit;
+}
+
 if ( ! $_REQUEST['modfunc'] )
 {
 	echo ErrorMessage( $error );

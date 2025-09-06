@@ -306,29 +306,48 @@ function AddonInstallationStatisticsPost( $type, $addon_dir )
 		return false;
 	}
 
-	$data = [
-		'type' => $type,
-		'addon_dir' => $addon_dir,
-		'lang' => mb_substr( $_SESSION['locale'], 0, 5 ),
-		'rosario_version' => ROSARIO_VERSION,
-	];
+	if ( $_REQUEST['modfunc'] === 'installation_statistics_post' )
+	{
+		if ( empty( $_SESSION['AddonInstallationStatisticsPost'] )
+			|| $_SESSION['AddonInstallationStatisticsPost'] !== $addon_dir )
+		{
+			// Prevent hacking.
+			return false;
+		}
 
+		unset( $_SESSION['AddonInstallationStatisticsPost'] );
+
+		$data = [
+			'type' => $type,
+			'addon_dir' => $addon_dir,
+			'lang' => mb_substr( $_SESSION['locale'], 0, 5 ),
+			'rosario_version' => ROSARIO_VERSION,
+			'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+		];
+
+		// @since 12.5 CPS remove unsafe-inline Javascript
+		require_once 'classes/curl.php';
+
+		$curl = new curl;
+
+		$curl->post(
+			'https://www.rosariosis.org/addon-statistics/installation-submit.php',
+			$data
+		);
+
+		return true;
+	}
+
+	// Prevent hacking.
+	$_SESSION['AddonInstallationStatisticsPost'] = $addon_dir;
+
+	$url = 'Modules.php?modname=School_Setup/Configuration.php&tab=' . $_REQUEST['tab'] .
+		'&modfunc=installation_statistics_post&addon_dir=' . $addon_dir;
+
+	// @since 12.5 CPS remove unsafe-inline Javascript
 	?>
-	<script>
-		$(document).ready(function(){
-			var addonInstallationData = <?php echo json_encode( $data ); ?>;
-
-			$.ajax({
-				type: 'POST',
-				url: 'https://www.rosariosis.org/addon-statistics/installation-submit.php',
-				data: addonInstallationData,
-				complete: function(jqxhr,status) {
-					console.log('status: ' + status);
-					console.log('response: ' + jqxhr.responseText);
-				}
-			});
-		});
-	</script>
+	<input type="hidden" disabled id="ajax_url" value="<?php echo URLEscape( $url ); ?>" />
+	<script src="assets/js/csp/modules/AjaxUrl.js?v=12.5"></script>
 	<?php
 
 	return true;
