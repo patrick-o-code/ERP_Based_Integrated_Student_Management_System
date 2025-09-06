@@ -31,6 +31,7 @@ Changes in 12.5
 - JS remove inline code from Widget_course in Widget.php & Course.js
 - JS remove inline AJAX call in ClassRank.inc.php, FinalGrades.inc.php, Addon.fnc.php, Modules.inc.php, Plugins.inc.php & AjaxUrl.js
 - JS remove inline code from MoodleImportFormSubmitJS() in Moodles/config.inc.php, ImportUsers.fnc.php & ImportFormSubmit.js
+- JS remove inline reload menu code in MarkingPeriods.php, Rollover.php, Modules.inc.php, Profiles.php & ReloadMenu.js
 
 Changes in 12.4.3
 -----------------

@@ -306,8 +306,9 @@ if ( $_REQUEST['modfunc'] === 'delete'
 		if ( $_REQUEST['marking_period_id'] == UserMP() )
 		{
 			// @since 12.2 Fix SQL error: user just deleted current Marking Period, reload Side menu
+			// @since 12.5 CSP remove unsafe-inline Javascript
 			?>
-			<script>ajaxLink('Side.php');</script>
+			<script src="assets/js/csp/modules/ReloadMenu.js?v=12.5"></script>
 			<?php
 		}
 

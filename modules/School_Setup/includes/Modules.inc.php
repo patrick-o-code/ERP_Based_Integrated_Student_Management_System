@@ -493,8 +493,9 @@ function _saveRosarioModules()
 
 function _reloadMenu()
 {
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>ajaxLink('Side.php');</script>
+	<script src="assets/js/csp/modules/ReloadMenu.js?v=12.5"></script>
 	<?php
 
 	return true;

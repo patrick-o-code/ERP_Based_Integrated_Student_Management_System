@@ -384,7 +384,10 @@ if ( Prompt(
 	RedirectURL( 'tables' );
 
 	// Reload Side menu so new school year appear in the dropdown menu.
-	echo '<script>ajaxLink("Side.php");</script>';
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	?>
+	<script src="assets/js/csp/modules/ReloadMenu.js?v=12.5"></script>
+	<?php
 }
 
 /**

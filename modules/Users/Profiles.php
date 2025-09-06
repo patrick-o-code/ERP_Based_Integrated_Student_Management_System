@@ -217,10 +217,9 @@ if ( $_REQUEST['modfunc'] === 'update'
 
 	if ( $_REQUEST['profile_id'] === '1' )
 	{
+		// @since 12.5 CSP remove unsafe-inline Javascript
 		?>
-		<script>
-			ajaxLink( 'Side.php' );
-		</script>
+		<script src="assets/js/csp/modules/ReloadMenu.js?v=12.5"></script>
 		<?php
 	}
 }
