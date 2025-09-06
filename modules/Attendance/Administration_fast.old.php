@@ -2,6 +2,11 @@
 //FJ move Attendance.php from functions/ to modules/Attendance/includes
 require_once 'modules/Attendance/includes/UpdateAttendanceDaily.fnc.php';
 
+// @since 12.5 CSP remove unsafe-inline Javascript
+?>
+<script src="assets/js/csp/modules/attendance/Administration.js?v=12.5"></script>
+<?php
+
 if ( ! empty( $_REQUEST['month_date'] )
 	&& ! empty( $_REQUEST['day_date'] )
 	&& ! empty( $_REQUEST['year_date'] ) )
@@ -218,7 +223,7 @@ else
 		button(
 			'add',
 			'',
-			'"#" onclick="' . AttrEscape( 'addHTML(' . json_encode( _makeCodeSearch() ) . ',\'code_pulldowns\'); return false;' ) . '"'
+			'"#!" class="onclick-add-code-pulldown" data-html="' . AttrEscape( _makeCodeSearch() ) . '"'
 		) . '</td><td><div id="code_pulldowns">' . $code_pulldowns . '</div></td></tr></table>' );
 
 	$_REQUEST['search_modfunc'] = 'list';

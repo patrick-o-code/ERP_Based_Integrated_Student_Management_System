@@ -3,6 +3,11 @@
 require_once 'modules/Attendance/includes/UpdateAttendanceDaily.fnc.php';
 require_once 'modules/Attendance/includes/AttendanceCodes.fnc.php';
 
+// @since 12.5 CSP remove unsafe-inline Javascript
+?>
+<script src="assets/js/csp/modules/attendance/Administration.js?v=12.5"></script>
+<?php
+
 $_REQUEST['table'] = issetVal( $_REQUEST['table'] );
 $_REQUEST['expanded_view'] = issetVal( $_REQUEST['expanded_view'], '' );
 
@@ -545,14 +550,13 @@ else
 
 	$headerl .= AttendanceCodesTipMessage( '', $_REQUEST['table'] );
 
-	$headerr = '<table style="float: right;"><tr><td class="align-right">' .
+	$headerr = '<table style="float: right;"><tr><td>' .
 	button(
 		'add',
 		'',
-		'"#" onclick="' . AttrEscape( 'addHTML(' . json_encode( _makeCodeSearch() ) .
-			',\'code_pulldowns\'); return false;' ) . '"'
+		'"#!" class="onclick-add-code-pulldown" data-html="' . AttrEscape( _makeCodeSearch() ) . '"'
 	) . '</td><td><div id="code_pulldowns">' . $code_pulldowns . '</div></td>' .
-		'<td class="align-right">' . $current_student_link . '</td></tr></table>';
+		'<td>' . $current_student_link . '</td></tr></table>';
 
 	DrawHeader( $headerl, $headerr );
 
