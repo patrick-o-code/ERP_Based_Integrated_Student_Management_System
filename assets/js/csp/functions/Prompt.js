@@ -10,12 +10,17 @@
  * Cancel (Delete) Prompt
  * If inside colorBox, close it. Otherwise, go back in browser history.
  */
-csp.functions.promptCancel = function() {
-	if ($(this).closest('#colorbox').length) {
-		$.colorbox.close();
-	} else {
-		self.history.go(-1);
+csp.functions.prompt = {
+	cancel: function() {
+		if ($(this).closest('#colorbox').length) {
+			$.colorbox.close();
+		} else {
+			self.history.go(-1);
+		}
+	},
+	onEvents: function() {
+		$('.button-prompt-cancel').on('click', csp.functions.prompt.cancel);
 	}
 }
 
-$('.button-prompt-cancel').on('click', csp.functions.promptCancel);
+$(csp.functions.prompt.onEvents);
