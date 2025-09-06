@@ -10,8 +10,13 @@
  * Show Student Grade Level when selected Profile is "Parent"
  * Find a User form
  */
-csp.functions.searchProfile = function() {
-	$('#student_grade_level_row').toggle(this.value === 'parent');
+csp.functions.search = {
+	profile: function() {
+		$('#student_grade_level_row').toggle(this.value === 'parent');
+	},
+	onEvents: function() {
+		$('#search #profile').on('change', csp.functions.search.profile);
+	}
 }
 
-$('#search #profile').on('change', csp.functions.searchProfile);
+$(csp.functions.search.onEvents);
