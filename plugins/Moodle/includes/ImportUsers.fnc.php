@@ -524,54 +524,21 @@ function MoodleUserImportUser( $user, $profile )
  * Confirm and Countdown JS before importing Moodle users.
  *
  * @since 5.9
+ * @since 12.5 Deprecate $class_prefix param & rename function
  *
  * @param string $class_prefix Form and button CSS class prefix.
  */
-function MoodleImportUsersFormConfirmCountdownJS( $class_prefix )
+function MoodleImportFormSubmitJS( $class_prefix = '' )
 {
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	// Hidden input values used by JS below
 	?>
-	<script>
-		$('.<?php echo $class_prefix; ?>-form').submit(function(){
-
-			e.preventDefault();
-			e.stopImmediatePropagation();
-
-			var alertTxt = <?php echo json_encode(
-				_( 'Are you absolutely ready to import users? Make sure you have backed up your database!' )
-			); ?>;
-
-			// Alert.
-			if ( ! window.confirm( alertTxt ) ) return false;
-
-			var $buttons = $('.<?php echo $class_prefix; ?>-button'),
-				buttonTxt = $buttons.val(),
-				seconds = 5,
-				stopButtonHTML = <?php echo json_encode( SubmitButton(
-					_( 'Stop' ),
-					'',
-					'class="stop-button"'
-				) ); ?>;
-
-			$buttons.css('pointer-events', 'none').attr('disabled', true).val( buttonTxt + ' ... ' + seconds );
-
-			var countdown = setInterval( function(){
-				if ( seconds == 0 ) {
-					clearInterval( countdown );
-					$('.<?php echo $class_prefix; ?>-form').off('submit').submit();
-					return;
-				}
-
-				$buttons.val( buttonTxt + ' ... ' + --seconds );
-			}, 1000 );
-
-			// Insert stop button.
-			$( stopButtonHTML ).click( function(){
-				clearInterval( countdown );
-				$('.stop-button').remove();
-				$buttons.css('pointer-events', '').attr('disabled', false).val( buttonTxt );
-				return false;
-			}).insertAfter( $buttons );
-		});
-	</script>
+	<input type="hidden" disabled id="import_alert_txt" value="<?php echo AttrEscape(
+		_( 'Are you absolutely ready to import users? Make sure you have backed up your database!' )
+	); ?>" />
+	<input type="hidden" disabled id="import_stop_button_html" value="<?php echo AttrEscape(
+		SubmitButton( _( 'Stop' ), '', 'class="stop-button"' )
+	); ?>" />
+	<script src="assets/js/csp/modules/ImportFormSubmit.js?v=12.5"></script>
 	<?php
 }

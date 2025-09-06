@@ -131,14 +131,14 @@ if ( ! empty( $_REQUEST['import_users'] ) )
 	else
 	{
 		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
-			'&tab=plugins&modfunc=config&plugin=Moodle&import_users=true' ) . '" method="POST" class="import-users-form">';
+			'&tab=plugins&modfunc=config&plugin=Moodle&import_users=true' ) . '" method="POST" class="import-form">';
 
 		DrawHeader(
 			'',
 			SubmitButton(
 				_( 'Import Selected Users' ),
 				'',
-				' class="import-users-button button-primary"'
+				' class="import-button button-primary"'
 			)
 		);
 
@@ -184,12 +184,12 @@ if ( ! empty( $_REQUEST['import_users'] ) )
 		echo '<br /><div class="center">' . SubmitButton(
 			_( 'Import Selected Users' ),
 			'',
-			' class="import-users-button button-primary"'
+			' class="import-button button-primary"'
 		) . '</div>';
 
 		echo '</form>';
 
-		MoodleImportUsersFormConfirmCountdownJS( 'import-users' );
+		MoodleImportFormSubmitJS();
 	}
 }
 
