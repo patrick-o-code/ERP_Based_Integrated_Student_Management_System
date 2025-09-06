@@ -43,9 +43,9 @@ csp.functions.mlTextInput = {
 
 		resEl.value = res.join('|');
 	},
-	onChange: function() {
+	onEvents: function() {
 		$('.ml-text-input').on('change', 'input', csp.functions.mlTextInput.setMLvalue);
 	}
 }
 
-$(csp.functions.mlTextInput.onChange);
+$(csp.functions.mlTextInput.onEvents);
