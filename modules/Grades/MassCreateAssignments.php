@@ -385,30 +385,12 @@ if ( ! $_REQUEST['modfunc'] )
 				'',
 				'tables[new][WEIGHT]',
 				_( 'Weight' ),
-				' type="number" min="0" max="100"' . $required
+				' type="number" min="0" max="100" class="onchange-new-weight"' . $required
 			) . '</td>';
 
-			if ( ! $required )
-			{
-				ob_start();
-
-				// JS handle case: Weight is set => Set min Points to 1 & hide tooltip.
-				?>
-				<script>
-					$('#tablesnewWEIGHT').change(function() {
-						if ($(this).val() != '') {
-							$('#tablesnewPOINTS').attr('min', 1);
-							$('#points_tooltip').hide();
-						} else {
-							$('#tablesnewPOINTS').attr('min', 0);
-							$('#points_tooltip').show().css('display', 'inline-block');
-						}
-					});
-				</script>
-				<?php
-
-				$header .= ob_get_clean();
-			}
+			// JS handle case: Weight is set => Set min Points to 1 & hide tooltip.
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			$header .= '<script src="assets/js/csp/modules/grades/MassCreateAssignments.js?v=12.5"></script>';
 		}
 
 		$header .= '</tr><tr class="st">';

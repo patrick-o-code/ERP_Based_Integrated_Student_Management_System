@@ -37,6 +37,7 @@ Changes in 12.5
 - JS remove inline code from program in FixDailyAttendance.php & FixDailyAttendance.js
 - JS remove inline code from RegistrationAdminContactEnable() in RegistrationAdmin.fnc.php & RegistrationAdminContactEnable.js
 - JS remove inline code from RegistrationSiblingUseContactsAddress() in Registration.fnc.php & RegistrationSiblingUseContactsAddress.js
+- JS remove inline code from program in MassCreateAssignments.php & MassCreateAssignments.js
 
 Changes in 12.4.3
 -----------------
