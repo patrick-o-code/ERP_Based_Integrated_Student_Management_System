@@ -263,6 +263,8 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 			FROM course_periods
 			WHERE COURSE_PERIOD_ID='" . (int) $_REQUEST['course_period_id'] . "'" );
 
+		$html_to_escape = '';
+
 		// Add course period if not already chosen...
 		if ( ! isset( $_SESSION['MassSchedule.php'][ $_REQUEST['course_period_id'] ] ) )
 		{
@@ -275,20 +277,14 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 			];
 
 			// Update main window.
-			?>
-			<script>
-				document.getElementById("course_div").innerHTML += <?php
-					echo json_encode( $course_title . '<br />' . $period_title . '<br /><br />' );
-				?>;
-			</script>
-			<?php
+			$html_to_escape = $course_title . '<br />' . $period_title . '<br /><br />';
 		}
 
 		// @since 12.0 Use colorBox instead of popup window
+		// @since 12.5 CSP remove unsafe-inline Javascript
 		?>
-		<script>
-			$.colorbox.close();
-		</script>
+		<input type="hidden" disabled id="course_div_html" value="<?php echo AttrEscape( $html_to_escape ); ?>" />
+		<script src="assets/js/csp/modules/scheduling/MassSchedule.js?v=12.5"></script>
 		<?php
 	}
 }
