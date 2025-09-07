@@ -47,17 +47,16 @@ if ( $confirm_ok )
 {
 	echo '<br />';
 	PopTable( 'header', _( 'Scheduler Progress' ) );
-	echo '<table class="cellspacing-0 center" style="border: solid 1px; height:19px"><tr>';
 
-	for ( $i = 1; $i <= 100; $i++ )
-	{
-		echo '<td id="cell' . $i . '" style="width:3px;"></td>';
-	}
+	echo '<div id="message_div" data-msg-done="' . AttrEscape( button( 'check' ) . ' ' . _( 'Done.' ) ) . '">
+		<span class="loading" style="visibility: visible;"></span> ' . _( 'Processing Requests ...' ) . '</div>';
 
-	echo '</tr></table><br /><div id="percentDIV"><span class="loading"></span> ' . _( 'Processing Requests ...' ) . ' </div>';
 	PopTable( 'footer' );
+
+	// Note: buffer & flush not working whith AJAX
 	ob_flush();
 	flush();
+	ignore_user_abort( true );
 	set_time_limit( 300 );
 
 	$fy_id = GetFullYearMP();
@@ -182,10 +181,7 @@ if ( $confirm_ok )
 		}
 	}
 
-	if ( ob_get_level() == 0 )
-	{
-		ob_start();
-	}
+	ob_start();
 
 	$last_percent = 0;
 	$completed = 0;
@@ -239,16 +235,11 @@ if ( $confirm_ok )
 
 		if ( $percent > $last_percent )
 		{
-			echo '<script>';
+			echo '<!-- percent done ' . $percent . '% -->';
 
-			for ( $i = $last_percent + 1; $i <= $percent; $i++ )
-			{
-				echo 'cell' . $i . '.bgColor=' . json_encode( Preferences( 'HIGHLIGHT' ) ) . ';' . "\r";
-			}
-
-			echo 'document.getElementById("percentDIV").innerHTML = ' . json_encode( sprintf( _( '%d%% Done' ), $percent ) ) . ';</script>';
 			ob_flush();
 			flush();
+
 			$last_percent = $percent;
 		}
 	}
@@ -288,9 +279,8 @@ if ( $confirm_ok )
 
 	if ( empty( $_REQUEST['test_mode'] ) )
 	{
-		echo '<script>document.getElementById("percentDIV").innerHTML = ' .
-			json_encode( '<span class="loading" style="visibility: visible;"></span> ' . _( 'Saving Schedules ...' ) . ' ' ) . ';</script>';
-		echo str_pad( ' ', 4096 );
+		echo '<!-- saving schedules ... -->';
+
 		ob_flush();
 		flush();
 
@@ -368,9 +358,8 @@ if ( $confirm_ok )
 			|| ! empty( $_REQUEST['delete'] ) )
 		&& $DatabaseType === 'postgresql' )
 	{
-		echo '<script>document.getElementById("percentDIV").innerHTML = ' .
-			json_encode( '<span class="loading" style="visibility: visible;"></span> ' . _( 'Optimizing ...' ) . ' ' ) . ';</script>';
-		echo str_pad( ' ', 4096 );
+		echo '<!-- optimizing ... -->';
+
 		ob_flush();
 		flush();
 
@@ -379,10 +368,6 @@ if ( $confirm_ok )
 		DBQuery( "ANALYZE" );
 	}
 
-	$error_msg = ErrorMessage( $error );
-
-	echo '<script>document.getElementById("percentDIV").innerHTML = ' .
-		json_encode( $error_msg . button( 'check' ) . ' ' . _( 'Done.' ) ) . ';</script>';
 	ob_end_flush();
 
 	echo '<br /><br />';
@@ -390,6 +375,11 @@ if ( $confirm_ok )
 	$_REQUEST['search_modfunc'] = 'list';
 
 	require_once 'modules/Scheduling/includes/UnfilledRequests.php';
+
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	?>
+	<script src="assets/js/csp/modules/scheduling/Scheduler.js?v=12.5"></script>
+	<?php
 }
 
 /**
@@ -605,8 +595,7 @@ function _isConflict( $existing_slice, $slice )
 	// MARKING PERIOD CONFLICTS
 
 	if ( $existing_slice['MARKING_PERIOD_ID'] == $fy_id
-		|| ( $slice['MARKING_PERIOD_ID'] == $fy_id
-			&& ( ! $request['MARKING_PERIOD_ID'] || $request['MARKING_PERIOD_ID'] == $slice['MARKING_PERIOD_ID'] ) ) )
+		|| $slice['MARKING_PERIOD_ID'] == $fy_id )
 	{
 		$mp_conflict = true;
 	}

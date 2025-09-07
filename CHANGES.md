@@ -48,6 +48,7 @@ Changes in 12.5
 - JS remove inline code from program in MassSchedule.php & MassSchedule.js
 - JS remove inline code from program in Requests.php & Requests.js
 - JS remove inline code from program in Schedule.php & Schedule.js
+- JS remove inline code from program in Scheduler.php & Scheduler.js
 
 Changes in 12.4.3
 -----------------
