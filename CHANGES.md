@@ -46,6 +46,7 @@ Changes in 12.5
 - JS remove inline code from program in MassDrops.php & MassDrops.js
 - JS remove inline code from program in MassRequests.php & MassRequests.js
 - JS remove inline code from program in MassSchedule.php & MassSchedule.js
+- JS remove inline code from program in Requests.php & Requests.js
 
 Changes in 12.4.3
 -----------------

@@ -128,50 +128,11 @@ if ( $_REQUEST['modfunc'] === 'add' )
 if ( ! $_REQUEST['modfunc']
 	&& UserStudentID() )
 {
-?>
-<script>
-function SendXMLRequest(subject_id,course)
-{
-	if (window.XMLHttpRequest)
-		connection = new XMLHttpRequest();
-	else if (window.ActiveXObject)
-		connection = new ActiveXObject("Microsoft.XMLHTTP");
-	connection.onreadystatechange = processRequest;
-	connection.open("GET",<?php echo json_encode( URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&_ROSARIO_PDF=true&modfunc=XMLHttpRequest&subject_id=' ) ); ?> + subject_id + "&course_title=" + encodeURIComponent(course), true );
-	connection.send(null);
-}
-
-function doOnClick(course)
-{
-	ajaxLink(<?php echo json_encode( URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] ) . '&modfunc=add&course=' ); ?> + course);
-}
-
-function processRequest()
-{
-	// LOADED && ACCEPTED
-	if (connection.readyState == 4 && connection.status == 200)
-	{
-		XMLResponse = connection.responseXML;
-		document.getElementById("courses_div").style.display = "block";
-		course_list = XMLResponse.getElementsByTagName("courses");
-		course_list = course_list[0];
-		courses = course_list.getElementsByTagName("course");
-
-		for(i=0;i<courses.length;i++)
-		{
-			id = courses[i].getElementsByTagName("id")[0].firstChild.data;
-			title = courses[i].getElementsByTagName("title")[0].firstChild.data;
-			document.getElementById("courses_div").innerHTML += "<a onclick=\"doOnClick(\'"+ id +"\'); return false;\" href=\"#\">" + title + "</a><br />";
-		}
-
-		if ( courses.length === 0 )
-		{
-			document.getElementById("courses_div").innerHTML += <?php echo json_encode( _( 'No courses found' ) ); ?>;
-		}
-	}
-}
-</script>
-<?php
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	?>
+	<input type="hidden" disabled id="no_courses_found" value="<?php echo AttrEscape( _( 'No courses found' ) ); ?>" />
+	<script src="assets/js/csp/modules/scheduling/Requests.js?v=12.5"></script>
+	<?php
 
 	$functions = [
 		'COURSE' => '_makeCourse',
@@ -199,7 +160,7 @@ function processRequest()
 		WHERE SYEAR='" . UserSyear() . "'
 		AND SCHOOL_ID='" . UserSchool() . "'", [ 'TITLE' => 'ParseMLField' ] );
 
-	$subjects = '<select name="subject_id" id="subject_id" onchange="document.getElementById(\'courses_div\').innerHTML = \'\';SendXMLRequest(this.value,this.form.course_title.value);">';
+	$subjects = '<select name="subject_id" id="subject_id" class="onchange-subject-id">';
 	$subjects .= '<option value="">' . _( 'All Subjects' ) . '</option>';
 
 	foreach ( (array) $subjects_RET as $subject )
@@ -221,7 +182,7 @@ function processRequest()
 	$link['add']['span'] = '<span class="nobr"> <label for="subject_id" class="a11y-hidden">' .
 		_( 'Subject' ) . '</label>' . $subjects .
 		' <label>' . _( 'Course Title' ) .
-		' <input type="text" id="course_title" name="course_title" onkeypress="if (event.keyCode==13)return false;" onkeyup="document.getElementById(\'courses_div\').innerHTML = \'\';SendXMLRequest(this.form.subject_id.options[this.form.subject_id.selectedIndex].value,this.form.course_title.value);"></label></span>
+		' <input type="text" id="course_title" name="course_title" class="onkey-course-title"></label></span>
 		<div id="courses_div"></div>';
 
 	echo '<div style="position:relative;">';
