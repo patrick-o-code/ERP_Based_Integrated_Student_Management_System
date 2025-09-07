@@ -3,6 +3,9 @@
 require_once 'ProgramFunctions/MarkDownHTML.fnc.php';
 require_once 'modules/Scheduling/includes/Courses.fnc.php';
 
+// @since 12.5 CSP remove unsafe-inline Javascript
+echo '<script src="assets/js/csp/modules/scheduling/Courses.js?v=12.5"></script>';
+
 $_REQUEST['subject_id'] = issetVal( $_REQUEST['subject_id'], '' );
 
 if ( $_REQUEST['subject_id'] && $_REQUEST['subject_id'] !== 'new' )
@@ -90,8 +93,6 @@ if ( isset( $_REQUEST['course_modfunc'] )
 	}
 
 	echo '</form>';
-
-	echo '<script>document.getElementById("search_term").focus();</script>';
 
 	PopTable( 'footer' );
 
@@ -1281,47 +1282,12 @@ if (  ( ! $_REQUEST['modfunc']
 
 			if ( AllowEdit() )
 			{
+				// @since 12.5 CSP remove unsafe-inline Javascript
 				$header .= '<tr class="st"><td colspan="3">
-					<a href="#" onclick="' .
-				( $new ?
-					'newSchoolPeriod();' :
-					'document.getElementById(\'schoolPeriod\'+' . $i . ').style.display=\'table-row\'; this.style.display=\'none\';' ) .
-				' return false;">' .
-				button( 'add' ) . ' ' . _( 'New Period' ) . '</a>
+					<a href="#!" class="onclick-new-school-period" data-new="' .
+						AttrEscape( $new ? '1' : '0' ) . '" data-i="' . AttrEscape( $i ) . '">' .
+					button( 'add' ) . ' ' . _( 'New Period' ) . '</a>
 					</td></tr>';
-
-				if ( ! $new )
-				{
-					$header .= '<script>document.getElementById(\'schoolPeriod\'+' . $i . ').style.display = "none";</script>';
-				}
-
-				?>
-				<script>
-					var nbSchoolPeriods = <?php echo $i; ?>;
-					function newSchoolPeriod()
-					{
-						var table = document.getElementById('coursesTable');
-						row = table.insertRow(4+nbSchoolPeriods);
-						// insert table cells to the new row
-						var tr = document.getElementById('schoolPeriod'+nbSchoolPeriods);
-						row.setAttribute('id', 'schoolPeriod'+(nbSchoolPeriods+1));
-						row.setAttribute('class', 'st');
-						for (i = 0; i < 2; i++) {
-							createCell(row.insertCell(i), tr, i, nbSchoolPeriods+1);
-						}
-						nbSchoolPeriods ++;
-					}
-					// fill the cells
-					function createCell(cell, tr, i, newId) {
-						cell.innerHTML = tr.cells[i].innerHTML;
-						if (i == 1) cell.setAttribute('colspan', '2');
-						reg = new RegExp('new' + (newId-1),'g'); //g for global string
-						cell.innerHTML = cell.innerHTML.replace(reg, 'new'+newId);
-						// remove required attribute
-						cell.innerHTML = cell.innerHTML.replace( 'required', '' );
-					}
-				</script>
-				<?php
 			}
 
 			$cp_inputs = CoursePeriodOptionInputs(
@@ -1591,23 +1557,6 @@ if (  ( ! $_REQUEST['modfunc']
 				_( 'Enrollment Date' ) . ' ' . PrepareDate( $date, '_date', false ),
 				''
 			);
-
-			/**
-			 * JS post form on date change.
-			 *
-			 * @since 12.0 Use colorBox instead of popup window
-			 *
-			 * JS Fix use select.onchange instead of $(select).on('change') so it gets called by jscalendar
-			 */
-			?>
-			<script>
-				$('#colorbox #yearSelect1, #colorbox #monthSelect1, #colorbox #daySelect1').each(function() {
-					this.onchange = function() {
-						ajaxPostForm(this.form);
-					}
-				});
-			</script>
-			<?php
 
 			DrawHeader( CheckboxInput(
 				issetVal( $_REQUEST['include_child_mps'], '' ),
@@ -1910,17 +1859,6 @@ if (  ( ! $_REQUEST['modfunc']
 
 if ( $_REQUEST['modfunc'] === 'choose_course' )
 {
-	// @since 12.0 Use colorBox instead of popup window
-	?>
-	<script>
-		// 1200px width on desktop & 95% on mobile.
-		$.colorbox.resize({width: ( screen.width > 1200 ? 1200 : '95%' )});
-
-		// Redirect link & form AJAX result to colorBox instead of body (default)
-		$('#colorbox a,#colorbox form').attr('target', 'cboxLoadedContent');
-	</script>
-	<?php
-
 	if ( $_REQUEST['modname'] === 'Scheduling/Courses.php'
 		&& $_REQUEST['course_period_id'] )
 	{
@@ -1933,14 +1871,10 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 
 		$last_year = $_REQUEST['last_year'] === 'true' ? 'ly_' : '';
 
+		// @since 12.5 CSP remove unsafe-inline Javascript
 		?>
-		<script>
-			document.getElementById(
-				<?php echo json_encode( $last_year ); ?> + "course_div"
-			).innerHTML=<?php echo json_encode( $html_to_escape ); ?>;
-
-			$.colorbox.close();
-		</script>
+		<input type="hidden" disabled id="course_div_html" value="<?php echo AttrEscape( $html_to_escape ); ?>"
+			data-id="<?php echo AttrEscape( $last_year . 'course_div' ); ?>" />
 		<?php
 	}
 }
