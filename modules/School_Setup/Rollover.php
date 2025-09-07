@@ -216,10 +216,16 @@ foreach ( (array) $tables as $table => $name )
 	$checked = ( $exists_table_count > 0 ) ? '' : ' checked';
 
 	// Fix SQL error foreign keys: force roll Schools
-	$readonly = ( $table === 'schools' && ! $exists_table_count ) ? ' onclick="return false;"' : '';
+	$readonly = $table === 'schools' && ! $exists_table_count;
 
-	$table_list .= '<tr><td><label><input type="checkbox" value="Y" name="tables[' . $table . ']"' .
-		$checked . $readonly . '>&nbsp;' . $input_title . '</label>';
+	$table_list .= '<tr><td><label>';
+
+	$table_list .= ( ! $readonly ?
+		'<input type="checkbox" value="Y" name="tables[' . $table . ']"' . $checked . ' />' :
+		'<input type="hidden" value="Y" name="tables[' . $table . ']" />
+		<input type="checkbox"' . $checked . ' disabled />' );
+
+	$table_list .= '&nbsp;' . $input_title . '</label>';
 
 	if ( $table === 'courses' )
 	{
@@ -237,25 +243,16 @@ foreach ( (array) $tables as $table => $name )
 		}
 
 		$table_list .= $cp_title . '</label>';
-
-		// JS Enable / disable checkbox on Courses checkbox change.
-		ob_start();
-
-		?>
-		<script>
-			$('input[name="tables[courses]"]').change(function() {
-				$('#course_periods').prop( 'disabled', ! this.checked );
-			});
-		</script>
-		<?php
-
-		$table_list .= ob_get_clean();
 	}
 
 	$table_list .= '</td></tr>';
 }
 
 $table_list .= '</table>';
+
+// JS Enable / disable checkbox on Courses checkbox change.
+// @since 12.5 CSP remove unsafe-inline Javascript
+$table_list .= '<script src="assets/js/csp/modules/schoolSetup/Rollover.js?v=12.5"></script>';
 
 $note[] = _( 'Greyed items already have data in the next school year (They might have been rolled).' );
 $note[] = _( 'Rolling greyed items will delete already existing data in the next school year.' );
