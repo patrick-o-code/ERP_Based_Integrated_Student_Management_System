@@ -279,13 +279,13 @@ if ( $_REQUEST['modfunc'] === 'choose_course' )
 			FROM course_periods
 			WHERE COURSE_PERIOD_ID='" . (int) $_SESSION['MassDrops.php']['course_period_id'] . "'" );
 
-		// @since 12.0 Use colorBox instead of popup window
-		?>
-		<script>
-			document.getElementById("course_div").innerHTML = <?php echo json_encode( $course_title . '<br />' . $period_title ); ?>;
+		$html_to_escape = $course_title . '<br />' . $period_title;
 
-			$.colorbox.close();
-		</script>
+		// @since 12.0 Use colorBox instead of popup window
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		?>
+		<input type="hidden" disabled id="course_div_html" value="<?php echo AttrEscape( $html_to_escape ); ?>" />
+		<script src="assets/js/csp/modules/scheduling/MassDrops.js?v=12.5"></script>
 		<?php
 	}
 }

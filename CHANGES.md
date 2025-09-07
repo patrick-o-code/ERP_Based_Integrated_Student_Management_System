@@ -43,6 +43,7 @@ Changes in 12.5
 - JS remove inline code from program in ChooseRequest.php & ChooseRequest.js
 - JS remove inline code from program in Export.php & Export.js
 - JS remove inline code from program in Courses.php & Courses.js
+- JS remove inline code from program in MassDrops.php & MassDrops.js
 
 Changes in 12.4.3
 -----------------
