@@ -427,6 +427,7 @@ else
 			$password_strength_input_id = GetInputID( 'values[config][PASSWORD_STRENGTH]' );
 
 			// Password strength bars, hang tight.
+			// @since 12.5 CSP remove unsafe-inline Javascript
 			?>
 			<div class="password-strength-bars" style="width:200px;">
 				<span class="score0"></span>
@@ -435,21 +436,7 @@ else
 				<span class="score3"></span>
 				<span class="score4"></span>
 			</div>
-			<script>
-				var passwordStrengthBarsScore = function(input) {
-					var $input = ( typeof input === 'string' ? $( '#' + input ) : $( this ) ),
-						score = $input.val();
-
-					$input.nextAll('.password-strength-bars').children('span').each(function(i, el) {
-						$(el).css('visibility', ( i <= score ? 'visible' : 'hidden' ) );
-					});
-				};
-
-				var passwordStrengthInputId = <?php echo json_encode( $password_strength_input_id ); ?>;
-
-				passwordStrengthBarsScore(passwordStrengthInputId);
-				$('#' + passwordStrengthInputId ).change(passwordStrengthBarsScore);
-			</script>
+			<script src="assets/js/csp/modules/schoolSetup/Configuration.js?v=12.5"></script>
 			<?php
 
 			echo FormatInputTitle(

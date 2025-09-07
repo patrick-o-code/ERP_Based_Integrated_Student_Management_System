@@ -50,6 +50,7 @@ Changes in 12.5
 - JS remove inline code from program in Schedule.php & Schedule.js
 - JS remove inline code from program in Scheduler.php & Scheduler.js
 - JS remove inline code from program in AccessLog.php & AccessLog.js
+- JS remove inline code from program in Configuration.php & Configuration.js
 
 Changes in 12.4.3
 -----------------
