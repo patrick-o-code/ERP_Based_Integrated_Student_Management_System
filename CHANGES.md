@@ -52,6 +52,7 @@ Changes in 12.5
 - JS remove inline code from program in AccessLog.php & AccessLog.js
 - JS remove inline code from program in Configuration.php & Configuration.js
 - JS remove inline code from program in MarkingPeriods.php & MarkingPeriods.js
+- JS remove inline code from program in PortalPolls.php & PortalPolls.js
 
 Changes in 12.4.3
 -----------------
