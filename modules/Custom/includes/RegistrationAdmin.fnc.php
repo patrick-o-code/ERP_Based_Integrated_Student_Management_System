@@ -262,34 +262,8 @@ function RegistrationAdminContactEnable( $name, $value )
 
 	if ( ! $js_once )
 	{
-		$js_once = true;
-
-		ob_start();
-		?>
-		<script>
-			var RegistrationAdminContactEnable = function(id, checked) {
-				$('#field' + id + ' input, #field' + id + ' select').prop( 'disabled', ! checked );
-				$('#field' + id + ' legend input[type="checkbox"]').prop( 'disabled', false );
-			};
-		</script>
-		<?php
-		$js .= ob_get_clean();
-	}
-
-	if ( ! $value )
-	{
-		ob_start();
-		?>
-		<script>
-			$(document).ready(function(){
-				RegistrationAdminContactEnable(
-					<?php echo json_encode( GetInputID( 'set' . $name ) ); ?>,
-					false
-				);
-			});
-		</script>
-		<?php
-		$js .= ob_get_clean();
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$js = '<script src="assets/js/csp/modules/custom/RegistrationAdminContactEnable.js?v=12.5"></script>';
 	}
 
 	return $js . CheckboxInput(
@@ -301,7 +275,7 @@ function RegistrationAdminContactEnable( $name, $value )
 		'Yes',
 		'No',
 		false,
-		'autocomplete="off" title="' . AttrEscape( _( 'Activate' ) ) . '" onclick="RegistrationAdminContactEnable(this.id,this.checked);"'
+		'autocomplete="off" title="' . AttrEscape( _( 'Activate' ) ) . '" class="onclick-admin-contact-enable"'
 	) . ' ';
 }
 
