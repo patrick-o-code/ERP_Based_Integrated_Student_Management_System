@@ -2,6 +2,11 @@
 
 require_once 'modules/Scheduling/includes/calcSeats0.fnc.php';
 
+// @since 12.5 CSP remove unsafe-inline Javascript
+?>
+<script src="assets/js/csp/modules/scheduling/Schedule.js?v=12.5"></script>
+<?php
+
 // TABBED FY,SEM,QTR
 // REPLACE DBDate() & date() WITH USER ENTERED VALUES
 // ERROR HANDLING
@@ -167,51 +172,17 @@ if ( UserStudentID()
 	// Add Horizontal format option.
 	$print_schedules_link = 'Modules.php?modname=Scheduling/PrintSchedules.php&modfunc=save&st_arr[]=' .
 		UserStudentID() . '&_ROSARIO_PDF=true&schedule_table=Yes';
-	?>
-	<script>
-		function horizontalFormatSwitch()
-		{
-			var byId = function( id ) {
-				return document.getElementById( id );
-			};
 
-			if (byId("horizontalFormat").checked==true) {
-				byId("printSchedulesLink").href=byId("printSchedulesLink").href+'&horizontalFormat';
-			}
-			else {
-				byId("printSchedulesLink").href=byId("printSchedulesLink").href.replace('&horizontalFormat','');
-			}
-		}
-	</script>
-	<?php
-//FJ add schedule table
-	?>
-	<script>
-		function timeTableSwitch()
-		{
-			var byId = function( id ) {
-				return document.getElementById( id );
-			};
-
-			if (byId("schedule_table").checked==true) {
-				byId("printSchedulesLink").href=byId("printSchedulesLink").href.replace('Yes','No');
-			}
-			else {
-				byId("printSchedulesLink").href=byId("printSchedulesLink").href.replace('No','Yes');
-			}
-		}
-	</script>
-	<?php
 	if ( AllowUse( 'Scheduling/PrintSchedules.php' ) )
 	{
 		DrawHeader(
 			'<a href="' . URLEscape( $print_schedules_link ) . '" target="_blank" id="printSchedulesLink">' .
 			_( 'Print Schedule' ) . '</a><br />' .
-			'<label><input name="schedule_table" type="radio" value="Yes" checked onchange="timeTableSwitch();" />&nbsp;' .
+			'<label><input name="schedule_table" type="radio" value="Yes" checked class="onchange-print-schedule-table" />&nbsp;' .
 			_( 'Table' ) . '</label>' .
-			' &nbsp;<label><input name="schedule_table" id="schedule_table" type="radio" value="No" onchange="timeTableSwitch();" />&nbsp;' .
+			' &nbsp;<label><input name="schedule_table" id="schedule_table" type="radio" value="No" class="onchange-print-schedule-table" />&nbsp;' .
 			_( 'List' ) . '</label>' .
-			' &nbsp;<label><input type="checkbox" id="horizontalFormat" name="horizontalFormat" value="Y" onchange="horizontalFormatSwitch();" /> ' .
+			' &nbsp;<label><input type="checkbox" id="horizontalFormat" name="horizontalFormat" value="Y" class="onchange-print-schedule-format" /> ' .
 			_( 'Horizontal Format' ) . '</label>'
 		);
 	}
@@ -516,10 +487,9 @@ if ( $_REQUEST['modfunc'] == 'choose_course' )
 
 			// @since 12.0 Use colorBox instead of popup window
 			// Note: No need to close colorBox as ajaxLink() will display results in #body
+			// @since 12.5 CSP remove unsafe-inline Javascript
 			?>
-			<script>
-				ajaxLink(<?php echo json_encode( URLEscape( $opener_url ) ); ?>);
-			</script>
+			<input type="hidden" disabled id="opener_url" value="<?php echo URLEscape( $opener_url ); ?>" />
 			<?php
 		}
 	}
@@ -534,49 +504,32 @@ function _makeLock( $value, $column )
 {
 	global $THIS_RET;
 
-	static $js_included = false;
-
 	if ( isset( $_REQUEST['_ROSARIO_PDF'] ) )
 	{
 		return $value == 'Y' ? _( 'Locked' ) : _( 'Unlocked' );
 	}
 
-	$return = '';
-
-	if ( ! $js_included )
-	{
-		if ( AllowEdit() )
-		{
-			$return = "<script>function switchLock(el,lockid){
-				if (el.src.indexOf('unlocked')==-1) {
-					el.src = el.src.replace('locked', 'unlocked');
-					el.title = el.alt = " . json_encode( _( 'Unlocked' ) ) . "
-					document.getElementById(lockid).value='';
-				} else {
-					el.src = el.src.replace('unlocked', 'locked');
-					el.title = el.alt = " . json_encode( _( 'Locked' ) ) . "
-					document.getElementById(lockid).value='Y';
-				}
-			}</script>";
-		}
-
-		$js_included = true;
-	}
-
-	$lock_id = GetInputID( 'lock' . $THIS_RET['COURSE_PERIOD_ID'] . '-' . $THIS_RET['START_DATE'] );
-
 	$lock_name = 'schedule[' . $THIS_RET['COURSE_PERIOD_ID'] . '][' . $THIS_RET['START_DATE'] . '][SCHEDULER_LOCK]';
 
 	$title_alt = $value == 'Y' ? _( 'Locked' ) : _( 'Unlocked' );
 
-	return $return . '<img src="assets/themes/' .
-	Preferences( 'THEME' ) . '/btn/' . ( $value == 'Y' ? 'locked' : 'unlocked' ) .
-		'.png" title="' . AttrEscape( $title_alt ) . '"
-		alt="' . AttrEscape( $title_alt ) . '"
-		class="button bigger" style="cursor: pointer;"' .
-		( AllowEdit() ? ' onclick="switchLock(this, \'' . $lock_id . '\');" />
-			<input type="hidden" name="' . AttrEscape( $lock_name ) . '" id="' . $lock_id . '" value="' . AttrEscape( $value ) . '" />' :
-		' />' );
+	$return = '<img src="assets/themes/' .
+		Preferences( 'THEME' ) . '/btn/' . ( $value == 'Y' ? 'locked' : 'unlocked' ) .
+		'.png" title="' . AttrEscape( $title_alt ) . '" alt="' . AttrEscape( $title_alt ) . '"';
+
+	if ( AllowEdit() )
+	{
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$return .= ' style="cursor: pointer;" class="button bigger onclick-switch-lock"
+			data-locked="' . AttrEscape( _( 'Locked' ) ) . '" data-unlocked="' . AttrEscape( _( 'Unlocked' ) ) . '" />
+			<input type="hidden" name="' . AttrEscape( $lock_name ) . '" value="' . AttrEscape( $value ) . '" />';
+	}
+	else
+	{
+		$return .= ' class="button bigger" />';
+	}
+
+	return $return;
 }
 
 /**
