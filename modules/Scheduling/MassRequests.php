@@ -203,12 +203,10 @@ if ( $_REQUEST['modfunc'] == 'choose_course' )
 			WHERE COURSE_ID='" . (int) $_SESSION['MassRequests.php']['course_id'] . "'" ) );
 
 		// @since 12.0 Use colorBox instead of popup window
+		// @since 12.5 CSP remove unsafe-inline Javascript
 		?>
-		<script>
-			document.getElementById("course_div").innerHTML = <?php echo json_encode( $course_title ); ?>;
-
-			$.colorbox.close();
-		</script>
+		<input type="hidden" disabled id="course_div_html" value="<?php echo AttrEscape( $course_title ); ?>" />
+		<script src="assets/js/csp/modules/scheduling/MassRequests.js?v=12.5"></script>
 		<?php
 	}
 }
