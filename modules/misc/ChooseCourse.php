@@ -34,30 +34,17 @@ else
 	<label><input type="checkbox" name="w_' . $last_year . 'course_period_id_not" value="Y" /> ' .
 		_( 'Not' ) . '</label>
 	<label><select name="w_' . $last_year . 'course_period_id_which"
-		onchange="wCourseTitleUpdate(this.value);" autocomplete="off">
+		class="onchange-widget-course-title-update" autocomplete="off">
 	<option value="course_period"> ' . _( 'Course Period' ) . '</option>
 	<option value="course"> ' . _( 'Course' ) . '</option>
 	<option value="subject"> ' . _( 'Subject' ) . '</option>
 	</select></label>';
 
-	// JS function to update Title depending on selected option.
-	// @link https://stackoverflow.com/questions/1197575/can-scripts-be-inserted-with-innerhtml#answer-7054216
-	$js_to_escape = 'var wCourseTitleUpdate = function(sel){
-		$("#w_course_period_title,#w_course_title,#w_subject_title").addClass( "hide" );
-		$("#w_" + sel + "_title").removeClass( "hide" );
-	};';
-
 	// @since 12.0 Use colorBox instead of popup window
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>
-		var wCourseTitleUpdateScript = document.createElement("script"),
-			courseDiv = document.getElementById(<?php echo json_encode( $last_year ); ?> + "course_div");
-
-		wCourseTitleUpdateScript.text = <?php echo json_encode( $js_to_escape ); ?>;
-		courseDiv.parentNode.insertBefore(wCourseTitleUpdateScript, courseDiv);
-		courseDiv.innerHTML = <?php echo json_encode( $html_to_escape ); ?>;
-
-		$.colorbox.close();
-	</script>
+	<input type="hidden" disabled id="course_div_html" value="<?php echo AttrEscape( $html_to_escape ); ?>"
+		data-id="<?php echo AttrEscape( $last_year . 'course_div' ); ?>" />
+	<script src="assets/js/csp/modules/misc/ChooseCourse.js?v=12.5"></script>
 	<?php
 }
