@@ -1,6 +1,9 @@
 <?php
 require_once 'ProgramFunctions/miscExport.fnc.php';
 
+// @since 12.5 CSP remove unsafe-inline Javascript
+echo '<script src="assets/js/csp/modules/misc/Export.js?v=12.5"></script>';
+
 //echo '<pre>'; var_dump($_REQUEST); echo '</pre>';
 
 // @deprecated since 12.4.1 `$extra['extra_search']`, use `$extra['search']` instead
@@ -20,18 +23,6 @@ $extra['search'] .= '<tr>
 			<input type="hidden" name="bus_dropoff" />
 		</td>
 	</tr>';
-
-$extra['search'] .= '<script>
-	function exportSubmit() {
-		document.search.relation.value=document.getElementById("relation").value;
-		document.search.residence.value=document.getElementById("residence").checked;
-		document.search.mailing.value=document.getElementById("mailing").checked;
-		document.search.bus_pickup.value=document.getElementById("bus_pickup").checked;
-		document.search.bus_dropoff.value=document.getElementById("bus_dropoff").checked;
-	}
-
-	$("form[name=search]").submit(exportSubmit);
-</script>';
 
 $extra['new'] = true;
 
@@ -799,26 +790,9 @@ else
 
 			echo '<td>';
 
-			// @since 9.0 JS Sanitize string for legal variable name.
-			// @link https://stackoverflow.com/questions/12339942/sanitize-strings-for-legal-variable-names-in-php
-			$pattern = '/^(?![a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)$/';
-
-			$field_var_name_sanitized = preg_replace( $pattern, '', $field );
-
-			$add_js = '<script>
-				var field' . $field_var_name_sanitized . '=' .
-					json_encode( '<li>' . ParseMLField( $title ) . '</li>' ) . ';
-				var fielddiv' . $field_var_name_sanitized . '=' .
-					json_encode( '<input type="hidden" name="' . AttrEscape( 'fields[' . $field_var_name_sanitized . ']' ) . '" value="Y" />' ) . ';
-			</script>';
-
-			$onclick_js = 'addHTML(field' . $field_var_name_sanitized . ',"names_div",false);
-				addHTML(fielddiv' . $field_var_name_sanitized . ',"fields_div",false);
-				this.disabled=true';
-
-			echo $add_js .
-				'<label>
-					<input type="checkbox" autocomplete="off" onclick="' . AttrEscape( $onclick_js ) . '" />&nbsp;' .
+			echo '<label>
+					<input type="checkbox" autocomplete="off" class="onclick-export-field" data-name="' .
+					GetInputID( $field ) . '" />&nbsp;' .
 					ParseMLField( $title ) .
 				'</label>';
 

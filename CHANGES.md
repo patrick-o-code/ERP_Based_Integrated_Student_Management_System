@@ -41,6 +41,7 @@ Changes in 12.5
 - JS remove inline code from StudentAssignmentSubmissionOutput() in StudentAssignments.fnc.php & StudentAssignmentSubmissionOutput.js
 - JS remove inline code from program in ChooseCourse.php & ChooseCourse.js
 - JS remove inline code from program in ChooseRequest.php & ChooseRequest.js
+- JS remove inline code from program in Export.php & Export.js
 
 Changes in 12.4.3
 -----------------
