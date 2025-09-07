@@ -259,6 +259,9 @@ function StudentAssignmentSubmissionOutput( $assignment_id )
 		return false;
 	}
 
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	echo '<script src="assets/js/csp/modules/grades/StudentAssignmentSubmissionOutput.js?v=12.5"></script>';
+
 	// File(s) upload.
 	$file_html = '<div id="submission_file_input"' . ( $old_files ? 'class="hide"' : '' ) . '>' .
 	FileInput(
@@ -273,7 +276,7 @@ function StudentAssignmentSubmissionOutput( $assignment_id )
 		$old_files = '<table class="cellspacing-0"><tr><td>' . button(
 			'remove',
 			'',
-			'"#!" onclick="$(\'#submission_file_link\').hide(); $(\'#submission_file_input\').show();$(\'#submission_file\').prop(\'disabled\', false);"'
+			'"#!" class="onclick-delete-files"'
 		) . '</td><td>' . implode(
 			'<br>',
 			$old_files
