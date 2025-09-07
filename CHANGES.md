@@ -54,6 +54,7 @@ Changes in 12.5
 - JS remove inline code from program in MarkingPeriods.php & MarkingPeriods.js
 - JS remove inline code from program in PortalPolls.php & PortalPolls.js
 - JS remove inline code from program in Rollover.php & Rollover.js
+- JS remove inline code from `_makePaymentsCommentsInput()` in Student_Billing/functions.inc.php & MakePaymentsCommentsInput.js
 
 Changes in 12.4.3
 -----------------

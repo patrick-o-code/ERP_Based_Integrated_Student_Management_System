@@ -236,21 +236,8 @@ function _makePaymentsCommentsInput( $value, $name )
 	}
 
 	// JS automatically fills the Comments & Amount inputs.
-	ob_start();
-	?>
-	<script>
-		var billingPaymentsFeeReconcile = function( amountCommentsDate ) {
-			var amountCommentsDateSplit = amountCommentsDate.split( '|' ),
-				amount = amountCommentsDateSplit[0],
-				comments = amountCommentsDateSplit[1],
-				date = amountCommentsDateSplit[2];
-
-			$('#valuesnewAMOUNT').val( amount );
-			$('#valuesnewCOMMENTS').val( comments );
-		};
-	</script>
-	<?php
-	$js = ob_get_clean();
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	$js = '<script src="assets/js/csp/modules/studentBilling/MakePaymentsCommentsInput.js?v=12.5"></script>';
 
 	$select_input = SelectInput(
 		'',
@@ -258,7 +245,7 @@ function _makePaymentsCommentsInput( $value, $name )
 		'',
 		$fees_options,
 		'N/A',
-		'onchange="billingPaymentsFeeReconcile(this.value);" style="width: 158px;"'
+		'class="onchange-billing-fees" style="width: 158px;"'
 	);
 
 	return $text_input . ' ' . $js . $select_input;
