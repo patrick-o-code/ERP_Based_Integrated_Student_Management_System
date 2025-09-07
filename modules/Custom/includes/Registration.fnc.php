@@ -125,19 +125,8 @@ function RegistrationSiblingRegistered()
  */
 function RegistrationSiblingUseContactsAddress( $student_id )
 {
-	ob_start();
-	?>
-	<script>
-		var RegistrationContactsAddressDisable = function(checked) {
-			$('#registration_contacts_address_wrapper input, #registration_contacts_address_wrapper select, #registration_contacts_address_wrapper textarea').prop( 'disabled', checked );
-			$('#registration_contacts_address_wrapper' ).toggle();
-		};
-		$(document).ready(function(){
-			RegistrationContactsAddressDisable( true );
-		});
-	</script>
-	<?php
-	$js = ob_get_clean();
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	$js = '<script src="assets/js/csp/modules/custom/RegistrationSiblingUseContactsAddress.js?v=12.5"></script>';
 
 	$sibling_name = DBGetOne( "SELECT " . DisplayNameSQL() . "
 		FROM students
@@ -157,7 +146,7 @@ function RegistrationSiblingUseContactsAddress( $student_id )
 		'Yes',
 		'No',
 		false,
-		'autocomplete="off" onclick="RegistrationContactsAddressDisable(this.checked);"'
+		'autocomplete="off" class="onclick-sibling-use-contacts-address"'
 	);
 }
 
