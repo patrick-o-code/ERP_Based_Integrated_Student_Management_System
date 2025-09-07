@@ -466,27 +466,12 @@ if ( ! $_REQUEST['modfunc'] )
 		) . '</td></tr>';
 	}
 
-	// @since 4.1 Grade posting date inputs are required when "Graded" is checked.
-	$header .= '<script>var mpGradedOnclickPostDatesRequired = function(el) {
-		var dates = ["month", "day", "year"],
-			dateStartInput,
-			dateEndInput;
-
-		for (var i=0,max=dates.length; i<max; i++) {
-			dateStartInput = document.getElementsByName( dates[i] + "_tables[' . $_REQUEST['marking_period_id'] .
-			'][POST_START_DATE]" )[0];
-			dateEndInput = document.getElementsByName( dates[i] + "_tables[' . $_REQUEST['marking_period_id'] .
-			'][POST_END_DATE]" )[0];
-
-			dateStartInput.required = dateEndInput.required = el.checked;
-		}
-
-		// Add .legend-red CSS class to label if input is required/
-		$(dateStartInput).parent().nextAll(".legend-gray").toggleClass("legend-red", el.checked);
-		$(dateEndInput).parent().nextAll(".legend-gray").toggleClass("legend-red", el.checked);
-	};</script>';
-
-	$js_onclick_post_dates_required = 'onclick="mpGradedOnclickPostDatesRequired( this );"';
+	if ( AllowEdit() )
+	{
+		// @since 4.1 Grade posting date inputs are required when "Graded" is checked.
+		// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+		$header .= '<script src="assets/js/csp/modules/schoolSetup/MarkingPeriods.js?v=12.5"></script>';
+	}
 
 	$header .= '<tr class="st"><td>' . CheckboxInput(
 		issetVal( $RET['DOES_GRADES'], '' ),
@@ -497,7 +482,7 @@ if ( ! $_REQUEST['modfunc'] )
 		button( 'check' ),
 		button( 'x' ),
 		true,
-		$js_onclick_post_dates_required
+		'class="onclick-mp-does-grades"'
 	) . '</td>';
 
 	if ( AllowEdit()
