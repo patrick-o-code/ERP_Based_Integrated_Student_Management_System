@@ -18,11 +18,9 @@ else
 	_( 'Not Requested' ) . '</label>';
 
 	// @since 12.0 Use colorBox instead of popup window
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>
-		document.getElementById("request_div").innerHTML = <?php echo json_encode( $html_to_escape ); ?>;
-
-		$.colorbox.close();
-	</script>
+	<input type="hidden" disabled id="request_div_html" value="<?php echo AttrEscape( $html_to_escape ); ?>" />
+	<script src="assets/js/csp/modules/misc/ChooseRequest.js?v=12.5"></script>
 	<?php
 }
