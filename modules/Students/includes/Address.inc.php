@@ -430,6 +430,9 @@ echo ErrorMessage( $error );
 
 if ( ! $_REQUEST['modfunc'] )
 {
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	echo '<script src="assets/js/csp/modules/students/Address.js?v=12.5"></script>';
+
 	// Fix PostgreSQL error invalid ORDER BY, only result column names can be used
 	// Do not use ORDER BY SORT_ORDER IS NULL,SORT_ORDER (nulls last) in UNION.
 	$addresses_RET = DBGet( "SELECT a.ADDRESS_ID, sjp.STUDENT_RELATION,a.ADDRESS,
@@ -972,16 +975,14 @@ if ( ! $_REQUEST['modfunc'] )
 			{
 				$display_address = $this_address['ADDRESS'] . ', ' . ( $this_address['CITY'] ? ' ' . $this_address['CITY'] . ', ' : '' ) . $this_address['STATE'] . ( $this_address['ZIPCODE'] ? ' ' . $this_address['ZIPCODE'] : '' );
 
-				$link = URLEscape( 'https://www.openstreetmap.org/search?query=' . $display_address );
+				$link = 'https://www.openstreetmap.org/search?query=' . urlencode( $display_address );
 
 				echo '<tr><td class="valign-top" colspan="3">' .
 				button(
 					'compass_rose',
 					_( 'Map It' ),
-					'"#" onclick="' . AttrEscape( 'popups.open(
-						' . json_encode( $link ) . ',
-						"scrollbars=yes,resizable=yes,width=1000,height=700"
-						); return false;' ) . '"',
+					// @since 12.5 CSP remove unsafe-inline Javascript
+					'"#!" class="onclick-map-it" data-link="' . URLEscape( $link ) . '"',
 					'bigger'
 				) . '</td></tr>';
 			}
@@ -1050,8 +1051,6 @@ if ( ! $_REQUEST['modfunc'] )
 				|| $this_address['MAIL_STATE']
 				|| $this_address['MAIL_ZIPCODE'] )
 			{
-				echo '<script> function show_mailing(checkbox){if (checkbox.checked==true) document.getElementById(\'mailing_address_div\').style.visibility=\'visible\'; else document.getElementById(\'mailing_address_div\').style.visibility=\'hidden\';}</script>';
-
 				echo '<tr><td>' .
 					button( 'mailbox', '', '', 'bigger' ) .
 					'</td><td>' .
@@ -1064,7 +1063,7 @@ if ( ! $_REQUEST['modfunc'] )
 						button( 'check' ),
 						button( 'x' ),
 						true,
-						'onclick=show_mailing(this);'
+						'class="onclick-mailing-address" autocomplete="off"'
 					) . '</td></tr></table>';
 
 				echo '<div id="mailing_address_div" style="visibility: ' . ( ( $this_address['MAILING'] || $_REQUEST['address_id'] == 'new' ) ? 'visible' : 'hidden' ) . ';">';
