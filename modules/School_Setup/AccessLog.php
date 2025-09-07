@@ -113,20 +113,10 @@ if ( ! $_REQUEST['modfunc'] )
 
 	echo '</form>';
 
-	// When clicking on Username, go to Student or User Info. ?>
-<script>
-	$('.al-username').attr('href', function(){
-		var url = 'Modules.php?modname=Users/User.php&search_modfunc=list&';
-
-		if ( $(this).hasClass('student') ) {
-			url = url.replace( 'Users/User.php', 'Students/Student.php' ) + 'cust[USERNAME]=';
-		} else {
-			url += 'username=';
-		}
-
-		return url + this.firstChild.data;
-	});
-</script>
+	// When clicking on Username, go to Student or User Info.
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	?>
+	<script src="assets/js/csp/modules/schoolSetup/AccessLog.js?v=12.5"></script>
 	<?php
 }
 
