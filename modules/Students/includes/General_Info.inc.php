@@ -185,6 +185,9 @@ if ( basename( $_SERVER['PHP_SELF'] ) !== 'index.php' )
 else
 {
 	// Create account.
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	echo '<script src="assets/js/csp/modules/students/CreateStudentAccount.js?v=12.5"></script>';
+
 	echo '<hr>';
 
 	echo '<table class="create-account width-100p valign-top fixed-col"><tr class="st"><td>';
@@ -202,7 +205,7 @@ else
 	}
 
 	// @since 6.0 Reload page on School change, so we update UserSchool().
-	$school_onchange_url = "'index.php?create_account=student&student_id=new&school_id='";
+	$school_onchange_url = 'index.php?create_account=student&student_id=new&school_id=';
 
 	// Add School select input.
 	echo SelectInput(
@@ -211,7 +214,8 @@ else
 		_( 'School' ),
 		$school_options,
 		false,
-		'autocomplete="off" onchange="window.location.href=' . $school_onchange_url . ' + this.value;"',
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		'autocomplete="off" class="onchange-school-reload" data-url="' . URLEscape( $school_onchange_url ) . '"',
 		false
 	);
 
