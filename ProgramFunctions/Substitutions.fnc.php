@@ -23,7 +23,8 @@
  */
 function SubstitutionsInput( $substitutions )
 {
-	static $id = 0;
+	static $id = 0,
+		$js_included = false;
 
 	if ( empty( $substitutions )
 		|| ! is_array( $substitutions ) )
@@ -43,7 +44,7 @@ function SubstitutionsInput( $substitutions )
 		'',
 		$substitutions,
 		$allow_na,
-		'autocomplete="off"',
+		'autocomplete="off" class="onchange-substitutions-input" data-id="' . AttrEscape( $id ) . '"',
 		$div
 	);
 
@@ -54,7 +55,8 @@ function SubstitutionsInput( $substitutions )
 
 	$code .= '<label for="substitutions_code_' . $id . '" class="a11y-hidden">' . _( 'Code' ) . '</label>';
 
-	$copy_button = '<input id="substitutions_button_' . $id . '" type="button" value="' . AttrEscape( _( 'Copy' ) ) . '">';
+	$copy_button = '<input id="substitutions_button_' . $id . '" class="onclick-substitutions-button"
+		data-id="' . AttrEscape( $id ) . '" type="button" value="' . AttrEscape( _( 'Copy' ) ) . '">';
 
 	$tooltip_html = '<div class="tooltip"><i>' .
 		_( 'Copy the substitution code and paste it into your text. The code will be dynamically replaced with the corresponding value.' ) .
@@ -65,38 +67,15 @@ function SubstitutionsInput( $substitutions )
 		'substitutions_input_' . $id
 	);
 
-	ob_start(); ?>
+	$js_update_copy_code = '';
 
-	<script>
-		var substitutionsUpdateCode = function(event) {
+	if ( ! $js_included )
+	{
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$js_update_copy_code = '<script src="assets/js/csp/programFunctions/SubstitutionsInput.js?v=12.5"></script>';
 
-			var select = event.target,
-				codeValue = select.value,
-				code = $('#substitutions_code_' + <?php echo $id; ?>);
-
-			// Update code with corresponding selected input value.
-			code.val( codeValue );
-
-			code.attr( 'size', codeValue.length - 1 );
-		};
-
-		var substitutionsCopyCode = function(event) {
-
-			var code = $('#substitutions_code_' + <?php echo $id; ?>);
-
-			code.focus().select();
-
-			// Copy code into clipboard.
-			document.execCommand("copy");
-		};
-
-		// Set select onchange & button onclick functions.
-		$('#substitutions_input_' + <?php echo $id; ?>).change(substitutionsUpdateCode);
-		$('#substitutions_button_' + <?php echo $id; ?>).click(substitutionsCopyCode);
-	</script>
-
-	<?php
-	$js_update_copy_code = ob_get_clean();
+		$js_included = true;
+	}
 
 	return $input_html . $code . $copy_button . $title_html . $js_update_copy_code;
 }
