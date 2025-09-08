@@ -2,6 +2,7 @@
 	Colorbox 1.6.3
 	+ FJ minWidth / minHeight patch @link https://github.com/jackmoore/colorbox/issues/159
 	+ FJ fix maxHeight on resize patch @link https://github.com/jackmoore/colorbox/pull/635
+	+ FJ fix CSP error: use setInnerHTML() instead of jQuery .append() function
 	license: MIT
 	http://www.jacklmoore.com/colorbox
 */
@@ -790,7 +791,13 @@
 
 		$loaded.remove();
 
-		$loaded = $tag(div, 'LoadedContent').append(object);
+		if (typeof object === 'object') {
+			$loaded = $tag(div, 'LoadedContent').append(object);
+		} else {
+			// FJ fix CSP error: use setInnerHTML() instead of jQuery .append() function
+			$loaded = $tag(div, 'LoadedContent');
+			setInnerHTML($loaded[0], $loaded[0].innerHTML + object);
+		}
 
 		function getWidth() {
 			settings.w = settings.w || $loaded.width();
@@ -809,12 +816,18 @@
 			return settings.h;
 		}
 
-		$loaded.hide()
+		/*$loaded.hide()
 		.appendTo($loadingBay.show())// content has to be appended to the DOM for accurate size calculations.
 		.css({width: getWidth(), overflow: settings.get('scrolling') ? 'auto' : 'hidden'})
 		.css({height: getHeight()})// sets the height independently from the width in case the new width influences the value of height.
-		.prependTo($content);
-
+		.prependTo($content);*/
+		// FJ fix CSP error: use appendChild() & insertAdjacentElement() instead of jQuery .appendTo() & preprendTo() functions
+		$loaded.hide();
+		$loadingBay.show();
+		$loadingBay[0].appendChild($loaded[0]);
+		$loaded.css({width: getWidth(), overflow: settings.get('scrolling') ? 'auto' : 'hidden'})
+		.css({height: getHeight()});
+		$content[0].insertAdjacentElement('afterbegin', $loaded[0]);
 		$loadingBay.hide();
 
 		// floating the IMG removes the bottom line-height and fixed a problem where IE miscalculates the width of the parent element as 100% of the document width.
@@ -1040,9 +1053,15 @@
 			photo.src = href;
 
 		} else if (href) {
-			$loadingBay.load(href, settings.get('data'), function (data, status) {
+			/*$loadingBay.load(href, settings.get('data'), function (data, status) {
 				if (request === requests) {
 					prep(status === 'error' ? $tag(div, 'Error').html(settings.get('xhrError')) : $(this).contents());
+				}
+			});*/
+			// FJ fix CSP error: use $.get() instead of jQuery .load() function
+			$.get(href, settings.get('data'), function (data, status) {
+				if (request === requests) {
+					prep(status === 'error' ? $tag(div, 'Error').html(settings.get('xhrError')) : data);
 				}
 			});
 		}
