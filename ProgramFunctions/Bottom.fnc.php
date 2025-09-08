@@ -18,6 +18,8 @@
  */
 function BottomButtonBackUpdate( $back_php_self )
 {
+	$old_list_php_self = $_SESSION['List_PHP_SELF'];
+
 	$_SESSION['List_PHP_SELF'] = PreparePHP_SELF( $_REQUEST, [ 'bottom_back' ] );
 
 	$_SESSION['Back_PHP_SELF'] = $back_php_self;
@@ -46,15 +48,6 @@ function BottomButtonBackUpdate( $back_php_self )
 			$back_text = sprintf( _( '%s List' ), $_SESSION['Back_PHP_SELF'] );
 	}
 
-	?>
-	<script>
-		$('#BottomButtonBack span').text(<?php echo json_encode( $back_text ); ?>);
-		$('#BottomButtonBack').removeClass('hide')
-			.attr('href', <?php echo json_encode( URLEscape( $back_url ) ); ?>)
-			.attr('title', <?php echo json_encode( $back_text ); ?>);
-	</script>
-	<?php
-
 	ob_start();
 
 	// Do bottom_buttons action hook.
@@ -62,14 +55,19 @@ function BottomButtonBackUpdate( $back_php_self )
 
 	$bottom_buttons = ob_get_clean();
 
-	if ( ! $bottom_buttons )
+	if ( ! $bottom_buttons
+		&& $old_list_php_self === $_SESSION['List_PHP_SELF'] )
 	{
+		// Nothing to update, exit.
 		return;
 	}
 
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	?>
-	<script>
-		$('#BottomButtonBack').after(<?php echo json_encode( $bottom_buttons ); ?>);
-	</script>
+	<input type="hidden" disabled id="bottom_button_back_update"
+		data-text="<?php echo AttrEscape( $back_text ); ?>"
+		data-href="<?php echo URLEscape( $back_url ); ?>"
+		data-after="<?php echo AttrEscape( $bottom_buttons ); ?>" />
+	<script src="assets/js/csp/programFunctions/BottomButtonBackUpdate.js?v=12.5"></script>
 	<?php
 }
