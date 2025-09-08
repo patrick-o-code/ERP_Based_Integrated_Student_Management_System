@@ -447,21 +447,12 @@ function GetFieldsForm( $table, $title, $RET, $extra_category_fields = [], $type
 				_( 'Data Type' ),
 				$type_options,
 				false,
-				'onchange="FieldTypeSwitchSelectOptions(this.value);"'
+				'class="onchange-field-type"'
 			) . '</td>';
 
 			// @since 9.0 JS Hide Options textarea if Field not of select type.
-			$header .= '<script>function FieldTypeSwitchSelectOptions(type) {
-				if (type == "select"
-					|| type == "autos"
-					|| type == "exports"
-					|| type == "multiple" ) {
-					$("#select_options_wrapper").show();
-				} else {
-					$("#select_options_wrapper").hide();
-				}
-			}
-			</script>';
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			$header .= '<script src="assets/js/csp/programFunctions/FieldsGetForm.js?v=12.5"></script>';
 		}
 
 		if ( $category_id )

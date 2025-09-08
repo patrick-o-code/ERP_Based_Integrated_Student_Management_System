@@ -61,6 +61,7 @@ Changes in 12.5
 - JS remove inline code from program in StudentLabels.fnc.php & StudentLabels.js
 - JS remove inline code from BottomButtonBackUpdate() in Bottom.fnc.php & BottomButtonBackUpdate.js
 - JS remove inline code from ChartjsChart() in Charts.fnc.php & ChartjsChart.js
+- JS remove inline code from GetFieldsForm() in Fields.fnc.php & FieldsGetForm.js
 
 Changes in 12.4.3
 -----------------
