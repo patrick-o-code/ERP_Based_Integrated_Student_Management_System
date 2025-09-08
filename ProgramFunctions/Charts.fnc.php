@@ -87,83 +87,54 @@ function ChartjsChart( $type, $data, $title )
 	}
 
 	// Chart Options.
-	$chart_options = '';
+	$chart_options = [];
 
 	if ( $type === 'line'
 		|| $type === 'bar' )
 	{
 		// Line & Bar Chart Options.
-		$chart_options .= 'scales: {
-			x: {
-				grid: {
-					display: false // Turn off only the vertical gridlines.
-				},
-				stacked: true
-			},
-			y: {
-				beginAtZero: true,
-				stacked: true
-			}
-		},';
+		$chart_options['scales'] = [
+			'x' => [
+				'grid' => [
+					'display' => false, // Turn off only the vertical gridlines.
+				],
+				'stacked' => true,
+			],
+			'y' => [
+				'beginAtZero' => true,
+				'stacked' => true,
+			]
+		];
 
 		if ( ! is_string( $first_key ) )
 		{
 			// Remove legend, empty anyway.
-			$chart_options .= 'legend: {
-				display: false,
-			},';
+			$chart_options['legend'] = [ 'display' => false ];
 		}
 	}
 
+	// Hide legend on bar & line charts when only 1 dataset and empty label.
+	$legend_display = ( $type === 'bar' || $type === 'line' )
+		&& count( $datasets ) === 1 && $datasets[0]['label'] === '' ?
+		'false' : 'true';
+
 	ob_start();
 
+	// @since 12.5 CSP remove unsafe-inline Javascript
 	if ( ! $chart_id ) : ?>
 		<script src="assets/js/Chart.js/chart.min.js?v=3.4.1"></script>
+		<script src="assets/js/csp/programFunctions/ChartsChartjs.js?v=12.5"></script>
 	<?php endif; ?>
 
 	<div class="chart">
-		<canvas id="chart<?php echo $chart_id; ?>"></canvas>
+		<canvas id="chart<?php echo $chart_id; ?>"
+			data-options="<?php echo AttrEscape( json_encode( $chart_options ) ); ?>"
+			data-labels="<?php echo AttrEscape( json_encode( $labels ) ); ?>"
+			data-datasets="<?php echo AttrEscape( json_encode( $datasets ) ); ?>"
+			data-type="<?php echo AttrEscape( $type ); ?>"
+			data-legend-display="<?php echo AttrEscape( $legend_display ); ?>"
+			data-title="<?php echo AttrEscape( $title ); ?>"></canvas>
 	</div>
-	<script>
-		Chart.defaults.font.size = 14;
-
-		var chart<?php echo $chart_id; ?> = new Chart(
-			document.getElementById(<?php echo json_encode( 'chart' . $chart_id ); ?>).getContext('2d'), {
-			// The type of chart we want to create.
-			type: <?php echo json_encode( $type ); ?>,
-
-			// The data for our dataset.
-			data: {
-				labels: <?php echo json_encode( $labels ); ?>,
-				datasets: <?php echo json_encode( $datasets ); ?>
-			},
-
-			// Configuration options go here.
-			options: {
-				<?php echo $chart_options; ?>
-				responsive: true,
-				// Canvas aspect ratio (i.e. width / height, a value of 1 representing a square canvas).
-				aspectRatio: 2, // Fix for Pie charts height to big.
-				plugins: {
-					// Chart Options: Show legend on the right.
-					legend: {
-						position: "right",
-						display: <?php // Hide legend on bar & line charts when only 1 dataset and empty label.
-						echo ( ( $type === 'bar' || $type === 'line' )
-							&& count( $datasets ) === 1 && $datasets[0]['label'] === '' ?
-							'false' : 'true' ); ?>
-					},
-					title: {
-						display: true,
-						font: {
-							size: 16
-						},
-						text: <?php echo json_encode( $title ); ?>
-					}
-				}
-			}
-		});
-	</script>
 	<?php
 
 	$chart_id++;
