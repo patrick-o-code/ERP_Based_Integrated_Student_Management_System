@@ -125,25 +125,8 @@ if ( ! function_exists( 'GetStudentLabelsFormJS' ) )
 	 */
 	function GetStudentLabelsFormJS()
 	{
-		// No JS if User cannot access Addresses & Contacts Student Info tab.
-		if ( ! AllowUse( 'Students/Student.php&category_id=3' ) )
-		{
-			return '';
-		}
-
-		ob_start();
-		?>
-		<script>
-			$('input[name=mailing_labels]').change(function(event){
-				// Toggle fieldset disabled attribute.
-				$('input[name=mailing_labels]').parents('fieldset').prop('disabled', function(i, v) {
-					return !v;
-				});
-			});
-		</script>
-		<?php
-
-		return ob_get_clean();
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		return '<script src="assets/js/csp/modules/students/StudentLabels.js?v=12.5"></script>';
 	}
 }
 

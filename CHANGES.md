@@ -58,6 +58,7 @@ Changes in 12.5
 - JS remove inline code from Addresses & Contacts tab in Address.inc.php & Address.js
 - JS remove inline code from General Info tab in General_Info.inc.php & CreateStudentAccount.js
 - JS remove inline code from program in Profiles.php & Profiles.js
+- JS remove inline code from program in StudentLabels.fnc.php & StudentLabels.js
 
 Changes in 12.4.3
 -----------------
