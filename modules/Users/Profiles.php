@@ -309,13 +309,15 @@ if ( $_REQUEST['modfunc'] != 'delete' )
 		FormatInputTitle( _( 'Type' ), 'new_profile_type' ) .
 		'</div>';
 
-		echo '<script>new_profile_html = ' . json_encode( $new_profile_form ) . '</script>';
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		echo '<input type="hidden" disabled id="new_profile_html" value="' . AttrEscape( $new_profile_form ) . '" />';
+		echo '<script src="assets/js/csp/modules/users/Profiles.js?v=12.5"></script>';
 
 		echo '<tr class="highlight-hover"><td>' .
-		button( 'add', '', '"#!" onclick="addHTML(new_profile_html, \'new_profile_div\', true);"' ) .
+		button( 'add', '', '#!', 'onclick-add-new-profile' ) .
 			'</td><td colspan="2">';
 
-		echo '<a href="#" onclick="addHTML(new_profile_html, \'new_profile_div\', true); return false;">' .
+		echo '<a href="#!" class="onclick-add-new-profile">' .
 		_( 'Add a User Profile' ) . '</a><br /><div id="new_profile_div"></div></td></tr>';
 	}
 
