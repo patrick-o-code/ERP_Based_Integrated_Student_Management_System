@@ -54,6 +54,11 @@ function _makeTextInput( $column, $name, $request )
 
 			$div = false;
 		}
+
+		if ( _isNew( $request ) )
+		{
+			$options .= ' size=22';
+		}
 	}
 	else
 		$options = 'maxlength=1000';
