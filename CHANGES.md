@@ -70,6 +70,7 @@ Changes in 12.5
 - Fix reload theme when "Force" checked in Theme.fnc.php
 - Redirection is done in HTML in Theme.fnc.php
 - CSP add .onmouseover-tipmsg CSS class, use data-title & data-msg HTML attributes in TipMessage.fnc.php
+- Redirection is done in HTML in case current request is AJAX in Warehouse.php
 
 Changes in 12.4.3
 -----------------

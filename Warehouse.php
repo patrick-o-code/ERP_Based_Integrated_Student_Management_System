@@ -269,11 +269,15 @@ if ( empty( $_SESSION['STAFF_ID'] )
 	$redirect_to = basename( $_SERVER['SCRIPT_NAME'] ) === 'Modules.php' ?
 		'&redirect_to=' . urlencode( $_SERVER['QUERY_STRING'] ) : '';
 
-	// Redirection is done in Javascript in case current request is AJAX.
+	// Redirection is done in HTML in case current request is AJAX.
+	$redirect_url = 'index.php?modfunc=logout' . $redirect_to . '&token=' . $_SESSION['token'];
 	?>
-	<script>window.location.href = "index.php?modfunc=logout" +
-		<?php echo json_encode( $redirect_to ); ?> +
-		"&token=" + <?php echo json_encode( $_SESSION['token'] ); ?>;</script>
+	<html>
+	<head>
+	<meta http-equiv="REFRESH" content="0;URL=<?php echo URLEscape( $redirect_url ); ?>" />
+	</head>
+	<body></body>
+	</html>
 	<?php
 	exit;
 }
