@@ -66,9 +66,8 @@ Changes in 12.5
 - JS fix CSP error: use setInnerHTML() instead of jQuery .append() function in jquery.colorbox.js & jquery.colorbox-min.js
 - JS not available, reload page (eg. when reopening closed tab) in Warehouse.php, noJsReload.js & warehouse.js
 - Module is addon, set custom module icon & remove $icon param in DashboardModule.fnc.php
-- Redirection is done in HTML in HackingLog.fnc.php
+- CSP Redirection is done in HTML in HackingLog.fnc.php, Theme.fnc.php, Student.php & User.php
 - Fix reload theme when "Force" checked in Theme.fnc.php
-- Redirection is done in HTML in Theme.fnc.php
 - CSP add .onmouseover-tipmsg CSS class, use `data-title` & `data-msg` attributes in TipMessage.fnc.php
 - Redirection is done in HTML in case current request is AJAX in Warehouse.php
 - Add `_gradeScaleInputHtml()` & `_search()` private methods to Widget_letter_grade object in Widget.php

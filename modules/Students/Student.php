@@ -546,12 +546,25 @@ else
 	// Hook.
 	do_action( 'Students/Student.php|account_created' );
 
-	// Return to index.
-	// @since 5.9 Automatic Student Account Activation.
+	/**
+	 * Account created, redirect to index. Redirection is done in HTML.
+	 *
+	 * @since 5.9 Automatic Student Account Activation.
+	 *
+	 * @link https://stackoverflow.com/questions/42216700/how-can-i-redirect-after-oauth2-with-samesite-strict-and-still-get-my-cookies#answer-64216367
+	 */
+	//
 	$reason = Config( 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION' ) ?
 		'account_activated' : 'account_created';
+
+	$redirect_url = 'index.php?modfunc=logout&reason=' . $reason . '&token=' . $_SESSION['token'];
 	?>
-	<script>window.location.href = "index.php?modfunc=logout&reason=" + <?php echo json_encode( $reason ); ?> + "&token=" + <?php echo json_encode( $_SESSION['token'] ); ?>;</script>
+	<html>
+	<head>
+	<meta http-equiv="REFRESH" content="0;URL=<?php echo URLEscape( $redirect_url ); ?>" />
+	</head>
+	<body></body>
+	</html>
 	<?php
 	exit;
 }

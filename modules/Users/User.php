@@ -580,11 +580,21 @@ elseif ( ! UserStaffID() )
 }
 else
 {
-	// Account created, return to index.
+	/**
+	 * Account created, redirect to index. Redirection is done in HTML.
+	 *
+	 * @link https://stackoverflow.com/questions/42216700/how-can-i-redirect-after-oauth2-with-samesite-strict-and-still-get-my-cookies#answer-64216367
+	 */
+	$redirect_url = 'index.php?modfunc=logout&reason=account_created&token=' . $_SESSION['token'];
 	?>
-	<script>window.location.href = "index.php?modfunc=logout&reason=account_created&token=" + <?php echo json_encode( $_SESSION['token'] ); ?>;</script>
-<?php
-exit;
+	<html>
+	<head>
+	<meta http-equiv="REFRESH" content="0;URL=<?php echo URLEscape( $redirect_url ); ?>" />
+	</head>
+	<body></body>
+	</html>
+	<?php
+	exit;
 }
 
 if ( $_REQUEST['modfunc'] === 'delete'
