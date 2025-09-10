@@ -735,6 +735,11 @@ function FinalGradesSave( $cp_id, $mp_id, $final_grades )
 			'CREDIT_EARNED' => ( (float) $weighted && $weighted >= $gp_passing ? $course_RET[1]['CREDITS'] : '0' ),
 		];
 
+		if ( isset( $final_grade[1]['COMMENT'] ) )
+		{
+			$columns['COMMENT'] = $final_grade[1]['COMMENT'];
+		}
+
 		$where_columns = [
 			'SYEAR' => $cp['SYEAR'],
 			'SCHOOL_ID' => (int) $cp['SCHOOL_ID'],
