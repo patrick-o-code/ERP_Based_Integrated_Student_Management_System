@@ -1123,12 +1123,13 @@ function _makeExtraCols( $assignment_id, $column )
 					' size=2 maxlength=7',
 					$div
 				) . '</span>
-				<label for="' . $id . '">&nbsp;/&nbsp;' . $total_points . '</label><span>' .
-				( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) >= 0 ?
-					'&nbsp;&minus;&nbsp;' . _Percent( $percent, 2, $percent_red_span ) :
-					'' ) .
+				<label for="' . $id . '">&nbsp;/&nbsp;' . $total_points . '</label><span>&nbsp;&minus;' .
+				// @since 12.5 HTML space gain: remove minus between letter & percent grades
 				( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) <= 0 ?
-					'&nbsp;&minus;&nbsp;<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' :
+					'&nbsp;<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' :
+					'' ) .
+				( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) >= 0 ?
+					'&nbsp;' . _Percent( $percent, 2, $percent_red_span ) :
 					'' ) .
 				'</span>';
 			}

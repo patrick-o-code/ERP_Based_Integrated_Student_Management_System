@@ -88,6 +88,7 @@ Changes in 12.5
 - CSP add .onclick-ajax-link & .onchange-ajax-link CSS classes, use `data-link` attribute, program wide
 - CSP add .onchange-ajax-post-form CSS class, program wide
 - CSP use curl POST instead of AJAX to send data to external domain in FirstLogin.fnc.php
+- HTML space gain: remove minus between letter & percent grades in Grades.php
 
 Changes in 12.4.3
 -----------------
