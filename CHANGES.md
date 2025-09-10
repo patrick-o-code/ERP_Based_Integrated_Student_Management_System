@@ -69,7 +69,7 @@ Changes in 12.5
 - Redirection is done in HTML in HackingLog.fnc.php
 - Fix reload theme when "Force" checked in Theme.fnc.php
 - Redirection is done in HTML in Theme.fnc.php
-- CSP add .onmouseover-tipmsg CSS class, use data-title & data-msg HTML attributes in TipMessage.fnc.php
+- CSP add .onmouseover-tipmsg CSS class, use `data-title` & `data-msg` attributes in TipMessage.fnc.php
 - Redirection is done in HTML in case current request is AJAX in Warehouse.php
 - Add `_gradeScaleInputHtml()` & `_search()` private methods to Widget_letter_grade object in Widget.php
 - Use Select2 input + AJAX search when scale has more than 1003 grades in Widget.php
@@ -79,6 +79,7 @@ Changes in 12.5
 - Add CSS classes to .list element in ListOutput.fnc.php
 - CSP remove unsafe-inline Javascript: use `data-url` attribute in ListOutput.fnc.php
 - Use MultipleCheckboxInput() function in AddAbsences.php
+- CSP add .onclick-checkall CSS class & use `data-name-like` attribute in AddAbsences.php, DuplicateAttendance.php, Exceptions.php & Profiles.php
 
 Changes in 12.4.3
 -----------------

@@ -217,6 +217,11 @@ if ( ! $_REQUEST['modfunc'] )
 			'required'
 		);
 
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		echo ' <label class="nobr"><input type="checkbox" value="Y" name="controller"
+			class="onclick-checkall" data-name-like="period"> ' . _( 'Check All' ) .
+			'</label></td></tr>';
+
 		echo '<tr><td><label><select name="absence_code">';
 
 		$codes_RET = DBGet( "SELECT TITLE,ID

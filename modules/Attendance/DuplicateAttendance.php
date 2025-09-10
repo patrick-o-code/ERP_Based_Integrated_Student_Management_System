@@ -272,7 +272,9 @@ if ( isset( $_REQUEST['search_modfunc'] )
 		}
 
 		echo '<br /><table class="widefat rt center">';
-		echo '<thead><tr><th class="column_heading"><input type="checkbox" value="Y" name="controller" onclick="checkAll(this.form,this.checked,\'deletecheck\');" /> &nbsp</th>';
+
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		echo '<thead><tr><th class="column_heading"><input type="checkbox" value="Y" name="controller" class="onclick-checkall" data-name-like="deletecheck" /> &nbsp</th>';
 
 		echo '<th>' . _( 'Student' ) . ' (' . sprintf( _( '%s ID' ), Config( 'NAME' ) ) . ')</th>
 			<th>' . _( 'Course' ) . ' (' . _( 'Course Period ID' ) . ')</th>
