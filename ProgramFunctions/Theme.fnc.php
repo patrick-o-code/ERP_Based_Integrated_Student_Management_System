@@ -68,13 +68,23 @@ function ThemeLiveUpdate( $new_theme, $old_theme, $default = true )
 			AND TITLE='THEME'" );
 	}
 
-	// Reload the page so the new theme stylesheet gets loaded. ?>
-	<script>
-		location.reload(true);
-	</script>
+	/**
+	 * Reload the page so the new theme stylesheet gets loaded
+	 * Redirection is done in HTML.
+	 *
+	 * @since 12.5 CSP remove unsafe-inline Javascript
+	 *
+	 * @link https://stackoverflow.com/questions/42216700/how-can-i-redirect-after-oauth2-with-samesite-strict-and-still-get-my-cookies#answer-64216367
+	 */
+	ob_clean();
+	?>
+	<html>
+	<head>
+	<meta http-equiv="REFRESH" content="0;" />
+	</head>
+	<body></body>
+	</html>
 	<?php
-
-	Warehouse( 'footer' );
 
 	die();
 }
