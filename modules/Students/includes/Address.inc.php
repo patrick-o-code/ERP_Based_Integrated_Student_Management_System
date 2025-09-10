@@ -1706,8 +1706,6 @@ function _makeAutoSelect( $column, $table, $values = '', $options = [] )
  */
 function _makeAutoSelectInputX( $value, $column, $table, $title, $select, $id = '', $div = true )
 {
-	static $js_included = false;
-
 	$select_options = '';
 
 	if ( $column === 'CITY'
@@ -1750,38 +1748,7 @@ function _makeAutoSelectInputX( $value, $column, $table, $title, $select, $id = 
 	if ( $value !== '---'
 		&& count( (array) $select ) > 1 )
 	{
-		// When -Edit- option selected, change the Address auto pull-downs to text fields.
 		$return = '';
-
-		if ( AllowEdit()
-			&& ! isset( $_REQUEST['_ROSARIO_PDF'] )
-			&& ! $js_included )
-		{
-			$js_included = true;
-
-			ob_start();?>
-			<script>
-			function maybeEditTextInput(el) {
-
-				// -Edit- option's value is ---.
-				if ( el.value === '---' ) {
-
-					var $el = $( el );
-
-					// Remove parent <div> if any
-					if ( $el.parent('div').length ) {
-						$el.unwrap();
-					}
-					// Remove the select input.
-					$el.remove();
-
-					// Show & enable the text input of the same name.
-					$( '[name="' + el.name + '_text"]' ).prop('name', el.name).prop('disabled', false).show().focus();
-				}
-			}
-			</script>
-			<?php $return = ob_get_clean();
-		}
 
 		if ( AllowEdit()
 			&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
@@ -1811,21 +1778,21 @@ function _makeAutoSelectInputX( $value, $column, $table, $title, $select, $id = 
 			$title,
 			$select,
 			$na,
-			$select_options . ' onchange="maybeEditTextInput(this);"',
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			// When -Edit- option selected, change the auto pull-down to text field.
+			$select_options . ' class="onchange-maybe-edit-select"',
 			$div
 		);
 
 		return $return;
 	}
-	else
-	{
-		// FJ new option.
-		return TextInput(
-			$value === '---' ? [ '---', '<span style="color:red">-' . _( 'Edit' ) . '-</span>' ] : $value,
-			$input_name,
-			$title,
-			$options,
-			$div
-		);
-	}
+
+	// FJ new option.
+	return TextInput(
+		$value === '---' ? [ '---', '<span style="color:red">-' . _( 'Edit' ) . '-</span>' ] : $value,
+		$input_name,
+		$title,
+		$options,
+		$div
+	);
 }

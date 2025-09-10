@@ -83,6 +83,7 @@ Changes in 12.5
 - CSP add .onclick-toggle CSS class & use `data-id` attribute in CreateParents.php, ReportCards.fnc.php & Transcripts.fnc.php
 - FinalGradeSave() can save COMMENT column in FinalGrades.inc.php
 - Include Students active as of Timeframe end date in DailyTransactions.php
+- CSP add .onchange-maybe-edit-select CSS class in StudentsUsersInfo.fnc.php & Address.inc.php
 
 Changes in 12.4.3
 -----------------

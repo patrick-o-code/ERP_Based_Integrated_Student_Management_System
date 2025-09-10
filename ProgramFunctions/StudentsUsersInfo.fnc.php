@@ -202,8 +202,6 @@ function _makeSelectInput( $column, $name, $request )
  */
 function _makeAutoSelectInput( $column, $name, $request, $options_RET = [] )
 {
-	static $js_included = false;
-
 	global $value,
 		$field;
 
@@ -337,38 +335,7 @@ function _makeAutoSelectInput( $column, $name, $request, $options_RET = [] )
 		);
 	}
 
-	// When -Edit- option selected, change the auto pull-down to text field.
 	$return = '';
-
-	if ( AllowEdit()
-		&& ! isset( $_REQUEST['_ROSARIO_PDF'] )
-		&& ! $js_included )
-	{
-		$js_included = true;
-
-		ob_start();?>
-		<script>
-		function maybeEditTextInput(el) {
-
-			// -Edit- option's value is ---.
-			if ( el.value === '---' ) {
-
-				var $el = $( el );
-
-				// Remove parent <div> if any
-				if ( $el.parent('div').length ) {
-					$el.unwrap();
-				}
-				// Remove the select input.
-				$el.remove();
-
-				// Show & enable the text input of the same name.
-				$( '[name="' + el.name + '_text"]' ).prop('name', el.name).prop('disabled', false).show().focus();
-			}
-		}
-		</script>
-		<?php $return = ob_get_clean();
-	}
 
 	// FJ select field is required.
 	$extra = ( $field['REQUIRED'] === 'Y' ? 'required' : '' );
@@ -392,7 +359,9 @@ function _makeAutoSelectInput( $column, $name, $request, $options_RET = [] )
 		$name,
 		$options,
 		'N/A',
-		$extra . ' onchange="maybeEditTextInput(this);"',
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		// When -Edit- option selected, change the auto pull-down to text field.
+		$extra . ' class="onchange-maybe-edit-select"',
 		$div
 	);
 
