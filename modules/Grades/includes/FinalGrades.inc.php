@@ -203,6 +203,7 @@ function FinalGradesAllMPSave( $cp_id, $qtr_id )
  * @since 12.2 Add $assignment_type_id param
  * @since 12.2 Save null percent: N/A final grade
  * @since 12.2.3 Fix SQL error when percent grade > 999.9
+ * @since 12.4.3 Fix PHP fatal error division by zero: Percent Total is 0%, N/A final grade
  *
  * @param int  $cp_id              Course Period ID.
  * @param int  $mp_id              Marking Period ID.
@@ -302,7 +303,8 @@ function FinalGradesQtrOrProCalculate( $cp_id, $mp_id, $assignment_type_id = 0 )
 		}
 
 		if ( ! empty( $gradebook_config['WEIGHT_ASSIGNMENTS'] )
-			&& $total_weights > 0 )
+			&& $total_weights > 0
+			&& $total_percent != 0 )
 		{
 			// @since 11.0 Add Weight Assignments option
 			$total = $total_weighted / $total_weights;
