@@ -604,10 +604,10 @@ function Warehouse( $mode )
 
 			if ( isAJAX() )
 			{
-				// If jQuery not available, log out.
-
+				// JS not available, reload page (eg. when reopening closed tab)
+				// @since 12.5 CSP remove unsafe-inline Javascript
 				if ( $_ROSARIO['page'] === 'modules' ): ?>
-<script>if (!window.$) window.location.href = 'index.php?modfunc=logout&token=' + <?php echo json_encode( $_SESSION['token'] ); ?>;</script>
+					<script src="assets/js/csp/noJsReload.js?v=12.5"></script>
 				<?php endif;
 
 				// AJAX: we only need to generate #body content.

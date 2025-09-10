@@ -571,11 +571,11 @@ var ajaxSuccess = function(data, target, url) {
 		$('html').focus();
 	}
 
-	// Change URL after AJAX.
-	//http://stackoverflow.com/questions/5525890/how-to-change-url-after-an-ajax-request#5527095
 	// Fix CSP inline script violation: do NOT use jQuery .html() function here
 	setInnerHTML(document.getElementById(target), data);
 
+	// Change URL after AJAX.
+	//http://stackoverflow.com/questions/5525890/how-to-change-url-after-an-ajax-request#5527095
 	if (history.pushState && target == 'body' && document.URL != url) history.pushState(null, document.title, url);
 
 	ajaxPrepare('#' + target, true);
@@ -594,7 +594,14 @@ var ajaxSuccess = function(data, target, url) {
  * @param {string} html HTML to inject into the element. May contain <script>.
  */
 var setInnerHTML = function(el, html) {
-	el.innerHTML = html;
+	/**
+	 * Remove "JS not available, reload page" script: save 1 http request
+	 *
+	 * @since 12.5
+	 *
+	 * @see PHP Warehouse() function
+	 */
+	el.innerHTML = html.replace('<script src="assets/js/csp/noJsReload.js?v=12.5"></script>', '');
 
 	Array.from(el.querySelectorAll('script')).forEach(oldScriptEl => {
 		const newScriptEl = document.createElement('script');
