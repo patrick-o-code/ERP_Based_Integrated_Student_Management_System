@@ -178,7 +178,7 @@ VALUES ((SELECT syear FROM schools WHERE id=1 LIMIT 1), 1, 'N/D', 23, NULL, NULL
 --
 
 UPDATE school_marking_periods
-SET title='Année Complète', short_name='Année'
+SET title='Année complète', short_name='Année'
 WHERE marking_period_id=1;
 
 UPDATE school_marking_periods
