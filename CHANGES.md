@@ -89,6 +89,7 @@ Changes in 12.5
 - CSP add .onchange-ajax-post-form CSS class, program wide
 - CSP use curl POST instead of AJAX to send data to external domain in FirstLogin.fnc.php
 - HTML space gain: remove minus between letter & percent grades in Grades.php
+- SQL remove unused columns in GradebookBreakdown.php
 
 Changes in 12.4.3
 -----------------
