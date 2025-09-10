@@ -759,9 +759,8 @@ if (  ( ! $_REQUEST['modfunc']
 			'Yes',
 			'No',
 			false,
-			'onchange="' . AttrEscape(
-				'ajaxLink(' . json_encode( URLEscape( $show_only_my_courses_url ) ) . ');'
-			) . '"'
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			'class="onchange-ajax-link" data-link="' . URLEscape( $show_only_my_courses_url ) . '"'
 		);
 
 		DrawHeader( '', $show_only_my_courses_input );
@@ -918,13 +917,14 @@ if (  ( ! $_REQUEST['modfunc']
 
 			if ( $can_delete )
 			{
-				$delete_url = URLEscape( "Modules.php?modname=" . $_REQUEST['modname'] .
+				$delete_url = "Modules.php?modname=" . $_REQUEST['modname'] .
 					'&modfunc=delete&subject_id=' . $_REQUEST['subject_id'] .
 					'&course_id=' . $_REQUEST['course_id'] .
-					'&course_period_id=' . $_REQUEST['course_period_id'] );
+					'&course_period_id=' . $_REQUEST['course_period_id'];
 
 				$delete_button = '<input type="button" value="' . AttrEscape( _( 'Delete' ) ) .
-					'" onclick="' . AttrEscape( 'ajaxLink(' . json_encode( $delete_url ) . ');' ) . '" />';
+					// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+					'" class="onclick-ajax-link" data-link="' . URLEscape( $delete_url ) . '" />';
 			}
 		}
 

@@ -29,7 +29,9 @@ $report_select = SelectInput(
 		'master' => _( 'Master Schedule Report' ),
 	],
 	false,
-	'onchange="' . AttrEscape( 'ajaxLink(' . json_encode( $report_link ) . ' + this.value);' ) . '" autocomplete="off"',
+	// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+	// Note: `this.value` inside link is automatically replaced
+	'class="onchange-ajax-link" data-link="' . $report_link . 'this.value" autocomplete="off"',
 	false
 );
 

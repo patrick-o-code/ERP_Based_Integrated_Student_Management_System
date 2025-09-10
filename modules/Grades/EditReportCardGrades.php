@@ -231,10 +231,11 @@ if ( UserStudentID() )
 			$mp_id = "0";
 		}
 
-		$mp_select = '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
-			'&tab_id=' . $tab_id  ) . '" method="POST">';
+		$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab_id=' . $tab_id;
 
-		$mp_select .= '<select name="mp_id" onchange="ajaxPostForm(this.form);">';
+		$mp_select = '<form action="' . URLEscape( $form_url ) . '" method="POST">';
+
+		$mp_select .= '<select name="mp_id" class="onchange-ajax-post-form">';
 
 		foreach ( $g_mp as $id => $mp_array )
 		{
@@ -468,10 +469,13 @@ if ( UserStudentID() )
 
 		if ( $mp_id == "0" )
 		{
+			$removemp_url = str_replace( 'modfunc=update', 'modfunc=removemp', $form_url );
+
 			echo '<input type="button" value="' .
 				AttrEscape( _( 'Remove Marking Period' ) ) .
 				// Change form action's modfunc to removemp.
-				'" onclick="ajaxLink(this.form.action.replace(\'modfunc=update\',\'modfunc=removemp\'));" />';
+				// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+				'" class="onclick-ajax-link" data-link="' . URLEscape( $removemp_url ) . '" />';
 		}
 
 		echo SubmitButton() . '</div>';

@@ -426,10 +426,11 @@ if ( ! $_REQUEST['modfunc'] )
 
 			if ( $can_delete )
 			{
-				$delete_URL = URLEscape( $mp_href . "&modfunc=delete" );
+				$delete_url = $mp_href . "&modfunc=delete";
 
 				$delete_button = '<input type="button" value="' . AttrEscape( _( 'Delete' ) ) .
-					'" onclick="' . AttrEscape( 'ajaxLink(' . json_encode( $delete_URL ) . ');' ) . '" />';
+					// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+					'" class="onclick-ajax-link" data-link="' . URLEscape( $delete_url ) . '" />';
 			}
 		}
 	}

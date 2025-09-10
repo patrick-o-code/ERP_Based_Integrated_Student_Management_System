@@ -331,12 +331,16 @@ if ( ! $_REQUEST['modfunc'] )
 
 	$LO_columns = [ 'ID' => _( 'ID' ), 'SCHOOL_DATE' => _( 'Date' ), 'DESCRIPTION' => _( 'Description' ) ];
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&menu_id=' . $_REQUEST['menu_id'] .
-		'&month=' . $_REQUEST['month'] . '&year=' . $_REQUEST['year'] . '&modfunc=save'  ) . '" method="POST">';
+	$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] . '&menu_id=' . $_REQUEST['menu_id'] .
+		'&month=' . $_REQUEST['month'] . '&year=' . $_REQUEST['year'] . '&modfunc=save';
+
+	echo '<form action="' . URLEscape( $form_url ) . '" method="POST">';
+
+	$print_url = str_replace( 'modfunc=save', 'modfunc=print', $form_url );
 
 	DrawHeader(
 		PrepareDate(
-			mb_strtoupper( date( "d-M-y", $time ) ),
+			date( 'Y-m-d', $time ),
 			'',
 			false,
 			[
@@ -348,9 +352,9 @@ if ( ! $_REQUEST['modfunc'] )
 		SubmitButton() .
 		// No .primary button class.
 		// @since 11.3 Allow non admin users & students to Generate Menu (no AllowEdit() required)
-		'<input type="button" value="' .
-			AttrEscape( _( 'Generate Menu' ) ) .
-			'" onclick="ajaxLink(this.form.action.replace(\'modfunc=save\',\'modfunc=print\'));" />'
+		'<input type="button" value="' . AttrEscape( _( 'Generate Menu' ) ) .
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			'" class="onclick-ajax-link" data-link="' . URLEscape( $print_url ) . '" />'
 	);
 
 	echo '<br />';

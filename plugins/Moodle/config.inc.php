@@ -210,8 +210,10 @@ if ( empty( $_REQUEST['save'] )
 		ErrorMessage( $error, 'fatal' );
 	}
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
-		'&tab=plugins&modfunc=config&plugin=Moodle&save=true' ) . '" method="POST">';
+	$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
+		'&tab=plugins&modfunc=config&plugin=Moodle&save=true';
+
+	echo '<form action="' . URLEscape( $form_url ) . '" method="POST">';
 
 	DrawHeader( '', SubmitButton() );
 
@@ -289,10 +291,12 @@ if ( empty( $_REQUEST['save'] )
 	if ( ProgramConfig( 'moodle', 'MOODLE_URL' )
 		&& ProgramConfig( 'moodle', 'MOODLE_TOKEN' ) )
 	{
-		echo '<input type="button" value="' .
-			AttrEscape( _( 'Test' ) ) .
-			// Add check param to form's action & remove save.
-			'" onclick="ajaxLink(this.form.action.replace(\'&save=true\',\'&check=Y\'));" />';
+		// Add check param to form's action & remove save.
+		$test_url = str_replace( '&save=true', '&check=Y', $form_url );
+
+		echo '<input type="button" value="' . AttrEscape( _( 'Test' ) ) .
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			'" class="onclick-ajax-link" data-link="' . URLEscape( $test_url ) . '" />';
 	}
 
 	echo '</div></form>';

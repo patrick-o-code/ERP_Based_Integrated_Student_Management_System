@@ -1686,7 +1686,7 @@ function CheckBoxOnclick( $name, $title = '' )
 
 	$input = '<input type="checkbox" name="' . AttrEscape( $name ) . '" value="Y"' .
 		( isset( $_REQUEST[ $name ] ) && $_REQUEST[ $name ] == 'Y' ? ' checked' : '' ) .
-		' onclick="' . AttrEscape( 'ajaxLink(' . json_encode( $onclick_URL ) . ');' ) . '">';
+		' class="onclick-ajax-link" data-link="' . $onclick_URL . '">';
 
 	if ( $title != '' )
 	{

@@ -220,8 +220,8 @@ function RolloverUpdateDefaultSyearWarning()
 		$update_syear_url = 'Modules.php?modname=School_Setup/Rollover.php&modfunc=update_syear';
 
 		$update_syear_warning .= ' <input type="button" name="update_syear" value="' .
-			AttrEscape( _( 'OK, I am ready' ) ) . '" onclick="' .
-			AttrEscape( 'ajaxLink(' . json_encode( $update_syear_url ) . ');' ) . '">';
+			AttrEscape( _( 'OK, I am ready' ) ) .
+			'" class="onclick-ajax-link" data-link="' . URLEscape( $update_syear_url ) . '">';
 
 		return $update_syear_warning;
 	}

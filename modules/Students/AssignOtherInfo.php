@@ -225,8 +225,10 @@ if ( ! $_REQUEST['modfunc'] )
 
 		$category_onchange_URL = PreparePHP_SELF( $_REQUEST, [ 'category_id' ] ) . '&category_id=';
 
-		echo '<select name="category_id" id="category_id" onchange="' .
-			AttrEscape( 'ajaxLink(' . json_encode( $category_onchange_URL ) . ' + this.value);' ) . '">';
+		echo '<select name="category_id" id="category_id" ' .
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			// Note: `this.value` inside link is automatically replaced
+			'class="onchange-ajax-link" data-link="' . $category_onchange_URL . 'this.value">';
 
 		echo '<option value="">' . _( 'All Categories' ) . '</option>';
 

@@ -90,16 +90,19 @@ if ( UserStaffID()
 
 	$staff = $staff[1];
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
-			'&modfunc=submit&menu_id=' . $_REQUEST['menu_id'] .
-			'&staff_id=' . UserStaffID()  ) . '" method="POST">';
+	$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
+		'&modfunc=submit&menu_id=' . $_REQUEST['menu_id'] . '&staff_id=' . UserStaffID();
+
+	echo '<form action="' . URLEscape( $form_url ) . '" method="POST">';
+
+	$cancel_url = str_replace( 'modfunc=submit', 'modfunc=cancel', $form_url );
 
 	DrawHeader(
 		'',
-		'<input type="button" value="' .
-			AttrEscape( _( 'Cancel Sale' ) ) .
+		'<input type="button" value="' . AttrEscape( _( 'Cancel Sale' ) ) .
 			// Change form action's modfunc to delete.
-			'" onclick="ajaxLink(this.form.action.replace(\'modfunc=submit\',\'modfunc=cancel\'));" />' .
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			'" class="onclick-ajax-link" data-link="' . URLEscape( $cancel_url ) . '" />' .
 		SubmitButton( _( 'Complete Sale' ) )
 	);
 

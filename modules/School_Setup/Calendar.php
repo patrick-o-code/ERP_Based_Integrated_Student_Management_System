@@ -570,9 +570,11 @@ if ( $_REQUEST['modfunc'] === 'detail' )
 			$RET[1]['SCHOOL_DATE'] = issetVal( $_REQUEST['school_date'] );
 		}
 
-		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
+		$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
 			'&modfunc=detail_save&event_id=' . $_REQUEST['event_id'] . '&month=' . $_REQUEST['month'] .
-			'&year=' . $_REQUEST['year'] . '&calendar_id=' . $_REQUEST['calendar_id']  ) . '" method="POST">';
+			'&year=' . $_REQUEST['year'] . '&calendar_id=' . $_REQUEST['calendar_id'];
+
+		echo '<form action="' . URLEscape( $form_url ) . '" method="POST">';
 	}
 	// Assignment
 	elseif ( ! empty( $_REQUEST['assignment_id'] ) )
@@ -625,7 +627,7 @@ if ( $_REQUEST['modfunc'] === 'detail' )
 	{
 		echo '<tr><td>
 			<a href="' . URLEscape( 'Modules.php?modname=Grades/StudentAssignments.php&assignment_id=' .
-				$_REQUEST['assignment_id'] ) . '" onclick="window.opener.ajaxLink(this.href); window.close();">' .
+				$_REQUEST['assignment_id'] ) . '">' .
 			_( 'Submit Assignment' ) .
 		'</a></td></tr>';
 	}
@@ -679,14 +681,14 @@ if ( $_REQUEST['modfunc'] === 'detail' )
 
 		if ( $_REQUEST['event_id'] !== 'new' )
 		{
-			echo '<input type="button" value="' .
-				AttrEscape( _( 'Delete' ) ) .
+			$delete_url = str_replace( 'modfunc=detail_save', 'modfunc=detail_delete', $form_url );
+
+			echo '<input type="button" value="' . AttrEscape( _( 'Delete' ) ) .
 				// Change form action's modfunc to delete.
 				// Load AJAX result into colorBox
-				'" onclick="ajaxLink({
-					href: this.form.action.replace(\'modfunc=detail_save\',\'modfunc=detail_delete\'),
-					target: \'cboxLoadedContent\'
-				});" />';
+				// @since 12.5 CSP remove unsafe-inline Javascript
+				'" class="onclick-ajax-link" data-link="' . URLEscape( $delete_url ) .
+				'" data-target="cboxLoadedContent" />';
 		}
 
 		echo '</td></tr>';

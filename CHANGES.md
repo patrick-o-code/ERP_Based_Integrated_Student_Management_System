@@ -85,6 +85,7 @@ Changes in 12.5
 - Include Students active as of Timeframe end date in DailyTransactions.php
 - CSP add .onchange-maybe-edit-select CSS class in StudentsUsersInfo.fnc.php & Address.inc.php
 - Prevent using username, or email in the password in General_Info.inc.php
+- CSP add .onclick-ajax-link & .onchange-ajax-link CSS classes, use `data-link` attribute, program wide
 
 Changes in 12.4.3
 -----------------

@@ -138,17 +138,21 @@ if ( UserStaffID() && ! $_REQUEST['modfunc'] )
 
 	if ( $staff['ACCOUNT_ID'] )
 	{
-		echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] .
-			'&modfunc=update&staff_id=' . UserStaffID() ) . '" method="POST">';
+		$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
+			'&modfunc=update&staff_id=' . UserStaffID();
+
+		echo '<form action="' . URLEscape( $form_url ) . '" method="POST">';
+
+		$delete_url = str_replace( 'modfunc=update', 'modfunc=delete', $form_url );
 
 		DrawHeader(
 			'',
 			SubmitButton() .
 			( $staff['BALANCE'] == 0 && AllowEdit() ?
-				'<input type="button" value="' .
-					AttrEscape( _( 'Delete Account' ) ) .
+				'<input type="button" value="' . AttrEscape( _( 'Delete Account' ) ) .
 					// Change form action's modfunc to delete.
-					'" onclick="ajaxLink(this.form.action.replace(\'modfunc=update\',\'modfunc=delete\'));" />'
+					// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+					'" class="onclick-ajax-link" data-link="' . URLEscape( $delete_url ) . '" />'
 				: ''
 			)
 		);

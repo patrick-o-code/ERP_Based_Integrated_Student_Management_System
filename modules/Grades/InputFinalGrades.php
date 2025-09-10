@@ -931,8 +931,10 @@ if ( $_REQUEST['modfunc'] === 'save' )
 $mps_onchange_URL = URLEscape( "Modules.php?modname=" . $_REQUEST['modname'] .
 	'&include_inactive=' . $_REQUEST['include_inactive'] . "&mp=" );
 
-$mps_select = '<select name="mp_select" id="mp_select" onchange="' .
-	AttrEscape( 'ajaxLink(' . json_encode( $mps_onchange_URL ) . ' + this.value);' ) . '">';
+$mps_select = '<select name="mp_select" id="mp_select" ' .
+	// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+	// Note: `this.value` inside link is automatically replaced
+	'class="onchange-ajax-link" data-link="' . $mps_onchange_URL . 'this.value">';
 
 $allow_edit = false;
 

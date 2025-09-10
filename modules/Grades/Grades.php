@@ -523,8 +523,10 @@ $type_onchange_URL = URLEscape( "Modules.php?modname=" . $_REQUEST['modname'] .
 	( UserStudentID() ? '&student_id=' . UserStudentID() : '' ) .
 	"&type_id=" );
 
-$type_select = '<select name="type_id" id="type_id" autocomplete="off" onchange="' .
-	AttrEscape( 'ajaxLink(' . json_encode( $type_onchange_URL ) . ' + this.value);' ) . '">';
+$type_select = '<select name="type_id" id="type_id" autocomplete="off" ' .
+	// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+	// Note: `this.value` inside link is automatically replaced
+	'class="onchange-ajax-link" data-link="' . $type_onchange_URL . 'this.value">';
 
 $type_select .= '<option value=""' . ( ! $_REQUEST['type_id'] ? ' selected' : '' ) . '>' .
 _( 'All' ) .
@@ -545,8 +547,10 @@ $assignment_onchange_URL = URLEscape( "Modules.php?modname=" . $_REQUEST['modnam
 	'&type_id=' . $_REQUEST['type_id'] .
 	"&assignment_id=" );
 
-$assignment_select = '<select name="assignment_id" id="assignment_id" autocomplete="off" onchange="' .
-	AttrEscape( 'ajaxLink(' . json_encode( $assignment_onchange_URL ) . ' + this.value);' ) . '">';
+$assignment_select = '<select name="assignment_id" id="assignment_id" autocomplete="off" ' .
+	// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+	// Note: `this.value` inside link is automatically replaced
+	'class="onchange-ajax-link" data-link="' . $assignment_onchange_URL . 'this.value">';
 
 $assignment_select .= '<option value="">' . _( 'Totals' ) . '</option>';
 

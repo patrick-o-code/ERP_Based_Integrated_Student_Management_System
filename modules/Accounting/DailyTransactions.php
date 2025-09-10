@@ -53,7 +53,9 @@ function _programMenu( $program )
 			'totals' => _( 'Daily Totals' ),
 		],
 		false,
-		'onchange="' . AttrEscape( 'ajaxLink(' . json_encode( $link ) . ' + this.value);' ) . '" autocomplete="off"',
+		// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+		// Note: `this.value` inside link is automatically replaced
+		'class="onchange-ajax-link" data-link="' . $link . 'this.value" autocomplete="off"',
 		false
 	);
 

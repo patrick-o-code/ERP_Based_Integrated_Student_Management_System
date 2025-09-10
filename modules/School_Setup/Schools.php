@@ -153,7 +153,9 @@ if ( ! $_REQUEST['modfunc'] )
 	$schooldata = $schooldata[1];
 	$school_name = SchoolInfo( 'TITLE' );
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=update' ) . '" method="POST" enctype="multipart/form-data">';
+	$form_url = 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=update';
+
+	echo '<form action="' . URLEscape( $form_url ) . '" method="POST" enctype="multipart/form-data">';
 
 	$delete_button = '';
 
@@ -168,10 +170,12 @@ if ( ! $_REQUEST['modfunc'] )
 
 		$can_delete = DBTransDryRun( SchoolDeleteSQL( UserSchool() ) );
 
-		$delete_button = $can_delete ? '<input type="button" value="' .
-			AttrEscape( _( 'Delete' ) ) .
+		$delete_url = str_replace( 'modfunc=update', 'modfunc=delete', $form_url );
+
+		$delete_button = $can_delete ? '<input type="button" value="' . AttrEscape( _( 'Delete' ) ) .
 			// Change form action's modfunc to delete.
-			'" onclick="ajaxLink(this.form.action.replace(\'modfunc=update\',\'modfunc=delete\'));" />'
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			'" class="onclick-ajax-link" data-link="' . URLEscape( $delete_url ) . '" />'
 			: '';
 	}
 

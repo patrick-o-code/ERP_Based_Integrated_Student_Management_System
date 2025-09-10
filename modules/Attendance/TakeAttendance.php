@@ -75,7 +75,10 @@ $school_periods_select = SchoolPeriodsSelectInput(
 	issetVal( $_REQUEST['school_period'] ),
 	'school_period',
 	'',
-	'autocomplete="off" onchange="' . AttrEscape( 'ajaxLink(' . json_encode( PreparePHP_SELF( [], [ 'school_period' ] ) ) . ' + "&school_period=" + this.value);' ) . '"'
+	// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+	// Note: `this.value` inside link is automatically replaced
+	'autocomplete="off" class="onchange-ajax-link" data-link="' .
+		PreparePHP_SELF( [], [ 'school_period' ] ) . '&school_period=this.value"'
 );
 
 if ( SchoolInfo( 'NUMBER_DAYS_ROTATION' ) !== null )
