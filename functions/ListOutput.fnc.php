@@ -503,18 +503,17 @@ function ListOutput( $result, $column_names, $singular = '.', $plural = '.', $li
 			}
 
 			// Do not remove search URL due to document.URL = 'index.php' in old IE browsers.
-			$search_URL = PreparePHP_SELF( $_REQUEST, [ 'LO_search' ], $add_to_url );
+			$search_url = PreparePHP_SELF( $_REQUEST, [ 'LO_search' ], $add_to_url );
 
-			$onkeypress_js = 'LOSearch(event, this.value, ' . json_encode( $search_URL ) . ');';
-
-			$onclick_js = 'LOSearch(event, $(\'#LO_search\').val(), ' . json_encode( $search_URL ) . ');';
-
+			/**
+			 * Note: do NOT use 'search' type here:
+			 * Chrome adds a cross to remove text which messes up with Instant Search plugin
+			 */
 			echo '<input type="text" id="LO_search" name="LO_search" value="' .
 			AttrEscape( DBUnescapeString( $LO_search ) ) .
 			'" placeholder="' . AttrEscape( _( 'Search' ) ) .
-			'" onkeypress="' . AttrEscape( $onkeypress_js ) . '" autocomplete="off">
+			'" data-url="' . $search_url . '" autocomplete="off">
 				<img src="assets/themes/' . Preferences( 'THEME' ) . '/btn/visualize.png"
-				onclick="' . AttrEscape( $onclick_js ) . '"
 				class="button" alt="" title="' . AttrEscape( _( 'Search' ) ) . '">
 				<label for="LO_search" class="a11y-hidden">' . _( 'Search' ) . '</label>';
 
