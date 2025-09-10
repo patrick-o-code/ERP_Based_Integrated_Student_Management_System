@@ -78,6 +78,7 @@ Changes in 12.5
 - Submit selected date: use `onchange-date-submit` CSS class & `data-name` attribute in Date.php
 - Add CSS classes to .list element in ListOutput.fnc.php
 - CSP remove unsafe-inline Javascript: use `data-url` attribute in ListOutput.fnc.php
+- Use MultipleCheckboxInput() function in AddAbsences.php
 
 Changes in 12.4.3
 -----------------

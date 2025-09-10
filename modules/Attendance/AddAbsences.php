@@ -103,11 +103,11 @@ if ( $_REQUEST['modfunc'] === 'save' )
 
 				//echo '<pre>'; var_dump($course_periods_RET); echo '</pre>';
 
-				foreach ( (array) $_REQUEST['period'] as $period_id => $yes )
+				foreach ( (array) $_REQUEST['period'] as $period_id )
 				{
 					$course_period_id = issetVal( $course_periods_RET[$period_id][1]['COURSE_PERIOD_ID'] );
 
-					if ( ! $yes
+					if ( ! $period_id
 						|| ! $course_period_id )
 					{
 						continue;
@@ -191,7 +191,7 @@ if ( ! $_REQUEST['modfunc'] )
 
 		PopTable( 'header', _( 'Add Absences' ) );
 
-		echo '<table class="cellpadding-5"><tr><td><table><tr>';
+		echo '<table class="cellpadding-5"><tr><td>';
 
 		//FJ multiple school periods for a course period
 		//$periods_RET = DBGet( "SELECT SHORT_NAME,PERIOD_ID FROM school_periods WHERE SYEAR='".UserSyear()."' AND SCHOOL_ID='".UserSchool()."' AND EXISTS (SELECT '' FROM course_periods WHERE PERIOD_ID=school_periods.PERIOD_ID AND position(',0,' IN DOES_ATTENDANCE)>0) ORDER BY SORT_ORDER IS NULL,SORT_ORDER" );
@@ -202,22 +202,20 @@ if ( ! $_REQUEST['modfunc'] )
 		AND EXISTS (SELECT '' FROM course_period_school_periods cpsp, course_periods cp WHERE cp.COURSE_PERIOD_ID=cpsp.COURSE_PERIOD_ID AND cpsp.PERIOD_ID=school_periods.PERIOD_ID AND position(',0,' IN cp.DOES_ATTENDANCE)>0)
 		ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE" );
 
-		$i = 0;
+		$period_options = [];
 
 		foreach ( (array) $periods_RET as $period )
 		{
-		    if ( $i++ % 3 == 0 )
-		    {
-		        echo '</tr><tr>';
-		    }
-
-			echo '<td><label><input type="CHECKBOX" value="Y" name="period[' . $period['PERIOD_ID'] . ']"> ' . $period['SHORT_NAME'] . '</label></td>';
+			$period_options[ $period['PERIOD_ID'] ] = $period['SHORT_NAME'];
 		}
 
-		echo '</tr></table>' .
-			'&nbsp;<label class="nobr"><input type="checkbox" value="Y" name="controller" onclick="checkAll(this.form,this.checked,\'period\');">&nbsp;' .
-			_( 'Check All' ) . '</label>' .
-			FormatInputTitle( _( 'Add Absence to Periods' ) ) . '</td></tr>';
+		echo MultipleCheckboxInput(
+			'',
+			'period[]',
+			_( 'Add Absence to Periods' ),
+			$period_options,
+			'required'
+		);
 
 		echo '<tr><td><label><select name="absence_code">';
 
