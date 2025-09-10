@@ -48,14 +48,16 @@ if ( ! function_exists( 'DashboardModuleTitle' ) )
 	 * Dashboard Module Title HTML
 	 *
 	 * @since 4.0
+	 * @since 12.5 Module is addon, set custom module icon & remove $icon param
 	 *
 	 * @param  string $module Module.
-	 * @param  string $icon   Icon image path.
+	 *
 	 * @return string Module Title HTML.
 	 */
-	function DashboardModuleTitle( $module, $icon = '' )
+	function DashboardModuleTitle( $module )
 	{
-		global $_ROSARIO;
+		global $_ROSARIO,
+			$RosarioCoreModules;
 
 		if ( ! empty( $_ROSARIO['Menu'][$module]['title'] ) )
 		{
@@ -69,7 +71,11 @@ if ( ! function_exists( 'DashboardModuleTitle' ) )
 		ob_start();
 		?>
 		<h3 class="dashboard-module-title">
-			<span class="module-icon <?php echo $module; ?>"></span>
+			<span class="module-icon <?php echo $module; ?>"
+				<?php if ( ! in_array( $module, $RosarioCoreModules ) ) :
+				// Module is addon, set custom module icon. ?>
+				style="background-image: url(modules/<?php echo $module; ?>/icon.png);"
+				<?php endif; ?>></span>
 			<?php echo $module_title; ?>
 		</h3>
 		<?php

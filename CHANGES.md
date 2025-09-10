@@ -65,6 +65,7 @@ Changes in 12.5
 - JS remove inline code from SubstitutionsInput() in Substitutions.fnc.php & SubstitutionsInput.js
 - JS fix CSP error: use setInnerHTML() instead of jQuery .append() function in jquery.colorbox.js & jquery.colorbox-min.js
 - JS not available, reload page (eg. when reopening closed tab) in Warehouse.php, noJsReload.js & warehouse.js
+- Module is addon, set custom module icon & remove $icon param in DashboardModule.fnc.php
 
 Changes in 12.4.3
 -----------------
