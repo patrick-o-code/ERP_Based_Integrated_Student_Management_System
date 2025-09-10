@@ -22,10 +22,12 @@
  */
 function StudentCanEnrollNextSchoolYear( $student_id )
 {
+	$next_syear = UserSyear() + 1;
+
 	$students_rolled = DBGetOne( "SELECT 1 FROM student_enrollment se,schools s
-		WHERE se.SYEAR='" . UserSyear() . "'+1
+		WHERE se.SYEAR='" . $next_syear . "'
 		AND se.LAST_SCHOOL='" . UserSchool() . "'
-		AND s.SYEAR='" . UserSyear() . "'+1" );
+		AND s.SYEAR=se.SYEAR" );
 
 	if ( ! $students_rolled )
 	{
@@ -33,7 +35,7 @@ function StudentCanEnrollNextSchoolYear( $student_id )
 	}
 
 	$this_student_rolled = DBGetOne( "SELECT 1 FROM student_enrollment
-		WHERE SYEAR='" . UserSyear() . "'+1
+		WHERE SYEAR='" . $next_syear . "'
 		AND LAST_SCHOOL='" . UserSchool() . "'
 		AND STUDENT_ID='" . (int) $student_id . "'" );
 
