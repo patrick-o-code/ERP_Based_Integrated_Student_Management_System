@@ -69,6 +69,7 @@ Changes in 12.5
 - Redirection is done in HTML in HackingLog.fnc.php
 - Fix reload theme when "Force" checked in Theme.fnc.php
 - Redirection is done in HTML in Theme.fnc.php
+- CSP add .onmouseover-tipmsg CSS class, use data-title & data-msg HTML attributes in TipMessage.fnc.php
 
 Changes in 12.4.3
 -----------------

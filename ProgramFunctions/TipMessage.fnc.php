@@ -2,10 +2,6 @@
 /**
  * Tip Message functions
  *
- * @uses DHTML tip message JS plugin
- *
- * @see assets/js/tipmessage/
- *
  * @package RosarioSIS
  * @subpackage ProgramFunctions
  */
@@ -13,13 +9,12 @@
 /**
  * Make Tip Message
  *
- * @example makeTipMessage( '<img src="' . URLEscape( $picture_path ) . '" width="150">', $title, $title );
- *
- * @todo Use CSS class + ID to trigger plugin and remove inline JS (data attributes) + onMouseOver + onMouseOut + onclick
+ * @example MakeTipMessage( '<img src="' . URLEscape( $picture_path ) . '" width="150">', $title, $title );
  *
  * @uses DHTML tip message JS plugin
  *
  * @see assets/js/tipmessage/
+ * @see assets/js/csp/csp.js
  *
  * @param  string $message Tip message.
  * @param  string $title   Tip title.
@@ -29,23 +24,15 @@
  */
 function MakeTipMessage( $message, $title, $label )
 {
-	static $tip_msg_ID = 1;
-
 	if ( isset( $_REQUEST['_ROSARIO_PDF'] ) )
 	{
 		return '<div class="tipmsg-label">' . $label . '</div>';
 	}
 
-	$tip_msg = '<script>var tipmsg' . $tip_msg_ID . '=[' .
-		json_encode( (string) $title ) . ',' .
-		json_encode( (string) $message ) . '];</script>';
-
-	$tip_msg .= '<div class="tipmsg-label" onMouseOver="stm(tipmsg' . $tip_msg_ID . ');">' .
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	return '<div class="tipmsg-label onmouseover-tipmsg" data-title="' .
+		AttrEscape( $title ) . '" data-msg="' . AttrEscape( $message ) . '">' .
 		$label . '</div>';
-
-	$tip_msg_ID++;
-
-	return $tip_msg;
 }
 
 
@@ -57,9 +44,6 @@ function MakeTipMessage( $message, $title, $label )
  *          return MakeStudentPhotoTipMessage( $THIS_RET['STUDENT_ID'], $full_name );
  *
  * @uses MakeTipMessage()
- * @uses DHTML tip message JS plugin
- *
- * @see assets/js/tipmessage/
  *
  * @global $StudentPicturesPath Student Pictures Path
  *
@@ -96,9 +80,6 @@ function MakeStudentPhotoTipMessage( $student_id, $title )
  * @since 3.8
  *
  * @uses MakeTipMessage()
- * @uses DHTML tip message JS plugin
- *
- * @see assets/js/tipmessage/
  *
  * @global $UserPicturesPath User Pictures Path
  *
