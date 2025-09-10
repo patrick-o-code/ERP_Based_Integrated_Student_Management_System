@@ -825,65 +825,179 @@ class Widget_letter_grade implements Widget
 
 		$html .= '</td><td>';
 
-		// FJ fix error Invalid argument supplied for foreach().
 		if ( empty( $_REQUEST['search_modfunc'] ) )
 		{
-			$letter_grades_RET = DBGet( "SELECT rg.ID,rg.TITLE,rg.GRADE_SCALE_ID,rs.TITLE AS SCALE_TITLE
-				FROM report_card_grades rg,report_card_grade_scales rs
-				WHERE rg.SCHOOL_ID='" . UserSchool() . "'
-				AND rg.SYEAR='" . UserSyear() . "'
-				AND rs.ID=rg.GRADE_SCALE_ID" .
-				( User( 'PROFILE' ) === 'teacher' ?
-				" AND rg.GRADE_SCALE_ID=
-					(SELECT GRADE_SCALE_ID
-						FROM course_periods
-						WHERE COURSE_PERIOD_ID='" . UserCoursePeriod() . "')" :
-				'' ) .
-				" ORDER BY rs.SORT_ORDER IS NULL,rs.SORT_ORDER,rs.ID,rg.BREAK_OFF IS NOT NULL DESC,rg.BREAK_OFF DESC,rg.SORT_ORDER IS NULL,rg.SORT_ORDER",
-				[], [ 'GRADE_SCALE_ID' ] );
-
-			$j = 0;
-
-			foreach ( (array) $letter_grades_RET as $grades )
+			if ( ! empty( $_REQUEST['widgetfunc'] )
+				&& $_REQUEST['widgetfunc'] === 'letter_grade_search' )
 			{
-				if ( $j++ > 0 )
-				{
-					$html .= '<br />';
-				}
+				$results = $this->_search( issetVal( $_REQUEST['scale_id'] ), issetVal( $_REQUEST['term'] ) );
 
-				$grades_options = [];
+				// Warehouse( 'header' ) spits out JS to check "If jQuery not available, log out.": remove it from response.
+				ob_get_clean();
 
-				foreach ( (array) $grades as $grade )
-				{
-					$grades_options[ $grade['ID'] ] = $grade['TITLE'];
-				}
+				header( 'Content-type: application/json' );
 
-				if ( ! AllowEdit() )
-				{
-					// @since 10.6.1 Fix Grades input not displaying for Teachers.
-					$_ROSARIO['allow_edit'] = true;
+				echo json_encode( $results );
 
-					$allow_edit_tmp = true;
-				}
+				// Cache response.
+				ETagCache( 'stop' );
 
-				// @since 9.0 Use multiple select input for grades list to gain space.
-				$html .= '<div style="max-width: 240px">' . Select2Input(
-					'',
-					'letter_grade[' . $grade['GRADE_SCALE_ID'] . '][]',
-					$grade['SCALE_TITLE'],
-					$grades_options,
-					false,
-					'multiple'
-				) . '</div>';
+				exit;
+			}
 
-				if ( ! empty( $allow_edit_tmp ) )
-				{
-					$_ROSARIO['allow_edit'] = false;
-				}
+			$grade_scales_RET = DBGet( "SELECT rs.ID,rs.TITLE,
+				(SELECT COUNT(1)
+					FROM report_card_grades rg
+					WHERE rg.SCHOOL_ID='" . UserSchool() . "'
+					AND rg.SYEAR='" . UserSyear() . "'
+					AND rg.GRADE_SCALE_ID=rs.ID) AS GRADES_COUNT
+				FROM report_card_grade_scales rs
+				WHERE rs.SCHOOL_ID='" . UserSchool() . "'
+				AND rs.SYEAR='" . UserSyear() . "'" .
+				( User( 'PROFILE' ) === 'teacher' ?
+				" AND rs.ID=(SELECT GRADE_SCALE_ID
+					FROM course_periods
+					WHERE COURSE_PERIOD_ID='" . UserCoursePeriod() . "')" : '' ) .
+				" ORDER BY rs.SORT_ORDER IS NULL,rs.SORT_ORDER,rs.ID" );
+
+			if ( empty( $grade_scales_RET ) )
+			{
+				// @since 12.5 Hide Report Card Grade widget if Course is not graded
+				return '';
+			}
+
+			foreach ( (array) $grade_scales_RET as $grade_scale )
+			{
+				$html .= $this->_gradeScaleInputHtml( $grade_scale );
 			}
 		}
 
 		return $html . '</td></tr>';
+	}
+
+	/**
+	 * Grade Scale Input HTML
+	 *
+	 * @uses Select2Input()
+	 *
+	 * @since 12.5
+	 *
+	 * @access private
+	 *
+	 * @param  array $grade_scale Grade Scale Grades.
+	 *
+	 * @return string Grade Scale Input HTML.
+	 */
+	private function _gradeScaleInputHtml( $grade_scale )
+	{
+		static $js_included = false;
+
+		$grades_RET = [];
+
+		if ( $grade_scale['GRADES_COUNT'] <= 1003 ) // 1001 Grades is 100 with 1 decimal or 10 with 2 decimals
+		{
+			$grades_RET = DBGet( "SELECT rg.ID,rg.TITLE
+				FROM report_card_grades rg
+				WHERE rg.SCHOOL_ID='" . UserSchool() . "'
+				AND rg.SYEAR='" . UserSyear() . "'
+				AND rg.GRADE_SCALE_ID='" . (int) $grade_scale['ID'] . "'
+				ORDER BY rg.BREAK_OFF IS NULL,rg.BREAK_OFF DESC,rg.SORT_ORDER IS NULL,rg.SORT_ORDER" );
+		}
+
+		$grades_options = [];
+
+		foreach ( (array) $grades_RET as $grade )
+		{
+			$grades_options[ $grade['ID'] ] = $grade['TITLE'];
+		}
+
+		// @since 10.6.1 Fix Grades input not displaying for Teachers.
+		$ajax_url = '';
+
+		if ( ! $grades_options
+			&& $grade_scale['GRADES_COUNT'] > 1003 )
+		{
+			/**
+			 * More than 1003 grades: AJAX search
+			 *
+			 * @see `_search` method below
+			 */
+			$ajax_url = PreparePHP_SELF( [], [],
+				[ 'widgetfunc' => 'letter_grade_search', 'scale_id' => $grade_scale['ID'] ]
+			);
+		}
+
+		AllowEditTemporary( 'start' );
+
+		// @since 9.0 Use multiple select input for grades list to gain space.
+		$html = '<div>' . Select2Input(
+			'',
+			'letter_grade[' . $grade_scale['ID'] . '][]',
+			$grade_scale['TITLE'],
+			$grades_options,
+			false,
+			'multiple style="width: 217px"' .
+			// @uses select2Ajax() function in warehouse.js
+			( $ajax_url ? ' data-ajax-url="' . $ajax_url . '"' : '' )
+		) . '</div>';
+
+		AllowEditTemporary( 'stop' );
+
+		return $html;
+	}
+
+	/**
+	 * Select2 AJAX results
+	 * Search grades & return JSON to Select2
+	 *
+	 * @since 12.5
+	 *
+	 * @link https://select2.org/data-sources/ajax
+	 *
+	 * ```json
+	 * { "results": [ { "id": 1, "text": "Option 1" }, { "id": 2, "text": "Option 2" } ], "pagination": { "more": false } }
+	 * ```
+	 *
+	 * @access private
+	 *
+	 * @param  int    $scale_id Grading Scale ID.
+	 * @param  string $term     Search Term.
+	 *
+	 * @return array  Results formatted for Select2 JSON.
+	 */
+	private function _search( $scale_id, $term )
+	{
+		$json_results = [
+			'results' => [],
+			'pagination' => [ 'more' => false ], // We limit SQL request to 100, but no pagination / infinite scrolling.
+		];
+
+		if ( ! empty( $term )
+			&& ! empty( $scale_id ) )
+		{
+			// ORDER BY full match first.
+			$grades_RET = DBGet( "SELECT rg.ID,rg.TITLE
+				FROM report_card_grades rg
+				WHERE rg.SCHOOL_ID='" . UserSchool() . "'
+				AND rg.SYEAR='" . UserSyear() . "'
+				AND rg.GRADE_SCALE_ID='" . (int) $scale_id . "'
+				AND UPPER(TITLE) LIKE '" . mb_strtoupper( $term ) . "%'
+				ORDER BY
+					CASE WHEN UPPER(TITLE)='" . mb_strtoupper( $term ) . "' THEN 1 ELSE 2 END,
+					rg.BREAK_OFF IS NULL,rg.BREAK_OFF DESC,rg.SORT_ORDER IS NULL,rg.SORT_ORDER
+				LIMIT 100" );
+
+			$results = [];
+
+			foreach ( (array) $grades_RET as $grade )
+			{
+				$results[] = [ 'id' =>  $grade['ID'], 'text' => $grade['TITLE'] ];
+			}
+
+			$json_results['results'] = $results;
+		}
+
+		return $json_results;
 	}
 }
 

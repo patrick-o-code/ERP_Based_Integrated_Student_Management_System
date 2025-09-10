@@ -71,6 +71,8 @@ Changes in 12.5
 - Redirection is done in HTML in Theme.fnc.php
 - CSP add .onmouseover-tipmsg CSS class, use data-title & data-msg HTML attributes in TipMessage.fnc.php
 - Redirection is done in HTML in case current request is AJAX in Warehouse.php
+- Add `_gradeScaleInputHtml()` & `_search()` private methods to Widget_letter_grade object in Widget.php
+- Use Select2 input + AJAX search when scale has more than 1003 grades in Widget.php
 
 Changes in 12.4.3
 -----------------
