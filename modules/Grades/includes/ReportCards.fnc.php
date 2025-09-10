@@ -175,9 +175,10 @@ if ( ! function_exists( 'ReportCardsIncludeForm' ) )
 				FROM custom_fields
 				WHERE ID = 200000003" ), 'TITLE' );
 
-			$return .= '<tr><td><label><input type="checkbox" name="elements[freetext]" autocomplete="off" value="1" onclick=\'javascript: document.getElementById("divfreetext").style.display="block"; document.getElementById("elements[freetext]").focus();\'> ' . _( 'Free Text' ) . '</label>';
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			$return .= '<tr><td><label><input type="checkbox" name="elements[freetext]" autocomplete="off" value="1" class="onclick-toggle" data-id="divfreetext"> ' . _( 'Free Text' ) . '</label>';
 
-			$return .= '<div id="divfreetext" style="display:none">';
+			$return .= '<div id="divfreetext" class="hide">';
 
 			$return .= TinyMCEInput(
 				GetTemplate( 'Grades/ReportCards.php' ),

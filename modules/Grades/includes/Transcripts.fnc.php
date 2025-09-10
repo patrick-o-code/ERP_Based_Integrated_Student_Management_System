@@ -74,9 +74,10 @@ if ( ! function_exists( 'TranscriptsIncludeForm' ) )
 		if ( User( 'PROFILE' ) === 'admin' )
 		{
 			// Add Show Studies Certificate option.
-			$return .= '<br /><br /><label><input type="checkbox" name="showcertificate" autocomplete="off" value="1" onclick=\'javascript: document.getElementById("divcertificatetext").style.display="block"; document.getElementById("inputcertificatetext").focus();\'> ' . _( 'Studies Certificate' ) . '</label>';
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			$return .= '<br /><br /><label><input type="checkbox" name="showcertificate" autocomplete="off" value="1" class="onclick-toggle" data-id="divcertificatetext"> ' . _( 'Studies Certificate' ) . '</label>';
 
-			$return .= '<div id="divcertificatetext" style="display:none">';
+			$return .= '<div id="divcertificatetext" class="hide">';
 
 			$return .= TinyMCEInput(
 				GetTemplate(),

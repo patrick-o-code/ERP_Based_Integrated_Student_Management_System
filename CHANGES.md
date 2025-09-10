@@ -80,6 +80,7 @@ Changes in 12.5
 - CSP remove unsafe-inline Javascript: use `data-url` attribute in ListOutput.fnc.php
 - Use MultipleCheckboxInput() function in AddAbsences.php
 - CSP add .onclick-checkall CSS class & use `data-name-like` attribute in AddAbsences.php, DuplicateAttendance.php, Exceptions.php & Profiles.php
+- CSP add .onclick-toggle CSS class & use `data-id` attribute in CreateParents.php, ReportCards.fnc.php & Transcripts.fnc.php
 
 Changes in 12.4.3
 -----------------

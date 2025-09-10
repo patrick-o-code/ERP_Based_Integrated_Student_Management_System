@@ -374,7 +374,8 @@ if ( ! $_REQUEST['modfunc'] && ! empty( $email_column ) )
 			'Yes',
 			'No',
 			false,
-			'autocomplete="off" onclick="$(\'#email-form-inputs\').toggle();"'
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			'autocomplete="off" class="onclick-toggle" data-id="email-form-inputs"'
 		);
 
 		$extra['extra_header_left'] .= '<table id="email-form-inputs" class="width-100p hide">';
