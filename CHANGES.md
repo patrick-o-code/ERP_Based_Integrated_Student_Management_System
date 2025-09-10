@@ -5,6 +5,7 @@ Changes in 12.4.3
 -----------------
 - SQL fix #359 duplicate entries when school is renamed after Rollover in AddDrop.php, thanks to @HubertQuiquet
 - Fix regression since 12.4.1 search discipline numeric field in Widget.php
+- Fix PHP fatal error division by zero: Percent Total is 0%, N/A final grade in FinalGrades.inc.php
 
 Changes in 12.4.2
 -----------------
