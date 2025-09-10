@@ -11,7 +11,9 @@ csp.functions.markDownInputPreview = {
 		MarkDownInputPreview(this.dataset.id);
 	},
 	onEvents: function() {
-		$('.md-preview .tab').on('click', csp.functions.markDownInputPreview.preview);
+		// Fix function called as many times as we browsed the page in AJAX / loaded this JS file
+		$(document).off('click', '.md-preview .tab');
+		$(document).on('click', '.md-preview .tab', csp.functions.markDownInputPreview.preview);
 	}
 }
 
