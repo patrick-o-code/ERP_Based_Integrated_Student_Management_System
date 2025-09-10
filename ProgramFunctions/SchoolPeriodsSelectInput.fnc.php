@@ -12,7 +12,7 @@
  *
  * @uses UserCoursePeriod()
  *
- * @example SchoolPeriodsSelectInput( issetVal( $_REQUEST['school_period'] ), 'school_period', '', 'autocomplete="off" onchange="ajaxLink(this.form.action + \'&school_period=\' + this.value);"' );
+ * @example SchoolPeriodsSelectInput( issetVal( $_REQUEST['school_period'] ), 'school_period', '', 'autocomplete="off"' );
  *
  * @since 7.0 Fix Numbered days display
  *
