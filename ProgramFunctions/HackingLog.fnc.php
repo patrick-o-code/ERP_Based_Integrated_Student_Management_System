@@ -18,6 +18,7 @@
  * @since 9.0 Logout after 10 Hacking attempts within 1 minute.
  * @since 10.0 Log "RosarioSIS HACKING ATTEMPT" into Apache error.log
  * @since 10.0 Force URL & menu reloading, always use JS to redirect
+ * @since 12.5 Redirection is done in HTML
  */
 function HackingLog()
 {
@@ -63,11 +64,20 @@ function HackingLog()
 		&& ! empty( $_SERVER['HTTP_REFERER'] )
 		&& mb_strpos( $_SERVER['HTTP_REFERER'], '&redirect_to=' ) !== false )
 	{
-		// If User has just logged in, take him back to Portal without sending email!
+		/**
+		 * If User has just logged in, take him back to Portal without sending email!
+		 * Redirection is done in HTML.
+		 *
+		 * @link https://stackoverflow.com/questions/42216700/how-can-i-redirect-after-oauth2-with-samesite-strict-and-still-get-my-cookies#answer-64216367
+		 */
+		ob_clean();
 		?>
-		<script>
-			window.location.href = <?php echo json_encode( $redirect_url ); ?>;
-		</script>
+		<html>
+		<head>
+		<meta http-equiv="REFRESH" content="0;URL=<?php echo URLEscape( $redirect_url ); ?>" />
+		</head>
+		<body></body>
+		</html>
 		<?php
 
 		exit;
@@ -85,11 +95,20 @@ function HackingLog()
 		session_destroy();
 	}
 
-	// Redirect automatically to Portal or Logout.
+	/**
+	 * Redirect automatically to Portal or Logout.
+	 * Redirection is done in HTML.
+	 *
+	 * @link https://stackoverflow.com/questions/42216700/how-can-i-redirect-after-oauth2-with-samesite-strict-and-still-get-my-cookies#answer-64216367
+	 */
+	ob_clean();
 	?>
-	<script>
-		window.location.href = <?php echo json_encode( $redirect_url ); ?>;
-	</script>
+	<html>
+	<head>
+	<meta http-equiv="REFRESH" content="0;URL=<?php echo URLEscape( $redirect_url ); ?>" />
+	</head>
+	<body></body>
+	</html>
 	<?php
 
 	exit;
