@@ -83,6 +83,7 @@ Changes in 12.5
 - CSP add .onclick-checkall CSS class & use `data-name-like` attribute in AddAbsences.php, DuplicateAttendance.php, Exceptions.php & Profiles.php
 - CSP add .onclick-toggle CSS class & use `data-id` attribute in CreateParents.php, ReportCards.fnc.php & Transcripts.fnc.php
 - FinalGradeSave() can save COMMENT column in FinalGrades.inc.php
+- Include Students active as of Timeframe end date in DailyTransactions.php
 
 Changes in 12.4.3
 -----------------

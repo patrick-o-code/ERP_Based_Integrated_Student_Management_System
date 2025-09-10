@@ -55,6 +55,9 @@ $extra['functions'] = [
 	'CREATED_AT' => 'ProperDateTime',
 ];
 
+// Include Students active as of Timeframe end date.
+$extra['DATE'] = $end_date;
+
 $fees_extra = $extra;
 
 $fees_extra['SELECT'] = issetVal( $fees_extra['SELECT'], '' );
