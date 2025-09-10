@@ -31,7 +31,8 @@ $periods_RET = DBGet( "SELECT sp.PERIOD_ID,sp.TITLE,COALESCE(sp.SHORT_NAME,sp.TI
 		AND cp.SYEAR='" . UserSyear() . "')
 	ORDER BY sp.SORT_ORDER IS NULL,sp.SORT_ORDER,sp.TITLE", [], [ 'PERIOD_ID' ] );
 
-$period_select = '<select name="school_period" id="school_period" onchange="ajaxPostForm(this.form);">
+// @since 12.5 CSP remove unsafe-inline Javascript
+$period_select = '<select name="school_period" id="school_period" class="onchange-ajax-post-form">
 	<option value="">' . _( 'All' ) . '</option>';
 
 $_REQUEST['school_period'] = issetVal( $_REQUEST['school_period'], false );
@@ -46,7 +47,8 @@ foreach ( (array) $periods_RET as $id => $period )
 $period_select .= '</select>
 	<label for="school_period" class="a11y-hidden">' . _( 'Period' ) . '</label>';
 
-$mp_select = '<select name="mp" id="mp-select" onchange="ajaxPostForm(this.form);">';
+	// @since 12.5 CSP remove unsafe-inline Javascript
+$mp_select = '<select name="mp" id="mp-select" class="onchange-ajax-post-form">';
 
 foreach ( (array) $all_mp_ids as $mp_id )
 {

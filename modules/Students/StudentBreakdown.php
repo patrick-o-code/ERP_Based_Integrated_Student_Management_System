@@ -243,7 +243,8 @@ if ( ! $_REQUEST['modfunc'] )
 	$categories_RET = DBGet( "SELECT ID,TITLE
 		FROM student_field_categories", [], [ 'ID' ] );
 
-	$select = '<select name="field_id" onchange="ajaxPostForm(this.form);">';
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	$select = '<select name="field_id" autocomplete="off" class="onchange-ajax-post-form">';
 
 	$select .= '<option value="">' . _( 'Please choose a student field' ) . '</option>';
 

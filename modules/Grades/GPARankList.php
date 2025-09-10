@@ -25,7 +25,8 @@ if ( $_REQUEST['search_modfunc'] === 'list' )
 	$PHP_tmp_SELF = PreparePHP_SELF();
 	echo '<form action="' . $PHP_tmp_SELF . '" method="POST">';
 
-	$mp_select = '<select name="mp" id="mp-select" onchange="ajaxPostForm(this.form);">';
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	$mp_select = '<select name="mp" id="mp-select" class="onchange-ajax-post-form">';
 
 	foreach ( (array) $all_mp_ids as $mp_id )
 	{

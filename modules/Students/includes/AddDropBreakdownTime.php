@@ -204,7 +204,8 @@ if ( ! $_REQUEST['modfunc'] )
 		'<span class="a11y-hidden">' . _( 'Event' ) . '</span>',
 		$select_options,
 		false,
-		'onchange="ajaxPostForm(this.form);"',
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		'autocomplete="off" class="onchange-ajax-post-form"',
 		false
 	);
 

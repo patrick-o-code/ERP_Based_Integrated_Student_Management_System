@@ -80,7 +80,8 @@ if ( $_REQUEST['search_modfunc']
 
 	$PHP_tmp_SELF = PreparePHP_SELF( $_REQUEST, $remove_request_params );
 
-	$period_select = '<select name="period_id" id="period_id" onchange="ajaxPostForm(this.form);">
+	// @since 12.5 CSP remove unsafe-inline Javascript
+	$period_select = '<select name="period_id" id="period_id" class="onchange-ajax-post-form" autocomplete="off">
 		<option value=""' . ( empty( $_REQUEST['period_id'] ) ? ' selected' : '' ) . '>' .
 		_( 'Daily' ) . '</option>';
 

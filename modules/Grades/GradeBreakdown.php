@@ -30,7 +30,8 @@ if ( ! isset( $_REQUEST['chart_type'] )
 
 echo '<form action="' . URLEscape( 'Modules.php?modname='.$_REQUEST['modname'].'' ) . '" method="GET">';
 
-$mp_select = '<select name="mp_id" id="mp_id" onchange="ajaxPostForm(this.form);">';
+// @since 12.5 CSP remove unsafe-inline Javascript
+$mp_select = '<select name="mp_id" id="mp_id" class="onchange-ajax-post-form">';
 
 foreach ( (array) $all_mp_ids as $mp_id )
 {

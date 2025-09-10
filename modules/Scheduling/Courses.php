@@ -1567,7 +1567,8 @@ if (  ( ! $_REQUEST['modfunc']
 				'Yes',
 				'No',
 				false,
-				'onchange="ajaxPostForm(this.form);"'
+				// @since 12.5 CSP remove unsafe-inline Javascript
+				'class="onchange-ajax-post-form"'
 			) );
 
 			echo '</form>';

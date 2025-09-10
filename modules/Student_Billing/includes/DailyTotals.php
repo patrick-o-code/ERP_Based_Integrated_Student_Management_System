@@ -31,7 +31,8 @@ DrawHeader( _( 'Report Timeframe' ) . ': ' .
 		'Yes',
 		'No',
 		false,
-		'autocomplete="off" onchange="ajaxPostForm(this.form,true);"'
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		'autocomplete="off" class="onchange-ajax-post-form"'
 	) );
 
 echo '</form>';

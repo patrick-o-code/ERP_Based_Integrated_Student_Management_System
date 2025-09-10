@@ -924,7 +924,7 @@ if ( ! $_REQUEST['modfunc'] )
 		$calendar_RET = DBGet( $calendar_SQL, [], [ 'SCHOOL_DATE' ] );
 	}
 
-	echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname']  ) . '" method="POST">';
+	echo '<form action="' . PreparePHP_SELF( [], [ 'minutes', 'all_day' ] ) . '" method="POST">';
 
 	// Admin Headers
 	if ( AllowEdit() )
@@ -949,17 +949,14 @@ if ( ! $_REQUEST['modfunc'] )
 			}
 		}
 
-		// @since 10.2.1 Maintain current month on calendar change.
-		$calendar_onchange_URL = PreparePHP_SELF( [], [ 'calendar_id' ] ) . '&calendar_id=';
-
 		$links = SelectInput(
 			$_REQUEST['calendar_id'],
 			'calendar_id',
 			'<span class="a11y-hidden">' . _( 'Calendar' ) . '</span>',
 			$options,
 			false,
-			' onchange="' . AttrEscape( 'ajaxLink(' . json_encode( $calendar_onchange_URL ) .
-				' + document.getElementById("calendar_id").value);' ) . '" ',
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			' class="onchange-ajax-post-form"',
 			false
 		);
 

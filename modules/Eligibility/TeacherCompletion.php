@@ -47,7 +47,8 @@ $periods_RET = DBGet( "SELECT sp.PERIOD_ID,sp.TITLE,COALESCE(sp.SHORT_NAME,sp.TI
 		AND cp.SYEAR='" . UserSyear() . "')
 	ORDER BY sp.SORT_ORDER IS NULL,sp.SORT_ORDER,sp.TITLE" );
 
-$period_select = '<select name="school_period" id="school_period" onChange="ajaxPostForm(this.form);">
+// @since 12.5 CSP remove unsafe-inline Javascript
+$period_select = '<select name="school_period" id="school_period" class="onchange-ajax-post-form">
 	<option value="">' . _( 'All' ) . '</option>';
 
 foreach ( (array) $periods_RET as $period )
@@ -87,7 +88,8 @@ if ( $start
 	}
 }
 
-$date_select = '<select name="start_date" id="start_date" onChange="ajaxPostForm(this.form);">' . $date_select . '</select>';
+// @since 12.5 CSP remove unsafe-inline Javascript
+$date_select = '<select name="start_date" id="start_date" class="onchange-ajax-post-form">' . $date_select . '</select>';
 
 DrawHeader( '<label for="start_date">' . _( 'Timeframe' ) . ':</label> ' . $date_select . ' &mdash; ' .
 	'<label for="school_period">' . _( 'Period' ) . ':</label> ' . $period_select );

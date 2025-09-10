@@ -33,7 +33,7 @@ function SideMarkingPeriodSelect()
 
 	?>
 	<label for="mp" class="a11y-hidden"><?php echo _( 'Marking Period' ); ?></label>
-	<select name="mp" id="mp" autocomplete="off" onChange="ajaxPostForm(this.form);">
+	<select name="mp" id="mp" autocomplete="off" class="onchange-ajax-post-form">
 	<?php if ( count( $mp_RET ) ) :
 
 		$mp_array = [];
@@ -423,7 +423,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 
 			<span class="br-after">
 				<label for="school" class="a11y-hidden"><?php echo _( 'School' ); ?></label>
-				<select name="school" id="school" autocomplete="off" onChange="ajaxPostForm(this.form);">
+				<select name="school" id="school" autocomplete="off" class="onchange-ajax-post-form">
 			<?php foreach ( (array) $schools_RET as $school ) : ?>
 				<option value="<?php echo AttrEscape( $school['ID'] ); ?>"<?php echo ( ( UserSchool() == $school['ID'] ) ? ' selected' : '' ); ?>><?php
 					echo ( $school['SHORT_NAME'] ? $school['SHORT_NAME'] : $school['TITLE'] );
@@ -461,7 +461,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 
 			<span class="br-after">
 				<label for="student_id" class="a11y-hidden"><?php echo _( 'Student' ); ?></label>
-				<select name="student_id" id="student_id" autocomplete="off" onChange="ajaxPostForm(this.form);">
+				<select name="student_id" id="student_id" autocomplete="off" class="onchange-ajax-post-form">
 			<?php foreach ( (array) $students_RET as $student ) : ?>
 				<option value="<?php echo AttrEscape( $student['STUDENT_ID'] ); ?>"<?php echo ( ( UserStudentID() == $student['STUDENT_ID'] ) ? ' selected' : '' ); ?>><?php
 					echo $student['FULL_NAME'];
@@ -522,7 +522,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 
 		<span class="br-after">
 			<label for="syear" class="a11y-hidden"><?php echo _( 'School Year' ); ?></label>
-			<select name="syear" id="syear" autocomplete="off" onChange="ajaxPostForm(this.form);">
+			<select name="syear" id="syear" autocomplete="off" class="onchange-ajax-post-form">
 		<?php foreach ( (array) $years_RET as $year ) : ?>
 			<option value="<?php echo AttrEscape( $year['SYEAR'] ); ?>"<?php echo ( ( UserSyear() == $year['SYEAR'] ) ? ' selected' : '' ); ?>><?php
 				echo FormatSyear( $year['SYEAR'], Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) );
@@ -571,7 +571,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 
 		<span class="br-after">
 			<label for="period" class="a11y-hidden"><?php echo _( 'Course Periods' ); ?></label>
-			<select name="period" id="period" autocomplete="off" onChange="ajaxPostForm(this.form);">
+			<select name="period" id="period" autocomplete="off" class="onchange-ajax-post-form">
 			<?php $optgroup = $current_cp_found = false;
 
 			foreach ( (array) $cp_RET as $period ) :
