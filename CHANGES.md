@@ -74,7 +74,7 @@ Changes in 12.5
 - Add `_gradeScaleInputHtml()` & `_search()` private methods to Widget_letter_grade object in Widget.php
 - Use Select2 input + AJAX search when scale has more than 1003 grades in Widget.php
 - Change User-Agent to "RosarioSIS/1.0; +https://www.rosariosis.org/" in curl.php
-- Cache config values, avoid calling Config() function X times in Currency.fnc.php
+- Cache config values, avoid calling Config() function X times in Currency.fnc.php & User.fnc.php
 - Submit selected date: use `onchange-date-submit` CSS class & `data-name` attribute in Date.php
 - Add CSS classes to .list element in ListOutput.fnc.php
 - CSP remove unsafe-inline Javascript: use `data-url` attribute in ListOutput.fnc.php

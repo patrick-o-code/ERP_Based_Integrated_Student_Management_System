@@ -112,6 +112,9 @@ function Preferences( $item, $program = 'Preferences' )
 {
 	global $_ROSARIO;
 
+	// @since 12.5 Cache config values, avoid calling Config() function X times.
+	static $theme = Config( 'THEME' );
+
 	if ( ! $item
 		|| ! $program )
 	{
@@ -135,7 +138,7 @@ function Preferences( $item, $program = 'Preferences' )
 		'DELIMITER' => 'Tab',
 		'HEADER' => '#333366',
 		'HIGHLIGHT' => '#FFFFFF',
-		'THEME' => Config( 'THEME' ),
+		'THEME' => $theme,
 		// @since 7.1 Select Date Format: Add Preferences( 'DATE' ).
 		// @link https://www.w3.org/International/questions/qa-date-format
 		'DATE' => ( $_SESSION['locale'] === 'en_US.utf8' ? '%B %d %Y' : '%d %B %Y' ),
