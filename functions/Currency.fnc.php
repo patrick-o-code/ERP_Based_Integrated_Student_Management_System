@@ -19,6 +19,11 @@
  */
 function Currency( $num, $sign = 'before', $red = false )
 {
+	// @since 12.5 Cache config values, avoid calling Config() function X times.
+	static $decimal_separator = Config( 'DECIMAL_SEPARATOR' ),
+		$thousands_separator = Config( 'THOUSANDS_SEPARATOR' ),
+		$currency = Config( 'CURRENCY' );
+
 	$num = (float) $num;
 
 	$original = $num;
@@ -46,8 +51,8 @@ function Currency( $num, $sign = 'before', $red = false )
 	$num = number_format(
 		$num,
 		2,
-		Config( 'DECIMAL_SEPARATOR' ),
-		Config( 'THOUSANDS_SEPARATOR' )
+		$decimal_separator,
+		$thousands_separator
 	);
 
 	$lang_2_chars = mb_substr( $_SESSION['locale'], 0, 2 );
@@ -58,11 +63,11 @@ function Currency( $num, $sign = 'before', $red = false )
 	{
 		// @since 10.0 Place currency symbol after amount for some locales
 		// @link https://fastspring.com/blog/how-to-format-30-currencies-from-countries-all-over-the-world/
-		$num .= '&nbsp;' . Config( 'CURRENCY' );
+		$num .= '&nbsp;' . $currency;
 	}
 	else
 	{
-		$num = Config( 'CURRENCY' ) . $num;
+		$num = $currency . $num;
 	}
 
 	// Add minus if negative.
