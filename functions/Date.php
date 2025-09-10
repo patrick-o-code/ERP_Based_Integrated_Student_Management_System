@@ -298,16 +298,8 @@ function PrepareDate( $date, $name_attr = '', $allow_na = true, $options = [] )
 		);
 
 		// Create date onchange link
-		// Add year / month / day parameters to href.
-		$add_args_js = [];
-
-		foreach ( $URL_args as $URL_arg )
-		{
-			$add_args_js[] = '(this.form.' . $URL_arg . ' ? \'&' . $URL_arg . '=\' + this.form.' . $URL_arg . '.value : \'\')';
-		}
-
-		$e = ' onchange="' . AttrEscape( 'ajaxLink(' . json_encode( $date_onchange_href ) .
-			' + ' . implode( '+', $add_args_js ) . ' );' ) . '"';
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$e = ' class="onchange-ajax-link onchange-date-submit" data-link="' . $date_onchange_href . '" data-name="' . AttrEscape( $name_attr ) . '"';
 
 		$extraM .= $e;
 

@@ -75,6 +75,7 @@ Changes in 12.5
 - Use Select2 input + AJAX search when scale has more than 1003 grades in Widget.php
 - Change User-Agent to "RosarioSIS/1.0; +https://www.rosariosis.org/" in curl.php
 - Cache config values, avoid calling Config() function X times in Currency.fnc.php
+- Submit selected date: use `onchange-date-submit` CSS class & `data-name` attribute in Date.php
 
 Changes in 12.4.3
 -----------------
