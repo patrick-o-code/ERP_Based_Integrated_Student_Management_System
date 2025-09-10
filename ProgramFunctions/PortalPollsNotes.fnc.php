@@ -462,7 +462,7 @@ function makePublishingVisibleTo( $profiles, $THIS_RET, $id )
 		$profile_options,
 		'N/A', // Save when none selected, add hidden empty input
 		'multiple style="width: 240px" autocomplete="off"', // Multiple select inputs.
-		false
+		true
 	) . '</td></tr>';
 
 	if ( $_REQUEST['modname'] == 'School_Setup/PortalPolls.php'
