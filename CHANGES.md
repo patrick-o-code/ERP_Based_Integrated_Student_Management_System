@@ -90,6 +90,7 @@ Changes in 12.5
 - CSP use curl POST instead of AJAX to send data to external domain in FirstLogin.fnc.php
 - HTML space gain: remove minus between letter & percent grades in Grades.php
 - SQL remove unused columns in GradebookBreakdown.php
+- CSP use `<template>` for InputDivOnclick() in Inputs.php
 
 Changes in 12.4.3
 -----------------

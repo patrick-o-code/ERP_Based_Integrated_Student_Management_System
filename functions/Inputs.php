@@ -1780,9 +1780,10 @@ function FormatInputTitle( $title, $id = '', $required = false, $break = '<br>' 
  * @todo Fix JS error var is not defined when InputDivOnclick() called twice!
  *
  * @since 2.9
- * @since 12.0 JS use inputAddHTML(): reduce HTML size by up to 26%; declare only 1 global var iHtml
+ * @since 12.5 CSP remove unsafe-inline Javascript: use `<template>`
  *
  * @see JS ajaxPrepare() set tabindex="0" Make onclick div focusable when accessed by tab key
+ * @uses JS inputAddHTML() function
  *
  * @example $return = InputDivOnclick( $id,	$textarea_html,	$display_val, $ftitle );
  *
@@ -1798,36 +1799,22 @@ function FormatInputTitle( $title, $id = '', $required = false, $break = '<br>' 
  */
 function InputDivOnclick( $id, $input_html, $value, $input_ftitle )
 {
-	static $js_global_var = false;
-
 	$id = GetInputID( $id );
 
-	if ( ! $js_global_var )
-	{
-		// JS Declare only 1 global variable
-		// @todo move to warehouse.js
-		echo '<script>var iHtml = [];</script>';
-
-		$js_global_var = true;
-	}
-
-	$script = "<script>iHtml['" . $id . "']=" . json_encode( $input_html ) . ";</script>";
+	// @link https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots
+	$template = '<template id="html' . $id . '">' . $input_html . '</template>';
 
 	$value = $value == '' ? '-' : $value;
 
-	$onfocus_js = 'inputAddHTML(\'' . $id . '\');';
-
 	$div_onclick = '<div id="div' . $id . '">
-		<div class="onclick" onfocus="' .
-		// Do not not convert single quotes to gain a few bytes
-		htmlspecialchars( $onfocus_js, ENT_COMPAT, null, false ) . '">' .
+		<div class="onclick">' .
 		// @since 12.0 CSS Add .uld class, alias of .underline-dots
 		( mb_stripos( $value, '<div' ) === 0 ?
 			'<div class="uld">' . $value . '</div>' :
 			'<span class="uld">' . $value . '</span>' ) .
 		$input_ftitle . '</div></div>';
 
-	return $script . $div_onclick;
+	return $template . $div_onclick;
 }
 
 
