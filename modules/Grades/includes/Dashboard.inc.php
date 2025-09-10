@@ -62,7 +62,6 @@ if ( ! function_exists( 'DashboardGradesAdmin' ) )
 
 		if ( ! isset( $gpa_RET[1]['CUM_WEIGHTED_GPA'] ) )
 		{
-			// PostgreSQL version >= 8.4 required for ARRAY_TO_STRING() function.
 			// Assignments.
 			$assignments_RET = DBGet( "SELECT COUNT(ASSIGNMENT_ID) AS ASSIGNMENTS_NB,
 			" . DBSQLCommaSeparatedResult( 'ASSIGNMENT_ID' ) . " AS ASSIGNMENTS_LIST,
