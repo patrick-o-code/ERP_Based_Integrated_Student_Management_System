@@ -34,11 +34,29 @@ function ListOutput( $result, $column_names, $singular = '.', $plural = '.', $li
 		// @since 11.6 Add vertically align list data option (defaults to false)
 		// Use when some columns are text & others input & should be displayed on 1 line only.
 		'valign-middle' => false,
+		/**
+		 * Add CSS classes to .list element
+		 *
+		 * @example 'vertical-tab-navigation' Navigate table inputs vertically using tab key
+		 *
+		 * @since 12.5
+		 */
+		'class' => '',
 	];
 
 	$options = empty( $options ) ?
 		$default_options :
 		array_replace_recursive( $default_options, $options );
+
+	if ( $options['valign-middle'] )
+	{
+		$options['class'] .= ' valign-middle';
+	}
+
+	if ( $options['responsive'] && ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
+	{
+		$options['class'] .= ' rt';
+	}
 
 	$LO_id = issetVal( $_REQUEST['LO_id'], '' );
 
@@ -531,8 +549,7 @@ function ListOutput( $result, $column_names, $singular = '.', $plural = '.', $li
 		}
 
 		echo '<div class="list-wrapper"><table class="list widefat' .
-			( $options['responsive'] && ! isset( $_REQUEST['_ROSARIO_PDF'] ) ? ' rt' : '' ) .
-			( $options['valign-middle'] ? ' valign-middle' : '' ) .
+			( $options['class'] ? ' ' . $options['class'] : '' ) .
 			( ! $list_has_nav ? ' list-no-nav' : '' ) .
 			( $list_has_input ? ' has-input' : '' ) .
 			'" data-list-id="' . $list_id . '"><thead><tr>';
@@ -651,7 +668,7 @@ function ListOutput( $result, $column_names, $singular = '.', $plural = '.', $li
 
 					$value = preg_replace( '!<select.*selected\>([^<]+)<.*</select\>!i', '\\1', $item[$key[$j]] );
 					$value = preg_replace( '!<select.*</select\>!i', '', $value );
-					$item[$key[$j]] = preg_replace( "/<div onclick=[^']+'>/", '', $value );
+					//$item[$key[$j]] = preg_replace( "/<div onclick=[^']+'>/", '', $value );
 				}
 			}
 

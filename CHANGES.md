@@ -76,6 +76,7 @@ Changes in 12.5
 - Change User-Agent to "RosarioSIS/1.0; +https://www.rosariosis.org/" in curl.php
 - Cache config values, avoid calling Config() function X times in Currency.fnc.php
 - Submit selected date: use `onchange-date-submit` CSS class & `data-name` attribute in Date.php
+- Add CSS classes to .list element in ListOutput.fnc.php
 
 Changes in 12.4.3
 -----------------
