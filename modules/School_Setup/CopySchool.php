@@ -24,7 +24,7 @@ foreach ( (array) $tables as $table => $name )
 	$table_list[] = '<label>' . ( ! $force_checked ?
 			'<input type="checkbox" value="Y" name="tables[' . $table . ']" checked />&nbsp;' :
 			'<input type="hidden" value="Y" name="tables[' . $table . ']" />
-			<input type="checkbox" onclick="return false;" checked disabled />&nbsp;' ) .
+			<input type="checkbox" checked disabled />&nbsp;' ) .
 		$name . '</label>';
 }
 
