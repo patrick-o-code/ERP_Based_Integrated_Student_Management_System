@@ -87,6 +87,7 @@ Changes in 12.5
 - Prevent using username, or email in the password in General_Info.inc.php
 - CSP add .onclick-ajax-link & .onchange-ajax-link CSS classes, use `data-link` attribute, program wide
 - CSP add .onchange-ajax-post-form CSS class, program wide
+- CSP use curl POST instead of AJAX to send data to external domain in FirstLogin.fnc.php
 
 Changes in 12.4.3
 -----------------

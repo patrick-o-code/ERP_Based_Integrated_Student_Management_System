@@ -136,23 +136,33 @@ if ( ! function_exists( 'FirstLoginFormAfterInstall' ) )
 	{
 		ob_start();
 
-		PopTable( 'header', _( 'Confirm Successful Installation' ) ); ?>
+		PopTable( 'header', _( 'Confirm Successful Installation' ) );
 
-		<form action="index.php?modfunc=first-login" method="POST" id="first-login-form" target="_top">
-			<h4 class="center">
-				<?php
-					echo sprintf(
-						_( 'You have successfully installed %s.' ),
-						ParseMLField( Config( 'TITLE' ) )
-					);
-				?>
-			</h4>
-			<p><?php echo implode( '</p><p>', FirstLoginFormFields( 'after_install' ) ); ?></p>
-			<p class="center"><?php echo Buttons( _( 'OK' ) ); ?></p>
-		</form>
-		<?php echo FirstLoginPoll(); ?>
+		$poll_form = FirstLoginPoll();
 
-		<?php PopTable( 'footer' );
+		if ( $poll_form )
+		{
+			echo $poll_form;
+		}
+		else
+		{
+			?>
+			<form action="index.php?modfunc=first-login" method="POST" id="first-login-form" target="_top">
+				<h4 class="center">
+					<?php
+						echo sprintf(
+							_( 'You have successfully installed %s.' ),
+							ParseMLField( Config( 'TITLE' ) )
+						);
+					?>
+				</h4>
+				<p><?php echo implode( '</p><p>', FirstLoginFormFields( 'after_install' ) ); ?></p>
+				<p class="center"><?php echo Buttons( _( 'OK' ) ); ?></p>
+			</form>
+			<?php
+		}
+
+		PopTable( 'footer' );
 
 		return ob_get_clean();
 	}
@@ -252,12 +262,59 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 	 */
 	function FirstLoginPoll()
 	{
-		global $locale,
-			$DatabaseType,
+		global $DatabaseType,
 			$db_connection;
 
-		if ( User( 'STAFF_ID' ) !== '1' )
+		if ( User( 'STAFF_ID' ) !== '1'
+			|| ! empty( $_REQUEST['poll_cancel'] ) )
 		{
+			return '';
+		}
+
+		if ( ! empty( $_REQUEST['poll'] ) )
+		{
+			$data = $_REQUEST['poll'];
+
+			$data['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+			$data['locale'] = $_SESSION['locale'];
+			$data['version'] = ROSARIO_VERSION;
+			$data['database'] = $DatabaseType;
+			// i.e. 8.1.3, get 8.1 back.
+			$data['php_version'] = (float) PHP_VERSION;
+
+			if ( $db_connection instanceof PDO )
+			{
+				// i.e. 5.7.24-0ubuntu0.18.04.1, get 5.7 back.
+				$database_version = (float) $db_connection->getAttribute( PDO::ATTR_SERVER_VERSION );
+			}
+			elseif ( $DatabaseType === 'postgresql' )
+			{
+				$database_version = pg_version( $db_connection );
+
+				// i.e. 13.8 (Debian 13.8-0+deb11u1), get 13.8 back.
+				$database_version = (float) $database_version['server'];
+			}
+			else
+			{
+				// i.e. version 10.5.15 is 100515
+				$database_version = mysqli_get_server_version( $db_connection );
+
+				$main_version = (int) ( $database_version / 10000 );
+
+				// Get 10.5 back.
+				$database_version = $main_version . '.' .
+					(int) ( ( $database_version - ( $main_version * 10000 ) ) / 100 );
+			}
+
+			$data['database_version'] = $database_version;
+
+			// POST poll data to rosariosis.org.
+			require_once 'classes/curl.php';
+
+			$curl = new curl;
+
+			$curl->post( 'https://www.rosariosis.org/installation-poll/poll-submit.php', $data );
+
 			return '';
 		}
 
@@ -270,40 +327,6 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			return '';
 		}
 
-		$fields = [];
-
-		$fields[] = '<input type="hidden" name="locale" value="' . AttrEscape( $locale ) . '">';
-
-		$fields[] = '<input type="hidden" name="version" value="' . AttrEscape( ROSARIO_VERSION ) . '">';
-
-		$fields[] = '<input type="hidden" name="database" value="' . AttrEscape( $DatabaseType ) . '">';
-
-		if ( $DatabaseType === 'postgresql' )
-		{
-			$database_version = pg_version( $db_connection );
-
-			// i.e. 13.8 (Debian 13.8-0+deb11u1), get 13.8 back.
-			$database_version = (float) $database_version['server'];
-		}
-		else
-		{
-			// i.e. version 10.5.15 is 100515
-			$database_version = mysqli_get_server_version( $db_connection );
-
-			$main_version = (int) ( $database_version / 10000 );
-
-			// Get 10.5 back.
-			$database_version = $main_version . '.' .
-				(int) ( ( $database_version - ( $main_version * 10000 ) ) / 100 );
-		}
-
-		$fields[] = '<input type="hidden" name="database_version" value="' . AttrEscape( $database_version ) . '">';
-
-		// i.e. 8.1.3, get 8.1 back.
-		$php_version = (float) PHP_VERSION;
-
-		$fields[] = '<input type="hidden" name="php_version" value="' . AttrEscape( $php_version ) . '">';
-
 		AllowEditTemporary( 'start' );
 
 		$usage_options = [
@@ -311,7 +334,9 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			'production' => _( 'Production' ),
 		];
 
-		$fields[] = RadioInput( '', 'usage', _( 'Usage' ), $usage_options, false );
+		$fields = [];
+
+		$fields[] = RadioInput( '', 'poll[usage]', _( 'Usage' ), $usage_options, false );
 
 		$school_options = [
 			'primary' => _( 'Primary' ),
@@ -320,7 +345,7 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			'other' => _( 'Other' ),
 		];
 
-		$fields[] = RadioInput( '', 'school', _( 'School' ), $school_options, false );
+		$fields[] = RadioInput( '', 'poll[school]', _( 'School' ), $school_options, false );
 
 		$organization_options = [
 			'private' => _( 'Private' ),
@@ -328,11 +353,11 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			'non-profit' => _( 'Non-profit' ),
 		];
 
-		$fields[] = RadioInput( '', 'organization', _( 'Organization' ), $organization_options, false );
+		$fields[] = RadioInput( '', 'poll[organization]', _( 'Organization' ), $organization_options, false );
 
 		$fields[] = TextInput(
 			'0',
-			'students',
+			'poll[students]',
 			_( 'Students' ),
 			'type="number" min="0" max="99999"',
 			false
@@ -340,14 +365,20 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 
 		AllowEditTemporary( 'stop' );
 
-		$fields[] = '<div class="center">' . Buttons( _( 'Submit' ), _( 'Cancel' ) ) . '</div>';
+		$buttons = Buttons( _( 'Submit' ) );
+
+		$buttons .= ' <input type="button" value="' . AttrEscape( _( 'Cancel' ) ) .
+			// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+			'" class="onclick-ajax-link" data-link="index.php?modfunc=first-login&poll_cancel=Y" />';
+
+		$fields[] = '<div class="center">' . $buttons . '</div>';
 
 		$url_lang = '';
 
-		if ( $locale === 'es_ES.utf8'
-			|| $locale === 'fr_FR.utf8' )
+		if ( $_SESSION['locale'] === 'es_ES.utf8'
+			|| $_SESSION['locale'] === 'fr_FR.utf8' )
 		{
-			$url_lang = substr( $locale, 0, 2 ) . '/';
+			$url_lang = substr( $_SESSION['locale'], 0, 2 ) . '/';
 		}
 
 		$fields[] = sprintf(
@@ -355,41 +386,11 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			URLEscape( 'https://www.rosariosis.org/' . $url_lang . 'installation-poll/' )
 		);
 
-		ob_start(); ?>
-		<script>$('#first-login-form').hide();
-
-		$('#first-login-poll-form input[type="reset"]').click(function(){
-			$('#first-login-poll-form').hide();
-			$('#first-login-form').show();
-		});
-
-		$('#first-login-poll-form').submit(function(e){
-
-			var form = $(this),
-				url = form.attr('action');
-
-			$('#first-login-poll-form input[type="submit"],#first-login-poll-form input[type="reset"]').attr('disabled', 'disabled');
-			$.ajax({
-				type: 'POST',
-				url: url,
-				data: form.serialize(),
-				complete: function(jqxhr,status) {
-					$('#first-login-poll-form').hide();
-					$('#first-login-form').show();
-				}
-			});
-
-			e.preventDefault();
-			// Compatibility with Use FormData instead of jQuery Form Plugin
-			e.stopImmediatePropagation();
-		});</script>
-		<?php
-		$js = ob_get_clean();
-
-		$form = '<form action="https://www.rosariosis.org/installation-poll/poll-submit.php" method="POST" id="first-login-poll-form" target="_top">';
+		// @since 12.5 CSP remove unsafe-inline Javascript
+		$form = '<form action="index.php?modfunc=first-login" method="POST" id="first-login-poll-form" target="_top">';
 
 		$title = '<legend>' . _( 'Installation Poll' ) . '</legend>';
 
-		return $form . '<fieldset>' . $title . implode( '</p><p>', $fields ) . '</fieldset></form>' . $js;
+		return $form . '<fieldset>' . $title . implode( '</p><p>', $fields ) . '</fieldset></form>';
 	}
 }
