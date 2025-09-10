@@ -142,6 +142,10 @@ echo TextInput(
 
 echo '</td><td>';
 
+
+// @since 12.5 Prevent using username in the password
+$_ROSARIO['PasswordInput']['user_inputs'] = [ $student['USERNAME'] ];
+
 echo PasswordInput(
 	( empty( $student['PASSWORD'] )
 		|| ! empty( $_REQUEST['moodle_create_student'] ) ? '' : str_repeat( '*', 8 ) ),

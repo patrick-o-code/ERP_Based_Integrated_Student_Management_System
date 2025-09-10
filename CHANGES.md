@@ -84,6 +84,7 @@ Changes in 12.5
 - FinalGradeSave() can save COMMENT column in FinalGrades.inc.php
 - Include Students active as of Timeframe end date in DailyTransactions.php
 - CSP add .onchange-maybe-edit-select CSS class in StudentsUsersInfo.fnc.php & Address.inc.php
+- Prevent using username, or email in the password in General_Info.inc.php
 
 Changes in 12.4.3
 -----------------
