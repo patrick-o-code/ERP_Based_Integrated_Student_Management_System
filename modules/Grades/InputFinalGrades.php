@@ -1299,26 +1299,11 @@ if ( $stu_RET )
 
 echo '<br />';
 
+// @since 4.6 Navigate table inputs vertically using tab key.
+// @since 12.5 CSP remove unsafe-inline Javascript
+$LO_options['class'] = 'vertical-tab-navigation';
+
 ListOutput( $stu_RET, $LO_columns, 'Student', 'Students', $link, [], $LO_options );
-
-// @since 4.6 Navigate form inputs vertically using tab key.
-// @link https://stackoverflow.com/questions/38575817/set-tabindex-in-vertical-order-of-columns
-?>
-<script>
-function fixVerticalTabindex(selector) {
-	var tabindex = 1;
-	$(selector).each(function(i, tbl) {
-		$(tbl).find('tr').first().find('td').each(function(clmn, el) {
-			$(tbl).find('tr td:nth-child(' + (clmn + 1) + ') input,tr td:nth-child(' + (clmn + 1) + ') select').each(function(j, input) {
-				$(input).attr('tabindex', tabindex++);
-			});
-		});
-	});
-}
-
-fixVerticalTabindex('.list-wrapper .list tbody');
-</script>
-<?php
 
 echo '<br /><div class="center">' . SubmitButton() . '</div>';
 echo '</form>';

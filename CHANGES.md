@@ -77,6 +77,7 @@ Changes in 12.5
 - Cache config values, avoid calling Config() function X times in Currency.fnc.php & User.fnc.php
 - Submit selected date: use `onchange-date-submit` CSS class & `data-name` attribute in Date.php
 - Add CSS classes to .list element in ListOutput.fnc.php
+- CSP use the 'vertical-tab-navigation' class option for ListOutput() in Grades.php & InputFinalGrades.php
 - CSP remove unsafe-inline Javascript: use `data-url` attribute in ListOutput.fnc.php
 - Use MultipleCheckboxInput() function in AddAbsences.php
 - CSP add .onclick-checkall CSS class & use `data-name-like` attribute in AddAbsences.php, DuplicateAttendance.php, Exceptions.php & Profiles.php
