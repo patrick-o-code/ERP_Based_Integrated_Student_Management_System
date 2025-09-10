@@ -403,7 +403,7 @@ if ( ! $_REQUEST['modfunc'] )
 		&& $_REQUEST['marking_period_id'] !== 'new' )
 	{
 		// Is Single Marking Period? Do NOT delete.
-		$not_single_mp = $_REQUEST['mp_term'] !== 'FY' || $_REQUEST['mp_term'] === 'PRO';
+		$not_single_mp = $_REQUEST['mp_term'] !== 'FY';
 
 		if ( $_REQUEST['mp_term'] !== 'FY'
 			&& $_REQUEST['mp_term'] !== 'PRO' )
