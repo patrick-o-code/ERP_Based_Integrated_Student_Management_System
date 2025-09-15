@@ -92,6 +92,7 @@ Changes in 12.5
 - SQL remove unused columns in GradebookBreakdown.php
 - CSP use `<template>` for InputDivOnclick() in Inputs.php
 - JS Fix for Internet Explorer in warehouse.js & csp/functions.js
+- Simplify isAJAX() function code in Warehouse.php
 
 Changes in 12.4.3
 -----------------

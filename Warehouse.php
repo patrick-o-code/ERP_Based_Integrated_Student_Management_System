@@ -857,17 +857,8 @@ function isPopup( $modname = '', $modfunc = '' )
  */
 function isAJAX()
 {
-	static $is_ajax = null;
-
-	if ( ! is_null( $is_ajax ) )
-	{
-		return $is_ajax;
-	}
-
-	$is_ajax = isset( $_SERVER['HTTP_X_REQUESTED_WITH'] )
+	return isset( $_SERVER['HTTP_X_REQUESTED_WITH'] )
 		&& $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
-
-	return $is_ajax;
 }
 
 /**
