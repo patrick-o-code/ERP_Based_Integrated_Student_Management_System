@@ -2172,6 +2172,16 @@ a .button + b {
 	padding-right: 7px;
 }
 
+/**
+ * IE fix hide <template>
+ *
+ * @link https://stackoverflow.com/questions/22222950/html5-template-not-working-on-internet-explorer-how-to-solve-it
+ */
+
+template {
+	display: none;
+}
+
 /* Keep font size at the end so they can override other rules */
 
 .size-3 {
