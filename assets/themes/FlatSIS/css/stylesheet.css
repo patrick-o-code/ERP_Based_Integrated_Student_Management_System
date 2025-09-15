@@ -771,7 +771,10 @@ textarea {
 	top: 0;
 	left: 223px;
 	width: 223px;
-	overflow: visible;
+	max-height: calc(100vh - 80px);
+	overflow-y: auto;
+	/* Prevent body from scrolling when submenu open */
+	overscroll-behavior: contain;
 	word-wrap: break-word;
 	min-height: 36px;
 }
@@ -783,7 +786,10 @@ textarea {
 	top: 0;
 	left: 223px;
 	width: 223px;
-	overflow: visible;
+	max-height: calc(100vh - 80px);
+	overflow-y: auto;
+	/* Prevent body from scrolling when submenu open */
+	overscroll-behavior: contain;
 	word-wrap: break-word;
 	min-height: 36px;
 }
@@ -800,6 +806,7 @@ textarea {
 	border: 0;
 	min-height: 0;
 	min-width: 205px;
+	max-height: none;
 	box-shadow: none;
 }
 

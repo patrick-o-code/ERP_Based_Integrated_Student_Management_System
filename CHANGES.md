@@ -97,6 +97,7 @@ Changes in 12.5
 - CSS add .tinymce-document class: double default height in HonorRoll.php, Letters.php & stylesheets.css
 - CSP: use `<details><summary>` CSS deprecate .switchMenu in stylesheet.css
 - CSS add `<pre>` styling in colors.css & stylesheet.css
+- CSS FlatSIS theme Prevent body from scrolling when submenu open + scroll submenu in stylesheet.css
 
 Changes in 12.4.3
 -----------------
