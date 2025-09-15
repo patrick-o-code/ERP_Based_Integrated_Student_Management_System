@@ -19,10 +19,17 @@
  */
 function Currency( $num, $sign = 'before', $red = false )
 {
-	// @since 12.5 Cache config values, avoid calling Config() function X times.
-	static $decimal_separator = Config( 'DECIMAL_SEPARATOR' ),
-		$thousands_separator = Config( 'THOUSANDS_SEPARATOR' ),
+	static $decimal_separator,
+		$thousands_separator,
+		$currency;
+
+	if ( is_null( $decimal_separator ) )
+	{
+		// @since 12.5 Cache config values, avoid calling Config() function X times.
+		$decimal_separator = Config( 'DECIMAL_SEPARATOR' );
+		$thousands_separator = Config( 'THOUSANDS_SEPARATOR' );
 		$currency = Config( 'CURRENCY' );
+	}
 
 	$num = (float) $num;
 

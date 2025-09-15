@@ -112,8 +112,13 @@ function Preferences( $item, $program = 'Preferences' )
 {
 	global $_ROSARIO;
 
-	// @since 12.5 Cache config values, avoid calling Config() function X times.
-	static $theme = Config( 'THEME' );
+	static $theme;
+
+	if ( is_null( $theme ) )
+	{
+		// @since 12.5 Cache config values, avoid calling Config() function X times.
+		$theme = Config( 'THEME' );
+	}
 
 	if ( ! $item
 		|| ! $program )
