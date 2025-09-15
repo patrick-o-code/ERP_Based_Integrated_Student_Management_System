@@ -183,7 +183,9 @@ if ( ! $_REQUEST['modfunc'] )
 		TinyMCEInput(
 			GetTemplate(),
 			'letter_text',
-			_( 'Letter Text' )
+			_( 'Letter Text' ),
+			// @since 12.5 CSS add .tinymce-document class: double default height
+			'class="tinymce-document"'
 		) . '</td></tr>';
 
 		$substitutions = [

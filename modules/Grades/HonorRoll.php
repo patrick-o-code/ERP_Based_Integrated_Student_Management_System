@@ -58,7 +58,8 @@ if ( ! $_REQUEST['modfunc'] )
 			GetTemplate(),
 			'honor_roll_text',
 			_( 'Text' ),
-			'class="tinymce-horizontal"'
+			// @since 12.5 CSS add .tinymce-document class: double default height
+			'class="tinymce-horizontal tinymce-document"'
 		) . '</td></tr>';
 
 		$substitutions = [

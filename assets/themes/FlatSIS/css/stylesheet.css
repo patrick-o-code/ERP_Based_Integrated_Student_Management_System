@@ -1897,6 +1897,12 @@ a .button + b {
 	min-height: 200px;
 }
 
+/* @since 12.5 CSS add .tinymce-document class: double default height */
+
+.tinymce-document {
+	height: 360px;
+}
+
 .mce-tinymce.mce-container {
 	/* Max width: 1024px for PDF */
 	max-width: 1024px;

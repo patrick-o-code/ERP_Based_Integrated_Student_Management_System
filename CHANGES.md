@@ -93,6 +93,7 @@ Changes in 12.5
 - CSP use `<template>` for InputDivOnclick() in Inputs.php
 - JS Fix for Internet Explorer in warehouse.js & csp/functions.js
 - Simplify isAJAX() function code in Warehouse.php
+- CSS add .tinymce-document class: double default height in HonorRoll.php, Letters.php & stylesheets.css
 
 Changes in 12.4.3
 -----------------
