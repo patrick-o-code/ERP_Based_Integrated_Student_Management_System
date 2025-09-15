@@ -1726,8 +1726,18 @@ td.calendar-menu {
 	display: inline-block;
 }
 
+/**
+ * @deprecated since 12.5 CSP: use `<details><summary>`
+ */
+
 .switchMenu {
 	padding: 5px
+}
+
+#search details summary {
+	padding: 6px;
+	font-weight: bold;
+	outline: none;
 }
 
 /* Chart.js */

@@ -95,6 +95,7 @@ Changes in 12.5
 - JS Fix for Internet Explorer in warehouse.js & csp/functions.js
 - Simplify isAJAX() function code in Warehouse.php
 - CSS add .tinymce-document class: double default height in HonorRoll.php, Letters.php & stylesheets.css
+- CSP: use `<details><summary>` CSS deprecate .switchMenu in stylesheet.css
 
 Changes in 12.4.3
 -----------------
