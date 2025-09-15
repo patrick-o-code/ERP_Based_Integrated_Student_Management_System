@@ -85,7 +85,8 @@ select:focus {
 	color: #111 !important;
 }
 
-code {
+code,
+pre {
 	background: #eaeaea;
 }
 

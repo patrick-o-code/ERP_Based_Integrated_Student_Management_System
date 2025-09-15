@@ -353,6 +353,11 @@ code {
 	font-size: 14px;
 }
 
+pre {
+	overflow-x: auto;
+	padding: 10px;
+}
+
 hr {
 	height: 2px;
 	border: 0 none;
