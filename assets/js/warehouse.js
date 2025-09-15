@@ -603,25 +603,38 @@ var setInnerHTML = function(el, html) {
 	 */
 	el.innerHTML = html.replace('<script src="assets/js/csp/noJsReload.js?v=12.5"></script>', '');
 
-	Array.from(el.querySelectorAll('script')).forEach(oldScriptEl => {
-		const newScriptEl = document.createElement('script');
+	// Fix for Internet Explorer: do not use the ES6 version of the code
+	var scripts = el.getElementsByTagName('script');
 
-		Array.from(oldScriptEl.attributes).forEach(attr => {
-			newScriptEl.setAttribute(attr.name, attr.value);
-		});
+	// If we don't clone the results then "scripts"
+	// will actually update live as we insert the new
+	// tags, and we'll get caught in an endless loop
+	var scriptsClone = [];
+
+	for (var i = 0; i < scripts.length; i++) {
+		scriptsClone.push(scripts[i]);
+	}
+
+	for (var i = 0; i < scriptsClone.length; i++) {
+		var currentScript = scriptsClone[i],
+			s = document.createElement('script');
+
+		// Copy all the attributes from the original script
+		for (var j = 0; j < currentScript.attributes.length; j++) {
+			var a = currentScript.attributes[j];
+			s.setAttribute(a.name, a.value);
+		}
 
 		/**
 		 * Fix JS error object is not defined: set async="false" so scripts are loaded in the right order
 		 *
 		 * @link https://stackoverflow.com/questions/7308908/waiting-for-dynamically-loaded-script
 		 */
-		newScriptEl.async = false;
+		s.async = false;
 
-		const scriptText = document.createTextNode(oldScriptEl.innerHTML);
-		newScriptEl.appendChild(scriptText);
-
-		oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
-	});
+		s.appendChild(document.createTextNode(currentScript.innerHTML));
+		currentScript.parentNode.replaceChild(s, currentScript);
+	}
 }
 
 var ajaxPrepare = function(target, scrollTop) {

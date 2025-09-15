@@ -91,6 +91,7 @@ Changes in 12.5
 - HTML space gain: remove minus between letter & percent grades in Grades.php
 - SQL remove unused columns in GradebookBreakdown.php
 - CSP use `<template>` for InputDivOnclick() in Inputs.php
+- JS Fix for Internet Explorer in warehouse.js & csp/functions.js
 
 Changes in 12.4.3
 -----------------

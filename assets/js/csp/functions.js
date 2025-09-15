@@ -47,7 +47,9 @@ csp.functions.inputDivOnclick = function() {
 
 	addHTML(inputHtml.innerHTML, divOnclickId, true);
 
-	inputHtml.remove();
+	if (typeof inputHtml.remove === 'function') { // Fix for Internet Explorer
+		inputHtml.remove();
+	}
 
 	$('#' + inputId).focus();
 	$('#' + divOnclickId).click();
