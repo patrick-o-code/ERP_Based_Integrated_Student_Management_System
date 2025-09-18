@@ -41,20 +41,18 @@ if ( $_REQUEST['modfunc'] === 'poll_vote'
 
 DrawHeader( ProgramTitle() );
 
-DrawHeader( '<span id="salute"></span>' );
+$salute = sprintf( _( 'Good Evening, %s.' ), User( 'NAME' ) );
 
-?>
-<script>
-var hours = new Date().getHours(),
-	salute = document.getElementById("salute");
-	if (hours < 12)
-		salute.innerHTML=<?php echo json_encode( sprintf( _( 'Good Morning, %s.' ), User( 'NAME' ) ) ); ?>;
-	else if (hours < 18)
-		salute.innerHTML=<?php echo json_encode( sprintf( _( 'Good Afternoon, %s.' ), User( 'NAME' ) ) ); ?>;
-	else
-		salute.innerHTML=<?php echo json_encode( sprintf( _( 'Good Evening, %s.' ), User( 'NAME' ) ) ); ?>;
-</script>
-<?php
+if ( date( 'H' ) < 12 )
+{
+	$salute = sprintf( _( 'Good Morning, %s.' ), User( 'NAME' ) );
+}
+elseif ( date( 'H' ) < 18 )
+{
+	$salute = sprintf( _( 'Good Afternoon, %s.' ), User( 'NAME' ) );
+}
+
+DrawHeader( '<span id="salute">' . $salute . '</span>' );
 
 $welcome = [];
 
