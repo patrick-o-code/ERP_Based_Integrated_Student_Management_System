@@ -317,12 +317,18 @@ function AddonInstallationStatisticsPost( $type, $addon_dir )
 
 		unset( $_SESSION['AddonInstallationStatisticsPost'] );
 
+		$ip = ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] )
+			// Filter IP, HTTP_* headers can be forged.
+			&& filter_var( $_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP ) ?
+			$_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'] );
+
 		$data = [
 			'type' => $type,
 			'addon_dir' => $addon_dir,
 			'lang' => mb_substr( $_SESSION['locale'], 0, 5 ),
 			'rosario_version' => ROSARIO_VERSION,
 			'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+			'ip' => $ip,
 		];
 
 		// @since 12.5 CPS remove unsafe-inline Javascript
