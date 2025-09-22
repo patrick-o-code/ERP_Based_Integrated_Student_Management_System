@@ -99,6 +99,7 @@ Changes in 12.5
 - CSS add `<pre>` styling in colors.css & stylesheet.css
 - CSS FlatSIS theme Prevent body from scrolling when submenu open + scroll submenu in stylesheet.css
 - CSP use PHP instead of JS for salute header in Portal.php
+- Fix check requested enrollment date for conflict (instead of today) in Schedule.php
 
 Changes in 12.4.3
 -----------------
