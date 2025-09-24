@@ -462,22 +462,25 @@ if ( $_REQUEST['modfunc'] == 'choose_course' )
 		}
 		elseif ( empty( $warnings ) || Prompt( 'Confirm', _( 'There is a conflict.' ) . ' ' . _( 'Are you sure you want to add this section?' ), ErrorMessage( $warnings, 'warning' ) ) )
 		{
-			DBInsert(
-				'schedule',
-				[
-					'SYEAR' => UserSyear(),
-					'SCHOOL_ID' => UserSchool(),
-					'STUDENT_ID' => UserStudentID(),
-					'COURSE_ID' => (int) $_REQUEST['course_id'],
-					'COURSE_PERIOD_ID' => (int) $_REQUEST['course_period_id'],
-					'MP' => $mp_RET[1]['MP'],
-					'MARKING_PERIOD_ID' => (int) $mp_RET[1]['MARKING_PERIOD_ID'],
-					'START_DATE' => $date,
-				]
-			);
+			if ( UserStudentID() ) // @since 12.5 Fix SQL error null value in column "student_id"
+			{
+				DBInsert(
+					'schedule',
+					[
+						'SYEAR' => UserSyear(),
+						'SCHOOL_ID' => UserSchool(),
+						'STUDENT_ID' => UserStudentID(),
+						'COURSE_ID' => (int) $_REQUEST['course_id'],
+						'COURSE_PERIOD_ID' => (int) $_REQUEST['course_period_id'],
+						'MP' => $mp_RET[1]['MP'],
+						'MARKING_PERIOD_ID' => (int) $mp_RET[1]['MARKING_PERIOD_ID'],
+						'START_DATE' => $date,
+					]
+				);
 
-			// Hook.
-			do_action( 'Scheduling/Schedule.php|schedule_student' );
+				// Hook.
+				do_action( 'Scheduling/Schedule.php|schedule_student' );
+			}
 
 			$opener_url = 'Modules.php?modname=' . $_REQUEST['modname'] .
 			'&year_date=' . $_REQUEST['year_date'] .

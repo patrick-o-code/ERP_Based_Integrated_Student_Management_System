@@ -100,6 +100,7 @@ Changes in 12.5
 - CSS FlatSIS theme Prevent body from scrolling when submenu open + scroll submenu in stylesheet.css
 - CSP use PHP instead of JS for salute header in Portal.php
 - Fix database partly installed due to user abort in InstallDatabase.php
+- Fix SQL error null value in column "student_id" in Schedule.php
 
 Changes in 12.4.3
 -----------------
