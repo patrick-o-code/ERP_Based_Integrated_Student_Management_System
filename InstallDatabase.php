@@ -30,6 +30,9 @@ require_once 'database.inc.php';
 // Fix PHP Fatal error maximum execution time of 120 seconds exceeded
 set_time_limit( 240 );
 
+// Fix database partly installed due to user abort
+ignore_user_abort( true );
+
 // rosariosis.sql files available for database translation.
 $locales = [
 	'fr_FR.utf8' => 'French',
