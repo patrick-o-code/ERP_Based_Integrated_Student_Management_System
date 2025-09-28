@@ -123,7 +123,7 @@ function ReferralLogsGenerate( $extra )
 			}
 			elseif ( ! $start_date )
 			{
-				$start_date = GetMP( GetCurrentMP( 'FY', DBDate() ), 'START_DATE' );
+				$start_date = GetMP( GetFullYearMP(), 'START_DATE' );
 			}
 
 			DrawHeader( ProperDate( $start_date ) . ' - ' . ProperDate( $end_date ) );
