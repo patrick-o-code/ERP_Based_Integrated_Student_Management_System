@@ -145,8 +145,9 @@ function SetUserStaffID( $staff_id )
 				WHERE STAFF_ID='" . (int) $staff_id . "'
 				AND SYEAR='" . UserSyear() . "'" );
 
-			if ( ! trim( (string) User( 'SCHOOLS' ), ',' )
-				|| ! trim( (string) $admin_schools, ',' ) )
+			if ( $admin_schools !== false // (Current) User not found
+				&& ( ! trim( (string) User( 'SCHOOLS' ), ',' )
+					|| ! trim( (string) $admin_schools, ',' ) ) )
 			{
 				// (Current) User is assigned to "All Schools".
 				break;

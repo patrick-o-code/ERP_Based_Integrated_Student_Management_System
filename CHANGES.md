@@ -101,6 +101,7 @@ Changes in 12.5
 - CSP use PHP instead of JS for salute header in Portal.php
 - Fix database partly installed due to user abort in InstallDatabase.php
 - Fix SQL error null value in column "student_id" in Schedule.php
+- Fix PHP warning when (Current) User not found / was just deleted in Current.php
 
 Changes in 12.4.3
 -----------------
