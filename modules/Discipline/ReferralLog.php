@@ -13,6 +13,10 @@ if ( empty( $_REQUEST['search_modfunc'] ) )
 {
 	DrawHeader( ProgramTitle() );
 
+	Widgets( 'reporter' );
+
+	Widgets( 'incident_date' );
+
 	// @deprecated since 12.4.1 `$extra['second_col']`, use `$extra['search']` instead
 	$extra['search'] = issetVal( $extra['search'], '' );
 
