@@ -163,6 +163,8 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 {
 	global $_ROSARIO;
 
+	static $js_included = false;
+
 	$id = GetInputID( $name );
 
 	$strength = ( mb_strpos( $extra, 'strength' ) !== false );
@@ -195,8 +197,6 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 
 	$min_required_strength = $strength ? Config( 'PASSWORD_STRENGTH' ) : 0;
 
-	$password_strength_js = '';
-
 	if ( $min_required_strength )
 	{
 		// @since 12.5 CSP remove unsafe-inline Javascript
@@ -213,9 +213,16 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 		);
 
 		$extra .= ' data-user-inputs="' . AttrEscape( json_encode( $user_inputs ) ) . '"';
+	}
 
+	$js = '';
+
+	if ( ! $js_included )
+	{
 		// Call our jQuery PasswordStrength plugin based on zxcvbn.
-		$password_strength_js = '<script src="assets/js/csp/functions/PasswordInput.js?v=12.5"></script>';
+		$js = '<script src="assets/js/csp/functions/PasswordInput.js?v=12.5"></script>';
+
+		$js_included = true;
 	}
 
 	$input = TextInput( ( $value !== str_repeat( '*', 8 ) ? $value : '' ), $name, '', $extra, false );
@@ -237,7 +244,7 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 	}
 
 	$input .= $lock_icons . $password_strength_bars .
-		FormatInputTitle( $title, $id, $required ) . $password_strength_js;
+		FormatInputTitle( $title, $id, $required ) . $js;
 
 	$input = '<div class="password-input-wrapper">' . $input . '</div>';
 

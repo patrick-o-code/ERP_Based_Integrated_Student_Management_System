@@ -7,7 +7,7 @@
  */
 
 csp.functions.passwordInput = function() {
-	var $p = $('.password-input-wrapper input[strength]');
+	var $p = $('.password-input-wrapper input');
 
 	$p.each(function() {
 		$(this).passwordStrength(
