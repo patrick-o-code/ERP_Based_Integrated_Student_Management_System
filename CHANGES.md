@@ -57,7 +57,6 @@ Changes in 12.5
 - JS remove inline code from `_makePaymentsCommentsInput()` in Student_Billing/functions.inc.php & MakePaymentsCommentsInput.js
 - JS remove inline code from Addresses & Contacts tab in Address.inc.php & Address.js
 - JS remove inline code from General Info tab in General_Info.inc.php & CreateStudentAccount.js
-- JS remove inline code from program in Profiles.php & Profiles.js
 - JS remove inline code from program in StudentLabels.fnc.php & StudentLabels.js
 - JS remove inline code from BottomButtonBackUpdate() in Bottom.fnc.php & BottomButtonBackUpdate.js
 - JS remove inline code from ChartjsChart() in Charts.fnc.php & ChartjsChart.js

@@ -306,19 +306,16 @@ if ( $_REQUEST['modfunc'] != 'delete' )
 			<option value="admin">' . _( 'Administrator' ) . '</option>' .
 		'<option value="teacher">' . _( 'Teacher' ) . '</option>' .
 		'<option value="parent">' . _( 'Parent' ) . '</select>' .
-		FormatInputTitle( _( 'Type' ), 'new_profile_type' ) .
-		'</div>';
+		FormatInputTitle( _( 'Type' ), 'new_profile_type' );
 
 		// @since 12.5 CSP remove unsafe-inline Javascript
-		echo '<input type="hidden" disabled id="new_profile_html" value="' . AttrEscape( $new_profile_form ) . '" />';
-		echo '<script src="assets/js/csp/modules/users/Profiles.js?v=12.5"></script>';
-
 		echo '<tr class="highlight-hover"><td>' .
-		button( 'add', '', '#!', 'onclick-add-new-profile' ) .
+		button( 'add', '', '"#!" data-id="new_profile_div"', 'onclick-toggle' ) .
 			'</td><td colspan="2">';
 
-		echo '<a href="#!" class="onclick-add-new-profile">' .
-		_( 'Add a User Profile' ) . '</a><br /><div id="new_profile_div"></div></td></tr>';
+		echo '<a href="#!" class="onclick-toggle" data-id="new_profile_div">' .
+		_( 'Add a User Profile' ) . '</a><br /><div id="new_profile_div" class="hide">' .
+		$new_profile_form . '</div></td></tr>';
 	}
 
 	echo '</table><br />';
