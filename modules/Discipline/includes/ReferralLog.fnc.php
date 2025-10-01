@@ -83,10 +83,13 @@ function ReferralLogsGenerate( $extra )
 
 	$referral_logs = [];
 
-	$extra = ReferralLogsGetExtra( $extra );
+	if ( ! empty( $_REQUEST['elements'] ) ) // Fix PHP notice undefined index: elements
+	{
+		$extra = ReferralLogsGetExtra( $extra );
 
-	// Get Referrals
-	$referrals_RET = GetStuList( $extra );
+		// Get Referrals
+		$referrals_RET = GetStuList( $extra );
+	}
 
 	if ( empty( $referrals_RET ) )
 	{
