@@ -599,8 +599,6 @@ function MarkDownInputPreview( $input_id )
 		return false;
 	}
 
-	ob_start();
-
 	if ( ! $js_included )
 	{
 		// @since 12.5 CSP remove unsafe-inline Javascript
@@ -610,6 +608,8 @@ function MarkDownInputPreview( $input_id )
 
 		$js_included = true;
 	}
+
+	ob_start();
 
 	?>
 	<div class="md-preview">
