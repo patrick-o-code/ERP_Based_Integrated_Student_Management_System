@@ -99,13 +99,7 @@ $.fn.passwordStrength = function(minStrength, requiredText, userInputs) {
 			return;
 		}
 
-		if (minStrength > 0 && typeof zxcvbn == 'undefined') {
-			$.getScript('assets/js/zxcvbn/zxcvbn.js', function() {
-				zxcvbnInit();
-			});
-		} else {
-			zxcvbnInit();
-		}
+		zxcvbnInit();
 
 		$password.nextAll('.password-toggle').bind('click', togglePassword);
 

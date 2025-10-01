@@ -163,7 +163,8 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 {
 	global $_ROSARIO;
 
-	static $js_included = false;
+	static $zxcvbn_included = false,
+		$js_included = false;
 
 	$id = GetInputID( $name );
 
@@ -195,6 +196,8 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 
 	$extra .= ' type="password" autocomplete="new-password"';
 
+	$js = '';
+
 	$min_required_strength = $strength ? Config( 'PASSWORD_STRENGTH' ) : 0;
 
 	if ( $min_required_strength )
@@ -213,14 +216,20 @@ function PasswordInput( $value, $name, $title = '', $extra = '', $div = true )
 		);
 
 		$extra .= ' data-user-inputs="' . AttrEscape( json_encode( $user_inputs ) ) . '"';
-	}
 
-	$js = '';
+		if ( ! $zxcvbn_included )
+		{
+			// @since 12.5 CSP remove unsafe inline Javascript
+			$js .= '<script src="assets/js/zxcvbn/zxcvbn.js"></script>';
+
+			$zxcvbn_included = true;
+		}
+	}
 
 	if ( ! $js_included )
 	{
 		// Call our jQuery PasswordStrength plugin based on zxcvbn.
-		$js = '<script src="assets/js/csp/functions/PasswordInput.js?v=12.5"></script>';
+		$js .= '<script src="assets/js/csp/functions/PasswordInput.js?v=12.5"></script>';
 
 		$js_included = true;
 	}

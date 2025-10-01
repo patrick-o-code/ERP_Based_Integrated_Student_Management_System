@@ -3,7 +3,7 @@
  * CSP stands for Content Security Policy
  * It mainly blocks inline Javascript to help prevent XSS
  *
- * @link https://gitlab.com/francoisjacquet/rosariosis/-/blob/mobile/plugins/Content_Security_Plugin/README.md
+ * @link https://gitlab.com/francoisjacquet/rosariosis/-/blob/mobile/plugins/Content_Security_Policy/README.md
  *
  * @see ContentSecurityPolicy() function in Warehouse.php
  *
