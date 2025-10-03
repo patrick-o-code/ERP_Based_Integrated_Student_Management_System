@@ -25,13 +25,12 @@ csp.programFunctions.bottomButtonBackUpdate = function() {
 		.attr('href', b.dataset.href)
 		.attr('title', b.dataset.text);
 
-	/**
-	 * Fix CSP inline script violation: do NOT use jQuery .after() function here
-	 * while retaining the possibility to load <script> inside the injected HTML
-	 *
-	 * @link https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML
-	 */
-	document.getElementById('BottomButtonBack').insertAdjacentHTML('afterend', b.dataset.after);
+	if (b.dataset.after) {
+		document.getElementById('BottomButtonBack').insertAdjacentHTML('afterend', '<span id="BottomButtonBackAfter"></span>');
+
+		// Here we use setInnerHTML() (not jQuery) so Javascript gets loaded
+		setInnerHTML(document.getElementById('BottomButtonBackAfter'), b.dataset.after);
+	}
 
 	return true;
 }
