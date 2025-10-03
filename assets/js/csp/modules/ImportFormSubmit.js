@@ -34,7 +34,7 @@ csp.modules.importFormSubmit = function(e) {
 		if ( seconds == 0 ) {
 			clearInterval(countdown);
 
-			$('.import-form').off('submit').submit();
+			$('.import-form').off('submit').trigger('submit');
 
 			return;
 		}
