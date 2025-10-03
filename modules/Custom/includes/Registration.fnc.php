@@ -272,10 +272,10 @@ function RegistrationContactName( $name )
 {
 	$required = $name === 'parent[0]' ? ' required' : '';
 
-	echo '<table><tr class="st"><td>' .
+	echo '<table class="cellspacing-0"><tr class="st"><td>' .
 		TextInput( '', $name . '[FIRST_NAME]', _( 'First Name' ), 'maxlength="50"' . $required ) . '</td>';
 
-	echo '<td>' . TextInput( '', $name . '[MIDDLE_NAME]', _( 'Middle Name' ), 'maxlength="50"' ) . '</td>';
+	echo '<td>' . TextInput( '', $name . '[MIDDLE_NAME]', _( 'Middle Name' ), 'maxlength="50" size="9"' ) . '</td>';
 
 	echo '<td>' . TextInput( '', $name . '[LAST_NAME]', _( 'Last Name' ), 'maxlength="50"' . $required ) .
 		'</td></tr></table>';

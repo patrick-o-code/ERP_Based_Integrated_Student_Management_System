@@ -103,6 +103,7 @@ Changes in 12.5
 - Fix PHP warning when (Current) User not found / was just deleted in Current.php
 - Include Reporter & Incident Date widgets on the Find a Student form in ReferralLog.php
 - Fix PHP notice undefined index: elements in ReferralLog.php
+- HTML responsive adjust Contact form name inputs on small desktop screen in Registration.fnc.php
 
 Changes in 12.4.3
 -----------------
