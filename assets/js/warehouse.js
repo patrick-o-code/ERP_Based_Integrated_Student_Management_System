@@ -524,7 +524,8 @@ function getURLParam(url, name) {
  */
 var ajaxPostForm = function(form, event) {
 	var target = form.target || 'body',
-		event = (typeof event !== 'undefined') ? event : false;
+		event = (typeof event !== 'undefined') ? event : false,
+		error = false;
 
 	$('.onclick-checkall[data-error]', form).first().each(function() {
 		// Prevent submitting form if no checkboxes are checked
@@ -542,8 +543,14 @@ var ajaxPostForm = function(form, event) {
 
 		alert(this.dataset.error);
 
+		error = true;
+
 		return false;
 	});
+
+	if (error) {
+		return false;
+	}
 
 	if (form.action.indexOf('_ROSARIO_PDF') != -1) // Print PDF.
 	{
