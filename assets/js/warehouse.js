@@ -11,12 +11,17 @@ var addHTML = function(html, id, replace) {
 	// jQuery does not handle IDs with brackets [], check _makeMultipleInput().
 	var el = document.getElementById(id);
 
-	// Here we use setInnerHTML() (not jQuery) so Javascript gets loaded
 	if (replace) {
-		setInnerHTML(el, html);
-	} else {
-		// Append HTML
+		el.innerHTML = '';
+	}
+
+	// Append HTML
+	if (html.indexOf('<script') != -1) {
+		// Here we use setInnerHTML() (not jQuery) so Javascript gets loaded
 		setInnerHTML(el, el.innerHTML + html);
+	} else {
+		// Here we use insertAdjacentHTML() so select input selected element is retained
+		el.insertAdjacentHTML('beforeend', html);
 	}
 }
 
