@@ -16,9 +16,16 @@ csp.modules.schoolSetup.markingPeriods = {
 
 		for (var i = 0,max = dates.length; i < max; i++) {
 			dateStartInput = document.getElementsByName( dates[i] + '_tables[' + mpId + '][POST_START_DATE]' )[0];
+
+			if (dateStartInput) {
+				dateStartInput.required = this.checked;
+			}
+
 			dateEndInput = document.getElementsByName( dates[i] + '_tables[' + mpId + '][POST_END_DATE]' )[0];
 
-			dateStartInput.required = dateEndInput.required = this.checked;
+			if (dateEndInput) {
+				dateEndInput.required = this.checked;
+			}
 		}
 
 		// Add .legend-red CSS class to label if input is required/
@@ -26,7 +33,9 @@ csp.modules.schoolSetup.markingPeriods = {
 		$(dateEndInput).parent().nextAll('.legend-gray').toggleClass('legend-red', this.checked);
 	},
 	onEvents: function() {
-		$('.onclick-mp-does-grades').on('click', csp.modules.schoolSetup.markingPeriods.postDatesRequired);
+		// Fix function called as many times as we browsed the page in AJAX / loaded this JS file
+		$(document).off('click', '.onclick-mp-does-grades');
+		$(document).on('click', '.onclick-mp-does-grades', csp.modules.schoolSetup.markingPeriods.postDatesRequired);
 	}
 }
 
