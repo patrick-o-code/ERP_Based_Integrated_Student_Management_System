@@ -18,7 +18,7 @@ csp.modules.schoolSetup.accessLog = {
 				url += 'username=';
 			}
 
-			return url + this.firstChild.data;
+			return url + encodeURIComponent( '"' + this.firstChild.data + '"' );
 		});
 	},
 	ready: function() {
