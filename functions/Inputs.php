@@ -501,8 +501,6 @@ function TextAreaInput( $value, $name, $title = '', $extra = '', $div = true, $t
  */
 function TinyMCEInput( $value, $name, $title = '', $extra = '' )
 {
-	global $locale;
-
 	static $js_included = false;
 
 	$div = false;
@@ -555,11 +553,25 @@ function TinyMCEInput( $value, $name, $title = '', $extra = '' )
 
 	if ( ! $js_included )
 	{
+		$language = '';
+
+		if ( file_exists( 'assets/js/tinymce/langs/' . mb_substr( $_SESSION['locale'], 0, 2 ) . '.js' ) )
+		{
+			// For example: es (Spanish).
+			$language = mb_substr( $_SESSION['locale'], 0, 2 );
+		}
+		elseif ( file_exists( 'assets/js/tinymce/langs/' . mb_substr( $_SESSION['locale'], 0, 5 ) . '.js' ) )
+		{
+			// For example: fr_FR (French).
+			$language = mb_substr( $_SESSION['locale'], 0, 5 );
+		}
+
 		// Include main TinyMCE javascript
 		// and its configuration (plugin, language...).
 		ob_start(); ?>
 
 		<script src="assets/js/tinymce/tinymce.min.js?v=4.9.8"></script>
+		<input type="hidden" disabled id="tinymce_language" value="<?php echo AttrEscape( $language ); ?>" />
 		<script src="assets/js/csp/functions/TinyMCEInput.js?v=12.5"></script>
 		<?php
 		/**

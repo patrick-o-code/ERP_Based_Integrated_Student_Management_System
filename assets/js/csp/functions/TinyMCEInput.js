@@ -22,7 +22,7 @@ var tinymceSettings = {
 		success("data:" + blobInfo.blob().type + ";base64," + blobInfo.base64());
 	},
 	pagebreak_separator: '<div style="page-break-after: always;"></div>',
-	language: document.documentElement.lang,
+	language: $('#tinymce_language').val(),
 	directionality : (document.documentElement.dir === 'RTL' ? 'rtl' : 'ltr'),
 	min_height: 200,
 	relative_urls: false,
