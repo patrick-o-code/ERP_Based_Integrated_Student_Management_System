@@ -12,7 +12,7 @@ csp.modules.schoolSetup.markingPeriods = {
 		var dates = ['month', 'day', 'year'],
 			dateStartInput,
 			dateEndInput,
-			mpId = getURLParam(document.URL, 'marking_period_id');
+			mpId = getURLParam(document.URL, 'marking_period_id') || 'new';
 
 		for (var i = 0,max = dates.length; i < max; i++) {
 			dateStartInput = document.getElementsByName( dates[i] + '_tables[' + mpId + '][POST_START_DATE]' )[0];
