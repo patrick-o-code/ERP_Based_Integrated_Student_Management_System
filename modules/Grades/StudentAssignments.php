@@ -57,7 +57,7 @@ if ( ! empty( $_REQUEST['assignment_id'] ) )
 
 	DrawHeader( '<a href="' . URLEscape( $assignments_link ) . '">&laquo; ' . _( 'Back' ) . '</a>' );
 
-	$form_action = PreparePHP_SELF( $_REQUEST, [], [ 'modfunc' => 'submit' ] );
+	$form_action = PreparePHP_SELF( $_REQUEST, [ 'submission_file' ], [ 'modfunc' => 'submit' ] );
 
 	echo '<form method="POST" action="' . $form_action . '">';
 
