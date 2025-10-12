@@ -25,7 +25,7 @@ Instructions d'installation pour:
 - [**Mac**](https://gitlab.com/francoisjacquet/rosariosis/-/wikis/How-to-install-RosarioSIS-on-Mac-(macOS,-OS-X)) (en anglais)
 - [**cPanel**](https://gitlab.com/francoisjacquet/rosariosis/wikis/How-to-install-RosarioSIS-on-cPanel) (en anglais)
 - [**Softaculous**](https://gitlab.com/francoisjacquet/rosariosis/-/wikis/How-to-install-RosarioSIS-with-Softaculous) (en anglais)
-- [**Docker**](https://github.com/francoisjacquet/docker-rosariosis) (en anglais)
+- [**Docker**](https://gitlab.com/francoisjacquet/docker-rosariosis/) (en anglais)
 - **Ubuntu** (ou n'importe quelle distribution Linux basée sur Debian), voir ci-dessous
 
 Si vous ne disposez pas des moyens techniques ou des compétences pour installer RosarioSIS, vous pouvez souscrire à une offre hébergée sur https://www.rosariosis.com/fr
@@ -186,7 +186,8 @@ Autres langues
 
 Instructions d'installation pour Ubuntu 22.04 et la locale français (France) :
 ```bash
-server$ sudo locale-gen fr_FR.UTF-8
+server$ echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen
+server$ sudo locale-gen
 server$ sudo update-locale
 ```
 Ensuite redémarrez le serveur.
