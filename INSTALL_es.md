@@ -184,7 +184,7 @@ Reiniciar PHP y Apache.
 Otros lenguajes
 ---------------
 
-Instrucciones de instalación para Ubuntu 22.04. Instalar la locale español (España):
+Instrucciones de instalación para Ubuntu. Instalar la locale español (España):
 ```bash
 server$ echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen
 server$ sudo locale-gen
@@ -211,7 +211,7 @@ Definir el camino en el archivo `config.inc.php`:
 Envio de email
 --------------
 
-Instrucciones de instalación para Ubuntu 22.04. Activar la función PHP `mail()`:
+Instrucciones de instalación para Ubuntu. Activar la función PHP `mail()`:
 ```bash
 server$ sudo apt-get install sendmail
 ```

@@ -184,7 +184,7 @@ Restart PHP and Apache.
 Other languages
 ---------------
 
-Install instructions for Ubuntu 22.04. Install the Spanish (Spain) locale:
+Install instructions for Ubuntu. Install the Spanish (Spain) locale:
 ```bash
 server$ echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen
 server$ sudo locale-gen
@@ -210,7 +210,7 @@ Set path in the `config.inc.php` file:
 Send email
 ----------
 
-Install instructions for Ubuntu 22.04. Activate the PHP `mail()` function:
+Install instructions for Ubuntu. Activate the PHP `mail()` function:
 ```bash
 server$ sudo apt-get install sendmail
 ```
