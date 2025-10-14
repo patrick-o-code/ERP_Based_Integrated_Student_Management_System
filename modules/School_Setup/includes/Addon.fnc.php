@@ -290,7 +290,7 @@ function AddonZipCanUnzip( $zip_path )
  * @param string $type      Add-on type: module|plugin.
  * @param string $addon_dir Add-on directory. For example: 'My_Module'.
  *
- * @return bool False if usage statistics are disabled, true otherwise.
+ * @return bool False if usage statistics are disabled or no curl, true otherwise.
  */
 function AddonInstallationStatisticsPost( $type, $addon_dir )
 {
@@ -334,12 +334,20 @@ function AddonInstallationStatisticsPost( $type, $addon_dir )
 		// @since 12.5 CPS remove unsafe-inline Javascript
 		require_once 'classes/curl.php';
 
-		$curl = new curl;
+		try
+		{
+			$curl = new curl;
 
-		$curl->post(
-			'https://www.rosariosis.org/addon-statistics/installation-submit.php',
-			$data
-		);
+			$curl->post(
+				'https://www.rosariosis.org/addon-statistics/installation-submit.php',
+				$data
+			);
+		}
+		catch ( Exception $e )
+		{
+			// No curl installed, fail.
+			return false;
+		}
 
 		return true;
 	}

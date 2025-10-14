@@ -315,9 +315,16 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			// POST poll data to rosariosis.org.
 			require_once 'classes/curl.php';
 
-			$curl = new curl;
+			try
+			{
+				$curl = new curl;
 
-			$curl->post( 'https://www.rosariosis.org/installation-poll/poll-submit.php', $data );
+				$curl->post( 'https://www.rosariosis.org/installation-poll/poll-submit.php', $data );
+			}
+			catch ( Exception $e )
+			{
+				// No curl installed, fail silently.
+			}
 
 			return '';
 		}

@@ -105,6 +105,7 @@ Changes in 12.5
 - Fix PHP notice undefined index: elements in ReferralLog.php
 - HTML responsive adjust Contact form name inputs on small desktop screen in Registration.fnc.php
 - Update French & Spanish translations in rosariosis.po
+- Fail if no curl installed in FirstLogin.fnc.php & Addon.fnc.php
 
 Changes in 12.4.3
 -----------------
