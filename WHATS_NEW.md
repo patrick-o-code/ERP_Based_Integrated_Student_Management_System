@@ -2,6 +2,22 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.5
+-----------
+
+**Breaking change**, please upgrade the following plugin:
+- [Assignment Max Points](https://gitlab.com/francoisjacquet/Assignment_Max_Points/) 1.5+ (July 2025)
+
+[Content Security Policy](https://en.wikipedia.org/wiki/Content_Security_Policy) (phase 1): prepare
+- Move inline Javascript to external files
+- Use curl to send information to other domains instead of AJAX or form action
+
+[CoolAdmin](https://www.rosariosis.org/themes/cooladmin/) theme, sponsored by International Philippine School in Jeddah
+
+[Hostel Premium](https://www.rosariosis.org/modules/hostel/)
+- Automatically remove inactive students from their room (performed once a day), sponsored by AT group, Slovenia
+
+
 New in 12.4
 -----------
 
