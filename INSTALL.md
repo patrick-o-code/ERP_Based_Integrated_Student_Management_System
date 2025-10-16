@@ -75,7 +75,7 @@ Now, you're ready to setup the RosarioSIS database. If you have access to the co
 
 The following instructions are for **PostgreSQL** (for MySQL see below):
 
-1. Login to PostgreSQL as the postgres user:
+1. Log into PostgreSQL as the postgres user:
 ```bash
 server$ sudo -u postgres psql
 ```
@@ -102,7 +102,7 @@ local   all             all                                     md5
 
 The following instructions are for **MySQL**:
 
-1. Login to MySQL as the root user:
+1. Log into MySQL as the root user:
 ```bash
 server$ sudo mysql
 ```
