@@ -78,3 +78,14 @@ body {
 .dashboard-module-title img {
 	vertical-align: middle;
 }
+
+/**
+ * Fix wkhtmltopdf error segmentation fault when CSS quotes property defined
+ *
+ * @link https://github.com/wkhtmltopdf/wkhtmltopdf/issues/4115
+ */
+
+blockquote,
+q {
+	quotes: initial
+}
