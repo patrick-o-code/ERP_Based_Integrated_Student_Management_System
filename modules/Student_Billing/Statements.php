@@ -31,6 +31,9 @@ else
 
 		$handle = PDFStart();
 
+		$user_schools = trim( (string) User( 'SCHOOLS' ), ',' ) ?
+			explode( ',', trim( User( 'SCHOOLS' ), ',' ) ) : '';
+
 		foreach ( (array) $students_RET as $student )
 		{
 			if ( isset( $_REQUEST['mailing_labels'] )
@@ -48,6 +51,18 @@ else
 					// @since 11.6 Add Mailing Label position
 					echo MailingLabelPositioned( $address['MAILING_LABEL'] );
 
+					if ( ! empty( $_REQUEST['_search_all_schools'] )
+						&& $address['SCHOOL_ID'] != UserSchool() )
+					{
+						// Check user is in student's school.
+						if ( ! $user_schools
+							|| in_array( $address['SCHOOL_ID'], $user_schools ) )
+						{
+							// Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked
+							$_SESSION['UserSchool'] = $address['SCHOOL_ID'];
+						}
+					}
+
 					SetUserStudentID( $address['STUDENT_ID'] );
 
 					require 'modules/Student_Billing/StudentFees.php';
@@ -58,6 +73,18 @@ else
 			}
 			else
 			{
+				if ( ! empty( $_REQUEST['_search_all_schools'] )
+					&& $student['SCHOOL_ID'] != UserSchool() )
+				{
+					// Check user is in student's school.
+					if ( ! $user_schools
+						|| in_array( $student['SCHOOL_ID'], $user_schools ) )
+					{
+						// Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked
+						$_SESSION['UserSchool'] = $student['SCHOOL_ID'];
+					}
+				}
+
 				SetUserStudentID( $student['STUDENT_ID'] );
 
 				unset( $_ROSARIO['DrawHeader'] );

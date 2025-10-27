@@ -108,6 +108,7 @@ Changes in 12.5
 - Fail if no curl installed in FirstLogin.fnc.php & Addon.fnc.php
 - Fix regression since 12.1 wkhtmltopdf error segmentation fault when CSS quotes property defined in wkhtmltopdf.css
 - Fix PHP fatal error unsupported operand types: string - int in database.inc.php
+- Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked in Search.fnc.php, Statements.php, PrintStudentInfo.php & Students/Search.inc.php
 
 Changes in 12.4.3
 -----------------

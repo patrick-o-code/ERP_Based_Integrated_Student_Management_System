@@ -385,7 +385,16 @@ else
 		{
 			if ( $students_RET[1]['SCHOOL_ID'] != UserSchool() )
 			{
-				$_SESSION['UserSchool'] = $students_RET[1]['SCHOOL_ID'];
+				$user_schools = trim( (string) User( 'SCHOOLS' ), ',' ) ?
+					explode( ',', trim( User( 'SCHOOLS' ), ',' ) ) : '';
+
+				// Check user is in student's school.
+				if ( ! $user_schools
+					|| in_array( $students_RET[1]['SCHOOL_ID'], $user_schools ) )
+				{
+					// Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked
+					$_SESSION['UserSchool'] = $students_RET[1]['SCHOOL_ID'];
+				}
 			}
 
 			SetUserStudentID( $students_RET[1]['STUDENT_ID'] );

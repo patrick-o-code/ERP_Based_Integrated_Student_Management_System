@@ -52,8 +52,23 @@ if ( $_REQUEST['modfunc'] === 'save'
 
 			$handle = PDFStart();
 
+			$user_schools = trim( (string) User( 'SCHOOLS' ), ',' ) ?
+				explode( ',', trim( User( 'SCHOOLS' ), ',' ) ) : '';
+
 			foreach ( (array) $RET as $student )
 			{
+				if ( ! empty( $_REQUEST['_search_all_schools'] )
+					&& $student['SCHOOL_ID'] != UserSchool() )
+				{
+					// Check user is in student's school.
+					if ( ! $user_schools
+						|| in_array( $student['SCHOOL_ID'], $user_schools ) )
+					{
+						// Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked
+						$_SESSION['UserSchool'] = $student['SCHOOL_ID'];
+					}
+				}
+
 				SetUserStudentID( $student['STUDENT_ID'] );
 
 				$_REQUEST['student_id'] = $student['STUDENT_ID'];
