@@ -889,7 +889,7 @@ function SQLLimitForList( $sql_count, $limit = 1000 )
 	// Save in $_ROSARIO global var for later use in ListOutput().
 	$_ROSARIO['SQLLimitForList'] = [ 'limit' => (int) $limit, 'sql_count' => $sql_count ];
 
-	$LO_page = empty( $_REQUEST['LO_page'] ) ? 1 : $_REQUEST['LO_page'];
+	$LO_page = empty( $_REQUEST['LO_page'] ) ? 1 : (int) $_REQUEST['LO_page'];
 
 	return " LIMIT " . (int) $limit .
 		// Page > 1: add OFFSET.

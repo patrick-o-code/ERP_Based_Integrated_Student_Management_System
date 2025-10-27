@@ -107,6 +107,7 @@ Changes in 12.5
 - Update French & Spanish translations in rosariosis.po
 - Fail if no curl installed in FirstLogin.fnc.php & Addon.fnc.php
 - Fix regression since 12.1 wkhtmltopdf error segmentation fault when CSS quotes property defined in wkhtmltopdf.css
+- Fix PHP fatal error unsupported operand types: string - int in database.inc.php
 
 Changes in 12.4.3
 -----------------
