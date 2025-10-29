@@ -55,7 +55,7 @@ function Search( $type, $extra = null )
 
 						// Check user is in student's school.
 						if ( ! $user_schools
-							|| in_array( $_REQUEST['SCHOOL_ID'], $user_schools ) )
+							|| in_array( $_REQUEST['school_id'], $user_schools ) )
 						{
 							// Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked
 							$_SESSION['UserSchool'] = DBGetOne( "SELECT ID FROM schools
