@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.6
+---------------
+- HTML responsive stackable tables in Export.php
+
 Changes in 12.5
 ---------------
 - Add '&modfunc=save' to form URL in Expenses.php, Incomes.php, Salaries.php, StaffPayments.php, DisciplineForm.php, Referrals.php, EnterEligibility.php, InputFinalGrades.php, StudentFees.php, StudentPayments.php & Preferences.php

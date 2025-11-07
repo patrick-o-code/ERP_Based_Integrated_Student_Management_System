@@ -741,44 +741,38 @@ else
 			$category_title = ParseMLField( $category );
 		}
 
+		// @since 12.6 HTML responsive stackable tables
 		echo '<table class="widefat width-100p"><tr>
 				<th colspan="2">' . $category_title . '</th>
-			</tr><tr>';
+			</tr><tr class="st">';
 
 		if ( ParseMLField( $category, 'default' ) == 'Address' )
 		{
-			//FJ add <label> on checkbox
-			echo '<td>
-					<label>
-						<input type="checkbox" id="residence" value="Y" />&nbsp;' . _( 'Residence' ) .
-					'</label>
-				</td>';
+			echo Config( 'STUDENTS_USE_MAILING' ) ? '<td>' : '<td colspan="2">';
 
-			//FJ disable mailing address display
+			echo '<label><input type="checkbox" id="residence" value="Y" />&nbsp;' .
+				_( 'Residence' ) . '</label>';
+
 			if ( Config( 'STUDENTS_USE_MAILING' ) )
-				echo '<td>
-						<label>
-							<input type="checkbox" id="mailing" value="Y" />&nbsp;' . _( 'Mailing' ) .
-						'</label>
-					</td>';
+			{
+				echo '</td><td><label><input type="checkbox" id="mailing" value="Y" />&nbsp;' .
+					_( 'Mailing' ) . '</label></td>';
+			}
 			else
-				echo '<td>&nbsp;<input type="hidden" id="mailing" value="" /></td>';
+			{
+				// Disable mailing address display
+				echo '<input type="hidden" id="mailing" value="" /></td>';
+			}
 
-			echo '</tr><tr>';
+			echo '</tr><tr class="st">';
 
-			echo '<td>
-					<label>
-						<input type="checkbox" id="bus_pickup" value="Y" />&nbsp;' . _( 'Bus Pickup' ) .
-					'</label>
-				</td>';
+			echo '<td><label><input type="checkbox" id="bus_pickup" value="Y" />&nbsp;' .
+				_( 'Bus Pickup' ) . '</label></td>';
 
-			echo '<td>
-					<label>
-						<input type="checkbox" id="bus_dropoff" value="Y" />&nbsp;' . _( 'Bus Dropoff' ) .
-					'</label>
-				</td>';
+			echo '<td><label><input type="checkbox" id="bus_dropoff" value="Y" />&nbsp;' .
+				_( 'Bus Dropoff' ) . '</label></td>';
 
-			echo '</tr><tr>';
+			echo '</tr><tr class="st">';
 		}
 
 		$i = 0;
@@ -788,7 +782,15 @@ else
 		{
 			$i++;
 
-			echo '<td>';
+			if ( $i%2 != 0
+				&& count( $fields ) == $i )
+			{
+				echo '<td colspan="2">';
+			}
+			else
+			{
+				echo '<td>';
+			}
 
 			echo '<label>
 					<input type="checkbox" autocomplete="off" class="onclick-export-field" data-name="' .
@@ -826,12 +828,14 @@ else
 			echo '</td>';
 
 			if ( $i%2 == 0 )
-				echo '</tr><tr>';
+			{
+				echo '</tr><tr class="st">';
+			}
 		}
 
 		if ( $i%2 != 0 )
 		{
-			echo '<td>&nbsp;</td></tr><tr>';
+			echo '</tr><tr>';
 
 			$i++;
 		}
