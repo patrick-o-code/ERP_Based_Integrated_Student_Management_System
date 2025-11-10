@@ -186,7 +186,7 @@ Other languages
 
 Install instructions for Ubuntu. Install the Spanish (Spain) locale:
 ```bash
-server$ echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen
+server$ echo "es_ES.UTF-8 UTF-8" | sudo tee -a /etc/locale.gen
 server$ sudo locale-gen
 server$ sudo update-locale
 ```

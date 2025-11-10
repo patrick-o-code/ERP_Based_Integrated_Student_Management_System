@@ -186,7 +186,7 @@ Autres langues
 
 Instructions d'installation pour Ubuntu. Installer la locale français (France) :
 ```bash
-server$ echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen
+server$ echo "fr_FR.UTF-8 UTF-8" | sudo tee -a /etc/locale.gen
 server$ sudo locale-gen
 server$ sudo update-locale
 ```
