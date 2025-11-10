@@ -138,7 +138,7 @@ else
 		'TOTAL_BALANCE' => '<b>' . Currency( $billing_payments - $billing_fees ) . '</b>',
 	];
 
-	// Note: force displaying Add row on PDF.
+	// Force display of $link['add'] on PDF, Export or if not allowed to edit
 	$options = [ 'add' => true ];
 
 	ListOutput(

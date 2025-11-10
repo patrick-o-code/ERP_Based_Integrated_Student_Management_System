@@ -383,6 +383,14 @@ function ListOutput( $result, $column_names, $singular = '.', $plural = '.', $li
 		&& (int) $LO_save === (int) $options['save']
 		&& ! headers_sent() )
 	{
+		if ( $options['add']
+			&& ! empty( $link['add']['html'] )
+			&& ! empty( $result ) )
+		{
+			// @since 12.6 Export list: add Total row
+			$result[] = $link['add']['html'];
+		}
+
 		_listSave( $result, $column_names, $singular, $plural, Preferences( 'DELIMITER' ) );
 	}
 

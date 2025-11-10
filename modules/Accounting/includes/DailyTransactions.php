@@ -325,7 +325,7 @@ $link['add']['html'] += [
 	'CREDIT' => '<b>' . Currency( $totals['CREDIT'] ) . '</b>',
 ];
 
-// Force display of $link['add'] on PDF or if not allowed to edit
+// Force display of $link['add'] on PDF, Export or if not allowed to edit
 $options['add'] = true;
 
 // @since 11.8 Add pagination for list > 1000 results
