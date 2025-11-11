@@ -141,7 +141,7 @@ if ( $_REQUEST['modfunc'] === 'delete'
 			unset( $RosarioModules[$_REQUEST['module']] );
 
 			//save $RosarioModules
-			_saveRosarioModules();
+			Config( 'MODULES', serialize( $RosarioModules ) );
 
 			if ( is_dir( 'modules/' . $_REQUEST['module'] ) )
 			{
@@ -172,7 +172,7 @@ if ( $_REQUEST['modfunc'] === 'deactivate'
 			$RosarioModules[$_REQUEST['module']] = false;
 
 			//save $RosarioModules
-			_saveRosarioModules();
+			Config( 'MODULES', serialize( $RosarioModules ) );
 
 			//reload menu
 			_reloadMenu();
@@ -295,7 +295,7 @@ if ( $_REQUEST['modfunc'] === 'activate'
 		$RosarioModules[$_REQUEST['module']] = true;
 
 		//save $RosarioModules
-		_saveRosarioModules();
+		Config( 'MODULES', serialize( $RosarioModules ) );
 
 		//reload menu
 		_reloadMenu();
@@ -478,17 +478,6 @@ function _makeDelete( $module_title, $activated = null )
 	}
 
 	return $return;
-}
-
-function _saveRosarioModules()
-{
-	global $RosarioModules;
-
-	$MODULES = DBEscapeString( serialize( $RosarioModules ) );
-
-	DBQuery( "UPDATE config SET config_value='" . $MODULES . "' WHERE title='MODULES'" );
-
-	return true;
 }
 
 function _reloadMenu()

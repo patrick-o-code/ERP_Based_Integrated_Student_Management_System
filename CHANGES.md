@@ -12,6 +12,7 @@ Changes in 12.6
 - HTML add fieldset & padding to PopTable in MassRequests.php
 - CSS add .class-picture class in PrintClassPictures.php
 - CSS fix #365 pictures width, height & name overflow in PrintClassPictures.php
+- Remove `_saveRosarioModules()` local function, use Config() in Modules.inc.php
 
 Changes in 12.5
 ---------------
