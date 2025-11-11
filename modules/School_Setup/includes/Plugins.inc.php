@@ -63,7 +63,7 @@ if ( $_REQUEST['modfunc'] === 'delete'
 			unset( $RosarioPlugins[$_REQUEST['plugin']] );
 
 			//save $RosarioPlugins
-			_saveRosarioPlugins();
+			Config( 'PLUGINS', serialize( $RosarioPlugins ) );
 
 			if ( is_dir( 'plugins/' . $_REQUEST['plugin'] ) )
 			{
@@ -166,7 +166,7 @@ if ( $_REQUEST['modfunc'] == 'deactivate'
 			$RosarioPlugins[$_REQUEST['plugin']] = false;
 
 			//save $RosarioPlugins
-			_saveRosarioPlugins();
+			Config( 'PLUGINS', serialize( $RosarioPlugins ) );
 		}
 
 		//verify plugin dir exists
@@ -286,7 +286,7 @@ if ( $_REQUEST['modfunc'] === 'activate'
 		$RosarioPlugins[$_REQUEST['plugin']] = true;
 
 		//save $RosarioPlugins
-		_saveRosarioPlugins();
+		Config( 'PLUGINS', serialize( $RosarioPlugins ) );
 	}
 
 	// Unset modfunc & plugin & redirect URL.
@@ -491,16 +491,4 @@ function _makeDelete( $plugin_title, $activated = null )
 	}
 
 	return $return;
-}
-
-
-function _saveRosarioPlugins()
-{
-	global $RosarioPlugins;
-
-	$PLUGINS = DBEscapeString( serialize( $RosarioPlugins ) );
-
-	DBQuery( "UPDATE config SET config_value='" . $PLUGINS . "' WHERE title='PLUGINS'" );
-
-	return true;
 }

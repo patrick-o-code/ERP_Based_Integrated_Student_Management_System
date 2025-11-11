@@ -13,6 +13,7 @@ Changes in 12.6
 - CSS add .class-picture class in PrintClassPictures.php
 - CSS fix #365 pictures width, height & name overflow in PrintClassPictures.php
 - Remove `_saveRosarioModules()` local function, use Config() in Modules.inc.php
+- Remove `_saveRosarioPlugins()` local function, use Config() in Plugins.inc.php
 
 Changes in 12.5
 ---------------
