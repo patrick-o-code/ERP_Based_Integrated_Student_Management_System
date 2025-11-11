@@ -43,7 +43,7 @@ if ( $_REQUEST['modfunc'] === 'remove'
 	&& AllowEdit()
 	&& UserStudentID() )
 {
-	if ( DeletePrompt( _( 'Activity' ) ) )
+	if ( DeletePrompt( _( 'Activity' ), _( 'Remove' ) ) )
 	{
 		DBQuery( "DELETE FROM student_eligibility_activities
 			WHERE STUDENT_ID='" . UserStudentID() . "'
@@ -145,7 +145,7 @@ if ( UserStudentID()
 
 	$link['add']['html'] = [
 		'remove' => button( 'add' ),
-		'TITLE' => SelectInput( '', 'new_activity', '', $activities ) . SubmitButton( _( 'Add' ) ),
+		'TITLE' => SelectInput( '', 'new_activity', '', $activities, 'N/A', 'required' ) . SubmitButton( _( 'Add' ) ),
 		'START_DATE' => '&nbsp;',
 		'END_DATE' => '&nbsp;',
 	];
