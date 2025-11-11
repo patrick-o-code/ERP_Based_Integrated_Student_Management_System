@@ -22,14 +22,15 @@ if ( ! isset( $FS_IconsPath )
  *
  * @since 6.0 Add TipMessage to Food Service Icon.
  * @since 12.0 Use $FileUploadsPath . 'FS_icons/' instead of $FS_IconsPath
+ * @since 12.6 Fix responsive image height, rename $width param to $height
  *
  * @param $value
  * @param $name
- * @param $width
+ * @param $height
  *
  * @return string HTML image with icon.
  */
-function makeIcon( $value, $name, $width = '48' )
+function makeIcon( $value, $name, $height = '48' )
 {
 	global $FS_IconsPath,
 		$FileUploadsPath,
@@ -42,7 +43,7 @@ function makeIcon( $value, $name, $width = '48' )
 
 	if ( $value )
 	{
-		$return = '<img src="' . URLEscape( $fs_icons_path . $value ) . '" width="' . AttrEscape( $width ) . '" />';
+		$return = '<img src="' . URLEscape( $fs_icons_path . $value ) . '" style="height: ' . AttrEscape( $height ) . 'px" />';
 
 		if ( $THIS_RET )
 		{

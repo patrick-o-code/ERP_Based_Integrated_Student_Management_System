@@ -8,6 +8,7 @@ Changes in 12.6
 - Add rounded flag icons in locale/[locale_code]/flag.png
 - Fix #362 Order by Points as Letter Grade is alphabetically sorted (may be inaccurate) in Grades.php
 - Add Activity field is required + "Remove" activity (instead of "Delete") in Eligibility/Student.php
+- Fix responsive image height, rename $width param to $height in FS_Icons.inc.php
 
 Changes in 12.5
 ---------------
