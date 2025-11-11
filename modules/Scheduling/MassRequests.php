@@ -86,7 +86,8 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 
 		PopTable( 'header', _( 'Request to Add' ) );
 
-		echo '<table><tr><td>&nbsp;</td><td><div id="course_div">';
+		// @since 12.6 HTML add fieldset & padding to PopTable
+		echo '<table class="cellpadding-5 width-100p"><td><div id="course_div">';
 
 		if ( ! empty( $_SESSION['MassRequests.php'] ) )
 		{
@@ -101,11 +102,11 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 
 		// @since 12.0 Use colorBox instead of popup window
 		echo '</div><a href="' . URLEscape( $popup_url ) . '" class="colorbox">' .
-			_( 'Choose a Course' ) . '</a><br /><br /></td></tr>';
+			_( 'Choose a Course' ) . '</a><br /></td></tr>';
 
-		echo '<tr><td>' . _( 'With' ) . '</td><td>';
+		echo '<tr><td><fieldset><legend>' . _( 'With' ) . '</legend>';
 
-		echo '<table><tr class="st"><label><select name="with_teacher_id"><option value="">' . _( 'N/A' ) . '</option>';
+		echo '<table><tr class="st"><td><label><select name="with_teacher_id"><option value="">' . _( 'N/A' ) . '</option>';
 		//FJ fix bug teacher's schools is NULL
 		//$teachers_RET = DBGet( "SELECT STAFF_ID,LAST_NAME,FIRST_NAME,MIDDLE_NAME FROM staff WHERE SCHOOLS LIKE '%,".UserSchool().",%' AND SYEAR='".UserSyear()."' AND PROFILE='teacher' ORDER BY LAST_NAME,FIRST_NAME" );
 		$teachers_RET = DBGet( "SELECT STAFF_ID," . DisplayNameSQL() . " AS FULL_NAME
@@ -120,8 +121,9 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 			echo '<option value="' . AttrEscape( $teacher['STAFF_ID'] ) . '">' . $teacher['FULL_NAME'] . '</option>';
 		}
 
-		echo '</select>' . FormatInputTitle( _( 'Teacher' ) ) . '</label></td></td></tr>
-			<tr class="st"><td><label><select name="with_period_id"><option value="">' . _( 'N/A' ) . '</option>';
+		echo '</select>' . FormatInputTitle( _( 'Teacher' ) ) . '</label></td></tr>';
+
+		echo '<tr class="st"><td><label><select name="with_period_id"><option value="">' . _( 'N/A' ) . '</option>';
 
 		$periods_RET = DBGet( "SELECT PERIOD_ID,TITLE
 			FROM school_periods
@@ -134,19 +136,22 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 			echo '<option value="' . AttrEscape( $period['PERIOD_ID'] ) . '">' . $period['TITLE'] . '</option>';
 		}
 
-		echo '</select>' . FormatInputTitle( _( 'Period' ) ) . '</td></tr></table>';
+		echo '</select>' . FormatInputTitle( _( 'Period' ) ) . '</label></td></tr></table>';
 
-		echo '</td></tr><tr><td>' . _( 'Without' ) . '</td>';
+		echo '</fieldset></td></tr>';
 
-		echo '<td><table><tr class="st"><td><label><select name="without_teacher_id"><option value="">' . _( 'N/A' ) . '</option>';
+		echo '<tr><td><fieldset><legend>' . _( 'Without' ) . '</legend>';
+
+		echo '<table><tr class="st"><td><label><select name="without_teacher_id"><option value="">' . _( 'N/A' ) . '</option>';
 
 		foreach ( (array) $teachers_RET as $teacher )
 		{
 			echo '<option value="' . AttrEscape( $teacher['STAFF_ID'] ) . '">' . $teacher['FULL_NAME'] . '</option>';
 		}
 
-		echo '</select>' . FormatInputTitle( _( 'Teacher' ) ) . '</label></td></tr><tr class="st"><td>
-			<label><select name="without_period_id"><option value="">' . _( 'N/A' ) . '</option>';
+		echo '</select>' . FormatInputTitle( _( 'Teacher' ) ) . '</label></td></tr>';
+
+		echo '<tr class="st"><td><label><select name="without_period_id"><option value="">' . _( 'N/A' ) . '</option>';
 
 		foreach ( (array) $periods_RET as $period )
 		{
@@ -154,7 +159,7 @@ if ( $_REQUEST['modfunc'] != 'choose_course' )
 		}
 
 		echo '</select>' . FormatInputTitle( _( 'Period' ) ) . '</label></td></tr></table>';
-		echo '</td></tr></table>';
+		echo '</fieldset></td></tr></table>';
 
 		PopTable( 'footer' );
 

@@ -9,6 +9,7 @@ Changes in 12.6
 - Fix #362 Order by Points as Letter Grade is alphabetically sorted (may be inaccurate) in Grades.php
 - Add Activity field is required + "Remove" activity (instead of "Delete") in Eligibility/Student.php
 - Fix responsive image height, rename $width param to $height in FS_Icons.inc.php
+- HTML add fieldset & padding to PopTable in MassRequests.php
 
 Changes in 12.5
 ---------------
