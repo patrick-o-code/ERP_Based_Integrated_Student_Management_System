@@ -760,7 +760,10 @@ function _makeExtraAssnCols( $assignment_id, $column )
 				}
 			}
 
-			return $total . '&nbsp;/&nbsp;' . $total_points;
+			// Fix #362 Order by Points as sorting may be inaccurate
+			$sort_comment = '<!-- ' . $total . ' -->';
+
+			return $sort_comment . $total . '&nbsp;/&nbsp;' . $total_points;
 		}
 
 		if ( ! empty( $_REQUEST['include_all'] )
@@ -802,7 +805,11 @@ function _makeExtraAssnCols( $assignment_id, $column )
 				return $points . '&nbsp;/&nbsp;' . $total_points;
 			}
 
-			return '<span' . ( $div ? ' class="span-grade-points"' : '' ) . '>' .
+			// Fix #362 Order by Points as sorting may be inaccurate
+			$sort_comment = '<!-- ' . $points . ' -->';
+
+			return $sort_comment .
+			'<span' . ( $div ? ' class="span-grade-points"' : '' ) . '>' .
 			TextInput(
 				$points,
 				$name,
@@ -867,7 +874,11 @@ function _makeExtraAssnCols( $assignment_id, $column )
 	{
 		if ( ! $assignment_id )
 		{
-			return '<b>' . issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['GRADE_LETTER'] ) . '</b>';
+			// Fix #362 Order by Percent as Letter Grade is alphabetically sorted (may be inaccurate)
+			$sort_comment = '<!-- ' . $import_RET[$THIS_RET['STUDENT_ID']][1]['GRADE_PERCENT'] . ' -->';
+
+			return $sort_comment .
+				'<b>' . issetVal( $import_RET[$THIS_RET['STUDENT_ID']][1]['GRADE_LETTER'] ) . '</b>';
 		}
 
 		if ( ! empty( $_REQUEST['include_all'] )
@@ -890,7 +901,11 @@ function _makeExtraAssnCols( $assignment_id, $column )
 			if ( $total_points != 0
 				&& $points >= 0 )
 			{
-				return ( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '<span style="color:gray">' ) .
+				// Fix #362 Order by Points as Letter Grade is alphabetically sorted (may be inaccurate)
+				$sort_comment = '<!-- ' . $points . ' -->';
+
+				return $sort_comment .
+					( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '<span style="color:gray">' ) .
 					'<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' .
 					( $assignments_RET[$assignment_id][1]['DUE'] || $points != '' ? '' : '</span>' );
 			}
@@ -1020,7 +1035,13 @@ function _makeExtraStuCols( $value, $column )
 			{
 				if ( $THIS_RET['POINTS'] >= 0 )
 				{
-					return ( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' ? '' : '<span style="color:gray">' ) . '<b>' . _makeLetterGrade( $THIS_RET['POINTS'] / $THIS_RET['TOTAL_POINTS'] ) . '</b>' . ( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' ? '' : '</span>' );
+					// Fix #362 Order by Points as Letter Grade is alphabetically sorted (may be inaccurate)
+					$sort_comment = '<!-- ' . $THIS_RET['POINTS'] . ' -->';
+
+					return $sort_comment .
+						( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' ? '' : '<span style="color:gray">' ) .
+						'<b>' . _makeLetterGrade( $THIS_RET['POINTS'] / $THIS_RET['TOTAL_POINTS'] ) . '</b>' .
+						( $THIS_RET['DUE'] || $THIS_RET['POINTS'] != '' ? '' : '</span>' );
 				}
 			}
 
@@ -1114,16 +1135,19 @@ function _makeExtraCols( $assignment_id, $column )
 
 				$percent = _makeLetterGrade( $points / $total_points, 0, 0, '%' );
 
+				// Fix #362 Order by Points as Letter Grade is alphabetically sorted (may be inaccurate)
+				$sort_comment = '<!-- ' . $points . ' -->';
+
 				// modif Francois: display letter grade according to Configuration
-				return '<span' . ( $div ? ' class="span-grade-points"' : '' ) . '>' .
+				return $sort_comment .
+				'<span' . ( $div ? ' class="span-grade-points"' : '' ) . '>' .
 				TextInput(
 					$points,
 					$name,
 					'',
 					' size=2 maxlength=7',
 					$div
-				) . '</span>
-				<label for="' . $id . '">&nbsp;/&nbsp;' . $total_points . '</label><span>&nbsp;&minus;' .
+				) . '</span><label for="' . $id . '">&nbsp;/&nbsp;' . $total_points . '</label><span>&nbsp;&minus;' .
 				// @since 12.5 HTML space gain: remove minus between letter & percent grades
 				( ProgramConfig( 'grades', 'GRADES_DOES_LETTER_PERCENT' ) <= 0 ?
 					'&nbsp;<b>' . _makeLetterGrade( $points / $total_points ) . '</b>' :
