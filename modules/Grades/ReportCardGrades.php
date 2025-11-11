@@ -228,7 +228,7 @@ if ( ! $_REQUEST['modfunc'] )
 		];
 
 		$LO_columns = [
-			'TITLE' => _( 'Grade Scale' ),
+			'TITLE' => _( 'Title' ),
 			'GP_SCALE' => _( 'Scale Value' ),
 			'GP_PASSING_VALUE' => _( 'Minimum Passing Grade' ),
 			'COMMENT' => _( 'Comment' ),
