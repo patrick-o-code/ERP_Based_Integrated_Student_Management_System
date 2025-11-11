@@ -140,7 +140,8 @@ if ( $_REQUEST['modfunc'] === 'save' )
 		{
 			$teacher = $teachers_RET[$teacher_id][1];
 
-			echo '<tr><td style="vertical-align:bottom;"><table>';
+			// @since 12.6 CSS add .class-picture class
+			echo '<tr><td class="class-picture valign-bottom"><table class="width-100p">';
 
 			// @since 9.0 Fix Improper Access Control security issue: add random string to photo file name.
 			$picture_path = (array) glob( $UserPicturesPath . UserSyear() . '/' . $teacher_id . '.*jpg' );
