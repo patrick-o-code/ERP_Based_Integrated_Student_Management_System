@@ -129,7 +129,7 @@ if ( $_REQUEST['modfunc'] === 'save' )
 
 		$no_students_backprompt = false;
 
-		echo '<table class="width-100p">';
+		echo '<table class="width-100p fixed-col">';
 		//FJ school year over one/two calendar years format
 		echo '<tr><td colspan="5" class="center"><h3>' . FormatSyear( UserSyear(), Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) ) . ' - ' . $course_period['TITLE'] . '</h3></td></tr>';
 
@@ -158,25 +158,27 @@ if ( $_REQUEST['modfunc'] === 'save' )
 				$picture_path = end( $picture_path );
 			}
 
+			// @since 12.6 CSS fix #365 pictures width, height & name overflow
 			if ( $picture_path )
 			{
 				$size = getimagesize( $picture_path );
 
-				if ( $size[1] / $size[0] > 172 / 130 )
+				if ( $size[1] / $size[0] > 172 / 150 )
 				{
-					echo '<tr><td style="width:130px;"><img src="' . URLEscape( $picture_path ) . '" height="172"></td></tr>';
+					echo '<tr><td><img src="' . URLEscape( $picture_path ) . '" style="height: 172px"></td></tr>';
 				}
 				else
 				{
-					echo '<tr><td style="width:130px;"><img src="' . URLEscape( $picture_path ) . '" width="130"></td></tr>';
+					echo '<tr><td><img src="' . URLEscape( $picture_path ) . '" style="width: 150px"></td></tr>';
 				}
 			}
 			else
 			{
-				echo '<tr><td style="width:130px; height:172px;"></td></tr>';
+				echo '<tr><td>&nbsp;</td></tr>';
 			}
 
-			echo '<tr><td><span class="size-1"><b>' . $teacher['LAST_NAME'] . '</b><br />' . $teacher['FIRST_NAME'] . '</span></td></tr>';
+			echo '<tr><td><div class="size-1" style="width: 185px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><b>' .
+				$teacher['LAST_NAME'] . '</b><br />' . $teacher['FIRST_NAME'] . '</div></td></tr>';
 			echo '</table></td>';
 			$i++;
 		}
@@ -190,32 +192,35 @@ if ( $_REQUEST['modfunc'] === 'save' )
 				echo '<tr>';
 			}
 
-			echo '<td style="vertical-align:bottom;"><table>';
+			// @since 12.6 CSS add .class-picture class
+			echo '<td class="class-picture valign-bottom"><table class="width-100p">';
 
 			// @since 9.0 Fix Improper Access Control security issue: add random string to photo file name.
 			$picture_path = (array) glob( $StudentPicturesPath . '*/' . $student_id . '.*jpg' );
 
 			$picture_path = end( $picture_path );
 
+			// @since 12.6 CSS fix #365 pictures width, height & name overflow
 			if ( $picture_path )
 			{
 				$size = getimagesize( $picture_path );
 
-				if ( $size[1] / $size[0] > 172 / 130 )
+				if ( $size[1] / $size[0] > 172 / 150 )
 				{
-					echo '<tr><td style="width:130px;"><img src="' . URLEscape( $picture_path ) . '" height="172"></td></tr>';
+					echo '<tr><td><img src="' . URLEscape( $picture_path ) . '" style="height: 172px"></td></tr>';
 				}
 				else
 				{
-					echo '<tr><td style="width:130px;"><img src="' . URLEscape( $picture_path ) . '" width="130"></td></tr>';
+					echo '<tr><td><img src="' . URLEscape( $picture_path ) . '" style="width: 150px"></td></tr>';
 				}
 			}
 			else
 			{
-				echo '<tr><td style="width:130px; height:172px;"></td></tr>';
+				echo '<tr><td>&nbsp;</td></tr>';
 			}
 
-			echo '<tr><td><span class="size-1"><b>' . $student['LAST_NAME'] . '</b><br />' . $student['FIRST_NAME'] . '</span></td></tr>';
+			echo '<tr><td><div class="size-1" style="width: 185px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><b>' .
+				$student['LAST_NAME'] . '</b><br />' . $student['FIRST_NAME'] . '</div></td></tr>';
 			echo '</table></td>';
 
 			if ( $i % 5 == 0 )

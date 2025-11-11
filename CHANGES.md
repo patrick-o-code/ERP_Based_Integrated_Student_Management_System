@@ -11,6 +11,7 @@ Changes in 12.6
 - Fix responsive image height, rename $width param to $height in FS_Icons.inc.php
 - HTML add fieldset & padding to PopTable in MassRequests.php
 - CSS add .class-picture class in PrintClassPictures.php
+- CSS fix #365 pictures width, height & name overflow in PrintClassPictures.php
 
 Changes in 12.5
 ---------------
