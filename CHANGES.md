@@ -5,6 +5,7 @@ Changes in 12.6
 ---------------
 - HTML responsive stackable tables in Export.php
 - Export list: add Total row in ListOutput.fnc.php
+- Add rounded flag icons in locale/[locale_code]/flag.png
 
 Changes in 12.5
 ---------------

@@ -53,4 +53,6 @@ Flag icons
 ----------
 Place a `flag.png` file inside your locale folder. It will be displayed for language selection on the Login screen.
 
-[World Flag icons](http://www.customicondesign.com/free-icons/flag-icon-set/all-in-one-country-flag-icon-set/)
+[Rounded flag icons](https://www.flaticon.com/packs/countrys-flags)
+
+Copyright: Freepik
