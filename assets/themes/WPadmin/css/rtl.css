@@ -172,6 +172,17 @@ html[dir="RTL"] .calendar-event div {
 	border-right-style: solid;
 }
 
+/**
+ * Fix first column (list, table)
+ *
+ * @since 12.6
+ */
+
+.fix-first-column th:first-child,
+.fix-first-column > tbody > tr > td:first-child {
+	right: 0;
+}
+
 @media only screen and (max-width:1023px) {
 	/* Calendar responsive */
 	html[dir="RTL"] .calendar-day .hover:hover {

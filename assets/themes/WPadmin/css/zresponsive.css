@@ -332,6 +332,15 @@
 	.rt .thead-repeat {
 		display: none;
 	}
+	/**
+	 * Fix first column (list, table)
+	 *
+	 * @since 12.6
+	 */
+	.fix-first-column th:first-child,
+	.fix-first-column > tbody > tr > td:first-child {
+		position: unset;
+	}
 	.divPortalPoll {
 		max-height: none;
 		overflow-y: visible

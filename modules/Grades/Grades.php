@@ -700,6 +700,9 @@ if ( UserStudentID() )
 }
 else
 {
+	// @since 12.6 CSS Fix first column (list, table)
+	$LO_options['class'] .= ' fix-first-column';
+
 	ListOutput(
 		$stu_RET,
 		$LO_columns,

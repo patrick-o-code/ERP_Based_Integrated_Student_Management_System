@@ -311,6 +311,22 @@ else
 			BottomButtonBackUpdate( 'staff' );
 		}
 
+		$extra['options'] = issetVal( $extra['options'], [] );
+
+		if ( empty( $extra['columns_before'] )
+			&& ( empty( $extra['link']['remove'] ) || ! AllowEdit() ) )
+		{
+			// @since 12.6 CSS Fix first column (list, table)
+			if ( ! empty( $extra['options']['class'] ) )
+			{
+				$extra['options']['class'] .= ' fix-first-column';
+			}
+			else
+			{
+				$extra['options']['class'] = 'fix-first-column';
+			}
+		}
+
 		ListOutput(
 			$staff_RET,
 			$columns,
@@ -318,7 +334,7 @@ else
 			$plural,
 			$link,
 			false,
-			( issetVal( $extra['options'], [] ) )
+			$extra['options']
 		);
 	}
 	elseif ( count( (array) $staff_RET ) == 1 )

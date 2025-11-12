@@ -2204,6 +2204,22 @@ template {
 	display: none;
 }
 
+/**
+ * Fix first column (list, table)
+ *
+ * @since 12.6
+ */
+
+.fix-first-column th:first-child,
+.fix-first-column > tbody > tr > td:first-child {
+	position: sticky;
+	left: 0;
+}
+
+.fix-first-column > tbody > tr > td:first-child {
+	background-color: inherit;
+}
+
 /* Keep font size at the end so they can override other rules */
 
 .size-3 {

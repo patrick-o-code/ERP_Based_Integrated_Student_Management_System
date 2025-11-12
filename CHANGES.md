@@ -14,6 +14,7 @@ Changes in 12.6
 - CSS fix #365 pictures width, height & name overflow in PrintClassPictures.php
 - Remove `_saveRosarioModules()` local function, use Config() in Modules.inc.php
 - Remove `_saveRosarioPlugins()` local function, use Config() in Plugins.inc.php
+- CSS Fix first column (list, table) in DailySummary.php, Grades.php, Search.inc.php, rtl.css, stylesheet.css & zresponsive.css
 
 Changes in 12.5
 ---------------

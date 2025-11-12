@@ -314,7 +314,19 @@ if ( $_REQUEST['student_id']
 	}
 
 	// Student view, list courses.
-	ListOutput( $student_RET, $columns, 'Course', 'Courses', [], [], [ 'valign-middle' => true ] );
+	ListOutput(
+		$student_RET,
+		$columns,
+		'Course',
+		'Courses',
+		[],
+		[],
+		[
+			'valign-middle' => true,
+			// @since 12.6 CSS Fix first column (list, table)
+			'class' => 'fix-first-column'
+		]
+	);
 }
 else
 {
