@@ -800,6 +800,21 @@ CREATE TABLE course_subjects (
 
 COMMENT ON COLUMN course_subjects.title IS 'Title can be multilingual, use ParseMLField()';
 
+
+--
+-- Name: csp_reports; Type: TABLE; Schema: public; Owner: rosariosis; Tablespace:
+--
+
+CREATE TABLE csp_reports (
+    id serial PRIMARY KEY,
+    full_report text NOT NULL,
+    violated_directive text NOT NULL,
+    blocked_uri text NOT NULL,
+    script_sample text,
+    created_at timestamp DEFAULT current_timestamp
+);
+
+
 --
 -- Name: custom_fields; Type: TABLE; Schema: public; Owner: rosariosis; Tablespace:
 --

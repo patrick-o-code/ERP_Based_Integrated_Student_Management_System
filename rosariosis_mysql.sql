@@ -797,6 +797,20 @@ CREATE TABLE course_subjects (
 
 
 --
+-- Name: csp_reports; Type: TABLE; Schema: public; Owner: rosariosis; Tablespace:
+--
+
+CREATE TABLE csp_reports (
+    id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    full_report text NOT NULL,
+    violated_directive text NOT NULL,
+    blocked_uri text NOT NULL,
+    script_sample text,
+    created_at timestamp DEFAULT current_timestamp
+);
+
+
+--
 -- Name: custom_fields; Type: TABLE;
 --
 
