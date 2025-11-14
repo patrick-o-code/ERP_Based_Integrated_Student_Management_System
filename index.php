@@ -356,25 +356,23 @@ elseif ( isset( $_REQUEST['create_account'] ) )
 		$include = 'Students/Student.php';
 
 		// @since 6.0 Create Student Account: add school_id param to URL.
-		if ( ! empty( $_REQUEST['school_id'] ) )
+		if ( ! empty( $_REQUEST['school_id'] )
+			&& ! Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE' ) )
 		{
-			$_SESSION['UserSchool'] = DBGetOne( "SELECT ID FROM schools
-				WHERE SYEAR='" . Config( 'SYEAR' ) . "'
-				AND ID='" . (int) $_REQUEST['school_id'] . "'" );
+			$sql_order_by = "ID='" . (int) $_REQUEST['school_id'] . "' DESC,ID";
 		}
-
-		if ( ! UserSchool() )
+		else
 		{
 			// @since 6.3 Create Student Account Default School.
 			// @link https://stackoverflow.com/questions/1250156/how-do-i-return-rows-with-a-specific-value-first#comment-67097263
 			$sql_order_by = Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ) ?
 				// Prevent SQL injection, cast to integer.
 				"ID='" . (int) Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ) . "' DESC,ID" : "ID";
-
-			$_SESSION['UserSchool'] = DBGetOne( "SELECT ID FROM schools
-				WHERE SYEAR='" . Config( 'SYEAR' ) . "'
-				ORDER BY " . $sql_order_by );
 		}
+
+		$_SESSION['UserSchool'] = DBGetOne( "SELECT ID FROM schools
+			WHERE SYEAR='" . Config( 'SYEAR' ) . "'
+			ORDER BY " . $sql_order_by );
 
 		if ( UserStudentID() )
 		{

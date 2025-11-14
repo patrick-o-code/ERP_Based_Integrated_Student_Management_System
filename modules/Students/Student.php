@@ -168,11 +168,36 @@ if ( $_REQUEST['modfunc'] === 'update'
 			// Check if trying to hack enrollment.
 
 			if ( isset( $_REQUEST['month_values']['student_enrollment'] )
-				|| count( (array) $_REQUEST['values']['student_enrollment'] ) > 2 )
+				|| ( isset( $_REQUEST['values']['student_enrollment'] )
+					&& ( count( (array) $_REQUEST['values']['student_enrollment'] ) > 1 )
+						|| ( isset( $_REQUEST['values']['student_enrollment']['new'] )
+							&& count( (array) $_REQUEST['values']['student_enrollment']['new'] ) > 2 ) ) )
 			{
 				require_once 'ProgramFunctions/HackingLog.fnc.php';
 
 				HackingLog();
+			}
+
+			if ( ! Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE' )
+				|| ! Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ) )
+			{
+				// Check school exists.
+				$school_exists = DBGetOne( "SELECT 1
+					FROM schools
+					WHERE ID='" . (int) issetVal( $_REQUEST['values']['student_enrollment']['new']['SCHOOL_ID'] ) . "'
+					AND SYEAR='" . UserSyear() . "'" );
+
+				if ( ! $school_exists )
+				{
+					require_once 'ProgramFunctions/HackingLog.fnc.php';
+
+					HackingLog();
+				}
+			}
+			else
+			{
+				// @since 12.6 Force Default School.
+				$_REQUEST['values']['student_enrollment']['new']['SCHOOL_ID'] = UserSchool();
 			}
 
 			if ( Config( 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION' )

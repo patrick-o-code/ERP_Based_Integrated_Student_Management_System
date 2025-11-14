@@ -194,40 +194,43 @@ else
 
 	echo '<hr>';
 
-	echo '<table class="create-account width-100p valign-top fixed-col"><tr class="st"><td>';
+	echo '<table class="create-account width-100p valign-top fixed-col"><tr class="st">';
 
-	$schools_RET = DBGet( "SELECT ID,TITLE
-		FROM schools
-		WHERE SYEAR='" . UserSyear() . "'
-		ORDER BY ID" );
-
-	$school_options = [];
-
-	foreach ( (array) $schools_RET as $school )
+	// @since 12.6 Force Default School.
+	if ( ! Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE' )
+		|| ! Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ) )
 	{
-		$school_options[$school['ID']] = $school['TITLE'];
+		$schools_RET = DBGet( "SELECT ID,TITLE
+			FROM schools
+			WHERE SYEAR='" . UserSyear() . "'
+			ORDER BY ID" );
+
+		$school_options = [];
+
+		foreach ( (array) $schools_RET as $school )
+		{
+			$school_options[$school['ID']] = $school['TITLE'];
+		}
+
+		// @since 6.0 Reload page on School change, so we update UserSchool().
+		$school_onchange_url = 'index.php?create_account=student&student_id=new&school_id=';
+
+		// Add School select input.
+		echo '<td>' . SelectInput(
+			UserSchool(),
+			'values[student_enrollment][new][SCHOOL_ID]',
+			_( 'School' ),
+			$school_options,
+			false,
+			// @since 12.5 CSP remove unsafe-inline Javascript
+			'autocomplete="off" class="onchange-school-reload" data-url="' . URLEscape( $school_onchange_url ) . '"',
+			false
+		) . '</td>';
 	}
-
-	// @since 6.0 Reload page on School change, so we update UserSchool().
-	$school_onchange_url = 'index.php?create_account=student&student_id=new&school_id=';
-
-	// Add School select input.
-	echo SelectInput(
-		UserSchool(),
-		'values[student_enrollment][new][SCHOOL_ID]',
-		_( 'School' ),
-		$school_options,
-		false,
-		// @since 12.5 CSP remove unsafe-inline Javascript
-		'autocomplete="off" class="onchange-school-reload" data-url="' . URLEscape( $school_onchange_url ) . '"',
-		false
-	);
 
 	if ( Config( 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION' ) )
 	{
 		// @since 5.9 Automatic Student Account Activation.
-		echo '</td><td>';
-
 		// Grade Levels for ALL schools.
 		$gradelevels_RET = DBGet( "SELECT ID,TITLE
 			FROM school_gradelevels
@@ -242,23 +245,20 @@ else
 		}
 
 		// Add Grade Level select input.
-		echo SelectInput(
+		echo '<td>' . SelectInput(
 			'',
 			'values[student_enrollment][new][GRADE_ID]',
 			_( 'Grade Level' ),
 			$gradelevel_options,
 			'N/A',
 			'required'
-		);
+		) . '</td>';
 	}
 
-	echo Config( 'CREATE_STUDENT_ACCOUNT_AUTOMATIC_ACTIVATION' ) ?
-		'</td><td>' : '</td><td colspan="2">';
-
 	// Add Captcha.
-	echo CaptchaInput( 'captcha' . rand( 100, 9999 ), _( 'Captcha' ) );
+	echo '<td>' . CaptchaInput( 'captcha' . rand( 100, 9999 ), _( 'Captcha' ) ) . '</td>';
 
-	echo '</td></tr></table>';
+	echo '</tr></table>';
 
 	if ( $PopTable_opened )
 	{

@@ -19,6 +19,7 @@ Changes in 12.6
 - Display short month and year labels instead of short month only in CategoryBreakdownTime.php
 - SQL order Transcript Grades by Course Title in Transcripts.fnc.php
 - Add Administrator option to Visible To User Profiles in Resources.fnc.php, rosariosis.sql & rosariosis_mysql.sql
+- Create Student Account: Force Default School in index.php, Configuration.php, Student.php, General_Info.inc.php, rosariosis.sql & rosariosis_mysql.sql
 
 Changes in 12.5
 ---------------
