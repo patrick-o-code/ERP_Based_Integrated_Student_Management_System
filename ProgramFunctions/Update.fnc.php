@@ -1625,8 +1625,7 @@ function _update123()
  */
 function _update126()
 {
-	global $DatabaseType,
-		$RosarioPlugins;
+	global $DatabaseType;
 
 	_isCallerUpdate( debug_backtrace() );
 
@@ -1672,6 +1671,8 @@ function _update126()
 	/**
 	 * 3. Activate the Content Security Policy plugin
 	 */
+	$RosarioPlugins = unserialize( Config( 'PLUGINS' ) );
+
 	$RosarioPlugins['Content_Security_Policy'] = true;
 
 	Config( 'PLUGINS', serialize( $RosarioPlugins ) );
