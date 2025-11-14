@@ -81,17 +81,18 @@ if ( ! empty( $_REQUEST['category_id'] ) )
 
 if ( ! empty( $category_RET ) )
 {
+	$category_RET[1]['SELECT_OPTIONS'] = issetVal( $category_RET[1]['SELECT_OPTIONS'], '' );
+
 	$category_RET[1]['SELECT_OPTIONS'] = explode( "\r", str_replace( [ "\r\n", "\n" ], "\r", $category_RET[1]['SELECT_OPTIONS'] ) );
 
 	if ( $_REQUEST['timeframe'] === 'month' )
 	{
-		// @since 9.2.1 SQL use extract() instead of to_char() for MySQL compatibility
-		$timeframe = "extract(MONTH from dr.ENTRY_DATE)";
+		// @since 12.6 Display short month and year labels instead of short month only
+		$timeframe = "CAST(dr.ENTRY_DATE AS char(7))";
 
-		$start = $_REQUEST['month_start'] * 1;
+		$start_month = mb_substr( $start_date, 0, 7 );
 
-		$end = ( $_REQUEST['month_end'] * 1 ) + 12 *
-			( $_REQUEST['year_end'] - $_REQUEST['year_start'] );
+		$end_month = mb_substr( $end_date, 0, 7 );
 	}
 	else // SYEAR
 	{
@@ -112,21 +113,6 @@ if ( ! empty( $category_RET ) )
 			$end = UserSyear();
 		}
 	}
-
-	$months = [
-		'1' => mb_substr( _( 'January' ), 0, 4 ),
-		'2' => mb_substr( _( 'February' ), 0, 4 ),
-		'3' => mb_substr( _( 'March' ), 0, 4 ),
-		'4' => mb_substr( _( 'April' ), 0, 4 ),
-		'5' => mb_substr( _( 'May' ), 0, 4 ),
-		'6' => mb_substr( _( 'June' ), 0, 4 ),
-		'7' => mb_substr( _( 'July' ), 0, 4 ),
-		'8' => mb_substr( _( 'August' ), 0, 4 ),
-		'9' => mb_substr( _( 'September' ), 0, 4 ),
-		'10' => mb_substr( _( 'October' ), 0, 4 ),
-		'11' => mb_substr( _( 'November' ), 0, 4 ),
-		'12' => mb_substr( _( 'December' ), 0, 4 ),
-	];
 
 	$extra = [];
 
@@ -156,30 +142,34 @@ if ( ! empty( $category_RET ) )
 
 		$index = 0;
 
-		for ( $i = $start; $i <= $end; $i++ )
+		if ( $_REQUEST['timeframe'] === 'month' )
 		{
-			$index++;
-
-			if ( $_REQUEST['timeframe'] === 'month' )
+			for ( $i = $start_month; $i <= $end_month; $i = date( 'Y-m', strtotime( '+1 month', strtotime( $i . '-01' ) ) ) )
 			{
-				//FJ bugfix data showed in the wrong month
-				$tf = ( $i%12 == 0 ? 12 : $i%12 );
+				$index++;
 
-				//FJ add translation
-				$chart['chart_data'][ $index ][0] = $months[ (int) $tf ];
+				$chart['chart_data'][ $index ][0] = strftime_compat( '%b %y', $i . '-01' );
+
+				foreach ( (array) $category_RET[1]['SELECT_OPTIONS'] as $option )
+				{
+					$chart['chart_data'][ $index ][] = ( isset( $totals_RET[ $option ][ $i ][1]['COUNT'] ) ?
+						(int) $totals_RET[ $option ][ $i ][1]['COUNT'] : 0 );
+				}
 			}
-			else // SYEAR
+		}
+		else // SYEAR
+		{
+			for ( $i = $start; $i <= $end; $i++ )
 			{
-				//$tf = $i-$start+1;
-				$tf = $i;
+				$index++;
 
 				$chart['chart_data'][ $index ][0] = FormatSyear( $i, Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) );
-			}
 
-			foreach ( (array) $category_RET[1]['SELECT_OPTIONS'] as $option )
-			{
-				$chart['chart_data'][ $index ][] = ( isset( $totals_RET[ $option ][ $tf ][1]['COUNT'] ) ?
-					(int) $totals_RET[ $option ][ $tf ][1]['COUNT'] : 0 );
+				foreach ( (array) $category_RET[1]['SELECT_OPTIONS'] as $option )
+				{
+					$chart['chart_data'][ $index ][] = ( isset( $totals_RET[ $option ][ $i ][1]['COUNT'] ) ?
+						(int) $totals_RET[ $option ][ $i ][1]['COUNT'] : 0 );
+				}
 			}
 		}
 	}
@@ -200,29 +190,31 @@ if ( ! empty( $category_RET ) )
 
 		$index = 0;
 
-		for ( $i = $start; $i <= $end; $i++ )
+		if ( $_REQUEST['timeframe'] === 'month' )
 		{
-			$index++;
-
-			if ( $_REQUEST['timeframe'] === 'month' )
+			for ( $i = $start_month; $i <= $end_month; $i = date( 'Y-m', strtotime( '+1 month', strtotime( $i . '-01' ) ) ) )
 			{
-				//FJ bugfix data showed in the wrong month
-				$tf = ( $i%12 == 0 ? 12 : $i%12 );
+				$index++;
 
-				//FJ add translation
-				$chart['chart_data'][ $index ][0] = $months[ (int) $tf ];
+				$chart['chart_data'][ $index ][0] = strftime_compat( '%b %y', $i . '-01' );
+
+				$chart['chart_data'][ $index ][] = issetVal( $totals_RET['Y'][ $i ][1]['COUNT'], 0 );
+
+				$chart['chart_data'][ $index ][] = issetVal( $totals_RET['N'][ $i ][1]['COUNT'], 0 );
 			}
-			else // SYEAR
+		}
+		else // SYEAR
+		{
+			for ( $i = $start; $i <= $end; $i++ )
 			{
-				//$tf = $i-$start+1;
-				$tf = $i;
+				$index++;
 
 				$chart['chart_data'][ $index ][0] = FormatSyear( $i, Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) );
+
+				$chart['chart_data'][ $index ][] = issetVal( $totals_RET['Y'][ $i ][1]['COUNT'], 0 );
+
+				$chart['chart_data'][ $index ][] = issetVal( $totals_RET['N'][ $i ][1]['COUNT'], 0 );
 			}
-
-			$chart['chart_data'][ $index ][] = issetVal( $totals_RET['Y'][ $tf ][1]['COUNT'], 0 );
-
-			$chart['chart_data'][ $index ][] = issetVal( $totals_RET['N'][ $tf ][1]['COUNT'], 0 );
 		}
 	}
 	elseif ( $category_RET[1]['DATA_TYPE'] === 'multiple_checkbox' )
@@ -256,35 +248,40 @@ if ( ! empty( $category_RET ) )
 
 		$index = 0;
 
-		for ( $i = $start; $i <= $end; $i++ )
+		if ( $_REQUEST['timeframe'] === 'month' )
 		{
-			$index++;
-
-			if ( $_REQUEST['timeframe'] === 'month' )
+			for ( $i = $start_month; $i <= $end_month; $i = date( 'Y-m', strtotime( '+1 month', strtotime( $i . '-01' ) ) ) )
 			{
-				//FJ bugfix data showed in the wrong month
-				$tf = ( $i%12 == 0 ? 12 : $i%12 );
+				$index++;
 
-				//FJ add translation
-				$chart['chart_data'][ $index ][0] = $months[ (int) $tf ];
+				$chart['chart_data'][ $index ][0] = strftime_compat( '%b %y', $i . '-01' );
+
+				foreach ( (array) $category_RET[1]['SELECT_OPTIONS'] as $option )
+				{
+					$chart['chart_data'][ $index ][] = isset( $options_count[ $i ][ $option ] ) ?
+						(int) $options_count[ $i ][ $option ] : 0;
+				}
 			}
-			else // SYEAR
+		}
+		else // SYEAR
+		{
+			for ( $i = $start; $i <= $end; $i++ )
 			{
-				//$tf = $i-$start+1;
-				$tf = $i;
+				$index++;
 
 				$chart['chart_data'][ $index ][0] = FormatSyear( $i, Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) );
-			}
 
-			foreach ( (array) $category_RET[1]['SELECT_OPTIONS'] as $option )
-			{
-				$chart['chart_data'][ $index ][] = isset( $options_count[ $tf ][ $option ] ) ?
-					(int) $options_count[ $tf ][ $option ] : 0;
+				foreach ( (array) $category_RET[1]['SELECT_OPTIONS'] as $option )
+				{
+					$chart['chart_data'][ $index ][] = isset( $options_count[ $i ][ $option ] ) ?
+						(int) $options_count[ $i ][ $option ] : 0;
+				}
 			}
 		}
 	}
 	elseif ( $category_RET[1]['DATA_TYPE'] === 'numeric' )
 	{
+		// TODO display real values here instead of 1 to 10?? Test w/ discipline score...
 		$extra['SELECT_ONLY'] = "COALESCE(max(CATEGORY_" . intval( $_REQUEST['category_id'] ) .
 			"),0) as MAX,COALESCE(min(CATEGORY_" . intval( $_REQUEST['category_id'] ) . "),0) AS MIN ";
 
@@ -297,22 +294,20 @@ if ( ! empty( $category_RET ) )
 
 		$index = 0;
 
-		for ( $i = $start; $i <= $end; $i++ )
+		if ( $_REQUEST['timeframe'] === 'month' )
 		{
-			$index++;
-
-			if ( $_REQUEST['timeframe'] === 'month' )
+			for ( $i = $start_month; $i <= $end_month; $i = date( 'Y-m', strtotime( '+1 month', strtotime( $i . '-01' ) ) ) )
 			{
-				//FJ bugfix data showed in the wrong month
-				$tf = ( $i%12 == 0 ? 12 : $i%12 );
+				$index++;
 
-				//FJ add translation
-				$chart['chart_data'][ $index ][0] = $months[ (int) $tf ];
+				$chart['chart_data'][ $index ][0] = strftime_compat( '%b %y', $i . '-01' );
 			}
-			else // SYEAR
+		}
+		else // SYEAR
+		{
+			for ( $i = $start; $i <= $end; $i++ )
 			{
-				//$tf = $i-$start+1;
-				$tf = $i;
+				$index++;
 
 				$chart['chart_data'][ $index ][0] = FormatSyear( $i, Config( 'SCHOOL_SYEAR_OVER_2_YEARS' ) );
 			}
@@ -320,7 +315,7 @@ if ( ! empty( $category_RET ) )
 
 		$chart['chart_data'][0][0] = '';
 
-		$diff_max = 10;
+		$diff_max = 12;
 
 		if ( $diff_max > $diff )
 		{
@@ -341,19 +336,34 @@ if ( ! empty( $category_RET ) )
 
 			$index = 0;
 
-			for ( $i = $start; $i <= $end; $i++ )
+			if ( $_REQUEST['timeframe'] === 'month' )
 			{
-				$index++;
+				for ( $i = $start_month; $i <= $end_month; $i = date( 'Y-m', strtotime( '+1 month', strtotime( $i . '-01' ) ) ) )
+				{
+					$index++;
 
-				$chart['chart_data'][ $index ][ $o ] = 0;
+					$chart['chart_data'][ $index ][ $o ] = 0;
+				}
+			}
+			else // SYEAR
+			{
+				for ( $i = $start; $i <= $end; $i++ )
+				{
+					$index++;
+
+					$chart['chart_data'][ $index ][ $o ] = 0;
+				}
 			}
 		}
 
-		$chart['chart_data'][0][$o - 1] = ( $diff_max > $diff ?
-			( ceil( $diff / $diff_max ) * ( $o - 1 ) ) :
-			( ceil( $diff / $diff_max ) * ( $o - 2 ) ) . '+' );
+		if ( $diff >= $diff_max )
+		{
+			$chart['chart_data'][0][$o - 1] = ( $diff_max > $diff ?
+				( ceil( $diff / $diff_max ) * ( $o - 1 ) ) :
+				( ceil( $diff / $diff_max ) * ( $o - 2 ) ) . '+' );
 
-		$mins[ $o ] = ( ceil( $diff / $diff_max ) * ( $o - 1 ) );
+			$mins[ $o ] = ( ceil( $diff / $diff_max ) * ( $o - 1 ) );
+		}
 
 		$extra['SELECT_ONLY'] = "CATEGORY_" . intval( $_REQUEST['category_id'] ) . " AS TITLE," . $timeframe . " AS TIMEFRAME";
 
@@ -584,9 +594,21 @@ function _makeNumericTime( $number, $column )
 
 	if ( $_REQUEST['timeframe'] === 'month' )
 	{
-		$index = ( ( $THIS_RET['TIMEFRAME'] * 1 ) -
-			( $_REQUEST['month_start'] * 1 ) + 1 +
-			12 * ( $_REQUEST['year_end'] - $_REQUEST['year_start'] ) );
+		$start_month = mb_substr( $start_date, 0, 7 );
+
+		$end_month = mb_substr( $end_date, 0, 7 );
+
+		$index = 0;
+
+		for ( $i = $start_month; $i <= $end_month; $i = date( 'Y-m', strtotime( '+1 month', strtotime( $i . '-01' ) ) ) )
+		{
+			$index++;
+
+			if ( $i == $THIS_RET['TIMEFRAME'] )
+			{
+				break;
+			}
+		}
 	}
 	elseif ( $_REQUEST['timeframe'] === 'SYEAR' )
 	{
@@ -601,12 +623,16 @@ function _makeNumericTime( $number, $column )
 			$index++;
 
 			if ( $i == $THIS_RET['TIMEFRAME'] )
+			{
 				break;
+			}
 		}
 	}
 
 	if ( is_null( $number ) )
+	{
 		return;
+	}
 
 	if ( $diff == 0 )
 	{
@@ -616,8 +642,14 @@ function _makeNumericTime( $number, $column )
 	}
 	elseif ( $diff < $diff_max )
 	{
-		//$chart['chart_data'][0][((int) $number - (int) $max_min_RET[1]['MIN']+1)] = (int) $number;
-		$chart['chart_data'][ $index ][( (int)$number - (int)$max_min_RET[1]['MIN'] + 1 )]++;
+		$chart['chart_data'][0][((int) $number - (int) $max_min_RET[1]['MIN']+1)] = (int) $number;
+
+		if ( ! isset( $chart['chart_data'][ $index ][( $number - (int)$max_min_RET[1]['MIN'] + 1 )] ) )
+		{
+			$chart['chart_data'][ $index ][( $number - (int)$max_min_RET[1]['MIN'] + 1 )] = 0;
+		}
+
+		$chart['chart_data'][ $index ][( $number - (int)$max_min_RET[1]['MIN'] + 1 )]++;
 	}
 	else
 	{

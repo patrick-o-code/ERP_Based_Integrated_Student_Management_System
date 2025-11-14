@@ -16,6 +16,7 @@ Changes in 12.6
 - Remove `_saveRosarioPlugins()` local function, use Config() in Plugins.inc.php
 - CSS Fix first column (list, table) in DailySummary.php, Grades.php, Search.inc.php, rtl.css, stylesheet.css & zresponsive.css
 - CSS themes reduce bottom buttons height in stylesheet.css & zresponsive.css
+- Display short month and year labels instead of short month only in CategoryBreakdownTime.php
 
 Changes in 12.5
 ---------------
