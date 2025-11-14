@@ -17,6 +17,7 @@ Changes in 12.6
 - CSS Fix first column (list, table) in DailySummary.php, Grades.php, Search.inc.php, rtl.css, stylesheet.css & zresponsive.css
 - CSS themes reduce bottom buttons height in stylesheet.css & zresponsive.css
 - Display short month and year labels instead of short month only in CategoryBreakdownTime.php
+- SQL order Transcript Grades by Course Title in Transcripts.fnc.php
 
 Changes in 12.5
 ---------------
