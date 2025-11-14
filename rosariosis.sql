@@ -2906,8 +2906,8 @@ INSERT INTO report_card_grades VALUES (NEXTVAL('report_card_grades_id_seq'), 202
 --
 
 INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Print Handbook', 'Help.php');
-INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/');
-INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Forum', 'https://www.rosariosis.org/forum/');
+INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/', ',1,');
+INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Forum', 'https://www.rosariosis.org/forum/', ',1,2,');
 INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Contribute', 'https://www.rosariosis.org/contribute/');
 INSERT INTO resources VALUES (NEXTVAL('resources_id_seq'), 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariosis/-/issues');
 

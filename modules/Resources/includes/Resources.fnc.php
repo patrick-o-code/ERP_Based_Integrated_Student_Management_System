@@ -99,6 +99,7 @@ function ResourcesMakeLink( $value, $name )
  *
  * @since 10.8 Add Resource Visibility options
  * @since 12.2 Use multiple Select2 instead of checkboxes
+ * @since 12.6 Add Administrator option to Visible To User Profiles
  *
  * @param string $value
  * @param string $column
@@ -111,7 +112,7 @@ function ResourcesMakePublishedProfiles( $value, $column = 'PUBLISHED_PROFILES' 
 
 	$id = ! empty( $THIS_RET['ID'] ) ? $THIS_RET['ID'] : 'new';
 
-	$profiles_RET = DBGet( "SELECT ID,TITLE FROM user_profiles WHERE ID<>1 ORDER BY ID" );
+	$profiles_RET = DBGet( "SELECT ID,TITLE FROM user_profiles ORDER BY ID" );
 
 	$custom_permissions = [];
 
@@ -122,6 +123,11 @@ function ResourcesMakePublishedProfiles( $value, $column = 'PUBLISHED_PROFILES' 
 			AND PROFILE_ID IS NULL
 			AND SYEAR='" . UserSyear() . "'" );
 	};
+
+	if ( $there_is_user_with_custom( 'admin' ) )
+	{
+		$custom_permissions[] = [ 'ID' => 'admin', 'TITLE' => _( 'Administrator w/Custom' ) ];
+	}
 
 	if ( $there_is_user_with_custom( 'teacher' ) )
 	{
@@ -257,6 +263,7 @@ function ResourcesMakeVisibleTo( $value, $column = 'VISIBLE_TO' )
  * Checks if Grade Level is allowed
  *
  * @since 10.8 Add Resource Visibility options
+ * @since 12.6 Add Administrator option to Visible To User Profiles
  *
  * @return string WHERE SQL
  */
@@ -265,7 +272,8 @@ function ResourcesVisibilityWhereSQL()
 	$resources_where_sql = "";
 
 	if ( User( 'PROFILE' ) === 'teacher'
-		|| User( 'PROFILE' ) === 'parent' )
+		|| User( 'PROFILE' ) === 'parent'
+		|| ( User( 'PROFILE' ) === 'admin' && ! AllowEdit() ) )
 	{
 		$resources_where_sql = " AND (PUBLISHED_PROFILES IS NULL";
 

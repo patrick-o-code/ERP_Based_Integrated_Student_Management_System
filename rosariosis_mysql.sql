@@ -2947,10 +2947,10 @@ INSERT INTO report_card_grades VALUES (NULL, 2025, 1, 'N/A', 15, NULL, NULL, NUL
 --
 
 INSERT INTO resources VALUES (NULL, 1, 'Print Handbook', 'Help.php', NULL, NULL, CURRENT_TIMESTAMP, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Forum', 'https://www.rosariosis.org/forum/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Quick Setup Guide', 'https://www.rosariosis.org/quick-setup-guide/', ',1,', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Forum', 'https://www.rosariosis.org/forum/', ',1,2,', NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO resources VALUES (NULL, 1, 'Contribute', 'https://www.rosariosis.org/contribute/', NULL, NULL, CURRENT_TIMESTAMP, NULL);
-INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariois/-/issues', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO resources VALUES (NULL, 1, 'Report a bug', 'https://gitlab.com/francoisjacquet/rosariosis/-/issues', NULL, NULL, CURRENT_TIMESTAMP, NULL);
 
 
 --
