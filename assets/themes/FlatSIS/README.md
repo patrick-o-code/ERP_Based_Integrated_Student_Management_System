@@ -3,8 +3,6 @@ FlatSIS theme
 
 ![screenshot](https://gitlab.com/francoisjacquet/FlatSIS/raw/master/screenshot.png?inline=false)
 
-Version 2.0 - December, 2021
-
 License: see icon folders for their respective license.
 
 Author François Jacquet

@@ -15,6 +15,7 @@ Changes in 12.6
 - Remove `_saveRosarioModules()` local function, use Config() in Modules.inc.php
 - Remove `_saveRosarioPlugins()` local function, use Config() in Plugins.inc.php
 - CSS Fix first column (list, table) in DailySummary.php, Grades.php, Search.inc.php, rtl.css, stylesheet.css & zresponsive.css
+- CSS themes reduce bottom buttons height in stylesheet.css & zresponsive.css
 
 Changes in 12.5
 ---------------

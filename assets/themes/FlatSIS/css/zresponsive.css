@@ -37,7 +37,7 @@
 		bottom: auto;
 	}
 	#footerwrap {
-		padding: 3px 12px;
+		padding: 7px 12px;
 	}
 	#footerhelp {
 		border-width: 1px 0;
@@ -227,6 +227,7 @@
 	/*responsive separator: hide text separator & break line*/
 	.rseparator {
 		visibility: hidden;
+		font-size: 0;
 	}
 	.rseparator:after {
 		content: ' ';
