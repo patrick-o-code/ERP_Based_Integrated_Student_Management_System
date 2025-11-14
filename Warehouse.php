@@ -6,6 +6,7 @@
  * Load functions
  * Date format & Time zone
  * Start Session
+ * Content Security Policy
  * Sanitize $_REQUEST array
  * Internationalization
  * Modules & Plugins
@@ -283,6 +284,19 @@ if ( empty( $_SESSION['STAFF_ID'] )
 }
 
 /**
+ * Content Security Policy
+ * No need to send for AJAX requests as the browser keeps the original non-AJAX header
+ *
+ * @link https://gitlab.com/francoisjacquet/rosariosis/-/blob/mobile/plugins/Content_Security_Policy/README.md
+ *
+ * @since 12.6
+ */
+if ( ! isAJAX() )
+{
+	header( 'Content-Security-Policy-Report-Only: ' . Config( 'CONTENT_SECURITY_POLICY' ) );
+}
+
+/**
  * Array recursive walk (values AND keys!)
  *
  * @since 7.6 Fix #308 sanitize key. Pass array keys through function.
@@ -491,6 +505,7 @@ _LoadAddons( $non_core_modules, 'modules/' );
  * Core plugins (packaged with RosarioSIS): cannot be deleted.
  */
 $RosarioCorePlugins = [
+	'Content_Security_Policy',
 	'Moodle',
 ];
 
