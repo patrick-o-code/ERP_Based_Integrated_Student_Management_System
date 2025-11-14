@@ -285,6 +285,10 @@ function Update()
 		case version_compare( $from_version, '12.3', '<' ) :
 
 			$return = _update123();
+
+		case version_compare( $from_version, '12.6', '<' ) :
+
+			$return = _update126();
 	}
 
 	// Update version in DB config table.
@@ -1600,6 +1604,83 @@ function _update123()
 	}
 
 	DBQuery( $sql_drop_view . $sql_alter_table . $sql_create_view );
+
+	return $return;
+}
+
+
+/**
+ * Update to version 12.6
+ *
+ * 1. Add Content Security Policy header to config table
+ * 2. Create the csp_reports table
+ * 3. Activate the Content Security Policy plugin
+ * 4. Add the CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE option to config table
+ *
+ * Local function
+ *
+ * @since 12.6
+ *
+ * @return boolean false if update failed or if not called by Update(), else true
+ */
+function _update126()
+{
+	global $DatabaseType,
+		$RosarioPlugins;
+
+	_isCallerUpdate( debug_backtrace() );
+
+	$return = true;
+
+	/**
+	 * 1. Add Content Security Policy header to config table
+	 */
+	$sql_csp_header = "INSERT INTO config (SCHOOL_ID, TITLE, CONFIG_VALUE)
+		VALUES (0, 'CONTENT_SECURITY_POLICY', 'script-src ''self'' ''unsafe-eval'' ''report-sample''; style-src ''self'' ''unsafe-inline''; connect-src ''self''; form-action ''self''; base-uri ''self''; frame-ancestors ''none''; object-src ''none''; report-uri plugins/Content_Security_Policy/SaveReport.php');";
+
+	DBQuery( $sql_csp_header );
+
+	/**
+	 * 2. Create the csp_reports table
+	 */
+	if ( $DatabaseType === 'mysql' )
+	{
+		$sql_csp_reports_table = "CREATE TABLE IF NOT EXISTS csp_reports (
+			id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			full_report text NOT NULL,
+			violated_directive text NOT NULL,
+			blocked_uri text NOT NULL,
+			script_sample text,
+			created_at timestamp DEFAULT current_timestamp
+		);";
+	}
+	else
+	{
+		// PostgreSQL.
+		$sql_csp_reports_table = "CREATE TABLE IF NOT EXISTS csp_reports (
+			id serial PRIMARY KEY,
+			full_report text NOT NULL,
+			violated_directive text NOT NULL,
+			blocked_uri text NOT NULL,
+			script_sample text,
+			created_at timestamp DEFAULT current_timestamp
+		);";
+	}
+
+	DBQuery( $sql_csp_reports_table );
+
+	/**
+	 * 3. Activate the Content Security Policy plugin
+	 */
+	$RosarioPlugins['Content_Security_Policy'] = true;
+
+	Config( 'PLUGINS', serialize( $RosarioPlugins ) );
+
+	/**
+	 * 4. Add the CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE option to config table
+	 */
+	DBQuery( "INSERT INTO config (SCHOOL_ID, TITLE, CONFIG_VALUE)
+		VALUES (0, 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE', NULL);" );
 
 	return $return;
 }

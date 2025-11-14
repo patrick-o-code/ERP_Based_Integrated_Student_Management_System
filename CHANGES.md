@@ -22,6 +22,7 @@ Changes in 12.6
 - Create Student Account: Force Default School in index.php, Configuration.php, Student.php, General_Info.inc.php, rosariosis.sql & rosariosis_mysql.sql
 - SQL add csp_reports table in rosariosis.sql & rosariosis_mysql.sql
 - Add Content Security Policy plugin in plugins/Content_Security_Policy/, rosariosis.sql & rosariosis_mysql.sql
+- Update to version 12.6 in Update.fnc.php
 
 Changes in 12.5
 ---------------
