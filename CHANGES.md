@@ -21,6 +21,7 @@ Changes in 12.6
 - Add Administrator option to Visible To User Profiles in Resources.fnc.php, rosariosis.sql & rosariosis_mysql.sql
 - Create Student Account: Force Default School in index.php, Configuration.php, Student.php, General_Info.inc.php, rosariosis.sql & rosariosis_mysql.sql
 - SQL add csp_reports table in rosariosis.sql & rosariosis_mysql.sql
+- Add Content Security Policy plugin in plugins/Content_Security_Policy/, rosariosis.sql & rosariosis_mysql.sql
 
 Changes in 12.5
 ---------------

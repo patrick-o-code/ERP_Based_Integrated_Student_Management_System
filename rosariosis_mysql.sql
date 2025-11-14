@@ -2299,7 +2299,7 @@ INSERT INTO config VALUES (0, 'VERSION', '12.5', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'TITLE', 'Rosario Student Information System', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'NAME', 'RosarioSIS', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'MODULES', 'a:13:{s:12:"School_Setup";b:1;s:8:"Students";b:1;s:5:"Users";b:1;s:10:"Scheduling";b:1;s:6:"Grades";b:1;s:10:"Attendance";b:1;s:11:"Eligibility";b:1;s:10:"Discipline";b:1;s:10:"Accounting";b:1;s:15:"Student_Billing";b:1;s:12:"Food_Service";b:1;s:9:"Resources";b:1;s:6:"Custom";b:1;}', CURRENT_TIMESTAMP, NULL);
-INSERT INTO config VALUES (0, 'PLUGINS', 'a:1:{s:6:"Moodle";b:0;}', CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'PLUGINS', 'a:2:{s:23:"Content_Security_Policy";b:1;s:6:"Moodle";b:0;}', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'THEME', 'FlatSIS', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'THEME_FORCE', NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'CREATE_USER_ACCOUNT', NULL, CURRENT_TIMESTAMP, NULL);
@@ -2316,6 +2316,7 @@ INSERT INTO config VALUES (0, 'PASSWORD_STRENGTH', '2', CURRENT_TIMESTAMP, NULL)
 INSERT INTO config VALUES (0, 'FORCE_PASSWORD_CHANGE_ON_FIRST_LOGIN', NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'GRADEBOOK_CONFIG_ADMIN_OVERRIDE', NULL, CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (0, 'REMOVE_ACCESS_USERNAME_PREFIX_ADD', NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO config VALUES (0, 'CONTENT_SECURITY_POLICY', 'script-src ''self'' ''unsafe-eval'' ''report-sample''; style-src ''self'' ''unsafe-inline''; connect-src ''self''; form-action ''self''; base-uri ''self''; frame-ancestors ''none''; object-src ''none''; report-uri plugins/Content_Security_Policy/SaveReport.php', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (1, 'SCHOOL_SYEAR_OVER_2_YEARS', 'Y', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (1, 'ATTENDANCE_FULL_DAY_MINUTES', '0', CURRENT_TIMESTAMP, NULL);
 INSERT INTO config VALUES (1, 'STUDENTS_USE_MAILING', NULL, CURRENT_TIMESTAMP, NULL);
