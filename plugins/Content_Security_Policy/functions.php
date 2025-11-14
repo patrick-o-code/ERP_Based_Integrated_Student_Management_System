@@ -18,6 +18,15 @@ function ContentSecurityPolicyCronDo()
 {
 	$cron_day = Config( 'CONTENT_SECURITY_POLICY_CRON_DAY' );
 
+	if ( is_null( $cron_day ) )
+	{
+		// Config option does not exist yet, insert it into SCHOOL_ID=0.
+		DBQuery( "INSERT INTO config (SCHOOL_ID, TITLE, CONFIG_VALUE)
+			VALUES (0, 'CONTENT_SECURITY_POLICY_CRON_DAY', CURRENT_DATE);" );
+
+		$cron_day = DBDate();
+	}
+
 	if ( DBDate() <= $cron_day
 		|| ! UserSchool()
 		|| basename( $_SERVER['PHP_SELF'] ) === 'index.php' )
