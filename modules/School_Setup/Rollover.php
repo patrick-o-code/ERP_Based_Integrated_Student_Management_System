@@ -215,8 +215,22 @@ foreach ( (array) $tables as $table => $name )
 
 	$checked = ( $exists_table_count > 0 ) ? '' : ' checked';
 
-	// Fix SQL error foreign keys: force roll Schools
-	$readonly = $table === 'schools' && ! $exists_table_count;
+	$readonly = false;
+
+	if ( $table === 'schools' )
+	{
+		$school_is_missing = ! DBGetOne( "SELECT 1
+			FROM schools
+			WHERE SYEAR='" . $next_syear . "'
+			AND ID='" . UserSchool() . "'" );
+
+		if ( $school_is_missing )
+		{
+			// Fix SQL error foreign keys: force roll Schools
+			$readonly = true;
+			$checked = ' checked';
+		}
+	}
 
 	$table_list .= '<tr><td><label>';
 

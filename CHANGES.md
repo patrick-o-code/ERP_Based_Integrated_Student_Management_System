@@ -24,6 +24,7 @@ Changes in 12.6
 - Add Content Security Policy plugin in plugins/Content_Security_Policy/, rosariosis.sql & rosariosis_mysql.sql
 - Update to version 12.6 in Update.fnc.php
 - Add Content-Security-Policy-Report-Only HTTP header in Warehouse.php
+- Fix SQL error foreign keys: force roll Schools in Rollover.php
 
 Changes in 12.5
 ---------------
