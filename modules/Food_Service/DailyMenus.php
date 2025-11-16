@@ -395,7 +395,7 @@ function makeDescriptionInput( $value, $name )
 {
 	global $THIS_RET, $calendar_RET;
 
-	if ( $calendar_RET[$THIS_RET['SCHOOL_DATE']] )
+	if ( ! empty( $calendar_RET[$THIS_RET['SCHOOL_DATE']] ) )
 	{
 		unset( $calendar_RET[$THIS_RET['SCHOOL_DATE']] );
 	}
