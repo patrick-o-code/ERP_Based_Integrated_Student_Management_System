@@ -8,7 +8,7 @@ Changes in 12.6
 - Add rounded flag icons in locale/[locale_code]/flag.png
 - Fix #362 Order by Points as Letter Grade is alphabetically sorted (may be inaccurate) in Grades.php
 - Add Activity field is required + "Remove" activity (instead of "Delete") in Eligibility/Student.php
-- Fix responsive image height, rename $width param to $height in FS_Icons.inc.php
+- Fix responsive image height, rename $width param to $height in FS_Icons.inc.php & MenuItems.php
 - HTML add fieldset & padding to PopTable in MassRequests.php
 - CSS add .class-picture class in PrintClassPictures.php
 - CSS fix #365 pictures width, height & name overflow in PrintClassPictures.php

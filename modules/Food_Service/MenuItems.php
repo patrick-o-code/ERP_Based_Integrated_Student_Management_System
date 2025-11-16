@@ -564,7 +564,7 @@ function getFSIcons( $path )
 		// Filter images.
 		if ( in_array( mb_strtolower( mb_strrchr( $icon, '.' ) ), [ '.jpg', '.jpeg', '.png', '.gif' ] ) )
 		{
-			$files[$icon] = [ $icon, '<img src="' . URLEscape( $path . $icon ) . '" width="48" />' ];
+			$files[$icon] = [ $icon, '<img src="' . URLEscape( $path . $icon ) . '" style="height: 48px" />' ];
 		}
 	}
 
