@@ -37,11 +37,22 @@
 		bottom: auto;
 	}
 	#footerwrap {
-		padding: 7px 12px;
+		height: 32px;
+		padding: 3px 12px;
 	}
 	#footerhelp {
 		border-width: 1px 0;
 		border-style: solid;
+	}
+	.BottomButton {
+		line-height: 32px;
+	}
+	.BottomButton img {
+		height: 24px;
+	}
+	#BottomButtonMenu svg {
+		height: 24px;
+		width: 24px;
 	}
 	.BottomButton span {
 		display: none

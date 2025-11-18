@@ -45,8 +45,8 @@
 }
 
 #footerwrap {
-	height: 24px;
-	padding: 7px 3px;
+	height: 32px;
+	padding: 3px;
 	text-align: center;
 	border-width: 1px 0;
 	border-style: solid;
@@ -1298,8 +1298,8 @@ a > .button {
 /*bottom*/
 
 .BottomButton {
-	line-height: 24px;
-	margin-right: 12px;
+	line-height: 32px;
+	margin-right: 8px;
 	display: inline-block;
 }
 
@@ -1308,11 +1308,11 @@ a > .button {
 }
 
 .BottomButton img {
-	height: 24px
+	height: 32px
 }
 
 #BottomButtonMenu {
-	height: 24px;
+	height: 32px;
 	float: left;
 	margin-left: 2px;
 }
@@ -1324,9 +1324,9 @@ a > .button {
  */
 
 #BottomButtonMenu svg {
-	padding: 0 2px;
-	height: 24px;
-	width: 24px;
+	padding: 2px;
+	height: 28px;
+	width: 28px;
 	fill: none;
 	stroke-width: 3;
 	stroke-linecap: round;

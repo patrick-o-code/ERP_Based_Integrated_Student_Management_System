@@ -15,7 +15,7 @@ Changes in 12.6
 - Remove `_saveRosarioModules()` local function, use Config() in Modules.inc.php
 - Remove `_saveRosarioPlugins()` local function, use Config() in Plugins.inc.php
 - CSS Fix first column (list, table) in DailySummary.php, Grades.php, Search.inc.php, rtl.css, stylesheet.css & zresponsive.css
-- CSS themes reduce bottom buttons height in stylesheet.css & zresponsive.css
+- CSS FlatSIS theme reduce bottom buttons height in stylesheet.css & zresponsive.css
 - Display short month and year labels instead of short month only in CategoryBreakdownTime.php
 - SQL order Transcript Grades by Course Title in Transcripts.fnc.php
 - Add Administrator option to Visible To User Profiles in Resources.fnc.php, rosariosis.sql & rosariosis_mysql.sql
