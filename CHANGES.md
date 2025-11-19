@@ -25,6 +25,7 @@ Changes in 12.6
 - Update to version 12.6 in Update.fnc.php
 - Add Content-Security-Policy-Report-Only HTTP header in Warehouse.php
 - Fix SQL error foreign keys: force roll Schools in Rollover.php
+- Update French & Spanish translations in rosariosis.po
 
 Changes in 12.5
 ---------------
