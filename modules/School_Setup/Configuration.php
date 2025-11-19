@@ -374,8 +374,24 @@ else
 			echo '<tr><td class="valign-middle">&#10551; </td><td>' . SelectInput(
 				Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ),
 				'values[config][CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL]',
-				_( 'Default School' ),
+				'',
 				$school_options
+			);
+
+			echo FormatInputTitle(
+				_( 'Default School' ),
+				GetInputID( 'values[config][CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL]' ),
+				false,
+				( Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL' ) ? '' : '<br />' )
+			) . ' ';
+
+			// @since 12.6 Force Default School.
+			echo CheckboxInput(
+				Config( 'CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE' ),
+				'values[config][CREATE_STUDENT_ACCOUNT_DEFAULT_SCHOOL_FORCE]',
+				_( 'Force' ),
+				'',
+				true
 			) . '</td></tr>';
 
 			$students_email_field_RET = DBGet( "SELECT ID,TITLE
