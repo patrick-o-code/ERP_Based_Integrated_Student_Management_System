@@ -59,7 +59,8 @@ function ContentSecurityPolicyPortalAlerts()
 
 	if ( User( 'PROFILE' ) !== 'admin'
 		|| ! $RosarioPlugins['Content_Security_Policy']
-		|| ! AllowUse( 'School_Setup/Configuration.php' ) )
+		|| ! AllowUse( 'School_Setup/Configuration.php' )
+		|| ! $_SESSION['LAST_LOGIN'] ) // Fix SQL error incorrect TIMESTAMP value: ''
 	{
 		return false;
 	}
