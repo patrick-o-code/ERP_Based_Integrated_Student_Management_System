@@ -23,10 +23,10 @@ if ( empty( $json['csp-report'] ) )
 }
 
 $insert_columns = [
-	'FULL_REPORT' => json_encode( $json['csp-report'] ),
-	'VIOLATED_DIRECTIVE' => str_replace( '-elem', '', $json['csp-report']['violated-directive'] ),
-	'BLOCKED_URI' => $json['csp-report']['blocked-uri'],
-	'SCRIPT_SAMPLE' => trim( issetVal( $json['csp-report']['script-sample'], '' ) ),
+	'FULL_REPORT' => DBEscapeString( json_encode( $json['csp-report'] ) ),
+	'VIOLATED_DIRECTIVE' => DBEscapeString( str_replace( '-elem', '', $json['csp-report']['violated-directive'] ) ),
+	'BLOCKED_URI' => DBEscapeString( $json['csp-report']['blocked-uri'] ),
+	'SCRIPT_SAMPLE' => DBEscapeString( trim( issetVal( $json['csp-report']['script-sample'], '' ) ) ),
 ];
 
 // Only save unique CSP report once a day.
