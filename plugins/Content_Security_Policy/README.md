@@ -93,7 +93,7 @@ Third-party add-ons are not listed here, please contact the developer or your sy
 ### Default CSP header
 
 ```
-Content-Security-Policy-Report-Only: script-src 'self' 'unsafe-eval' 'report-sample'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://www.rosariosis.org; form-action 'self'; base-uri 'self'; frame-ancestors: 'none'; object-src none'; report-uri plugins/Content_Security_Policy/Report.php;
+Content-Security-Policy-Report-Only: script-src 'self' 'unsafe-eval' 'report-sample'; style-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors: 'none'; object-src none'; report-uri plugins/Content_Security_Policy/SaveReport.php;
 ```
 
 Warning: [report-uri](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/report-uri) is deprecated but `report-to` is not widely supported yet.
