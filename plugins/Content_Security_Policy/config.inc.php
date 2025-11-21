@@ -185,7 +185,8 @@ if ( empty( $_REQUEST['save'] ) )
 			_( 'Allow requests to external domains' )
 		);
 
-		echo '<table class="width-100p fixed-col">';
+		// Fix CSS responsive List width: do NOT use the .fixed-col class, use pure CSS.
+		echo '<table class="width-100p" style="table-layout: fixed;">';
 
 		echo '<tr><td><pre><code>Content-Security-Policy-Report-Only: ' .
 			Config( 'CONTENT_SECURITY_POLICY' ) . '</code></pre></td></tr>';
