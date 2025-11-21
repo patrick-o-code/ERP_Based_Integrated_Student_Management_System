@@ -33,7 +33,7 @@ $insert_columns = [
 $csp_reported_today = DBGetOne( "SELECT 1
 	FROM csp_reports
 	WHERE CREATED_AT>='" . DBDate() . " 00:00:00'
-	AND FULL_REPORT='" . DBEscapeString( $insert_columns['FULL_REPORT'] ) . "'");
+	AND FULL_REPORT='" . DBEscapeString( json_encode( $json['csp-report'] ) ) . "'" );
 
 if ( ! $csp_reported_today )
 {
