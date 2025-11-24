@@ -2,6 +2,22 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.6
+-----------
+
+[Content Security Policy](https://en.wikipedia.org/wiki/Content_Security_Policy) (phase 2): report only
+
+[Content Security Policy](plugins/Content_Security_Policy/README.md) plugin
+- Report CSP violations and allow external domains
+
+School
+- Configuration: Create Student Account: Force Default School
+
+Add [rounded flag icons](https://www.flaticon.com/packs/countrys-flags), thanks to Flaticon
+
+[Previous Next Student](https://gitlab.com/francoisjacquet/Previous_Next_Student) plugin, sponsored by AT group, Slovenia
+
+
 New in 12.5
 -----------
 
