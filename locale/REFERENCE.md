@@ -43,7 +43,7 @@ Do not forget to add the `.utf8` suffix to the locale code.
 | pt_BR | Portuguese (Brazil)           | **97%***  | Emerson Barros      |
 | pt_PT | Portuguese (Portugal)         | 37%       |                     |
 | ro_RO | Romanian (Romania)            | 33%       |                     |
-| ru_RU | Russian (Russia)              | 32%       |                     |
+| ru_RU | Russian (Russia)              | **99%***  | Aleksey             |
 | sk_SK | Slovak (Slovakia)             | 33%       |                     |
 | sl_SI | Slovenian (Slovenia)          | 76%       | AT group            |
 | sq_AL | Albanian (Albania)            | 33%       |                     |
@@ -51,7 +51,7 @@ Do not forget to add the `.utf8` suffix to the locale code.
 | sv_SE | Swedish (Sweden)              | 33%       |                     |
 | th_TH | Thai (Thailand)               | 33%       |                     |
 | tr_TR | Turkish (Turkey)              | **99%***  | Georgios Katakalos  |
-| uk_UA | Ukrainian (Ukraine)           | 33%       |                     |
+| uk_UA | Ukrainian (Ukraine)           | **99%***  | Aleksey             |
 | vi_VN | Vietnamese (Vietnam)          | **96%**   | Steven M. Haag & Trân Thi Kim Thanh |
 | wa_BE | Walloon (Belgium)             | 33%       |                     |
 | zh_CN | Chinese (Simplified, China)   | 32%       |                     |

@@ -26,6 +26,7 @@ Changes in 12.6
 - Add Content-Security-Policy-Report-Only HTTP header in Warehouse.php
 - Fix SQL error foreign keys: force roll Schools in Rollover.php
 - Update French & Spanish translations in rosariosis.po
+- Add Russian & Ukrainian translations in InstallDatabase.php, locale/ru_RU.utf8/ & locale/uk_UA.utf8/
 
 Changes in 12.5
 ---------------

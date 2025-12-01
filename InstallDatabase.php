@@ -37,7 +37,9 @@ ignore_user_abort( true );
 $locales = [
 	'fr_FR.utf8' => 'French',
 	'pt_BR.utf8' => 'Portuguese (Brazil)',
+	'ru_RU.utf8' => 'Russian',
 	'es_ES.utf8' => 'Spanish',
+	'uk_UA.utf8' => 'Ukranian',
 ];
 
 // Test if database is already installed first.

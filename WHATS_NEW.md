@@ -13,9 +13,14 @@ New in 12.6
 School
 - Configuration: Create Student Account: Force Default School
 
+Add Russian & Ukrainian translations, thanks to Aleksey
+
 Add [rounded flag icons](https://www.flaticon.com/packs/countrys-flags), thanks to Flaticon
 
 [Previous Next Student](https://gitlab.com/francoisjacquet/Previous_Next_Student) plugin, sponsored by AT group, Slovenia
+
+[Timetable Import](https://www.rosariosis.org/modules/timetable-import/)
+- Relate teacher based on RosarioSIS ID
 
 
 New in 12.5
