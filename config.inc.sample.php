@@ -91,6 +91,7 @@ $RosarioNotifyAddress = '';
  * - PHP fatal error
  * - database SQL error
  * - hacking attempts
+ * - CSP violation reports
  *
  * Leave empty to not receive errors
  */
