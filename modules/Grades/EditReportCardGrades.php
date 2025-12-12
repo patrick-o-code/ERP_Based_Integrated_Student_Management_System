@@ -17,7 +17,7 @@ if ( UserStudentID() )
 	// FJ fix bug no delete MP.
 
 	if ( $_REQUEST['modfunc'] === 'removemp'
-		&& $_REQUEST['new_sms']
+		&& ! empty( $_REQUEST['new_sms'] )
 		&& DeletePrompt( _( 'Marking Period' ) ) )
 	{
 		//DBQuery("DELETE FROM student_mp_stats WHERE student_id = $student_id and marking_period_id = $mp_id");
