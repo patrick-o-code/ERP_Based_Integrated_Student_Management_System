@@ -8,6 +8,7 @@ require_once 'modules/School_Setup/includes/Addon.fnc.php';
 // Core plugins cannot be deleted
 /* var defined in Warehouse.php
 $RosarioCorePlugins = array(
+'Content_Security_Policy',
 'Moodle'
 );*/
 
