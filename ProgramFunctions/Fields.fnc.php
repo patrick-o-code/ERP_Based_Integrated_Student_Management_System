@@ -509,7 +509,7 @@ function GetFieldsForm( $table, $title, $RET, $extra_category_fields = [], $type
 				_( 'Select Multiple from Options' ) . '</i></div>',
 				'rows=5 cols=40',
 				true,
-				false
+				'text'
 			) . '</div></td>';
 
 			$header .= '</tr><tr class="st">';
