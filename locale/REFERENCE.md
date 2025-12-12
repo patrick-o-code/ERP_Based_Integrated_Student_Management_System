@@ -15,8 +15,8 @@ Do not forget to add the `.utf8` suffix to the locale code.
 | bn_BD | Bengali (Bangladesh)          | 32%       |                     |
 | cs_CZ | Czech (Czech Republic)        | 32%       |                     |
 | da_DK | Danish (Denmark)              | 32%       |                     |
-| de_DE | German (Germany)              | **97%**   | Heike Gutsche, @0xD0M1M0 |
-| el_GR | Greek (Greece)                | **99%***  | Georgios Katakalos  |
+| de_DE | German (Germany)              | **96%**   | Heike Gutsche, @0xD0M1M0 |
+| el_GR | Greek (Greece)                | **98%***  | Georgios Katakalos  |
 | en_CA | English (Canada)              | 1%        | RDH Associates Inc. |
 | es_ES | Spanish (Spain)               | **100%*** | RosarioSIS          |
 | et_EE | Estonian (Estonia)            | 33%       |                     |
@@ -40,7 +40,7 @@ Do not forget to add the `.utf8` suffix to the locale code.
 | nl_NL | Dutch (Netherlands)           | 32%       |                     |
 | nn_NO | Norwegian Nynorsk (Norway)    | 33%       |                     |
 | pl_PL | Polish (Poland)               | 33%       |                     |
-| pt_BR | Portuguese (Brazil)           | **97%***  | Emerson Barros      |
+| pt_BR | Portuguese (Brazil)           | **96%***  | Emerson Barros      |
 | pt_PT | Portuguese (Portugal)         | 37%       |                     |
 | ro_RO | Romanian (Romania)            | 33%       |                     |
 | ru_RU | Russian (Russia)              | **99%***  | Aleksey             |
@@ -50,7 +50,7 @@ Do not forget to add the `.utf8` suffix to the locale code.
 | sr_RS | Serbian (Cyrillic, Bosnia)    | 33%       |                     |
 | sv_SE | Swedish (Sweden)              | 33%       |                     |
 | th_TH | Thai (Thailand)               | 33%       |                     |
-| tr_TR | Turkish (Turkey)              | **99%***  | Georgios Katakalos  |
+| tr_TR | Turkish (Turkey)              | **98%***  | Georgios Katakalos  |
 | uk_UA | Ukrainian (Ukraine)           | **99%***  | Aleksey             |
 | vi_VN | Vietnamese (Vietnam)          | **96%**   | Steven M. Haag & Trân Thi Kim Thanh |
 | wa_BE | Walloon (Belgium)             | 33%       |                     |
