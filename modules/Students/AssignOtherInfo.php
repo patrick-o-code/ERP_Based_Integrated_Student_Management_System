@@ -480,7 +480,8 @@ function _makeTextInput( $column, $numeric = false, $title = '' )
 {
 	if ( $numeric === true )
 	{
-		$options = 'size=10 maxlength=11';
+		// Fix Number Field SQL column limit: type numeric(20,2).
+		$options = 'type="number" step="any" max="999999999999999999" min="-999999999999999999"';
 	}
 	else
 	{
