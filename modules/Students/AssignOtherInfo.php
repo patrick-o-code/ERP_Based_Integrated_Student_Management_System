@@ -294,6 +294,12 @@ if ( ! $_REQUEST['modfunc'] )
 
 			$col_name = 'CUSTOM_' . $field['ID'];
 
+			if ( ! $field['REQUIRED'] )
+			{
+				// Fix #363 Pull-Down field: add "No Value" option.
+				$select_options['!'] = _( 'No Value' );
+			}
+
 			if ( $field['SELECT_OPTIONS'] )
 			{
 				$options = explode(

@@ -4,6 +4,7 @@
 Changes in 12.7
 ---------------
 - SQL allow array in $where_columns: WHERE COLUMN IN(val1,val2) in DBUpsert.php
+- Fix #363 Pull-Down field: add "No Value" option in AssignOtherInfo.php
 
 Changes in 12.6
 ---------------
