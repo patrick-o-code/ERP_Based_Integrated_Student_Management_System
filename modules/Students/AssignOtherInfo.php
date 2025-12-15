@@ -201,14 +201,14 @@ if ( ! $_REQUEST['modfunc'] )
 
 		if ( ! empty( $_REQUEST['category_id'] ) )
 		{
-			$fields_RET = DBGet( "SELECT ID,TITLE,TYPE,SELECT_OPTIONS
+			$fields_RET = DBGet( "SELECT ID,TITLE,TYPE,SELECT_OPTIONS,REQUIRED
 				FROM custom_fields
 				WHERE CATEGORY_ID='" . (int) $_REQUEST['category_id'] . "'
 				ORDER BY SORT_ORDER IS NULL,SORT_ORDER,TITLE", [], [ 'TYPE' ] );
 		}
 		else
 		{
-			$fields_RET = DBGet( "SELECT f.ID,f.TITLE,f.TYPE,f.SELECT_OPTIONS
+			$fields_RET = DBGet( "SELECT f.ID,f.TITLE,f.TYPE,f.SELECT_OPTIONS,f.REQUIRED
 				FROM custom_fields f,student_field_categories c
 				WHERE f.CATEGORY_ID=c.ID
 				ORDER BY c.SORT_ORDER IS NULL,c.SORT_ORDER,c.TITLE,f.SORT_ORDER IS NULL,f.SORT_ORDER,f.TITLE", [], [ 'TYPE' ] );
@@ -448,7 +448,7 @@ if ( ! $_REQUEST['modfunc'] )
 			foreach ( $fields_RET['radio'] as $field )
 			{
 				echo '<tr><td>' .
-					_makeCheckboxInput( 'CUSTOM_' . $field['ID'], ParseMLField( $field['TITLE'] ) ) .
+					_makeCheckboxInput( 'CUSTOM_' . $field['ID'], ParseMLField( $field['TITLE'] ), (bool) $field['REQUIRED'] ) .
 					'</td></tr>';
 			}
 		}
@@ -519,10 +519,27 @@ function _makeSelectInput( $column, $options, $title = '' )
 }
 
 /**
- * @param $column
- * @param $title
+ * Make Checkbox Input
+ *
+ * Fix #363 Checkbox Field: save unchecked state
+ *
+ * @param string $column   Column.
+ * @param string $title    Field Title.
+ * @param bool   $required Is field required?
+ *
+ * @return string Checkbox Input HTML.
  */
-function _makeCheckboxInput( $column, $title = '' )
+function _makeCheckboxInput( $column, $title = '', $required = false )
 {
-	return CheckboxInput( '', 'values[' . $column . ']', $title, '', true );
+	return CheckboxInput(
+		'',
+		'values[' . $column . ']',
+		$title,
+		'',
+		false,
+		'Yes',
+		button( 'help' ),
+		true,
+		( $required ? 'required' : '' )
+	);
 }
