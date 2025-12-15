@@ -16,6 +16,7 @@ Changes in 12.7
 - Move mikehaertl classes to match their namespace in classes/mikehaertl/
 - Move Shuchkin classes to match their namespace in classes/Shuchkin/
 - Move StaffWidgets & Widgets classes to match their namespace in classes/RosarioSIS/
+- Move StaffWidget classes to match their namespace in classes/RosarioSIS/StaffWidget/
 
 Changes in 12.6
 ---------------
