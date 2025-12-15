@@ -7,7 +7,6 @@
  * @see Widget.php for individual Widgets
  *
  * @package RosarioSIS
- * @subpackage classes/core
  */
 
 namespace RosarioSIS;
@@ -44,8 +43,8 @@ class Widgets
 	 * - WHERE: to restrict SQL query
 	 * - Widgets: to add custom Widgets.
 	 *   $extra['Widgets']['Addon_Name'] = [ 'widget_1', 'widget_2' ];
-	 *   Custom '\Addon_Name\Widget_' class prefix.
-	 *   For Staff Widgets, class prefix is '\Addon_Name\StaffWidget_'
+	 *   Custom '\Addon_Name\Widget' class prefix.
+	 *   For Staff Widgets, class prefix is '\Addon_Name\StaffWidget'
 	 *
 	 * @var array $extra for GetStuList() or GetStaffList()
 	 */
@@ -110,14 +109,14 @@ class Widgets
 
 	/**
 	 * Build Widget
-	 * Calls the all() method or the \RosarioSIS\Widget_[name] class.
+	 * Calls the all() method or the \RosarioSIS\Widget\[Name] class.
 	 *
 	 * @param  string $name         Widget name or 'all'.
 	 * @param  string $class_prefix Widget class prefix with namespace (optional).
 	 *
 	 * @return bool True if is already built, if 'all', or if can build.
 	 */
-	function build( $name, $class_prefix = '\RosarioSIS\Widget_' )
+	function build( $name, $class_prefix = '\RosarioSIS\Widget\\' )
 	{
 		global $RosarioModules;
 
@@ -135,11 +134,20 @@ class Widgets
 			return true;
 		}
 
-		$class_name = $class_prefix . $name;
+		// Convert widget name from snake_case to PascalCase (class names use PascalCase by convention).
+		$name_pascal_case = str_replace( '_', '', ucwords( $name, '_' ) );
+
+		$class_name = $class_prefix . $name_pascal_case;
 
 		if ( ! class_exists( $class_name ) )
 		{
-			return false;
+			// @deprecated since 12.7 Backward compatiblity.
+			$class_name = $class_prefix . $name;
+
+			if ( ! class_exists( $class_name, false ) )
+			{
+				return false;
+			}
 		}
 
 		$widget = new $class_name;
@@ -371,9 +379,9 @@ class Widgets
 	 * @since 10.4 Add-ons can add their custom Widgets
 	 *
 	 * @param  array  $extra_widgets $this->extra['Widgets'];
-	 * @param  string $class_prefix  Class prefix without namespace. Defaults to 'Widget_'.
+	 * @param  string $class_prefix  Class prefix without namespace. Defaults to 'Widget\'.
 	 */
-	function custom( $extra_widgets, $class_prefix = 'Widget_' )
+	function custom( $extra_widgets, $class_prefix = 'Widget\\' )
 	{
 		foreach ( $extra_widgets as $add_on => $widgets )
 		{
@@ -391,10 +399,21 @@ class Widgets
 
 			foreach ( $widgets as $widget )
 			{
+				if ( class_exists( '\\' . $add_on . '\\Widget_' . $widget, false ) )
+				{
+					// @deprecated since 12.7 Backward compatibility.
+					$class_prefix = 'Widget_';
+				}
+				elseif ( class_exists( '\\' . $add_on . '\\StaffWidget_' . $widget, false ) )
+				{
+					// @deprecated since 12.7 Backward compatibility.
+					$class_prefix = 'StaffWidget_';
+				}
+
 				/**
-				 * Custom '\Addon_Name\Widget_' class prefix.
+				 * Custom '\Addon_Name\Widget' class prefix.
 				 *
-				 * @example namespace Hostel_Premium; class Widget_hostel_room implements \RosarioSIS\Widget {...}
+				 * @example namespace Hostel_Premium\Widget; class HostelRoom implements \RosarioSIS\Widget {...}
 				 */
 				$this->build( $widget, '\\' . $add_on . '\\' . $class_prefix );
 			}

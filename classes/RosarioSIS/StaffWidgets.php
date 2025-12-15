@@ -8,7 +8,6 @@
  * @see Widgets.php for base class
  *
  * @package RosarioSIS
- * @subpackage classes/core
  */
 
 namespace RosarioSIS;
@@ -18,14 +17,14 @@ class StaffWidgets extends Widgets
 {
 	/**
 	 * Build Staff Widget
-	 * Calls the all() method or the \RosarioSIS\StaffWidget_[name] class.
+	 * Calls the all() method or the \RosarioSIS\StaffWidget\[Name] class.
 	 *
 	 * @param  string $name         Staff Widget name or 'all'.
 	 * @param  string $class_prefix Staff Widget class prefix with namespace (optional).
 	 *
 	 * @return bool         True if is already built, if 'all', or if can build.
 	 */
-	function build( $name, $class_prefix = '\RosarioSIS\StaffWidget_' )
+	function build( $name, $class_prefix = '\RosarioSIS\StaffWidget\\' )
 	{
 		return parent::build( $name, $class_prefix );
 	}
@@ -80,6 +79,6 @@ class StaffWidgets extends Widgets
 		}
 
 		// @since 10.4 Add-ons can add their custom Widgets
-		$this->custom( $this->extra['Widgets'], 'StaffWidget_' );
+		$this->custom( $this->extra['Widgets'], 'StaffWidget\\' );
 	}
 }

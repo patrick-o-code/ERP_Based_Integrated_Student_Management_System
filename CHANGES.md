@@ -15,6 +15,7 @@ Changes in 12.7
 - Move PHPMailer\PHPMailer classes to match their namespace in classes/PHPMailer/PHPMailer/
 - Move mikehaertl classes to match their namespace in classes/mikehaertl/
 - Move Shuchkin classes to match their namespace in classes/Shuchkin/
+- Move StaffWidgets & Widgets classes to match their namespace in classes/RosarioSIS/
 
 Changes in 12.6
 ---------------
