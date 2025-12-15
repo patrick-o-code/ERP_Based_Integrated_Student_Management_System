@@ -13,7 +13,8 @@ Changes in 12.7
 - Remove XML-RPC compatibility classes in classes/PHPCompatibility/Xmlrpc/
 - Move Services_JSON class to match its namespace (none) in classes/
 - Move PHPMailer\PHPMailer classes to match their namespace in classes/PHPMailer/PHPMailer/
-- Move mikehaertl\shellcommand & mikehaertl\wkhtmlto classes to match their namespace in classes/mikehaertl/
+- Move mikehaertl classes to match their namespace in classes/mikehaertl/
+- Move Shuchkin classes to match their namespace in classes/Shuchkin/
 
 Changes in 12.6
 ---------------
