@@ -509,13 +509,45 @@ function _makeDateInput( $column, $title = '' )
 }
 
 /**
- * @param $column
- * @param $options
- * @param $title
+ * Make Select Input
+ *
+ * Fix #363 Auto Pull-Down field: add "-Edit-" option
+ *
+ * @param string $column  Column.
+ * @param array  $options Select options.
+ * @param string $title   Field Title.
+ *
+ * @return string Select Input HTML.
  */
 function _makeSelectInput( $column, $options, $title = '' )
 {
-	return SelectInput( '', 'values[' . $column . ']', $title, $options, 'N/A', "style='max-width:190px;'" );
+	$extra = 'style="max-width:190px;" autocomplete="off"';
+
+	$name = 'values[' . $column . ']';
+
+	$text_input = '';
+
+	if ( isset( $options['---'] ) )
+	{
+		if ( AllowEdit()
+			&& ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
+		{
+			// Add hidden & disabled Text input in case user chooses -Edit-.
+			$text_input = TextInput(
+				'',
+				$name . '_text',
+				'',
+				'size=20 disabled style="display:none;"',
+				false
+			);
+		}
+
+		// @since RosarioSIS 12.5 CSP remove unsafe-inline Javascript
+		// When -Edit- option selected, change the auto pull-down to text field.
+		$extra .= ' class="onchange-maybe-edit-select"';
+	}
+
+	return $text_input . SelectInput( '', $name, $title, $options, 'N/A', $extra );
 }
 
 /**
