@@ -28,10 +28,6 @@ function MoodleAPICall( $functionname, $object )
 	}
 	elseif ( MOODLE_API_PROTOCOL === 'xmlrpc' )
 	{
-		// @since 7.6 PHP8 no xmlrpc ext: load xmlrpc compat functions.
-		// @deprecated since RosarioSIS 10.6 Use REST API instead
-		require_once 'ProgramFunctions/PHPCompatibility/xmlrpc.php';
-
 		return moodle_xmlrpc_call( $functionname, $object );
 	}
 
