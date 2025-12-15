@@ -8,6 +8,7 @@ Changes in 12.7
 - Fix #363 Checkbox Field: save unchecked state in AssignOtherInfo.php
 - Fix #363 Auto Pull-Down field: add "-Edit-" option in AssignOtherInfo.php
 - Rework save logic & use DBUpdate() function in AssignOtherInfo.php
+- Move PhpMyAdmin\MoTranslator classes to match their namespace in classes/PhpMyAdmin/MoTranslator
 
 Changes in 12.6
 ---------------
