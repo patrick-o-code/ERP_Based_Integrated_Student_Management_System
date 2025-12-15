@@ -11,6 +11,7 @@ Changes in 12.7
 - Move PhpMyAdmin\MoTranslator classes to match their namespace in classes/PhpMyAdmin/MoTranslator
 - Move Symfony\Polyfill classes to match their namespace in classes/Symfony/Polyfill
 - Remove XML-RPC compatibility classes in classes/PHPCompatibility/Xmlrpc/
+- Move Services_JSON class to match its namespace (none) in classes/
 
 Changes in 12.6
 ---------------
