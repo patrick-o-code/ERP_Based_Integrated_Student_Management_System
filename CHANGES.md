@@ -12,6 +12,7 @@ Changes in 12.7
 - Move Symfony\Polyfill classes to match their namespace in classes/Symfony/Polyfill
 - Remove XML-RPC compatibility classes in classes/PHPCompatibility/Xmlrpc/
 - Move Services_JSON class to match its namespace (none) in classes/
+- Move PHPMailer\PHPMailer classes to match their namespace in classes/PHPMailer/PHPMailer
 
 Changes in 12.6
 ---------------
