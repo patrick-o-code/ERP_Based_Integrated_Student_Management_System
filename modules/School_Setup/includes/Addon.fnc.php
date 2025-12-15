@@ -332,8 +332,6 @@ function AddonInstallationStatisticsPost( $type, $addon_dir )
 		];
 
 		// @since 12.5 CPS remove unsafe-inline Javascript
-		require_once 'classes/curl.php';
-
 		try
 		{
 			$curl = new curl;

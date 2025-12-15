@@ -3,6 +3,7 @@
  * Implementation for PHP iconv extension functions not included by default.
  *
  * @since 3.8
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @copyright Symfony
  *
@@ -18,8 +19,6 @@
  */
 
 use Symfony\Polyfill\Iconv as p;
-
-require_once 'classes/PHPCompatibility/Iconv.php';
 
 if (!function_exists('iconv')) {
 	define('ICONV_IMPL', 'Symfony');

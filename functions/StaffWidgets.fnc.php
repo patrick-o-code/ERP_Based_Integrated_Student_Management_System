@@ -12,12 +12,14 @@
  *
  * @since 8.6 Use RosarioSIS\StaffWidgets
  * @since 10.4 Add Staff Widgets init action hook
+ * @since 12.7 Autoload classes (PSR-4)
  *
- * @global array   $_ROSARIO       Sets $_ROSARIO['SearchTerms']
+ * @global array   $_ROSARIO Sets $_ROSARIO['SearchTerms']
  * @global array   $extra
+ * @static object  $widgets  RosarioSIS\StaffWidgets instance
  *
- * @param  string  $item           Staff widget name or 'all' Staff widgets.
- * @param  array   $myextra       Search.inc.php extra (HTML, functions...) (optional). Defaults to global $extra.
+ * @param  string  $item     Staff widget name or 'all' Staff widgets.
+ * @param  array   $myextra  Search.inc.php extra (HTML, functions...) (optional). Defaults to global $extra.
  *
  * @return boolean true if Staff Widget loaded, false if insufficient rights or already saved widget
  */
@@ -31,10 +33,6 @@ function StaffWidgets( $item, &$myextra = null )
 	// (Re)create it, if it's gone missing.
 	if ( ! ( $widgets instanceof RosarioSIS\StaffWidgets ) )
 	{
-		require_once 'classes/core/Widgets.php';
-		require_once 'classes/core/StaffWidgets.php';
-		require_once 'classes/core/StaffWidget.php';
-
 		$widgets = new RosarioSIS\StaffWidgets();
 	}
 

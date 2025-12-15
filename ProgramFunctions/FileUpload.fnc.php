@@ -140,6 +140,7 @@ function FileUpload( $input, $path, $ext_white_list, $size_limit, &$error, $fina
  *
  * @since 3.3
  * @since 12.2 Add WebP image format support
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @uses FileUpload()
  * @uses ImageResizeGD class.
@@ -158,8 +159,6 @@ function ImageUpload( $input, $target_dim = [], $path = '', $ext_white_list = []
 	global $FileUploadsPath,
 		$PNGQuantPath,
 		$error;
-
-	require_once 'classes/ImageResizeGD.php';
 
 	$is_base64 = ( strpos( $input, 'data:image' ) === 0 );
 

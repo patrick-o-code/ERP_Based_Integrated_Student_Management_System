@@ -20,8 +20,9 @@
  *          will print: <p>Hello <em>Parsedown</em>!</p>
  *
  * @since  2.9
+ * @since 12.7 Autoload classes (PSR-4)
  *
- * @global object $Parsedown
+ * @static object $Parsedown
  *
  * @param  string $md     MarkDown text.
  * @param  string $column DBGet() COLUMN formatting compatibility (optional).
@@ -30,19 +31,17 @@
  */
 function MarkDownToHTML( $md, $column = '' )
 {
+	static $Parsedown;
+
 	if ( ! is_string( $md )
 		|| empty( $md ) )
 	{
 		return $md;
 	}
 
-	global $Parsedown;
-
 	// Create $Parsedown object once.
 	if ( ! ( $Parsedown instanceof Parsedown ) )
 	{
-		require_once 'classes/Parsedown.php';
-
 		$Parsedown = new Parsedown();
 	}
 
@@ -61,9 +60,10 @@ function MarkDownToHTML( $md, $column = '' )
  *
  * @since   2.9
  * @since   4.3 Prevent XSS.
+ * @since 12.7 Autoload classes (PSR-4)
  *
- * @global object $security
- * @global object $markdownify
+ * @static object $security
+ * @static object $markdownify
  *
  * @param  string $md MarkDown text.
  *
@@ -71,6 +71,9 @@ function MarkDownToHTML( $md, $column = '' )
  */
 function SanitizeMarkDown( $md )
 {
+	static $security,
+		$markdownify;
+
 	if ( ! is_string( $md )
 		|| empty( $md ) )
 	{
@@ -80,13 +83,9 @@ function SanitizeMarkDown( $md )
 	// Convert MarkDown to HTML.
 	$html = MarkDownToHTML( $md );
 
-	global $security;
-
 	// Create $security object once.
 	if ( ! ( $security instanceof Security ) )
 	{
-		require_once 'classes/Security.php';
-
 		$security = new Security();
 	}
 
@@ -100,15 +99,9 @@ function SanitizeMarkDown( $md )
 			var_dump( $sanitized_html );
 		}
 
-		global $markdownify;
-
 		// Create $markdownify object once.
 		if ( ! ( $markdownify instanceof Markdownify\ConverterExtra ) )
 		{
-			require_once 'classes/Markdownify/Converter.php';
-			require_once 'classes/Markdownify/ConverterExtra.php'; // Handles HTML tables.
-			require_once 'classes/Markdownify/Parser.php';
-
 			$markdownify = new Markdownify\ConverterExtra( Markdownify\ConverterExtra::LINK_IN_PARAGRAPH );
 		}
 
@@ -156,8 +149,9 @@ function SanitizeMarkDown( $md )
  * @since 2.9
  * @since 5.5.3 Better base64 images detection.
  * @since 8.3   Add RosarioSIS URL to image path.
+ * @since 12.7 Autoload classes (PSR-4)
  *
- * @global object $security
+ * @static object $security
  *
  * @param  string $html                  HTML text.
  * @param  string $image_path            Path where to upload base64 images. Defaults to "assets/FileUploads/[Syear]/[staff_or_student_ID]/" (optional).
@@ -167,7 +161,7 @@ function SanitizeMarkDown( $md )
  */
 function SanitizeHTML( $html, $image_path = '', $add_url_to_image_path = false )
 {
-	global $security;
+	static $security;
 
 	if ( ! is_string( $html )
 		|| empty( $html ) )
@@ -178,8 +172,6 @@ function SanitizeHTML( $html, $image_path = '', $add_url_to_image_path = false )
 	// Create $security object once.
 	if ( ! ( $security instanceof Security ) )
 	{
-		require_once 'classes/Security.php';
-
 		$security = new Security();
 	}
 

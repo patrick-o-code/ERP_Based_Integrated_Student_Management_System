@@ -3,6 +3,9 @@
  * Implementation for PHP json extension functions not included by default.
  *
  * @since 3.8
+ * @since 12.7 Autoload classes (PSR-4)
+ *
+ * @deprecated since PHP8.0 the JSON extension is a core PHP extension, so it is always enabled.
  *
  * @copyright WordPress
  *
@@ -15,7 +18,6 @@ if ( !function_exists('json_encode') ) {
 		global $RosarioJSON;
 
 		if ( ! ( $RosarioJSON instanceof Services_JSON ) ) {
-			require_once 'classes/PHPCompatibility/Services_JSON.php';
 			$RosarioJSON = new Services_JSON();
 		}
 
@@ -34,7 +36,6 @@ if ( !function_exists('json_decode') ) {
 		global $RosarioJSON;
 
 		if ( ! ($RosarioJSON instanceof Services_JSON ) ) {
-			require_once 'classes/PHPCompatibility/Services_JSON.php';
 			$RosarioJSON = new Services_JSON();
 		}
 

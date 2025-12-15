@@ -13,12 +13,14 @@
  * @since 5.1 Medical Immunization or Physical Widget.
  * @since 8.6 Use RosarioSIS\Widgets
  * @since 10.4 Add Widgets init action hook
+ * @since 12.7 Autoload classes (PSR-4)
  *
- * @global array   $_ROSARIO       Sets $_ROSARIO['SearchTerms']
+ * @global array   $_ROSARIO Sets $_ROSARIO['SearchTerms']
  * @global array   $extra
+ * @static object  $widgets  RosarioSIS\StaffWidgets instance
  *
- * @param  string  $item           widget name or 'all' widgets.
- * @param  array   &$myextra       Search.inc.php extra (HTML, functions...) (optional). Defaults to global $extra.
+ * @param  string  $item     Widget name or 'all' widgets.
+ * @param  array   &$myextra Search.inc.php extra (HTML, functions...) (optional). Defaults to global $extra.
  *
  * @return boolean False if insufficient rights, else true
  */
@@ -32,9 +34,6 @@ function Widgets( $item, &$myextra = null )
 	// (Re)create it, if it's gone missing.
 	if ( ! ( $widgets instanceof RosarioSIS\Widgets ) )
 	{
-		require_once 'classes/core/Widgets.php';
-		require_once 'classes/core/Widget.php';
-
 		$widgets = new RosarioSIS\Widgets();
 	}
 

@@ -3,15 +3,15 @@
  * Moodle integrator
  *
  * API client for Moodle 3.1+
+ *
+ * @since 12.7 Autoload classes (PSR-4)
  */
-
-// Load cURL class.
-require_once 'classes/curl.php';
 
 /**
  * Moodle API Call
  *
  * @since 11.5
+ * @since 12.7 Remove deprecated XML-RPC compatibility classes
  *
  * @param  string $functionname Webservice function name
  * @param  array  $object       Object to POST to function

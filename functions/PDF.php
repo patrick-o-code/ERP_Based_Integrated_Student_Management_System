@@ -63,6 +63,7 @@ function PDFStart( $options = [] )
  * @since 11.2 Security remove $wkhtmltopdfAssetsPath & --enable-local-file-access, use base URL instead
  * @since 11.4.1 Add `functions/PDF.php|pdf_stop_html` & `functions/PDF.php|pdf_stop_pdf` action hooks
  * @since 11.6 Send wkhtmltopdf error by email
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @link https://github.com/mikehaertl/phpwkhtmltopdf
  *
@@ -193,12 +194,6 @@ function PDFStop( $handle )
 
 		return $path . DIRECTORY_SEPARATOR . $filename . '.html';
 	}
-
-	// Load phpwkhtmltopdf class.
-	require_once 'classes/phpwkhtmltopdf/php-shellcommand/Command.php';
-	require_once 'classes/phpwkhtmltopdf/php-tmpfile/File.php';
-	require_once 'classes/phpwkhtmltopdf/Command.php';
-	require_once 'classes/phpwkhtmltopdf/Pdf.php';
 
 	// Set wkhtmltopdf options.
 	$pdf_options = [

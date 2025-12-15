@@ -3,6 +3,7 @@
  * Implementation for PHP ctype extension functions not included by default.
  *
  * @since 12.3
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @copyright Symfony
  *
@@ -15,8 +16,6 @@
  */
 
 use Symfony\Polyfill\Ctype as p;
-
-require_once 'classes/PHPCompatibility/Ctype.php';
 
 if (!function_exists('ctype_alnum')) {
 	function ctype_alnum($text) { return p\Ctype::ctype_alnum($text); }

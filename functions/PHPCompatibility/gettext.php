@@ -3,6 +3,7 @@
  * Implementation for PHP gettext extension functions not included by default.
  *
  * @since 3.8
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @copyright PhpMyAdmin
  *
@@ -11,10 +12,6 @@
  * @package RosarioSIS
  * @subpackage functions
  */
-
-require_once 'classes/MoTranslator/Loader.php';
-require_once 'classes/MoTranslator/StringReader.php';
-require_once 'classes/MoTranslator/Translator.php';
 
 if ( ! function_exists( 'gettext' ) )
 {

@@ -3,6 +3,7 @@
  * Implementation for PHP mbstring extension functions not included by default.
  *
  * @since 3.8
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @copyright Symfony
  *
@@ -18,8 +19,6 @@
  */
 
 use Symfony\Polyfill\Mbstring as p;
-
-require_once 'classes/PHPCompatibility/Mbstring/Mbstring.php';
 
 if (!function_exists('mb_strlen')) {
 	define('MB_CASE_UPPER', 0);

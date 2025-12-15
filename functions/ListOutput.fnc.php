@@ -1166,11 +1166,10 @@ function _listSave( $result, $column_names, $singular, $plural, $delimiter )
 		 * @uses SimpleXLSXGen class.
 		 *
 		 * @since 11.3
+		 * @since 12.7 Autoload classes (PSR-4)
 		 *
 		 * @link https://github.com/shuchkin/simplexlsxgen
 		 */
-		require_once 'classes/SimpleXLSXGen/SimpleXLSXGen.php';
-
 		$formatted_rows = array_merge( [ $formatted_columns ], $formatted_result );
 
 		$xlsx = Shuchkin\SimpleXLSXGen::fromArray( $formatted_rows );

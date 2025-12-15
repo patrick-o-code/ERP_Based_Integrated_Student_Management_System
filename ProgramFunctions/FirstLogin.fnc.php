@@ -313,8 +313,6 @@ if ( ! function_exists( 'FirstLoginPoll' ) )
 			$data['database_version'] = $database_version;
 
 			// POST poll data to rosariosis.org.
-			require_once 'classes/curl.php';
-
 			try
 			{
 				$curl = new curl;

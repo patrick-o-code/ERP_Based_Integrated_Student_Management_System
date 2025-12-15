@@ -22,7 +22,7 @@
  */
 function strftime_compat($format, $timestamp = null)
 {
-	if ( ! class_exists( 'IntlDateFormatter' ) ) {
+	if ( ! class_exists( 'IntlDateFormatter', false ) ) {
 		if ( ! function_exists( 'strftime' ) ) {
 			// strftime() function does not exist either, exit.
 			$error[] = 'PHP extensions: RosarioSIS relies on the intl extension. Please install and activate it.';

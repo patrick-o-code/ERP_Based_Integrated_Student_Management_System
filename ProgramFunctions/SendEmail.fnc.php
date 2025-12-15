@@ -14,6 +14,7 @@
  * @since 3.6.1 ProgramFunctions/SendEmail.fnc.php|before_send action hook.
  * @since 8.7 ProgramFunctions/SendEmail.fnc.php|send_error action hook.
  * @since 12.0 Update PHPMailer from v5.2.8 to v6.9.1
+ * @since 12.7 Autoload classes (PSR-4)
  *
  * @example SendEmail( $to, $subject, $msg, 'Foo <bar@from.address>', $cc, array( array( $pdf_file, $pdf_name ) ) );
  *
@@ -43,10 +44,6 @@ function SendEmail( $to, $subject, $message, $reply_to = null, $cc = null, $atta
 	// (Re)create it, if it's gone missing.
 	if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) )
 	{
-		require 'classes/PHPMailer/src/PHPMailer.php';
-		require 'classes/PHPMailer/src/SMTP.php';
-		require 'classes/PHPMailer/src/Exception.php';
-
 		$phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
 	}
 
