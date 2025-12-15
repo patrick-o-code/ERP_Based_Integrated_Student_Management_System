@@ -20,6 +20,7 @@ Changes in 12.7
 - Move Widget classes to match their namespace in classes/RosarioSIS/Widget/
 - Autoload classes (PSR-4): classes/[Namespace]/[Class].php in Warehouse.php
 - Autoload classes (PSR-4): remove require_once, program wide
+- Custom widget classes should now use \Addon_Name\StaffWidget\ or \Addon_Name\Widget\ namespace
 
 Changes in 12.6
 ---------------

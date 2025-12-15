@@ -40,8 +40,8 @@ function Widgets( $item, &$myextra = null )
 	/**
 	 * Widgets init action hook
 	 * Add your add-on custom widgets to the $myextra['Widgets'] var:
-	 * $myextra['Widgets']['Addon_Name'] = [ 'widget_1', 'widget_2' ];
-	 * And load your custom \Addon_Name\Widget_[widget_name] class(es).
+	 * $myextra['Widgets']['Addon_Name'] = [ 'widget_name' ];
+	 * And load your custom \Addon_Name\Widget\[WidgetName] class(es).
 	 *
 	 * @since 10.4
 	 */
