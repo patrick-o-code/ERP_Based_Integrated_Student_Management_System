@@ -8,11 +8,12 @@ Changes in 12.7
 - Fix #363 Checkbox Field: save unchecked state in AssignOtherInfo.php
 - Fix #363 Auto Pull-Down field: add "-Edit-" option in AssignOtherInfo.php
 - Rework save logic & use DBUpdate() function in AssignOtherInfo.php
-- Move PhpMyAdmin\MoTranslator classes to match their namespace in classes/PhpMyAdmin/MoTranslator
-- Move Symfony\Polyfill classes to match their namespace in classes/Symfony/Polyfill
+- Move PhpMyAdmin\MoTranslator classes to match their namespace in classes/PhpMyAdmin/MoTranslator/
+- Move Symfony\Polyfill classes to match their namespace in classes/Symfony/Polyfill/
 - Remove XML-RPC compatibility classes in classes/PHPCompatibility/Xmlrpc/
 - Move Services_JSON class to match its namespace (none) in classes/
-- Move PHPMailer\PHPMailer classes to match their namespace in classes/PHPMailer/PHPMailer
+- Move PHPMailer\PHPMailer classes to match their namespace in classes/PHPMailer/PHPMailer/
+- Move mikehaertl\shellcommand & mikehaertl\wkhtmlto classes to match their namespace in classes/mikehaertl/
 
 Changes in 12.6
 ---------------

@@ -222,6 +222,7 @@ phpdoc/
 
 #RosarioSIS
 meta/
+!classes/mikehaertl/tmp/
 /config.inc.php
 assets/FileUploads/*
 !assets/FileUploads/FS_icons/
