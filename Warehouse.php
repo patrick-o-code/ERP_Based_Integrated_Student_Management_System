@@ -3,6 +3,7 @@
  * Warehouse
  *
  * Get configuration
+ * Autoload classes (PSR-4)
  * Load functions
  * Date format & Time zone
  * Start Session
@@ -88,6 +89,35 @@ if ( ! isset( $ETagCache ) )
 	// ETag cache system.
 	$ETagCache = true;
 }
+
+/**
+ * Autoload classes (PSR-4): classes/[Namespace]/[Class].php
+ *
+ * @since 12.7
+ *
+ * @example `new curl();` will load the classes/curl.php file
+ * @example `new PHPMailer\PHPMailer\PHPMailer();` will load the classes/PHPMailer/PHPMailer/PHPMailer.php file
+ * @example `class_exists( 'ZipArchive' )` will try to load the classes/ZipArchive.php file
+ *
+ * @link https://www.php.net/manual/en/language.oop5.autoload.php
+ */
+spl_autoload_register(
+	function( $class )
+	{
+		$class_path = 'classes/' . str_replace( '\\', '/', ltrim( $class, '\\' ) ) . '.php';
+
+		if ( file_exists( $class_path ) )
+		{
+			// Check if file exists before require.
+			// Otherwise would break for `class_exists( 'ZipArchive' )` if php-zip missing
+			require $class_path;
+
+			return true;
+		}
+
+		return false;
+	}
+);
 
 /**
  * Load functions
@@ -303,7 +333,7 @@ if ( ! isAJAX() )
  *
  * @param  array  $array    Array by reference.
  * @param  string $function Function name.
- * @return array  &$array Array passed through $function function
+ * @return void   &$array   Array passed through $function function
  */
 function array_rwalk( &$array, $function )
 {

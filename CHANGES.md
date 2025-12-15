@@ -18,6 +18,7 @@ Changes in 12.7
 - Move StaffWidgets & Widgets classes to match their namespace in classes/RosarioSIS/
 - Move StaffWidget classes to match their namespace in classes/RosarioSIS/StaffWidget/
 - Move Widget classes to match their namespace in classes/RosarioSIS/Widget/
+- Autoload classes (PSR-4): classes/[Namespace]/[Class].php in Warehouse.php
 
 Changes in 12.6
 ---------------
