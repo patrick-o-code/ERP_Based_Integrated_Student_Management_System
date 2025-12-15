@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes in 12.7
+---------------
+- SQL allow array in $where_columns: WHERE COLUMN IN(val1,val2) in DBUpsert.php
+
 Changes in 12.6
 ---------------
 - HTML responsive stackable tables in Export.php

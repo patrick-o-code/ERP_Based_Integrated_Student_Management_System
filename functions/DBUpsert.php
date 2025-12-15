@@ -106,10 +106,11 @@ function DBInsert( $table, $columns, $return = 'true' )
  *
  * @since 11.0
  * @since 11.2 Only allow column names of string type (not empty)
+ * @since 12.7 SQL allow array in $where_columns: WHERE COLUMN IN(val1,val2)
  *
  * @param string $table         DB table (unescaped).
  * @param array  $columns       Columns (values escaped). Associative array, [ 'COLUMN' => 'value' ].
- * @param array  $where_columns WHERE part columns. Associative array, [ 'COLUMN' => 'value' ].
+ * @param array  $where_columns WHERE part columns. Associative array, [ 'COL' => 'val', 'COL_IN' => [ '1', '2' ] ].
  *
  * @return string Empty if no values to update, else SQL statement.
  */
@@ -156,6 +157,19 @@ function DBUpdateSQL( $table, $columns, $where_columns )
 
 	foreach ( (array) $where_columns as $column => $value )
 	{
+		if ( is_array( $value ) )
+		{
+			if ( $value )
+			{
+				// SQL allow array in $where_columns: WHERE COLUMN IN(val1,val2)
+				$sql .= DBEscapeIdentifier( $column ) . " IN('" . implode( "','", $value ) . "') AND ";
+
+				continue;
+			}
+
+			$value = '';
+		}
+
 		$sql .= DBEscapeIdentifier( $column ) . "='" . $value . "' AND ";
 	}
 
@@ -176,7 +190,7 @@ function DBUpdateSQL( $table, $columns, $where_columns )
  *
  * @param string $table         DB table (unescaped).
  * @param array  $columns       Columns (values escaped). Associative array, [ 'COLUMN' => 'value' ].
- * @param array  $where_columns WHERE part columns. Associative array, [ 'COLUMN' => 'value' ].
+ * @param array  $where_columns WHERE part columns. Associative array, [ 'COL' => 'val', 'COL_IN' => [ '1', '2' ] ].
  *
  * @return bool  False if no SQL else true.
  */
