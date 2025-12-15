@@ -12,80 +12,71 @@ if ( $_REQUEST['modfunc'] === 'save'
 	// Add eventual Dates to $_REQUEST['values'].
 	AddRequestedDates( 'values', 'post' );
 
-	if ( ! empty( $_POST['values'] )
-		&& ! empty( $_POST['student'] ) )
+	if ( ! empty( $_REQUEST['student'] ) )
 	{
+		$update_enrollment_col = [];
+
 		if ( ! empty( $_REQUEST['values']['GRADE_ID'] ) )
 		{
-			$grade_id = $_REQUEST['values']['GRADE_ID'];
-			unset( $_REQUEST['values']['GRADE_ID'] );
+			$update_enrollment_col['GRADE_ID'] = (int) $_REQUEST['values']['GRADE_ID'];
 		}
 
 		if ( isset( $_REQUEST['values']['NEXT_SCHOOL'] )
 			&& $_REQUEST['values']['NEXT_SCHOOL'] !== '' )
 		{
-			$next_school = $_REQUEST['values']['NEXT_SCHOOL'];
-			unset( $_REQUEST['values']['NEXT_SCHOOL'] );
+			$update_enrollment_col['NEXT_SCHOOL'] = (int) $_REQUEST['values']['NEXT_SCHOOL'];
 		}
 
 		if ( ! empty( $_REQUEST['values']['CALENDAR_ID'] ) )
 		{
-			$calendar = $_REQUEST['values']['CALENDAR_ID'];
-			unset( $_REQUEST['values']['CALENDAR_ID'] );
+			$update_enrollment_col['CALENDAR_ID'] = (int) $_REQUEST['values']['CALENDAR_ID'];
 		}
 
 		if ( ! empty( $_REQUEST['values']['START_DATE'] ) )
 		{
-			$start_date = $_REQUEST['values']['START_DATE'];
-			unset( $_REQUEST['values']['START_DATE'] );
+			$update_enrollment_col['START_DATE'] = $_REQUEST['values']['START_DATE'];
 		}
 
 		if ( ! empty( $_REQUEST['values']['ENROLLMENT_CODE'] ) )
 		{
-			$enrollment_code = $_REQUEST['values']['ENROLLMENT_CODE'];
-			unset( $_REQUEST['values']['ENROLLMENT_CODE'] );
+			$update_enrollment_col['ENROLLMENT_CODE'] = (int) $_REQUEST['values']['ENROLLMENT_CODE'];
 		}
 
-		// FJ textarea fields MarkDown sanitize.
-		$_REQUEST['values'] = FilterCustomFieldsMarkdown( 'custom_fields', 'values' );
-
-		$fields_RET = DBGet( "SELECT ID,TYPE
-			FROM custom_fields
-			ORDER BY SORT_ORDER IS NULL,SORT_ORDER", [], [ 'ID' ] );
-
-		$update = '';
-
-		$values_count = 0;
-
-		foreach ( (array) $_REQUEST['values'] as $field => $value )
-		{
-			if ( isset( $fields_RET[str_replace( 'CUSTOM_', '', $field )][1]['TYPE'] )
-				&& $fields_RET[str_replace( 'CUSTOM_', '', $field )][1]['TYPE'] == 'numeric'
-				&& $value != ''
-				&& ! is_numeric( $value ) )
-			{
-				$error[] = _( 'Please enter valid Numeric data.' );
-				continue;
-			}
-
-			if ( isset( $value ) && $value != '' )
-			{
-				$update .= ',' . DBEscapeIdentifier( $field ) . "='" . $value . "'";
-				$values_count++;
-			}
-		}
-
-		$students = '';
-
-		$students_count = 0;
+		unset(
+			$_REQUEST['values']['GRADE_ID'],
+			$_REQUEST['values']['NEXT_SCHOOL'],
+			$_REQUEST['values']['CALENDAR_ID'],
+			$_REQUEST['values']['START_DATE'],
+			$_REQUEST['values']['ENROLLMENT_CODE']
+		);
 
 		foreach ( (array) $_REQUEST['student'] as $student_id )
 		{
-			$students .= ",'" . $student_id . "'";
-			$students_count++;
+			$update_enrollment_col_final = $update_enrollment_col;
 
-			//enrollment: update only the LAST enrollment record
+			if ( ! empty( $update_enrollment_col['START_DATE'] ) )
+			{
+				//FJ check if student already enrolled on that date when updating START_DATE
+				$already_enrolled = DBGetOne( "SELECT ID
+					FROM student_enrollment
+					WHERE STUDENT_ID='" . (int) $student_id . "'
+					AND SYEAR='" . UserSyear() . "'
+					AND '" . $_REQUEST['values']['START_DATE'] . "' BETWEEN START_DATE AND END_DATE" );
 
+				if ( $already_enrolled )
+				{
+					$error[] = _( 'The student is already enrolled on that date, and cannot be enrolled a second time on the date you specified. Please fix, and try enrolling the student again.' );
+
+					unset( $update_enrollment_col_final['START_DATE'] );
+				}
+			}
+
+			if ( ! $update_enrollment_col_final )
+			{
+				continue;
+			}
+
+			// Enrollment: update only the LAST enrollment record
 			/**
 			 * Fix MySQL 5.6 error Can't specify target table for update in FROM clause.
 			 *
@@ -99,87 +90,71 @@ if ( $_REQUEST['modfunc'] === 'save'
 				ORDER BY START_DATE DESC
 				LIMIT 1" );
 
-			if ( ! empty( $grade_id ) )
-			{
-				DBQuery( "UPDATE student_enrollment
-					SET GRADE_ID='" . (int) $grade_id . "'
-					WHERE ID='" . (int) $last_enrollment_id . "'" );
-			}
-
-			if ( isset( $next_school ) )
-			{
-				DBQuery( "UPDATE student_enrollment
-					SET NEXT_SCHOOL='" . $next_school . "'
-					WHERE ID='" . (int) $last_enrollment_id . "'" );
-			}
-
-			if ( ! empty( $calendar ) )
-			{
-				DBQuery( "UPDATE student_enrollment
-					SET CALENDAR_ID='" . (int) $calendar . "'
-					WHERE ID='" . (int) $last_enrollment_id . "'" );
-			}
-
-			if ( ! empty( $start_date ) )
-			{
-				//FJ check if student already enrolled on that date when updating START_DATE
-				$found_RET = DBGet( "SELECT ID
-					FROM student_enrollment
-					WHERE STUDENT_ID='" . (int) $student_id . "'
-					AND SYEAR='" . UserSyear() . "'
-					AND '" . $start_date . "' BETWEEN START_DATE AND END_DATE" );
-
-				if ( ! empty( $found_RET ) )
-				{
-					$error[] = _( 'The student is already enrolled on that date, and cannot be enrolled a second time on the date you specified. Please fix, and try enrolling the student again.' );
-				}
-				else
-				{
-					DBQuery( "UPDATE student_enrollment
-						SET START_DATE='" . $start_date . "'
-						WHERE ID='" . (int) $last_enrollment_id . "'" );
-				}
-			}
-
-			if ( ! empty( $enrollment_code ) )
-			{
-				DBQuery( "UPDATE student_enrollment
-					SET ENROLLMENT_CODE='" . $enrollment_code . "'
-					WHERE ID='" . (int) $last_enrollment_id . "'" );
-			}
+			DBUpdate(
+				'student_enrollment',
+				$update_enrollment_col_final,
+				[ 'ID' => (int) $last_enrollment_id ]
+			);
 		}
 
-		if ( $values_count && $students_count )
+		// FJ textarea fields MarkDown sanitize.
+		$_REQUEST['values'] = FilterCustomFieldsMarkdown( 'custom_fields', 'values' );
+
+		$fields_RET = DBGet( "SELECT ID,TYPE
+			FROM custom_fields
+			ORDER BY SORT_ORDER IS NULL,SORT_ORDER", [], [ 'ID' ] );
+
+		$update_student_col = [];
+
+		foreach ( (array) $_REQUEST['values'] as $field => $value )
 		{
-			DBQuery( 'UPDATE students
-				SET ' . mb_substr( $update, 1 ) . '
-				WHERE STUDENT_ID IN (' . mb_substr( $students, 1 ) . ')' );
+			$type = $fields_RET[str_replace( 'CUSTOM_', '', $field )][1]['TYPE'];
+
+			if ( $type == 'numeric'
+				&& $value != ''
+				&& ! is_numeric( $value ) )
+			{
+				$error[] = _( 'Please enter valid Numeric data.' );
+				continue;
+			}
+
+			if ( $value != '' || $type === 'radio' )
+			{
+				if ( $value === '!'
+					&& ( $type === 'select' || $type === 'autos' || $type === 'exports' ) )
+				{
+					// No Value.
+					$value = '';
+				}
+
+				$update_student_col[ $field ] = $value;
+			}
 		}
-		elseif ( $warning )
-		{
-			$warning[0] = mb_substr( $warning, 0, mb_strpos( $warning, '. ' ) );
-		}
-		elseif ( empty( $grade_id )
-			&& ! isset( $next_school )
-			&& empty( $calendar )
-			&& empty( $start_date )
-			&& empty( $enrollment_code ) )
+
+		DBUpdate(
+			'students',
+			$update_student_col,
+			// @since 12.7 SQL allow array in $where_columns: WHERE COLUMN IN(val1,val2)
+			[ 'STUDENT_ID' => array_map( 'intval', $_REQUEST['student'] ) ]
+		);
+
+		if ( ! $update_enrollment_col
+			&& ! $update_student_col )
 		{
 			$warning[] = _( 'No data was entered.' );
 		}
-
-		if ( ! $warning )
+		else
 		{
 			$note[] = button( 'check' ) . '&nbsp;' . _( 'The specified information was applied to the selected students.' );
 		}
 	}
 	else
 	{
-		$error[] = _( 'You must choose at least one field and one student' );
+		$error[] = _( 'You must choose at least one student.' );
 	}
 
-	// Unset modfunc & values & redirect URL.
-	RedirectURL( [ 'modfunc', 'values' ] );
+	// Unset modfunc, values & student & redirect URL.
+	RedirectURL( [ 'modfunc', 'values', 'student' ] );
 }
 
 echo ErrorMessage( $error );
