@@ -8,6 +8,10 @@ Author François Jacquet
 
 This plugin integrates RosarioSIS with [Moodle LMS](https://moodle.org/). It lets you import Moodle users.
 
+RosarioSIS 12.7 removes XML-RPC compatibility classes. Rely on [PHP xmlrpc extension](https://php.watch/versions/8.0/xmlrpc).
+
+RosarioSIS 13.0 will remove XML-RPC support entirely. Use the REST API instead.
+
 ### WARNING & LIMITATION
 
 The plugin is designed and intended for ONE school only in RosarioSIS.
