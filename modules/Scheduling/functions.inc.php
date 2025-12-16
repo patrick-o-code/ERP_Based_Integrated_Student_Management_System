@@ -75,7 +75,7 @@ function MyWidgets( $item )
 			}
 
 			// @since 12.0 Use colorBox instead of popup window
-			$extra['search'] .= '<tr><td>' . _( 'Last Year Course' ) . '</td>
+			$extra['search'] .= '<tr class="st"><td>' . _( 'Last Year Course' ) . '</td>
 				<td><div id="ly_course_div"></div>
 				<a href="Modules.php?modname=misc/ChooseCourse.php&last_year=true" class="colorbox">' .
 					_( 'Choose' ) . '</a></td></tr>';
