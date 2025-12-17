@@ -1470,11 +1470,19 @@ function _makeComment( $value, $column )
 
 	if ( ! isset( $_REQUEST['_ROSARIO_PDF'] ) )
 	{
+		$size = 20;
+
+		if ( ! GetMP( $_REQUEST['mp'], 'DOES_COMMENTS' ) )
+		{
+			// @since 12.7 Double (free) Comment input size when MP does not do Comments
+			$size = 38;
+		}
+
 		$return = TextInput(
 			$select,
 			'values[' . $THIS_RET['STUDENT_ID'] . '][comment]',
 			'',
-			'size=20 maxlength=500',
+			'size="' . AttrEscape( $size ) . '" maxlength=500',
 			$div
 		);
 

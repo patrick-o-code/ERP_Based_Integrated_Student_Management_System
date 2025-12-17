@@ -28,6 +28,7 @@ Changes in 12.7
 - Simplify PHP logic of HackingLog(): 17 lines gain in HackingLog.fnc.php
 - Use MultipleCheckboxInput() function in `_makeMultipleInput()` in StudentsUsersInfo.fnc.php
 - Fix PHP8.5 deprecated curl_close() function in curl.php
+- Double (free) Comment input size when MP does not do Comments in InputFinalGrades.php
 
 Changes in 12.6
 ---------------
