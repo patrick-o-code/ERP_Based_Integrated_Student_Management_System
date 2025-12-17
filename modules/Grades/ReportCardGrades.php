@@ -326,6 +326,29 @@ function _makeGradesInput( $value, $name )
 		{
 			$extra .= ' required';
 		}
+
+		if ( $id !== 'new'
+			&& $name === 'GP_SCALE' )
+		{
+			$max_grade = DBGetOne( "SELECT MAX(GPA_VALUE)
+				FROM report_card_grades
+				WHERE GRADE_SCALE_ID='" . (int) $THIS_RET['ID'] . "'" );
+
+			if ( $max_grade
+				&& $max_grade != $value )
+			{
+				// @since 12.7 Misconfiguration hint: Scale Value different from max GPA Value
+				$value = [ $value, '<span style="color: red;">' . $value . '</span>' ];
+			}
+		}
+
+		if ( $id !== 'new'
+			&& $name === 'GP_PASSING_VALUE'
+			&& $value > $THIS_RET['GP_SCALE'] )
+		{
+			// @since 12.7 Misconfiguration hint: Minimum Passing Grade > Scale Value
+			$value = [ $value, '<span style="color: red;">' . $value . '</span>' ];
+		}
 	}
 
 	if ( $name === 'BREAK_OFF'
