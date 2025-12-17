@@ -12,6 +12,7 @@
  * @link https://github.com/maximebf/php-debugbar
  *
  * @since 5.0
+ * @deprecated since 12.7
  */
 function PhpDebugBar()
 {
@@ -66,9 +67,12 @@ function PhpDebugBar()
  * @link https://github.com/kint-php/kint/
  *
  * @since 5.0
+ * @deprecated since 12.7
  */
 function Kint()
 {
+	return false;
+
 	if ( ! file_exists( 'meta/debug/kint.phar' ) )
 	{
 		function d()

@@ -471,6 +471,7 @@ if ( mb_internal_encoding() !== 'UTF-8' )
 
 if ( ROSARIO_DEBUG )
 {
+	// @deprecated since 12.7
 	require_once 'ProgramFunctions/Debug.fnc.php';
 
 	// @since 5.0 Load Kint.

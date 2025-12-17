@@ -23,6 +23,7 @@ Changes in 12.7
 - Autoload classes (PSR-4): remove require_once, program wide
 - Custom widget classes should now use \Addon_Name\StaffWidget\ or \Addon_Name\Widget\ namespace
 - Fix "Last Year Course" widget responsive: add .st class in modules/Scheduling/functions.inc.php
+- Deprecate PhpDebugBar() & Kint() functions in Debug.fnc.php
 
 Changes in 12.6
 ---------------
