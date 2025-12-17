@@ -25,6 +25,7 @@ Changes in 12.7
 - Fix "Last Year Course" widget responsive: add .st class in modules/Scheduling/functions.inc.php
 - Deprecate PhpDebugBar() & Kint() functions in Debug.fnc.php
 - Minor corrections to the Russian and Ukrainian translations in rosariosis.po & rosariosis.sql
+- Simplify PHP logic of HackingLog(): 17 lines gain in HackingLog.fnc.php
 
 Changes in 12.6
 ---------------

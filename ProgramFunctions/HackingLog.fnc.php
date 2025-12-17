@@ -60,32 +60,15 @@ function HackingLog()
 	 */
 	error_log( 'RosarioSIS HACKING ATTEMPT' );
 
-	if ( $attempts_within_one_minute < 10
-		&& ! empty( $_SERVER['HTTP_REFERER'] )
-		&& mb_strpos( $_SERVER['HTTP_REFERER'], '&redirect_to=' ) !== false )
+	if ( $attempts_within_one_minute >= 10
+		|| empty( $_SERVER['HTTP_REFERER'] )
+		// Do not send email if user has just logged in (&redirect_to= in referer)
+		|| mb_strpos( $_SERVER['HTTP_REFERER'], '&redirect_to=' ) === false )
 	{
-		/**
-		 * If User has just logged in, take him back to Portal without sending email!
-		 * Redirection is done in HTML.
-		 *
-		 * @link https://stackoverflow.com/questions/42216700/how-can-i-redirect-after-oauth2-with-samesite-strict-and-still-get-my-cookies#answer-64216367
-		 */
-		ob_clean();
-		?>
-		<html>
-		<head>
-		<meta http-equiv="REFRESH" content="0;URL=<?php echo URLEscape( $redirect_url ); ?>" />
-		</head>
-		<body></body>
-		</html>
-		<?php
+		$error[] = _( 'You\'re not allowed to use this program!' );
 
-		exit;
+		ErrorSendEmail( $error, 'HACKING ATTEMPT' );
 	}
-
-	$error[] = _( 'You\'re not allowed to use this program!' );
-
-	ErrorSendEmail( $error, 'HACKING ATTEMPT' );
 
 	if ( $attempts_within_one_minute >= 10 )
 	{
