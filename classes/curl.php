@@ -347,7 +347,12 @@ class curl {
 			var_dump($this->error);
 		}
 
-		curl_close($curl);
+		if (PHP_VERSION_ID>=80000){
+			// FJ Fix PHP8.5 deprecated curl_close() function
+			unset($curl);
+		} else {
+			curl_close($curl);
+		}
 
 		if (empty($this->error)){
 			return $ret;

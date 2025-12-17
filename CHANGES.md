@@ -27,6 +27,7 @@ Changes in 12.7
 - Minor corrections to the Russian and Ukrainian translations in rosariosis.po & rosariosis.sql
 - Simplify PHP logic of HackingLog(): 17 lines gain in HackingLog.fnc.php
 - Use MultipleCheckboxInput() function in `_makeMultipleInput()` in StudentsUsersInfo.fnc.php
+- Fix PHP8.5 deprecated curl_close() function in curl.php
 
 Changes in 12.6
 ---------------
