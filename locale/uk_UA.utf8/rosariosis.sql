@@ -275,7 +275,7 @@ WHERE modname='Grades/HonorRollSubject.php';
 UPDATE templates
 SET template='<h2 style="text-align: center;">Сертифікат з навчання</h2>
 <p>Згідно інформації від директора та секретаріата:</p>
-<p>Что __FIRST_NAME__ __LAST_NAME__ з ідентифікатором __SSECURITY__ пройшов(ла) навчання в цьому закладі, у класі __GRADE_ID__ у навчальному році __YEAR__ й отримав(ла) оцінки.</p>
+<p>Что __FIRST_NAME__ __LAST_NAME__ з ідентифікатором __SSECURITY__ проходить навчання в цьому закладі, у класі __GRADE_ID__ у навчальному році __YEAR__ й отримав(ла) оцінки.</p>
 <p>Учень(ниця) переходить до класу __NEXT_GRADE_ID__.</p>
 <p>__BLOCK2__</p>
 <p>&nbsp;</p>

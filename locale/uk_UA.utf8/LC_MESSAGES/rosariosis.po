@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: RosarioSIS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-25 12:54+0100\n"
-"PO-Revision-Date: 2025-11-25 17:17+0200\n"
+"PO-Revision-Date: 2025-12-07 00:57+0200\n"
 "Last-Translator: Alexey <support@digiology.org>\n"
 "Language-Team: Alexey, digiology.org\n"
 "Language: uk_UA\n"
@@ -895,7 +895,7 @@ msgstr "Завантажити"
 #: modules/Student_Billing/StudentFees.php:198
 #: modules/Student_Billing/StudentPayments.php:194 modules/misc/Portal.php:132
 msgid "File Attached"
-msgstr "Файл додається"
+msgstr "Прикріпити файл"
 
 #: ProgramFunctions/PortalPollsNotes.fnc.php:560
 msgid "Embed Link"
@@ -2626,7 +2626,7 @@ msgstr "Підтвердіти"
 #: functions/Prompts.php:72
 #, php-format
 msgid "Are you sure you want to %s that %s?"
-msgstr "Ви впевнені, що хочете %s з %s?"
+msgstr "Ви впевнені, що хочете %s %s?"
 
 #: functions/Search.fnc.php:166 modules/School_Setup/CopySchool.php:7
 #: modules/School_Setup/Menu.php:21
@@ -3041,7 +3041,7 @@ msgstr "Призначення"
 #: modules/Grades/MassCreateAssignments.php:426
 #: modules/Student_Billing/StudentFees.php:192
 msgid "Due"
-msgstr "Належний"
+msgstr "Строк"
 
 #: modules/Accounting/Salaries.php:193 modules/Accounting/StaffPayments.php:177
 msgid "Total from Salaries"
@@ -3130,7 +3130,7 @@ msgstr "Виплати учням"
 #: modules/Student_Billing/includes/DailyTotals.php:65
 #: modules/Student_Billing/includes/Dashboard.inc.php:118
 msgid "Fees"
-msgstr "Збирання"
+msgstr "Сплата"
 
 #: modules/Accounting/includes/DailyTransactions.php:197
 msgid "Staff Payment"
@@ -3149,9 +3149,9 @@ msgstr "Персонал"
 #: modules/Student_Billing/includes/DailyTransactions.php:119
 msgid "Fee"
 msgid_plural "Fees"
-msgstr[0] "Збір"
-msgstr[1] "Збора"
-msgstr[2] "Зборів"
+msgstr[0] "Сплата"
+msgstr[1] "Сплати"
+msgstr[2] "Сплат"
 
 #: modules/Accounting/includes/DailyTransactions.php:274
 msgid "Student Payment"
@@ -3595,7 +3595,7 @@ msgstr "Щоденна відвідуваність"
 #: modules/Custom/AttendanceSummary.php:158
 #: modules/Grades/includes/ReportCards.fnc.php:442
 msgid "Absences"
-msgstr "Пропуски занять"
+msgstr "Відсутність"
 
 #: modules/Attendance/includes/StudentSummary.php:53
 msgid "All Periods"
@@ -7632,7 +7632,7 @@ msgstr ""
 
 #: modules/Student_Billing/MassAssignFees.php:35
 msgid "That fee has been added to the selected students."
-msgstr "Цей внесок було внесено для обраних учнів."
+msgstr "Цю сплату було додано для обраних учнів."
 
 #: modules/Student_Billing/MassAssignFees.php:40
 #: modules/Student_Billing/MassAssignPayments.php:44
@@ -7642,7 +7642,7 @@ msgstr "Будь ласка, введіть дійсну суму."
 #: modules/Student_Billing/MassAssignFees.php:63
 #: modules/Student_Billing/MassAssignFees.php:107
 msgid "Add Fee to Selected Students"
-msgstr "Додати внесок для обраних учнів"
+msgstr "Додати сплату для обраних учнів"
 
 #: modules/Student_Billing/MassAssignPayments.php:34
 msgid "That payment has been added to the selected students."
@@ -7661,7 +7661,7 @@ msgstr "Платіж"
 
 #: modules/Student_Billing/Menu.php:18
 msgid "Mass Assign Fees"
-msgstr "Збори за масове призначення"
+msgstr "Групове призначення сплат"
 
 #: modules/Student_Billing/Menu.php:19
 msgid "Mass Assign Payments"
@@ -7704,14 +7704,14 @@ msgstr "Створено в"
 #: modules/Users/Preferences.php:691 modules/Users/Preferences.php:851
 #: modules/Users/Search.inc.php:275
 msgid "Expanded View"
-msgstr "Розширений перегляд"
+msgstr "Розширений вигляд"
 
 #: modules/Student_Billing/StudentFees.php:275
 #: modules/Student_Billing/StudentPayments.php:278
 #: modules/Student_Billing/includes/DailyTotals.php:129
 #: modules/misc/Export.php:450 modules/misc/Export.php:691
 msgid "Total from Fees"
-msgstr "Разом по зборах"
+msgstr "Разом по сплаті"
 
 #: modules/Student_Billing/StudentFees.php:277
 #: modules/Student_Billing/StudentPayments.php:281
@@ -7743,9 +7743,9 @@ msgstr "Повернений"
 #, php-format
 msgid "%d new fee"
 msgid_plural "%d new fees"
-msgstr[0] "%d новий внесок"
-msgstr[1] "%d нових внеска"
-msgstr[2] "%d нових внесків"
+msgstr[0] "%d нова сплата"
+msgstr[1] "%d нові сплати"
+msgstr[2] "%d нових сплат"
 
 #: modules/Students/AddDrop.php:27
 msgid "Add / Drop Breakdown over Time"

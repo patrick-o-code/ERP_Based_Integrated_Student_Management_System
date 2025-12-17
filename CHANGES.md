@@ -24,6 +24,7 @@ Changes in 12.7
 - Custom widget classes should now use \Addon_Name\StaffWidget\ or \Addon_Name\Widget\ namespace
 - Fix "Last Year Course" widget responsive: add .st class in modules/Scheduling/functions.inc.php
 - Deprecate PhpDebugBar() & Kint() functions in Debug.fnc.php
+- Minor corrections to the Russian and Ukrainian translations in rosariosis.po & rosariosis.sql
 
 Changes in 12.6
 ---------------
