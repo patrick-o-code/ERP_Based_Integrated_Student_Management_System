@@ -554,6 +554,7 @@ function _makeFilesInput( $column, $name, $request, $remove_url = '' )
  * Make Multiple Input
  *
  * @since 6.1 Return HTML instead of echo.
+ * @since 12.7 Use MultipleCheckboxInput() function
  *
  * @global array  $value
  * @global array  $field
@@ -569,81 +570,30 @@ function _makeMultipleInput( $column, $name, $request )
 	global $value,
 		$field;
 
-	if ( ! AllowEdit()
-		|| isset( $_REQUEST['_ROSARIO_PDF'] ) )
+	$div = true;
+
+	if ( $field['DEFAULT_SELECTION']
+		&& _isNew( $request ) )
 	{
-		return ( ! empty( $value[ $column ] ) ?
-			str_replace( '||', ', ', mb_substr( $value[ $column ], 2, -2 ) ) :
-			'-' ) .
-			FormatInputTitle( $name );
+		$value[ $column ] = '||' . $field['DEFAULT_SELECTION'] . '||';
+
+		$div = false;
 	}
 
-	$select_options = $options = [];
+	$options = [];
 
 	if ( $field['SELECT_OPTIONS'] )
 	{
-		$select_options = explode( "\r", str_replace( [ "\r\n", "\n" ], "\r", $field['SELECT_OPTIONS'] ) );
+		$options = explode( "\r", str_replace( [ "\r\n", "\n" ], "\r", $field['SELECT_OPTIONS'] ) );
 	}
 
-	foreach ( $select_options as $option )
-	{
-		$options[ $option ] = $option;
-	}
-
-	$table = '<table class="cellpadding-5">';
-
-	if ( count( $options ) > 12 )
-	{
-		$table .= '<tr><td colspan="2">';
-		$table .= FormatInputTitle( $name, '', false, '' );
-		$table .= '<table class="width-100p" style="height: 7px; border:1;border-style: solid solid none solid;"><tr><td></td></tr></table>';
-		$table .= '</td></tr>';
-	}
-
-	$table .= '<tr>';
-
-	$i = 0;
-
-	foreach ( (array) $options as $option )
-	{
-		if ( $i % 2 === 0 )
-		{
-			$table .= '</tr><tr>';
-		}
-
-		// FJ add <label> on checkbox.
-		$table .= '<td><label>
-			<input type="checkbox" name="' . AttrEscape( $request . '[' . $column . '][]' ) . '" value="' .
-				AttrEscape( $option ) . '"' .
-				( ! empty( $value[ $column ] )
-					&& mb_strpos( $value[ $column ], '||' . $option . '||' ) !== false ? ' checked' : '' ) . '> ' .
-				$option .
-		'</label></td>';
-
-		$i++;
-	}
-
-	$table .= '</tr><tr><td colspan="2">';
-
-	// FJ fix bug none selected not saved.
-	$table .= '<input type="hidden" name="' . AttrEscape( $request . '[' . $column . '][none]' ) . '" value="">';
-
-	$table .= '<table class="width-100p" style="height:7px; border:1; border-style:none solid solid solid;"><tr><td></td></tr></table>';
-
-	$table .= '</td></tr></table>';
-
-	$table .= FormatInputTitle( $name, '', false, '' );
-
-	if ( empty( $value[ $column ] ) )
-	{
-		return $table;
-	}
-
-	return InputDivOnclick(
-		GetInputID( $request . $column ),
-		$table,
-		str_replace( '||', ', ', mb_substr( $value[ $column ], 2, -2 ) ),
-		FormatInputTitle( $name )
+	return MultipleCheckboxInput(
+		issetVal( $value[ $column ] ),
+		$request . '[' . $column . '][]',
+		$name,
+		$options,
+		( $field['REQUIRED'] == 'Y' ? 'required': '' ),
+		$div
 	);
 }
 

@@ -26,6 +26,7 @@ Changes in 12.7
 - Deprecate PhpDebugBar() & Kint() functions in Debug.fnc.php
 - Minor corrections to the Russian and Ukrainian translations in rosariosis.po & rosariosis.sql
 - Simplify PHP logic of HackingLog(): 17 lines gain in HackingLog.fnc.php
+- Use MultipleCheckboxInput() function in `_makeMultipleInput()` in StudentsUsersInfo.fnc.php
 
 Changes in 12.6
 ---------------
