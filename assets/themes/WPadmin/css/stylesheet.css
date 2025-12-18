@@ -130,7 +130,8 @@ input[type=number] {
 input[type=number][name*=AMOUNT],
 input[type=number][name*=amount],
 input[type=number][name*=balance],
-input[type=number][name*=PRICE] {
+input[type=number][name*=PRICE],
+input[type=number][name*=CUSTOM] {
 	width: 90px
 }
 

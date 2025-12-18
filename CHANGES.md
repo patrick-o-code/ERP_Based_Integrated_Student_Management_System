@@ -31,6 +31,7 @@ Changes in 12.7
 - Double (free) Comment input size when MP does not do Comments in InputFinalGrades.php
 - Misconfiguration hint: Scale Value different from max GPA Value in ReportCardGrades.php
 - Misconfiguration hint: Minimum Passing Grade > Scale Value in ReportCardGrades.php
+- CSS themes enlarge custom Numeric field in stylesheet.css
 
 Changes in 12.6
 ---------------
