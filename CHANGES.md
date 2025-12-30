@@ -34,6 +34,7 @@ Changes in 12.7
 - CSS themes enlarge custom Numeric field in stylesheet.css
 - HTML increase "Course" input maxlength to 100 in EditReportCardGrades.php
 - HTML use number type for Grade and Credit inputs in EditReportCardGrades.php
+- Do not save CSP violations triggered by browser extensions, some domains & custom ones in SaveReport.php
 
 Changes in 12.6
 ---------------
