@@ -32,7 +32,8 @@ Changes in 12.7
 - Misconfiguration hint: Scale Value different from max GPA Value in ReportCardGrades.php
 - Misconfiguration hint: Minimum Passing Grade > Scale Value in ReportCardGrades.php
 - CSS themes enlarge custom Numeric field in stylesheet.css
-- Increase "Course" input maxlength to 100 in EditReportCardGrades.php
+- HTML increase "Course" input maxlength to 100 in EditReportCardGrades.php
+- HTML use number type for Grade and Credit inputs in EditReportCardGrades.php
 
 Changes in 12.6
 ---------------

@@ -508,31 +508,38 @@ function _makeTextInput( $value, $name )
 	{
 		$extra = 'size=20 maxlength=500';
 	}
-	elseif ( $name === 'GRADE_PERCENT' )
-	{
-		$extra = 'size=4 maxlength=6';
-	}
-	elseif ( $name === 'GRADE_LETTER'
+	elseif ( $name === 'GP_SCALE'
+		|| $name === 'GRADE_PERCENT'
 		|| $name === 'WEIGHTED_GP'
 		|| $name === 'UNWEIGHTED_GP' )
 	{
+		$extra = 'type="number" min="0" max="99999" step="0.01"';
+
+		if ( $value )
+		{
+			// Remove trailing 0.
+			$value = (float) $value;
+		}
+	}
+	elseif ( $name === 'GRADE_LETTER' )
+	{
 		$extra = 'size=3 maxlength=5';
 	}
-	//elseif ( $name=='GP_VALUE')
-	//    $extra = 'size=5 maxlength=5';
-	//elseif ( $name=='UNWEIGHTED_GP_VALUE')
 	else
 	{
 		$extra = 'size=4 maxlength=10';
 	}
 
-	if ( ( $name === 'GP_SCALE'
-			|| $name === 'CREDIT_ATTEMPTED'
-			|| $name === 'CREDIT_EARNED' )
-		&& $value )
+	if ( $name === 'CREDIT_ATTEMPTED'
+		|| $name === 'CREDIT_EARNED' )
 	{
-		// Remove trailing 0.
-		$value = (float) $value;
+		$extra = 'type="number" min="0" max="9999" step="0.01"';
+
+		if ( $value )
+		{
+			// Remove trailing 0.
+			$value = (float) $value;
+		}
 	}
 
 	$return = TextInput(
