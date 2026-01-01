@@ -13,7 +13,7 @@ Do not forget to add the `.utf8` suffix to the locale code.
 | be_BY | Belarusian (Belarus)          | 32%       |                     |
 | bg_BG | Bulgarian (Bulgaria)          | **92%**   | Vanyo Georgiev, Martin Krastev |
 | bn_BD | Bengali (Bangladesh)          | 32%       |                     |
-| cs_CZ | Czech (Czech Republic)        | 32%       |                     |
+| cs_CZ | Czech (Czech Republic)        | **99%***  | David Kapitančik    |
 | da_DK | Danish (Denmark)              | 32%       |                     |
 | de_DE | German (Germany)              | **96%**   | Heike Gutsche, @0xD0M1M0 |
 | el_GR | Greek (Greece)                | **98%***  | Georgios Katakalos  |
