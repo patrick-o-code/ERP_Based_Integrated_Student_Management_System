@@ -24,12 +24,6 @@ if ( empty( $json['csp-report'] ) )
 
 $csp_report = $json['csp-report'];
 
-if ( empty( $csp_report['original-policy'] )
-	|| $csp_report['original-policy'] !== Config( 'CONTENT_SECURITY_POLICY' ) )
-{
-	return _errorDie( 'CSP header does not match' );
-}
-
 // Do not save violations triggered by browser extensions.
 $source_file_skip = [
 	'moz-extension',
