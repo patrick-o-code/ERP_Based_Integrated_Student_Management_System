@@ -192,7 +192,9 @@ function ContentSecurityPolicySendReport( $cron_day )
 	$new_reports = DBGet( "SELECT FULL_REPORT,CREATED_AT
 		FROM csp_reports
 		WHERE CREATED_AT BETWEEN '" . DBEscapeString( $day_begin ) . "'
-			AND '" . DBEscapeString( $day_end ) . "'" );
+			AND '" . DBEscapeString( $day_end ) . "'
+		ORDER BY CREATED_AT
+		LIMIT 100" );
 
 	if ( ! $new_reports )
 	{
