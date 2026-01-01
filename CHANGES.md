@@ -35,6 +35,7 @@ Changes in 12.7
 - HTML increase "Course" input maxlength to 100 in EditReportCardGrades.php
 - HTML use number type for Grade and Credit inputs in EditReportCardGrades.php
 - Do not save CSP violations triggered by browser extensions, some domains & custom ones in SaveReport.php
+- Check CSP report header match in SaveReport.php
 - Add Czech (Czech Republic) translation in locale/cz_CZ.utf8/
 
 Changes in 12.6
