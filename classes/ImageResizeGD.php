@@ -92,7 +92,12 @@ class ImageResizeGD {
 	public function __destruct() {
 		if ( is_resource( $this->image ) ) {
 			// We don't need the original in memory anymore.
-			imagedestroy( $this->image );
+			if ( PHP_VERSION_ID >= 80000 ) {
+				// FJ Fix PHP8.5 deprecated imagedestroy() function
+				$this->image = null;
+			} else {
+				imagedestroy( $this->image );
+			}
 		}
 	}
 
@@ -377,7 +382,11 @@ class ImageResizeGD {
 			throw new \Exception('Image could not be saved.');
 		}
 
-		imagedestroy($this->imageModified);
+		if ( PHP_VERSION_ID < 80000 ) {
+			// FJ Fix PHP8.5 deprecated imagedestroy() function
+			imagedestroy($this->imageModified);
+		}
+
 		$this->imageModified = null;
 
 		return $imageFile;

@@ -37,6 +37,7 @@ Changes in 12.7
 - Do not save CSP violations triggered by browser extensions, some domains & custom ones in SaveReport.php
 - Add Czech (Czech Republic) translation in locale/cz_CZ.utf8/
 - Fix regression since 12.5 Calendar select input was erasing calendar days in Calendar.php
+- Fix PHP8.5 deprecated imagedestroy() function in ImageResizeGD.php
 
 Changes in 12.6
 ---------------
