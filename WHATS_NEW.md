@@ -2,6 +2,18 @@
 
 ## RosarioSIS Student Information System
 
+New in 12.7
+-----------
+
+**Breaking changes**:
+- Refactoring: autoload classes (PSR-4). Files inside the `classes/` folder were moved to match their namespace
+- Moodle: remove XML-RPC compatibility classes, see [plugins/Moodle/README.md](plugins/Moodle/README.md)
+
+PHP8.5 compatibility
+
+Add Czech translation, thanks to David Kapitančik
+
+
 New in 12.6
 -----------
 
