@@ -949,6 +949,9 @@ if ( ! $_REQUEST['modfunc'] )
 			}
 		}
 
+		// @since 10.2.1 Maintain current month on calendar change.
+		$calendar_onchange_url = PreparePHP_SELF( [], [ 'minutes', 'all_day', 'calendar_id' ] ) . '&calendar_id=this.value';
+
 		$links = SelectInput(
 			$_REQUEST['calendar_id'],
 			'calendar_id',
@@ -956,7 +959,7 @@ if ( ! $_REQUEST['modfunc'] )
 			$options,
 			false,
 			// @since 12.5 CSP remove unsafe-inline Javascript
-			' class="onchange-ajax-post-form"',
+			' class="onchange-ajax-link" data-link="' . $calendar_onchange_url . '"',
 			false
 		);
 

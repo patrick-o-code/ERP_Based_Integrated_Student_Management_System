@@ -172,6 +172,7 @@ Changes in 12.5
 - Fix regression since 12.1 wkhtmltopdf error segmentation fault when CSS quotes property defined in wkhtmltopdf.css
 - Fix PHP fatal error unsupported operand types: string - int in database.inc.php
 - Fix HACKING ATTEMPT in SetUserStudentID() when "Search All Schools" checked in Search.fnc.php, Statements.php, PrintStudentInfo.php & Students/Search.inc.php
+- Fix regression since 12.5 Calendar select input was erasing calendar days in Calendar.php
 
 Changes in 12.4.3
 -----------------
