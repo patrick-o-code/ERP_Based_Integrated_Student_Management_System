@@ -1,6 +1,10 @@
 # CHANGES
 ## RosarioSIS Student Information System
 
+Changes 12.8
+------------
+- Fix reassign existing Barcode to student Food Service account in Food_Service/Students/Accounts.php
+
 Changes in 12.7
 ---------------
 - SQL allow array in $where_columns: WHERE COLUMN IN(val1,val2) in DBUpsert.php

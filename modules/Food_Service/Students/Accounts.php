@@ -23,8 +23,7 @@ if ( $_REQUEST['modfunc'] === 'update' )
 {
 	if ( UserStudentID()
 		&& AllowEdit()
-		&& ! empty( $_REQUEST['food_service'] )
-		&& ! empty( $_POST['food_service'] ) )
+		&& ! empty( $_REQUEST['food_service'] ) )
 	{
 		if ( ! empty( $_REQUEST['food_service']['BARCODE'] ) )
 		{
