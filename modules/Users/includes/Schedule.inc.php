@@ -218,9 +218,11 @@ function _schedule_table_RET( $schedule_table_RET )
 
 				$schedule_table_body[$i][$course_period_day][] = '<div style="display:table-cell;">' . $course_period['TITLE'] .
 					( empty( $course_period['SHORT_NAME'] ) ? '' :
-						'<br /><span class="size-1">' . $course_period['SHORT_NAME'] . '</span>' ) .
+						// Responsive <br>, do not break on mobile devices.
+						'<br class="rbr"> <span class="size-1">' . $course_period['SHORT_NAME'] . '</span>' ) .
 					( empty( $course_period['ROOM'] ) ? '' :
-						'<br /><span class="size-1">' . _( 'Room' ) . ': ' . $course_period['ROOM'] . '</span>' ) .
+						// Responsive <br>, do not break on mobile devices.
+						'<br class="rbr"> <span class="size-1">' . _( 'Room' ) . ': ' . $course_period['ROOM'] . '</span>' ) .
 					'&nbsp;</div>';
 			}
 		}
