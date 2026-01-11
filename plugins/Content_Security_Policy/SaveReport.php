@@ -34,7 +34,7 @@ $source_file_skip = [
 if ( isset( $csp_report['source-file'] )
 	&& in_array( $csp_report['source-file'], $source_file_skip ) )
 {
-	return _errorDie( 'Skip CSP violation triggered by browser extension' );
+	return _skipDie( 'Skip CSP violation triggered by browser extension' );
 }
 
 // Do not save violations triggered by the following domains.
@@ -48,7 +48,7 @@ foreach ( $domain_skip as $domain )
 {
 	if ( stripos( $csp_report['blocked-uri'], $domain ) === 0 )
 	{
-		return _errorDie( 'Skip CSP violation triggerd by domain: ' . $domain );
+		return _skipDie( 'Skip CSP violation triggerd by domain: ' . $domain );
 	}
 }
 
@@ -64,7 +64,7 @@ if ( $csp_report['violated-directive'] === 'script-src-elem'
 	&& $csp_report['blocked-uri'] === 'inline'
 	&& $csp_report['script-sample'] === 'function yf9behvg8uwqfnuk() { if (!0 ===' )
 {
-	return _errorDie( 'Skip CSP violation triggered by script sample: "' . $csp_report['script-sample'] . '"' );
+	return _skipDie( 'Skip CSP violation triggered by script sample: "' . $csp_report['script-sample'] . '"' );
 }
 
 /**
@@ -80,7 +80,7 @@ if ( $csp_report['violated-directive'] === 'script-src-elem'
 	&& $csp_report['line-number'] === 1
 	&& $csp_report['column-number'] === 267 )
 {
-	return _errorDie( 'Skip CSP violation triggered by blob script: line 1, column 267' );
+	return _skipDie( 'Skip CSP violation triggered by blob script: line 1, column 267' );
 }
 
 $insert_columns = [
@@ -128,6 +128,32 @@ function _errorDie( $error )
 	echo json_encode( [ 'error' => $error ] );
 
 	error_log( 'Content Security Policy plugin error: ' . $error );
+
+	exit;
+}
+
+/**
+ * JSON Message and Die.
+ * Destroy session.
+ *
+ * Local function
+ *
+ * @param string $msg Message.
+ */
+function _skipDie( $msg )
+{
+	// Destroy session.
+	session_unset();
+
+	session_destroy();
+
+	// 422 Unprocessable Content
+    // The request was well-formed (i.e., syntactically correct) but could not be processed.
+	http_response_code( 422 );
+
+	header( 'Content-type: application/json; charset=utf-8' );
+
+	echo json_encode( [ 'message' => $msg ] );
 
 	exit;
 }
