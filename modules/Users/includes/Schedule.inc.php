@@ -54,7 +54,9 @@ if ( $current_user_profile === 'teacher' )
 		( $_REQUEST['all_schools'] == 'Y' ? '' : " AND cp.SCHOOL_ID='" . UserSchool() . "'" ) . "
 	AND s.ID=cp.SCHOOL_ID
 	AND s.SYEAR=cp.SYEAR
-	ORDER BY c.TITLE,cp.SHORT_NAME,cp.TITLE", [ 'MARKING_PERIOD_ID' => 'GetMP' ], $group );
+	ORDER BY c.TITLE,cp.SHORT_NAME,cp.TITLE",
+	[ 'MARKING_PERIOD_ID' => 'GetMP', 'TITLE' => 'ParseMLField' ],
+	$group );
 
 	ListOutput(
 		$schedule_RET,
@@ -128,7 +130,9 @@ if ( $current_user_profile === 'teacher' )
 	AND sp.PERIOD_ID=cpsp.PERIOD_ID
 	AND cpsp.COURSE_PERIOD_ID=cp.COURSE_PERIOD_ID
 	AND cp.MARKING_PERIOD_ID IN (" . GetAllMP( 'QTR', UserMP() ) . ")
-	ORDER BY sp.SORT_ORDER IS NULL,sp.SORT_ORDER", [ 'DAYS' => '_GetDays' ], [ 'SCHOOL_PERIOD' ] );
+	ORDER BY sp.SORT_ORDER IS NULL,sp.SORT_ORDER",
+	[ 'DAYS' => '_GetDays', 'TITLE' => 'ParseMLField' ],
+	[ 'SCHOOL_PERIOD' ] );
 
 	$columns = [ 'SCHOOL_PERIOD' => _( 'Period' ) ];
 

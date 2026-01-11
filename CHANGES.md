@@ -5,6 +5,7 @@ Changes 12.8
 ------------
 - Fix reassign existing Barcode to student Food Service account in Food_Service/Students/Accounts.php
 - Add `_skipDie()` function, used when skipping CSP report in SaveReport.php
+- Multilingual course title: use ParseMLField() in Schedule.inc.php
 
 Changes in 12.7
 ---------------
