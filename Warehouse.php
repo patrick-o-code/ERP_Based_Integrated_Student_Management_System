@@ -687,6 +687,9 @@ function Warehouse( $mode )
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
 	<link rel="stylesheet" href="<?php echo $stylesheet_css; ?>?<?php echo $stylesheet_css_hash; ?>">
+	<!-- Cloud Avengers Theme Colors - Blue Theme -->
+	<link rel="stylesheet" href="assets/themes/fontawesome-icons.css">
+	<link rel="stylesheet" href="assets/themes/theme-colors.css">
 	<style>.highlight,.highlight-hover:hover{background-color:<?php echo Preferences( 'HIGHLIGHT' ); ?> !important;}</style>
 	<?php
 

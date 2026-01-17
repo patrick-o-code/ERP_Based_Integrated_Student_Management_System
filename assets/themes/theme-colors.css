@@ -1,0 +1,336 @@
+/**
+ * Cloud Avengers Theme Color Overrides
+ * Primary: #2563eb (Blue)
+ * Dark: #1e40af (Deep Blue)
+ * 
+ * This file overrides the default theme colors for both WPadmin and FlatSIS themes
+ */
+
+/* ===== Primary Color Overrides ===== */
+
+/* Buttons - Primary */
+a.button-primary,
+button.button-primary,
+input.button-primary {
+    border-color: #1e3a8a;
+    background: #2563eb;
+}
+
+a.button-primary:active,
+button.button-primary:active,
+input.button-primary:active {
+    background: #1d4ed8;
+}
+
+a.button-primary:focus,
+a.button-primary:hover,
+button.button-primary:focus,
+button.button-primary:hover,
+input.button-primary:focus,
+input.button-primary:hover {
+    border-color: #1e3a8a;
+    background: #3b82f6;
+}
+
+/* Links and Focus States */
+.adminmenu a:focus,
+.adminmenu a:hover,
+a:active,
+a:focus,
+a:hover {
+    color: #2563eb;
+}
+
+a:focus {
+    outline: #2563eb dotted 1px;
+}
+
+a {
+    color: #2563eb;
+}
+
+/* Select2 Highlighted Option */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #2563eb !important;
+}
+
+/* Select2 Focus Border */
+input[type=button]:focus,
+input[type=color]:focus,
+input[type=email]:focus,
+input[type=file]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+input[type=reset]:focus,
+input[type=search]:focus,
+input[type=submit]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input[type=time]:focus,
+input[type=url]:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #2563eb !important;
+}
+
+/* ===== Dark Color Overrides ===== */
+
+/* Menu Background - Dark */
+#menu {
+    background: #1e40af;
+    border-color: #0f2847;
+}
+
+#menu.fixedmenu-fixed+div {
+    background: #1e40af;
+}
+
+#menu-top select {
+    border-color: #0f2847;
+    background: #1e3a8a;
+    color: #fff;
+}
+
+#menu-top select:focus {
+    border-bottom-color: #2563eb;
+}
+
+.menu-inter {
+    border-color: #3b5998;
+    color: #eee;
+}
+
+/* Menu Items */
+.adminmenu {
+    background: #1e40af;
+    border-color: #0f2847;
+}
+
+.menu-top {
+    background-color: #1e40af;
+    border-top-color: #3b5998;
+    border-bottom-color: #0f2847;
+}
+
+#selectedModuleLink,
+.menu-top:focus,
+.menu-top:hover {
+    background-color: #1e3a8a;
+}
+
+.no-touch .menu-module:focus-within .menu-top::after,
+.no-touch .menu-module:hover .menu-top::after {
+    color: #eee;
+}
+
+.wp-submenu {
+    background: #1a35b8;
+    border-color: #0f2847;
+}
+
+#selectedMenuLink,
+.wp-submenu a:active,
+.wp-submenu a:focus,
+.wp-submenu a:hover {
+    background-color: #1e3a8a;
+    color: #eee;
+}
+
+/* Footer - Dark */
+#footer {
+    background: #1e40af;
+    border-color: #0f2847;
+}
+
+#footerwrap {
+    border-color: #0f2847;
+}
+
+/* ===== FlatSIS Specific ===== */
+body,
+html {
+    background: #f0f0f0;
+}
+
+body {
+    color: #111;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #2d2d2d;
+}
+
+/* Current Person Badges */
+.current-person {
+    color: #fff;
+}
+
+.current-person.student {
+    background: #2563eb;
+}
+
+.current-person.staff {
+    background: #1e40af;
+}
+
+.current-person.self {
+    background: #60a5fa;
+}
+
+/* Calendar and Status */
+#calendar th {
+    background: #1e40af;
+    color: #fff;
+}
+
+.attendance-code.present {
+    color: #fff;
+    background-color: #20dd30;
+}
+
+.attendance-code.absent {
+    color: #fff;
+    background-color: red;
+}
+
+.attendance-code.half-day {
+    color: #fff;
+    background-color: #fc0;
+}
+
+/* Postbox Selected State */
+.postbox .h3selected {
+    border-top: 2px solid #2563eb;
+    background: #fcfcfc;
+}
+
+.md-preview>.tab.disabled {
+    border-top: 2px solid #2563eb;
+}
+
+/* Bottom Buttons */
+.BottomButton:active,
+.BottomButton:focus,
+.BottomButton:hover {
+    color: #2563eb;
+}
+
+.BottomButton {
+    color: #eee;
+}
+
+/* Focus Outlines */
+input[type=checkbox]:focus,
+input[type=radio]:focus,
+summary:focus {
+    outline: #1e40af dotted 1px;
+}
+
+.wp-submenu a:focus {
+    outline: #2563eb dotted 1px;
+}
+
+/* Button Upsell */
+.button-upsell-premium {
+    color: #111;
+    background: #ffc439;
+}
+
+.button-upsell-premium:active,
+.button-upsell-premium:focus,
+.button-upsell-premium:hover {
+    outline: 0;
+    background: #ffca50;
+    color: #000;
+}
+
+/* Error/Success States */
+div.error {
+    background: #ffebe8;
+    border-left-color: #c00;
+}
+
+div.updated {
+    background: #fff;
+    border-left-color: #0baa38;
+}
+
+.divPortalPoll .bar {
+    background: #c40;
+}
+
+/* Tooltip */
+.tooltip:before {
+    background: #2563eb;
+}
+
+.tooltip>i {
+    background: #1e40af;
+}
+
+/* ===== RTL Support ===== */
+html[dir=RTL] #menu {
+    background: #1e40af;
+    border-width: 0 0 0 1px;
+}
+
+html[dir=RTL] .wp-submenu {
+    right: 0;
+    left: auto !important;
+}
+
+html[dir=RTL] #selectedModuleLink+.wp-submenu,
+html[dir=RTL] #selectedModuleLink:after {
+    right: 0;
+    left: auto;
+}
+
+/* ===== Icon Colors ===== */
+.module-icon {
+    color: #2563eb;
+}
+
+i.button {
+    color: #2563eb;
+}
+
+i.button:hover {
+    color: #3b82f6;
+}
+
+/* ===== Media Queries for Mobile ===== */
+@media only screen and (max-width:874px) {
+    #menu {
+        background: #1e40af;
+    }
+    
+    .menu-top {
+        background-color: #1e40af;
+    }
+    
+    .wp-submenu {
+        background: #1a35b8;
+    }
+}
+
+@media only screen and (max-width:1023px) {
+    #menu {
+        background: #1e40af;
+    }
+    
+    .rt tr {
+        border-right-color: #2563eb;
+    }
+}

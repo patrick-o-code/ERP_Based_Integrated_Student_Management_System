@@ -1,0 +1,656 @@
+/**
+ * Font Awesome Sharp Duotone Solid Icons Mapping
+ * Replaces PNG module icons with Font Awesome
+ * Theme Color: Blue (#2563eb)
+ * 
+ * @since 2026-01-17
+ * @package Cloud Avengers
+ */
+
+/* Module Icons - Font Awesome Sharp Duotone Solid Mapping */
+
+.module-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    color: #2563eb;
+    font-size: 22px;
+}
+
+.header1 .module-icon {
+    vertical-align: middle;
+}
+
+/* Accounting */
+.module-icon.Accounting::before {
+    content: "\f53e";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Attendance */
+.module-icon.Attendance::before {
+    content: "\f5a0";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Discipline */
+.module-icon.Discipline::before {
+    content: "\f024";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Grades */
+.module-icon.Grades::before {
+    content: "\f5cd";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Eligibility */
+.module-icon.Eligibility::before {
+    content: "\f4a1";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Example */
+.module-icon.Example::before {
+    content: "\f7fc";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Food Service */
+.module-icon.Food_Service::before {
+    content: "\f2e7";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Library */
+.module-icon.Library::before {
+    content: "\f02d";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Messaging */
+.module-icon.Messaging::before {
+    content: "\f086";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Misc */
+.module-icon.misc::before {
+    content: "\f0ad";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Resources */
+.module-icon.Resources::before {
+    content: "\f517";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Reports */
+.module-icon.Reports::before {
+    content: "\f570";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Scheduling */
+.module-icon.Scheduling::before {
+    content: "\f133";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* School Setup */
+.module-icon.School_Setup::before {
+    content: "\f6e4";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* SMS */
+.module-icon.SMS::before {
+    content: "\f1d8";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Staff Absences */
+.module-icon.Staff_Absences::before {
+    content: "\f030";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Student Billing */
+.module-icon.Student_Billing::before {
+    content: "\f3d1";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Students */
+.module-icon.Students::before {
+    content: "\f500";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* Users */
+.module-icon.Users::before {
+    content: "\f0c0";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+/* ===== Button Icons ===== */
+
+.button {
+    vertical-align: -15%;
+    height: 16px;
+    max-width: none;
+    color: #2563eb;
+}
+
+.button.bigger,
+.valign-middle .button,
+a>.button {
+    vertical-align: middle;
+}
+
+.button.smaller {
+    vertical-align: -12%;
+}
+
+a>.button.smaller {
+    vertical-align: -18%;
+}
+
+.uld .button,
+.underline-dots .button {
+    vertical-align: text-top;
+}
+
+.current-person .button {
+    vertical-align: -40%;
+}
+
+.error .button.bigger,
+.updated .button.bigger {
+    vertical-align: -35%;
+}
+
+a:has(.button) {
+    white-space: nowrap;
+}
+
+a>.button {
+    padding: 1px;
+}
+
+.button.bigger {
+    height: 24px;
+}
+
+.button.smaller {
+    height: 14px;
+}
+
+/* Button Actions - Font Awesome Icons */
+.button.add::before {
+    content: "\f067";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.remove::before {
+    content: "\f068";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.check::before {
+    content: "\f058";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.delete::before {
+    content: "\f2ed";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.edit::before {
+    content: "\f044";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.search::before {
+    content: "\f002";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.save::before {
+    content: "\f0c7";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.cancel::before {
+    content: "\f057";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.download::before {
+    content: "\f019";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.upload::before {
+    content: "\f093";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.view::before {
+    content: "\f06e";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.print::before {
+    content: "\f02f";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.email::before {
+    content: "\f0e0";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.export::before {
+    content: "\f56e";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.import::before {
+    content: "\f56f";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.settings::before {
+    content: "\f013";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.help::before {
+    content: "\f059";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.info::before {
+    content: "\f05a";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.warning::before {
+    content: "\f071";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.error::before {
+    content: "\f06a";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.success::before {
+    content: "\f05d";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.filter::before {
+    content: "\f0b0";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.refresh::before {
+    content: "\f021";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.back::before {
+    content: "\f060";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.forward::before {
+    content: "\f061";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.home::before {
+    content: "\f015";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.menu::before {
+    content: "\f0c9";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.expand::before {
+    content: "\f065";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.collapse::before {
+    content: "\f066";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.up::before {
+    content: "\f062";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.down::before {
+    content: "\f063";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.duplicate::before {
+    content: "\f0c5";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.copy::before {
+    content: "\f0c4";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.paste::before {
+    content: "\f0ea";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.cut::before {
+    content: "\f0c4";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.lock::before {
+    content: "\f023";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.unlock::before {
+    content: "\f09c";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.close::before {
+    content: "\f00d";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.open::before {
+    content: "\f07a";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.user::before {
+    content: "\f007";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.users::before {
+    content: "\f0c0";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.admin::before {
+    content: "\f0ad";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.logout::before {
+    content: "\f08b";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.login::before {
+    content: "\f090";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.register::before {
+    content: "\f0fe";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.calendar::before {
+    content: "\f133";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.clock::before {
+    content: "\f017";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.bell::before {
+    content: "\f0f3";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.star::before {
+    content: "\f005";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.heart::before {
+    content: "\f004";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.folder::before {
+    content: "\f07b";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.file::before {
+    content: "\f15b";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.image::before {
+    content: "\f03e";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.video::before {
+    content: "\f03d";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.music::before {
+    content: "\f001";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.document::before {
+    content: "\f15c";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.archive::before {
+    content: "\f187";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.trash::before {
+    content: "\f1f8";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.globe::before {
+    content: "\f0ac";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.link::before {
+    content: "\f0c1";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.share::before {
+    content: "\f1e0";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.send::before {
+    content: "\f1d8";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.comment::before {
+    content: "\f075";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.quote::before {
+    content: "\f10e";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.code::before {
+    content: "\f121";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.terminal::before {
+    content: "\f120";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.bug::before {
+    content: "\f188";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.debug::before {
+    content: "\f188";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.chart::before {
+    content: "\f080";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.graph::before {
+    content: "\f200";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.bar::before {
+    content: "\f080";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.pie::before {
+    content: "\f200";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.line::before {
+    content: "\f201";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
+
+.button.statistics::before {
+    content: "\f080";
+    font-family: "Font Awesome 6 Sharp";
+    font-weight: 900;
+}
