@@ -19,7 +19,7 @@
  *
  * @param  string $modname  Specify program/modname (optional).
  *
- * @return string Program title or 'RosarioSIS' if not found
+ * @return string Program title or 'ServerAvengers' if not found
  */
 function ProgramTitle( $modname = '' )
 {

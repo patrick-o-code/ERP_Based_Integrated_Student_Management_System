@@ -1,10 +1,10 @@
 <?php
 /**
- * The base configurations of RosarioSIS
+ * The base configurations of Server Avengers
  *
  * You can find more information in the INSTALL.md file
  *
- * @package RosarioSIS
+ * @package Server Avengers
  */
 
 /**
@@ -14,19 +14,19 @@
  */
 
 // Database type: postgresql or mysql.
-$DatabaseType = 'postgresql';
+$DatabaseType = 'mysql';
 
 // Database server hostname: use localhost if on same server.
 $DatabaseServer = 'localhost';
 
 // Database username.
-$DatabaseUsername = 'username_here';
+$DatabaseUsername = 'root';
 
 // Database password.
-$DatabasePassword = 'password_here';
+$DatabasePassword = '';
 
 // Database name.
-$DatabaseName = 'database_name_here';
+$DatabaseName = 'rosariosis';
 
 
 /**

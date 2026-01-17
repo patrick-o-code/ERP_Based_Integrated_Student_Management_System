@@ -84,7 +84,7 @@ elseif ( isset( $_POST['USERNAME'] )
 	&& $_REQUEST['PASSWORD'] !== '' )
 {
 	// FJ check accept cookies.
-	if ( ! isset( $_COOKIE['RosarioSIS'] )
+	if ( ! isset( $_COOKIE['CloudAvengers'] )
 		&& ! isset( $_COOKIE[ $default_session_name ] ) )
 	{
 		header( 'Location: index.php?modfunc=logout&reason=cookie&token=' . $_SESSION['token'] );
@@ -93,7 +93,7 @@ elseif ( isset( $_POST['USERNAME'] )
 	}
 
 	// Only regenerate session ID if session.auto_start == 0.
-	elseif ( isset( $_COOKIE['RosarioSIS'] ) )
+	elseif ( isset( $_COOKIE['CloudAvengers'] ) )
 	{
 		session_regenerate_id( true ); // And invalidate old session.
 
@@ -568,7 +568,7 @@ if ( empty( $_SESSION['STAFF_ID'] )
 		<input type="hidden" name="redirect_to" value="<?php echo URLEscape( $_REQUEST['redirect_to'] ); ?>" />
 	<?php endif; ?>
 	</form>
-	<details class="about-rosariosis">
+	<details class="about-cloudavengers">
 		<summary><?php echo _( 'About' ); ?></summary>
 		<?php // System disclaimer. ?>
 		<p class="size-3">
@@ -581,7 +581,7 @@ if ( empty( $_SESSION['STAFF_ID'] )
 		</p>
 		<p class="center size-1">
 			&copy; 2004-2009 The Miller Group &amp; Learners Circle
-			<br />&copy; 2012-2025 <a href="https://www.rosariosis.org" rel="noreferrer">RosarioSIS</a>
+			<br />&copy; 2012-2025 <a href="https://www.cloudavengers.org" rel="noreferrer">Cloud Avengers</a>
 		</p>
 	</details>
 

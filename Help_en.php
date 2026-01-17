@@ -147,9 +147,9 @@ if ( User( 'PROFILE' ) === 'admin' ):
 
 	$help['School_Setup/Configuration.php'] = '<p>' . _help( '<i>Configuration</i> offers various groups of options to help you configure:' ) . '</p>
 
-	<p>RosarioSIS</p>
+	<p>ServerAvengers</p>
 	<ul>
-		<li>' . _help( '<i>Program Title</i> & <i>Program Name</i>: rebrand RosarioSIS' ) . '</li>
+		<li>' . _help( '<i>Program Title</i> & <i>Program Name</i>: rebrand ServerAvengers' ) . '</li>
 		<li>' . _help( 'Set the <i>Default Theme</i>, and eventually <i>Force</i> it to override users\' preferred theme.' ) . '</li>
 		<li>' . _help( '<i>Create User Account</i> & <i>Create Student Account</i>: activate online registration. "Create User / Student Account" links will be displayed on the login page.' ) . '</li>
 		<li>' . _help( '<i>Automatic Student Account Activation</i>: new students are added as Inactive students. Check this box so students are enrolled on the same day.' ) . '</li>

@@ -223,7 +223,7 @@ register_shutdown_function( 'ErrorSendEmail' );
 /**
  * Start Session
  */
-session_name( 'RosarioSIS' );
+session_name( 'CloudAvengers' );
 
 // @link http://php.net/manual/en/session.security.php
 $cookie_path = dirname( $_SERVER['SCRIPT_NAME'] ) === DIRECTORY_SEPARATOR ?
