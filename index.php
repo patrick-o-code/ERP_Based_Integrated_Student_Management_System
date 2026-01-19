@@ -280,6 +280,9 @@ elseif ( isset( $_POST['USERNAME'] )
 			$error[] = _( 'Incorrect username or password.' ) . '&nbsp;'
 				. _( 'Please try logging in again.' );
 		}
+
+		// Set failed login status code: F.
+		$login_status = 'F';
 	}
 
 	// Access Log.

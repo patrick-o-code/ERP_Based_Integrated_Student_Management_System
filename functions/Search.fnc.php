@@ -332,13 +332,13 @@ function Search( $type, $extra = null )
 						"profile_exceptions WHERE PROFILE_ID='" . User( 'PROFILE_ID' ) . "'" :
 						"staff_exceptions WHERE USER_ID='" . User( 'STAFF_ID' ) . "'") . "
 					AND MODNAME=CONCAT('Users/User.php&category_id=', cf.CATEGORY_ID)
-					LIMIT 1)='Y'
+					LIMIT 1) COLLATE utf8mb4_general_ci='Y'
 				AND (SELECT VALUE
 					FROM program_user_config
-					WHERE TITLE=cast(cf.ID AS char(10))
+					WHERE TITLE=cast(cf.ID AS char(10)) COLLATE utf8mb4_general_ci
 					AND PROGRAM='StaffFieldsSearch'
 					AND USER_ID='" . User( 'STAFF_ID' ) . "'
-					LIMIT 1)='Y'
+					LIMIT 1) COLLATE utf8mb4_general_ci='Y'
 				ORDER BY cf.SORT_ORDER IS NULL,cf.SORT_ORDER,cf.TITLE";
 			}
 			elseif ( $type === 'student_fields_all' )
