@@ -4,7 +4,7 @@
  *
  * Login screen
  *
- * @package RosarioSIS
+ * @package Cloud Avengers
  */
 
 // FJ bugfix check accept cookies.

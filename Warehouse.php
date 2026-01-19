@@ -11,12 +11,12 @@
  * Sanitize $_REQUEST array
  * Internationalization
  * Modules & Plugins
- * Update RosarioSIS
+ * Update Cloud Avengers
  * Warehouse() function (Output HTML header (including Bottom & Side menus), or footer)
  * isAJAX() function (AJAX request detection)
  * ETagCache() function (ETag cache system)
  *
- * @package RosarioSIS
+ * @package Cloud Avengers
  */
 
 define( 'ROSARIO_VERSION', '12.7' );
