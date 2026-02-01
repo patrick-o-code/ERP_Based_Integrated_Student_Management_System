@@ -1,8 +1,10 @@
 # Use PHP 8.1 with Apache
 FROM php:8.1-apache
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+# Install system dependencies with retry logic
+RUN apt-get update --fix-missing \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -11,9 +13,11 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libonig-dev \
     libpq-dev \
-    libmysqlclient-dev \
     locales \
     wget \
+    git \
+    unzip \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure and install PHP extensions
