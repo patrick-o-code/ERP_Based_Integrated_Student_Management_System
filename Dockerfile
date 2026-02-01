@@ -47,10 +47,10 @@ RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkh
     && rm -f wkhtmltox*.deb \
     && apt-get install -y --fix-broken || true
 
-# Set up locales
-RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-    && echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen \
-    && locale-gen
+# Set up locales (optional)
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen 2>&1 || true && \
+    echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen 2>&1 || true && \
+    locale-gen 2>&1 || echo "Locale setup skipped"
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
