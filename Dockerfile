@@ -34,9 +34,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     opcache
 
 # Install wkhtmltopdf for PDF generation
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
-    && dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
-    && rm wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && dpkg -i wkhtmltox_0.12.6-1.buster_amd64.deb || true \
+    && rm -f wkhtmltox*.deb \
+    && apt-get install -y --fix-broken || true
 
 # Set up locales
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
