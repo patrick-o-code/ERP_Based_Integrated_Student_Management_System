@@ -68,3 +68,11 @@ jobs:
           --draft=false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: build and push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: prareek0yella/cloud_avengers
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }} 

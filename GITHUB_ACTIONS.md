@@ -14,7 +14,7 @@ The workflow file (`.github/workflows/build-artifact.yml`) automatically:
 
 ### 1. Push to GitHub
 ```bash
-git add .
+git add .git config --global credential.https://github.com.helper wincred
 git commit -m "Add GitHub Actions workflow"
 git push origin main
 ```
