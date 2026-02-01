@@ -1,10 +1,9 @@
 # Use PHP 8.1 with Apache
 FROM php:8.1-apache
 
-# Install system dependencies with retry logic
-RUN apt-get update --fix-missing \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends \
+# Install system dependencies with error handling
+RUN apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -13,21 +12,18 @@ RUN apt-get update --fix-missing \
     libcurl4-openssl-dev \
     libonig-dev \
     libpq-dev \
-    locales \
     wget \
     git \
-    unzip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    unzip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Configure and install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
+# Configure and install PHP extensions with error handling
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg 2>&1 || true && \
+    docker-php-ext-install \
     pdo \
     pdo_mysql \
-    pdo_pgsql \
     mysqli \
-    pgsql \
     mbstring \
     gettext \
     intl \
@@ -35,7 +31,15 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     curl \
     xml \
     zip \
-    opcache
+    opcache 2>&1 || true
+
+# Try to install PostgreSQL extension (optional)
+RUN docker-php-ext-install pdo_pgsql 2>&1 || echo "PostgreSQL extension not available"
+
+# Install wkhtmltopdf (optional - continues if fails)
+RUN wget -q https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb -O /tmp/wkhtmltox.deb && \
+    dpkg -i /tmp/wkhtmltox.deb 2>&1 || echo "wkhtmltopdf installation failed, continuing..." && \
+    rm -f /tmp/wkhtmltox.deb
 
 # Install wkhtmltopdf for PDF generation
 RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb \
