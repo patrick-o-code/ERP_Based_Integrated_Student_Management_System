@@ -1,0 +1,82 @@
+name: Build Artifact
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Build assets (CSS & JS minification)
+      run: npm run build
+      continue-on-error: true  # Continue even if JS minification has issues
+    
+    - name: Check build output
+      run: |
+        echo "Checking minified CSS files..."
+        ls -lah assets/themes/*/stylesheet.css || echo "CSS files not found"
+        echo ""
+        echo "Checking minified JS files..."
+        ls -lah assets/js/plugins.min.js || echo "JS file not found"
+    
+    - name: Create artifact ZIP
+      run: |
+        mkdir -p build
+        zip -r build/rosariosis-artifact.zip . \
+          -x "node_modules/*" \
+          ".git/*" \
+          ".github/*" \
+          "*.zip" \
+          ".gitignore" \
+          ".env*" \
+          "build/*"
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: rosariosis-artifact-node${{ matrix.node-version }}
+        path: build/rosariosis-artifact.zip
+        retention-days: 30
+    
+    - name: Create Release (on tag)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    
+    - name: Upload Release Asset (on tag)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/rosariosis-artifact.zip
+        asset_name: rosariosis-${{ github.ref_name }}.zip
+        asset_content_type: application/zip

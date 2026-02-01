@@ -45,12 +45,13 @@ module.exports = function(grunt) {
 			options: {
 				//banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
 				// https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
-				sourceMap: true
+				sourceMap: true,
+				mangle: true,
+				compress: true
 			},
 			my_target: {
 				files: {
 					'assets/js/plugins.min.js': [
-						'assets/js/tipmessage/main17.js',
 						'assets/js/jscalendar/calendar.js',
 						'assets/js/jscalendar/calendar-setup.js',
 						'assets/js/colorbox/jquery.colorbox-min.js',

@@ -62,10 +62,8 @@ function mig_mo(e) {
 
 	if (X < s_d[0]) X = s_d[0];
 
-	with(mig.lay.style) {
-		left = X + 'px';
-		top = Y + 'px';
-	}
+	mig.lay.style.left = X + 'px';
+	mig.lay.style.top = Y + 'px';
 
 	mig.count++;
 
@@ -77,11 +75,9 @@ function htm() {
 
 	mig.lay.innerHTML = '';
 
-	with(mig.lay.style) {
-		visibility = "hidden";
-		left = 0;
-		top = -800 + 'px';
-	}
+	mig.lay.style.visibility = "hidden";
+	mig.lay.style.left = 0;
+	mig.lay.style.top = -800 + 'px';
 
 	// Unset.
 	this.onmouseout = mig.lay.click = this.onmousemove = null;
