@@ -1,0 +1,63 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# GitHub
+.github
+
+# Node.js
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+build/
+*.zip
+
+# Documentation
+README.md
+INSTALL.md
+INSTALL_fr.md
+INSTALL_es.md
+CONTRIBUTING.md
+COPYRIGHT
+LICENSE
+SECURITY.md
+GITHUB_ACTIONS.md
+AWS_DEPLOYMENT_GUIDE.md
+BRANDING_UPDATE_SUMMARY.md
+CHANGES.md
+CHANGES_V*.md
+WHATS_NEW.md
+
+# Development files
+diagnostic.php
+crypt_test.php
+generate_hash.php
+test_password_match.php
+simulate_login.php
+check_credentials.php
+check_login_bans.php
+
+# Database dumps
+rosariosis.sql
+rosariosis_mysql.sql
+
+# Config samples
+config.inc.sample.php
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
