@@ -1,4 +1,4 @@
-# ERP-Based Integrated Student Management System
+# Cloud_Avengers: ERP-Based Integrated Student Management System
 ## Academic Project Report
 
 ---
@@ -493,8 +493,8 @@ ERP_Based_Integrated_Student_Management_System/
 ├── config.inc.php              # Configuration (created during setup)
 ├── database.inc.php            # Database functions
 ├── composer.json               # PHP dependencies
-├── rosariosis_mysql.sql        # Database schema (MySQL)
-├── rosariosis.sql              # Database schema (PostgreSQL)
+├── cloud_avengers_mysql.sql    # Database schema (MySQL)
+├── cloud_avengers.sql          # Database schema (PostgreSQL)
 │
 ├── modules/                    # Feature modules
 │   ├── Students/              # Student management
@@ -551,7 +551,7 @@ $db_connection = mysqli_connect(
     $DatabaseServer,      // localhost
     $DatabaseUsername,    // root
     $DatabasePassword,    // password
-    $DatabaseName,        // rosariosis
+    $DatabaseName,        // cloud_avengers
     $DatabasePort         // 3306 (MySQL)
 );
 ```
@@ -999,9 +999,9 @@ php -m | grep -E "mysqli|pgsql|pdo|gettext|intl|mbstring|gd|curl|xml|zip"
 
 **Step 1: Extract Files**
 ```bash
-unzip rosariosis.zip
+unzip cloud_avengers.zip
 # or
-git clone https://gitlab.com/francoisjacquet/rosariosis.git
+git clone https://github.com/cloud-avengers/cloud_avengers.git
 ```
 
 **Step 2: Create Configuration File**
@@ -1013,19 +1013,19 @@ cp config.inc.sample.php config.inc.php
 **Step 3: Create Database**
 ```bash
 # For MySQL
-mysql -u root -p -e "CREATE DATABASE rosariosis CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;"
+mysql -u root -p -e "CREATE DATABASE cloud_avengers CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;"
 
 # For PostgreSQL
-sudo -u postgres psql -c "CREATE DATABASE rosariosis ENCODING 'UTF8';"
+sudo -u postgres psql -c "CREATE DATABASE cloud_avengers ENCODING 'UTF8';"
 ```
 
 **Step 4: Configure Web Server**
 ```apache
 <VirtualHost *:80>
     ServerName sis.local
-    DocumentRoot "/var/www/rosariosis"
+    DocumentRoot "/var/www/cloud_avengers"
     
-    <Directory "/var/www/rosariosis">
+    <Directory "/var/www/cloud_avengers">
         AllowOverride All
         Require all granted
     </Directory>
@@ -1678,20 +1678,20 @@ MySQL            MySQL Replication    MySQL Cluster
 
 ### 15.1 Official Documentation
 
-1. **RosarioSIS Official Site**
-   - https://www.rosariosis.org
+1. **Cloud_Avengers Official Site**
+   - https://github.com/cloud-avengers
    - Installation guides for all platforms
    - User manuals and documentation
 
-2. **RosarioSIS GitLab Repository**
-   - https://gitlab.com/francoisjacquet/rosariosis
+2. **Cloud_Avengers GitHub Repository**
+   - https://github.com/cloud-avengers/cloud_avengers
    - Source code and version history
    - Issue tracking and community support
 
-3. **RosarioSIS Demo**
-   - https://www.rosariosis.org/demo
-   - Live system demonstration
-   - Test credentials provided
+3. **Cloud_Avengers Wiki**
+   - https://github.com/cloud-avengers/cloud_avengers/wiki
+   - Complete documentation and tutorials
+   - Troubleshooting guides
 
 ### 15.2 Technical References
 
@@ -1710,10 +1710,10 @@ MySQL            MySQL Replication    MySQL Cluster
    - Advanced features guide
    - Performance optimization
 
-4. **Apache Web Server**
-   - https://httpd.apache.org
-   - Configuration reference
-   - Security best practices
+4. **Cloud_Avengers Community**
+   - https://github.com/cloud-avengers/cloud_avengers/discussions
+   - Community questions and answers
+   - Development roadmap
 
 ### 15.3 Security Resources
 
@@ -1752,14 +1752,18 @@ MySQL            MySQL Replication    MySQL Cluster
 
 ### 15.5 Tools and Technologies Used
 
-1. **XAMPP** - https://www.apachefriends.org
+1. **Cloud_Avengers Framework** - https://github.com/cloud-avengers
+   - Complete ERP system for educational institutions
+   - Open-source and community-driven
+
+2. **XAMPP** - https://www.apachefriends.org
    - Apache, MySQL, PHP, Perl bundle
    - Cross-platform development environment
 
-2. **MySQL Workbench** - Database design and management
-3. **phpMyAdmin** - Web-based database administration
-4. **Git** - Version control system
-5. **VS Code** - Code editor and IDE
+3. **MySQL Workbench** - Database design and management
+4. **phpMyAdmin** - Web-based database administration
+5. **Git** - Version control system
+6. **VS Code** - Code editor and IDE
 
 ---
 
