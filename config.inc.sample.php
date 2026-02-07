@@ -26,7 +26,7 @@ $DatabaseUsername = 'root';
 $DatabasePassword = '';
 
 // Database name.
-$DatabaseName = 'rosariosis';
+$DatabaseName = 'cloud_avengers';
 
 
 /**

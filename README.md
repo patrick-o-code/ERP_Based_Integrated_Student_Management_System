@@ -3,7 +3,7 @@ ERP-Based Integrated Student Management System
 
 **A Comprehensive Academic Project Implementation**
 
-This is an academic project based on Cloud_Avengers - an open-source Student Information System (SIS).
+This is an academic project implementing an ERP-based Student Information System (SIS).
 
 **GitHub Repository:** [https://github.com/patrick-o-code/ERP_Based_Integrated_Student_Management_System.git](#)
 
@@ -27,9 +27,9 @@ This project demonstrates the implementation and deployment of an Enterprise Res
 License & Attribution
 ---------------------
 
-This project is based on **Cloud_Avengers**, which is "free" software released under the [GNU General Public License version 2](LICENSE).
+This project is released under the [GNU General Public License version 2](LICENSE).
 
-Original Project: [Cloud_Avengers](https://github.com/cloud-avengers)
+Original Base: RosarioSIS (open-source SIS platform)
 
 This academic implementation maintains the same license and spirit of open-source contribution.
 

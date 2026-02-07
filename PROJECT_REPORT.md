@@ -5,7 +5,7 @@
 
 ## Executive Summary
 
-This project report documents the implementation and deployment of an ERP-based Integrated Student Management System built on RosarioSIS—a comprehensive web-based Student Information System (SIS). The system provides educational institutions with a centralized platform for managing student records, attendance, grades, scheduling, and administrative operations. This report covers the system architecture, technical implementation, features, and deployment considerations for academic evaluation.
+This project report documents the implementation and deployment of an ERP-based Integrated Student Management System. The system provides educational institutions with a centralized platform for managing student records, attendance, grades, scheduling, and administrative operations. This report covers the system architecture, technical implementation, features, and deployment considerations for academic evaluation.
 
 **Project Duration:** February 2026
 **Technology Stack:** PHP, MySQL/PostgreSQL, Apache 2.4.x
@@ -1975,4 +1975,4 @@ TOTAL IMPLEMENTATION                               100%
 
 ---
 
-*This academic project report documents the successful implementation, deployment, and evaluation of an ERP-Based Integrated Student Management System based on RosarioSIS. The system is now operational and ready for use in educational institutions.*
+*This academic project report documents the successful implementation, deployment, and evaluation of an ERP-Based Integrated Student Management System. The system is now operational and ready for use in educational institutions.*

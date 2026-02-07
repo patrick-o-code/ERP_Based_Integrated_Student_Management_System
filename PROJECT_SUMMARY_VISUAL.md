@@ -222,7 +222,7 @@
            ↓
 2. FILE EXTRACTION
    ┌───────────────────────────────┐
-   │ Extract RosarioSIS files      │
+   │ Extract Project Files      │
    │ Set file permissions          │
    └───────────────────────────────┘
            ↓

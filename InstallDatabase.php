@@ -96,10 +96,10 @@ if ( _configTableCheck() )
 		db_query( $addons_sql );
 	}
 
-	die( 'Success: database translated. <a href="index.php">Access RosarioSIS</a>' );
+	die( 'Success: database translated. <a href="index.php">Access Cloud Avengers</a>' );
 }
 
-$sql_file = $DatabaseType === 'mysql' ? 'rosariosis_mysql.sql' : 'rosariosis.sql';
+$sql_file = $DatabaseType === 'mysql' ? 'cloud_avengers_mysql.sql' : 'cloud_avengers.sql';
 
 if ( ! file_exists( $sql_file ) )
 {

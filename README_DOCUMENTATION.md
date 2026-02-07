@@ -31,7 +31,7 @@ This project includes comprehensive documentation. Here's what's available:
 ✅ Security & Encryption  
 
 ### Technology Stack
-- **Framework:** RosarioSIS (PHP-based open source)
+- **Type:** ERP-based Student Information System
 - **Backend:** PHP 8.1+
 - **Database:** MySQL 5.6+ / PostgreSQL 9.2+
 - **Server:** Apache 2.4.x
@@ -400,9 +400,9 @@ This project report is suitable for:
 ## 📝 Version Information
 
 **System:** ERP-Based Integrated Student Management System  
-**Base:** RosarioSIS - Student Information System  
+**Type:** Academic Implementation  
 **Version:** Production Ready  
-**License:** GNU GPL v2 (RosarioSIS)  
+**License:** GNU GPL v2  
 **Date:** February 2026  
 **Status:** ✅ Deployed & Operational
 
@@ -410,7 +410,7 @@ This project report is suitable for:
 
 ## 🙏 Acknowledgments
 
-- **RosarioSIS Project:** For the robust, open-source SIS platform
+- **RosarioSIS Project:** Original open-source SIS platform
 - **Community:** For translations and community support
 - **Documentation:** Based on proven SIS implementations
 

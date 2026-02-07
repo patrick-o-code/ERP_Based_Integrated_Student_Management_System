@@ -72,7 +72,7 @@ Initial Database Configuration:
 - DB Instance Identifier: rosariosis-db
 - Master Username: rosariosis_admin
 - Master Password: [Create strong password - 16+ chars]
-- Initial Database Name: rosariosis
+- Initial Database Name: cloud_avengers
 ```
 
 4. Click **Create Database** and wait for it to be available (5-10 minutes)
@@ -237,7 +237,7 @@ $DatabaseServer = 'rosariosis-db.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com';
 
 $DatabaseUsername = 'rosariosis_admin';
 $DatabasePassword = 'your_strong_password_here';
-$DatabaseName = 'rosariosis';
+$DatabaseName = 'cloud_avengers';
 $DatabasePort = 3306;  // 5432 for PostgreSQL
 
 // Paths
@@ -279,7 +279,7 @@ mysql -h rosariosis-db.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com \
 mysql> SET GLOBAL log_bin_trust_function_creators=1;
 
 mysql> CREATE USER 'rosariosis_user'@'%' IDENTIFIED BY 'app_password_here';
-mysql> GRANT ALL PRIVILEGES ON rosariosis.* TO 'rosariosis_user'@'%';
+mysql> GRANT ALL PRIVILEGES ON cloud_avengers.* TO 'rosariosis_user'@'%';
 mysql> FLUSH PRIVILEGES;
 mysql> EXIT;
 ```
@@ -292,18 +292,18 @@ cd /var/www/html
 
 # Import MySQL schema
 mysql -h rosariosis-db.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com \
-      -u rosariosis_admin -p rosariosis < rosariosis_mysql.sql
+      -u rosariosis_admin -p cloud_avengers < rosariosis_mysql.sql
 
 # Or for PostgreSQL
 psql -h rosariosis-db.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com \
-     -U rosariosis_admin -d rosariosis < rosariosis.sql
+     -U rosariosis_admin -d cloud_avengers < rosariosis.sql
 ```
 
 ### 5.3 Verify Database
 
 ```bash
 mysql -h rosariosis-db.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com \
-      -u rosariosis_admin -p rosariosis -e "SHOW TABLES;"
+      -u rosariosis_admin -p cloud_avengers -e "SHOW TABLES;"
 ```
 
 ---
@@ -503,7 +503,7 @@ sudo crontab -e
 ```bash
 # Test connection from EC2
 mysql -h rosariosis-db.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com \
-      -u rosariosis_admin -p rosariosis -e "SELECT 1;"
+      -u rosariosis_admin -p cloud_avengers -e "SELECT 1;"
 
 # Check RDS security group inbound rules
 # Make sure MySQL port 3306 is allowed from EC2 security group
