@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # PHP Apache Web Server
+  php:
+    build: .
+    container_name: erp_web
+    ports:
+      - "80:80"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=erp_db
+    depends_on:
+      - mysql
+    volumes:
+      - .:/var/www/html
+      - ./assets/FileUploads:/var/www/html/assets/FileUploads
+      - ./assets/StudentPhotos:/var/www/html/assets/StudentPhotos
+      - ./assets/UserPhotos:/var/www/html/assets/UserPhotos
+    networks:
+      - erp_network
+    restart: unless-stopped
+
+  # MySQL Database Server
+  mysql:
+    image: mysql:8.0
+    command:
+    - --default-authentication-plugin=mysql_native_password
+    - --log-bin-trust-function-creators=1
+    container_name: erp_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: erp_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./cloud_avengers_mysql.sql:/docker-entrypoint-initdb.d/cloud_avengers_mysql.sql
+    networks:
+      - erp_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  # phpMyAdmin for database management (optional)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: erp_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - erp_network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  erp_network:
+    driver: bridge
