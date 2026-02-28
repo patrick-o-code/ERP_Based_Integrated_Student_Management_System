@@ -17,16 +17,16 @@
 $DatabaseType = 'mysql';
 
 // Database server hostname: use localhost if on same server.
-$DatabaseServer = 'localhost';
+$DatabaseServer = 'mysql'; // Use 'mysql' instead of 'localhost' for Docker container hostname  
 
 // Database username.
 $DatabaseUsername = 'root';
 
 // Database password.
-$DatabasePassword = '';
+$DatabasePassword = 'rootpassword';
 
 // Database name.
-$DatabaseName = 'cloud_avengers';
+$DatabaseName = 'erp_db';
 
 
 /**
