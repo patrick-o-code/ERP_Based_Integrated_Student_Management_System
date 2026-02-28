@@ -33,8 +33,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: erp_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootpassword
+      MYSQL_USER: erp_user
+      MYSQL_PASSWORD: erp_password
     ports:
       - "3306:3306"
     volumes:
