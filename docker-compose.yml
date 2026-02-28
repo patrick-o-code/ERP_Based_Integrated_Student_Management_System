@@ -11,7 +11,7 @@ services:
       - DB_HOST=mysql
       - DB_USER=root
       - DB_PASSWORD=rootpassword
-      - DB_NAME=cloud_avengers
+      - DB_NAME=erp_db
     depends_on:
       - mysql
     volumes:
