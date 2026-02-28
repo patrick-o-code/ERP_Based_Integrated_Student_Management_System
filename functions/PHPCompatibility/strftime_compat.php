@@ -41,7 +41,8 @@ function strftime_compat($format, $timestamp = null)
 		}
 
 		// Revert to strftime() if PHP intl extension not installed...
-		return strftime( $format, $timestamp );
+		// Suppress deprecation warning for strftime() in PHP 8.1+
+		return @strftime( $format, $timestamp );
 	}
 
 	if (null === $timestamp) {
